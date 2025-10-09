@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "automatizacion-karrot",
+  "private_key_id": "1105a7349e3e7572639df014107c741ede805cbc",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCxZKPzGGm24cUg\nIdTLfSyL4kBuwY5d6sMfF1q4aWTOQZDDWhfIm4wKVkEiHmCUmMNs78/XOjhEK3ck\npVyTFS+MDnl0IJS5bK0wNLL9EdnW7aylbxH11/IDi++Ti6j21l3hcbk7nvYrTK70\nHcGk7Pmgt5NWNgPiw8o+F1Q6vrwhgGE+01fZyqQ900GCQWv0PhjGGnfszEIwKiVg\nDuVljaOyyqbciBZW6WviGBBGiwtVZQb/dOj1x6KsAQMNjNtzZKpC1Y46N9uh/TR3\nP0WZeerfteXszgnpujg8Ngy41wQO++zI4cymG09Sfoc8j+3w4/FWedLqhI3I9A1O\nofm078YzAgMBAAECggEASiD2vB6/CmvlHszUaiaIR3pIF6BtuERivmrZf8eXFvPi\nJShQWQXbKvSpajMMg/wkajD6hwOuwJnzQ06Q1WvcfygLS+JTk/rckpDrHQLpJ74R\nT96OwE+5tA61klAhzuh8ubl2wPnn/+cfEyceJSfcFvOvr66JyCiuKm1ARv4uisaz\ngZxIGG2UBEYt6DKMRr4fQQjQtroPT9tgBe6ljU53c+VDu1MuIfwt/7IoKxeQls1h\n9SFp2QdMZZmFtcAEwioHozXCfJDp7Es3Vh9Kp4eUHP8xOtnOWBbdglNFCVXtYORr\n+oQR60IgMJ4lkTUSWvHF9g1qYIHGsoaNzPs9nCuNrQKBgQDViy9UAaWSpNyAWNiC\nziQVEQpU2KkjH7Bjb9IJD8NB7877sa1kn4JZeBuQwWF3veNZ5SZ1KnCpTwOij7Qc\nTPjvVvKhvpskM5yb9ng/gE7dah+c8fHUY/LifQTaVLKuHBbtvSyir9fCa3Xhy8cc\no92fZSJqgpmKK5GdW7dMreKvJwKBgQDUqXyGG1knjBcegQtt+f2sIKKo0fBo7P6p\n9EA/1jtoJbwJr3+hLJY3kUcd/43QiQNkMgqZCAJqbc/H39FF7FAg2wT+gu/fnpnE\n/9zNIqFpVQuB5vQ4rt1ISM+Ha9l0R21odcLfdTzPq612cRw9g5hedf2fxd2IahFw\n/HSjJw5YFQKBgAt3WMg6+mgAYDKoEqAbb4aODq71n0daiT8dnvqLlSFyPfv302am\nxfoF3/0K1S/3y0BldIYwDDKbIofVDYfDfk5jrc2PjYcJGmypdFV8jz+GVkI4H5MW\n9tDAg8UxbRK6QWTslnv50y0GViMUrRFVny3S4WE0uAfaRQxdA1+jqptbAoGAMgsI\nMI6y9ilzL0xyohiX5y9u14c/qZFLhDbj/6GsLR/kFetkf0r8tmrLb3W5q37ye1uD\nPuuxldXtdT1oA6pOWMzxaerqA5dQ3BjRnrwte5n1sUXl5ojPrbjkjRuF+mTsjA5a\nIzd1bfEaSqrnWFplOqVNX5GyRe2f2RSvZc1FBNkCgYAQQp4Xp8b23iDjlNhpYzrZ\nttxyyPzjr3V0b3VLArQr4xNW8fMY8BXB0bZDbDQ+w6BtIMtGEkz8iq/Q04Li7rje\n+gmtJkRxkAeL2gYLW67Jlx9Qx4yrx4+0RSefkrcT6lrmGw49/e3X2gV8zfNIVX0u\n3ZtmZMgaMcbnMjp+CO/pkQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "automatizacion-qa@automatizacion-karrot.iam.gserviceaccount.com",
+  "client_id": "110966195444083149938",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/automatizacion-qa%40automatizacion-karrot.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
