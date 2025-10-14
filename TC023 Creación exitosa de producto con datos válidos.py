@@ -12,6 +12,8 @@ from datetime import datetime
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
+import random
+import string
 
 # =====================
 # ENTRADA DE DATOS
@@ -298,6 +300,46 @@ try:
 
     manejar_atributos_adicionales(driver, agregar_atributos=True)
     time.sleep(2)
+    def generar_sku_aleatorio(driver, agregar_atributos=True, timeout=10):
+        """
+        Genera y llena el campo SKU con un ID aleatorio si se agregan atributos
+        """
+        try:
+            if not agregar_atributos:
+                print("⏭️  No se agregaron atributos - omitiendo SKU")
+                return True
+            wait = WebDriverWait(driver, timeout)
+            sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+            campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@class, 'sku') and contains(@id, 'advanced_search_memoria')]")))
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_sku)
+            time.sleep(0.5)
+            campo_sku.clear()
+            campo_sku.send_keys(sku_aleatorio)
+            print(f"✅ SKU aleatorio generado: '{sku_aleatorio}'")
+            
+            barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+            campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id, 'advanced_search_memoria') and contains(@class, 'barcode')]")))
+            campo_barcode.clear()
+            campo_barcode.send_keys(barcode_aleatorio)
+            print(f"✅ Barcode aleatorio generado: '{barcode_aleatorio}'")
+
+            valor_costo = input("ingresa Valor de costo: ")
+            campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id, 'advanced_search_memoria') and contains(@id, 'cost')]")))
+            campo_costo.clear()
+            campo_costo.send_keys(valor_costo)
+            print(f"✅ Valor de costo ingresado: '{valor_costo}'")
+
+            valor_precio = input("ingresa Valor de precio: ")
+            campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id, 'advanced_search_memoria') and contains(@id, 'price')]")))
+            campo_precio.clear()
+            campo_precio.send_keys(valor_precio)
+            print(f"✅ Valor de precio ingresado: '{valor_precio}'")
+            return True
+        
+        except Exception as e:
+            print(f"❌ Error al generar SKU: {e}")
+            return False
+    generar_sku_aleatorio(driver, agregar_atributos=True)
     
 except Exception as e:
     print(f"❌ Error durante la ejecución: {str(e)}")
