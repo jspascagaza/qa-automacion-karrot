@@ -257,13 +257,12 @@ try:
 
     def manejar_atributos_adicionales(driver, agregar_atributos=False, timeout=10):
         """
-        Maneja el botón 'Agregar nuevo atributo'
-        Solo hace clic si agregar_atributos es True
-        """
+        Maneja el botón 'Agregar nuevo atributo' y retorna los valores usados
+     """
         try:
             if not agregar_atributos:
                 print("⏭️  No se agregarán atributos adicionales")
-                return True
+                return None, None
         
             wait = WebDriverWait(driver, timeout)
         
@@ -276,70 +275,107 @@ try:
             time.sleep(0.5)
             boton.click()
             print("✅ Botón 'Agregar nuevo atributo' clickeado")
-            nombre_atributo = input("Nombre del atributo: ")
+        
+            # Obtener nombre del atributo (mantener espacios)
+            nombre_atributo = input("Nombre del atributo: ").strip()
             input_nombre_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_attributeName")))
             input_nombre_atributo.send_keys(nombre_atributo)
 
+            # Obtener valores de atributos (mantener espacios)
+            valores_atributos = []
+        
             # valor primer atributo
+            valor1 = "1tb"
             input_valor_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option1")))
-            input_valor_atributo.send_keys("memoria 1tb")
+            input_valor_atributo.send_keys(valor1)
+            valores_atributos.append(valor1)  # Mantener el espacio
             time.sleep(1)
+        
             # valor segundo atributo
+            valor2 = "2tb"
             input_valor_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option2")))
-            input_valor_atributo.send_keys("memoria 2tb")
+            input_valor_atributo.send_keys(valor2)
+            valores_atributos.append(valor2)  # Mantener el espacio
             time.sleep(1)
+        
             print("✅ Atributos adicionales configurados")
+        
+            # Guardar
             boton_ok = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary')]//span[text()='OK']")))
             boton_ok.click()
             print("✅ Atributos adicionales guardados")
-            return True
         
+            return nombre_atributo, valores_atributos
         except Exception as e:
             print(f"❌ Error al hacer clic en 'Agregar nuevo atributo': {e}")
-            return False
-
-    manejar_atributos_adicionales(driver, agregar_atributos=True)
+            return None, None
+        
+    nombre_atributo, valores_atributos = manejar_atributos_adicionales(driver, agregar_atributos=False)
     time.sleep(2)
-    def generar_sku_aleatorio(driver, agregar_atributos=True, timeout=10):
+    def generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10):
         """
-        Genera y llena el campo SKU con un ID aleatorio si se agregan atributos
+        Genera SKU, barcode, costo y precio para cada combinación de atributos
+        Maneja IDs con espacios como: advanced_search_memoria 1tbsku
         """
         try:
-            if not agregar_atributos:
-                print("⏭️  No se agregaron atributos - omitiendo SKU")
-                return True
             wait = WebDriverWait(driver, timeout)
-            sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
-            campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@class, 'sku') and contains(@id, 'advanced_search_memoria')]")))
-            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_sku)
-            time.sleep(0.5)
-            campo_sku.clear()
-            campo_sku.send_keys(sku_aleatorio)
-            print(f"✅ SKU aleatorio generado: '{sku_aleatorio}'")
+        
+            for valor_atributo in valores_atributos:
+                print(f"\n🎯 Procesando combinación: {nombre_atributo} - {valor_atributo}")
             
-            barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
-            campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id, 'advanced_search_memoria') and contains(@class, 'barcode')]")))
-            campo_barcode.clear()
-            campo_barcode.send_keys(barcode_aleatorio)
-            print(f"✅ Barcode aleatorio generado: '{barcode_aleatorio}'")
+                # Construir el ID base dinámico CON ESPACIO
+                id_base = f"advanced_search_{valor_atributo}"
+            
+                # 1. SKU Aleatorio
+                sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+                # Buscar por ID exacto con espacio
+                try:
+                    campo_sku = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}sku")))
+                except:
+                    # Si falla, buscar por contains
+                    campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'sku')]")))
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_sku)
+                time.sleep(0.5)
+                campo_sku.clear()
+                campo_sku.send_keys(sku_aleatorio)
+                print(f"✅ SKU para {valor_atributo}: '{sku_aleatorio}'")
+            
+                # 2. Barcode Aleatorio
+                barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+                try:
+                    campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}barcode")))
+                except:
+                    campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'barcode')]")))
+                campo_barcode.clear()
+                campo_barcode.send_keys(barcode_aleatorio)
+                print(f"✅ Barcode para {valor_atributo}: '{barcode_aleatorio}'")
 
-            valor_costo = input("ingresa Valor de costo: ")
-            campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id, 'advanced_search_memoria') and contains(@id, 'cost')]")))
-            campo_costo.clear()
-            campo_costo.send_keys(valor_costo)
-            print(f"✅ Valor de costo ingresado: '{valor_costo}'")
+                # 3. Costo
+                valor_costo = input(f"Ingresa Valor de costo para {valor_atributo}: ")            
+                try:
+                    campo_costo = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}cost")))
+                except:
+                    campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'cost')]")))
+                campo_costo.clear()
+                campo_costo.send_keys(valor_costo)
+                print(f"✅ Costo para {valor_costo}: '{valor_costo}'")
 
-            valor_precio = input("ingresa Valor de precio: ")
-            campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[contains(@id, 'advanced_search_memoria') and contains(@id, 'price')]")))
-            campo_precio.clear()
-            campo_precio.send_keys(valor_precio)
-            print(f"✅ Valor de precio ingresado: '{valor_precio}'")
+                # 4. Precio
+                valor_precio = input(f"Ingresa Valor de precio para {valor_atributo}: ")            
+                try:
+                    campo_precio = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}price")))
+                except:
+                    campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'price')]")))
+                campo_precio.clear()
+                campo_precio.send_keys(valor_precio)
+                print(f"✅ Precio para {valor_atributo}: '{valor_precio}'")
+                time.sleep(1)
             return True
         
         except Exception as e:
-            print(f"❌ Error al generar SKU: {e}")
+            print(f"❌ Error al generar campos para atributos: {e}")
             return False
-    generar_sku_aleatorio(driver, agregar_atributos=True)
+    generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10)
     
 except Exception as e:
     print(f"❌ Error durante la ejecución: {str(e)}")
