@@ -253,5 +253,51 @@ try:
     configurar_producto_perecedero(driver, es_perecedero=False)
     time.sleep(2)
 
+    def manejar_atributos_adicionales(driver, agregar_atributos=False, timeout=10):
+        """
+        Maneja el botón 'Agregar nuevo atributo'
+        Solo hace clic si agregar_atributos es True
+        """
+        try:
+            if not agregar_atributos:
+                print("⏭️  No se agregarán atributos adicionales")
+                return True
+        
+            wait = WebDriverWait(driver, timeout)
+        
+            # Buscar el botón por texto y clases
+            boton_xpath = "//button[contains(@class, 'ant-btn') and contains(text(), 'Agregar nuevo atributo')]"
+            boton = wait.until(EC.element_to_be_clickable((By.XPATH, boton_xpath)))
+        
+            # Scroll y clic
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton)
+            time.sleep(0.5)
+            boton.click()
+            print("✅ Botón 'Agregar nuevo atributo' clickeado")
+            nombre_atributo = input("Nombre del atributo: ")
+            input_nombre_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_attributeName")))
+            input_nombre_atributo.send_keys(nombre_atributo)
+
+            # valor primer atributo
+            input_valor_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option1")))
+            input_valor_atributo.send_keys("memoria 1tb")
+            time.sleep(1)
+            # valor segundo atributo
+            input_valor_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option2")))
+            input_valor_atributo.send_keys("memoria 2tb")
+            time.sleep(1)
+            print("✅ Atributos adicionales configurados")
+            boton_ok = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary')]//span[text()='OK']")))
+            boton_ok.click()
+            print("✅ Atributos adicionales guardados")
+            return True
+        
+        except Exception as e:
+            print(f"❌ Error al hacer clic en 'Agregar nuevo atributo': {e}")
+            return False
+
+    manejar_atributos_adicionales(driver, agregar_atributos=True)
+    time.sleep(2)
+    
 except Exception as e:
     print(f"❌ Error durante la ejecución: {str(e)}")
