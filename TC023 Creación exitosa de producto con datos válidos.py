@@ -1,5 +1,6 @@
 import csv
 import datetime
+from socket import timeout
 import time
 from selenium import webdriver
 from selenium.webdriver.common.by import By
@@ -85,7 +86,7 @@ try:
 
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]")))
     login_button.click()
-    time.sleep(30)
+    time.sleep(15)
 
     # Ir al panel de administración
     panel_button = wait.until(
@@ -214,35 +215,43 @@ try:
     time.sleep(2)
 
     # Aquí puedes continuar con el flujo de guardado, etc.
-
-    # --- Switch de producto perecedero ---
     def configurar_producto_perecedero(driver, es_perecedero=True, timeout=10):
         """
-        Configura el switch "¿Es un producto perecedero?" en Alhadi
-        
-        Args:
-            driver: Instancia del WebDriver
-            es_perecedero (bool): True para activar, False para desactivar
-            timeout (int): Tiempo de espera en segundos
+        Controla el switch basado en el atributo aria-checked
         """
-        if es_perecedero:
-            try:
-                wait = WebDriverWait(driver, timeout)
-                label_perecedero = wait.until(
-                    EC.presence_of_element_located((By.XPATH, "//label[contains(text(), '¿Es un producto perecedero?')]"))
-                )
-                switch_container = label_perecedero.find_element(By.XPATH, "./following-sibling::div//div[contains(@class, 'ant-switch-handle')]")
-                switch_container.click()
-                print("✅ Switch '¿Es un producto perecedero?' ACTIVADO")
-                return True
-            except Exception as e:
-                print(f"❌ Error al activar el switch de producto perecedero: {e}")
-                return False
-        else:
-            print("⏭️  Switch '¿Es un producto perecedero?' NO activado (configuración: False)")
+        try:
+            wait = WebDriverWait(driver, timeout)
+        
+            # Buscar el switch por role y clase
+            switch_xpath = "//button[@role='switch' and contains(@class, 'ant-switch')]"
+            switch_btn = wait.until(EC.element_to_be_clickable((By.XPATH, switch_xpath)))
+        
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", switch_btn)
+            time.sleep(0.5)
+        
+            # Verificar estado actual usando aria-checked
+            current_state = switch_btn.get_attribute("aria-checked")
+            is_currently_checked = current_state == "true"
+        
+            print(f"🔍 Estado actual del switch: {'ACTIVADO' if is_currently_checked else 'DESACTIVADO'}")
+        
+            # Activar/desactivar solo si es necesario
+            if es_perecedero and not is_currently_checked:
+                switch_btn.click()
+                print("✅ Switch ACTIVADO (Producto perecedero)")
+            elif not es_perecedero and is_currently_checked:
+                switch_btn.click()
+                print("✅ Switch DESACTIVADO (Producto no perecedero)")
+            else:
+                print(f"⏭️ Switch ya está en el estado deseado")
+        
             return True
-
-    configurar_producto_perecedero(driver, es_perecedero=True, timeout=10)
+        
+        except Exception as e:
+            print(f"❌ Error al configurar el switch: {e}")
+            return False
+    configurar_producto_perecedero(driver, es_perecedero=False)
+    time.sleep(2)
 
 except Exception as e:
     print(f"❌ Error durante la ejecución: {str(e)}")
