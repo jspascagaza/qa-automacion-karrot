@@ -205,8 +205,8 @@ try:
     # Buscar campo de usuario usando relative locator
     print("🔍 Buscando campo de usuario...")
     time.sleep(15)
-    
-    tipo_usuario = driver.find_element(By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/form/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/div[2]/div[1]/div/div")
+
+    tipo_usuario = driver.find_element(By.XPATH, "//*[@id='advanced_search']/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[6]/div[1]/div[2]/div[1]/div/div/div/div")
     tipo_usuario.click()
     time.sleep(15)
     opciones = wait.until(EC.presence_of_all_elements_located(
@@ -219,7 +219,6 @@ try:
 
     # 4. Seleccionar por texto (ejemplo: "Tienda")
     for opcion in opciones:
-        if opcion.text.strip() == usuario:
             opcion.click()
             break
     
