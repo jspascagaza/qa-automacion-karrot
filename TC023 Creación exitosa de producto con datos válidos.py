@@ -20,7 +20,19 @@ import string
 # =====================
 nombre_producto = input("Nombre del producto: ")
 descripcion = input("Descripción: ")
-
+pregunta_atributos = input("¿crear atributos? (true/false): ").strip().lower()
+if pregunta_atributos == 'true':
+    activar_atributos = True
+    noactivar_atributos = False
+    print("✅ Modo: ACTIVAR atributos")
+elif pregunta_atributos == 'false':
+    activar_atributos = False
+    noactivar_atributos = True
+    print("⏭️ Modo: NO activar atributos")
+else:
+    activar_atributos = False
+    noactivar_atributos = False
+    print("❌ Respuesta inválida")
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
 # =====================
@@ -254,6 +266,7 @@ try:
             return False
     configurar_producto_perecedero(driver, es_perecedero=False)
     time.sleep(2)
+    
     # TENER EN CUENTA QUE PARA LAS FUNCIONES DE ABAJO, SE DEBE ACTIVAR agregar_atributos=True PARA QUE FUNCIONEN
     def manejar_atributos_adicionales(driver, agregar_atributos=False, timeout=10):
         """
@@ -310,8 +323,9 @@ try:
             print(f"❌ Error al hacer clic en 'Agregar nuevo atributo': {e}")
             return None, None
         
-    nombre_atributo, valores_atributos = manejar_atributos_adicionales(driver, agregar_atributos=False)
+    nombre_atributo, valores_atributos = manejar_atributos_adicionales(driver, agregar_atributos=activar_atributos)
     time.sleep(2)
+    
     def generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=False):
         """
         Genera SKU, barcode, costo y precio para cada combinación de atributos
@@ -380,12 +394,15 @@ try:
         except Exception as e:
             print(f"❌ Error al generar campos para atributos: {e}")
             return False
-    generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=False)
+    generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=activar_atributos)
     
-    def variantes_referencias_producto(driver, timeout=10, agregar_atributos=False):
+    def variantes_referencias_producto(driver, timeout=10, agregar_atributos=True):
         """
         Placeholder para la función variantes_referencias_producto
         """
+        if not agregar_atributos:
+            print("⏭️ se agregarán atributos - función omitida")
+            return None, None
         # Generar SKU aleatorio y agregarlo al campo correspondiente
         sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
         campo_sku = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_sku")))
@@ -414,14 +431,15 @@ try:
         campo_precio.send_keys(valor_precio)
         print(f"✅ Precio para el producto: '{valor_precio}'")
 
-        return True 
-    variantes_referencias_producto(driver, timeout=10, agregar_atributos=False)
+        return barcode_aleatorio, sku_aleatorio
+    barcode_aleatorio, sku_aleatorio = variantes_referencias_producto(driver, timeout=10, agregar_atributos=noactivar_atributos)
 
     boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
     boton_anadir.click()
     print("✅ Click en Añadir")
     time.sleep(10)
+    driver.refresh()
     
     try:
         # abrir el select y esperar a que el dropdown esté visible sin que se cierre
@@ -448,28 +466,38 @@ try:
             print(opcion.text)
         opcion_busqueda_encontrada = None
         for opcion in opciones_dropdown:
-            if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
+            if opcion.text.strip() == "Buscar por Nombre":  # Cambia aquí por la busqueda que necesites
                 opcion_busqueda_encontrada = opcion
                 break
         if opcion_busqueda_encontrada:
                 opcion_busqueda_encontrada.click()
-                print("✅ Opción de búsqueda 'Buscar por Código de barras' seleccionada")
+                print("✅ Opción de búsqueda 'Buscar por Nombre' seleccionada")
+                time.sleep(5)
+                campo_busqueda = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")))
+                campo_busqueda.clear()
+                campo_busqueda.send_keys(nombre_producto)  # Usar el nombre del producto
+                campo_busqueda.send_keys(Keys.ENTER)
+                print(f"✅ Búsqueda realizada con : {nombre_producto}")
+                time.sleep(5)
+                elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
+                print("✅ campo encontrado enviado en campo de búsqueda")
+                time.sleep(5)
+                observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                estado = "EXITOSO"
+                registrar_resultado(id_caso, estado, observaciones)
         else:
-            print("❌ No se encontró la opción de búsqueda 'Buscar por Código de barras'")
+            print("❌ No se encontró la opción de búsqueda 'Buscar ")
+            observaciones = "No se encontró la opción de búsqueda 'Buscar por Nombre'"
+            estado = "FALLIDO"
+            registrar_resultado(id_caso, estado, observaciones)
     except Exception as e:
         print(f"❌ Error al abrir el dropdown: {e}")
         print("Opciones de busqueda encontradas:")
-    for opcion in select_element.find_elements(By.TAG_NAME, "span"):
-        print(opcion.text)
-    opcion_busqueda_encontrada = None
-    for opcion in select_element.find_elements(By.TAG_NAME, "span"):
-        if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
-            opcion_busqueda_encontrada = opcion
-            break
-    if opcion_busqueda_encontrada:
-            opcion_busqueda_encontrada.click()
-            print("✅ Opción de búsqueda 'Buscar por Código de barras' seleccionada")
-    else:
-        print("❌ No se encontró la opción de búsqueda 'Buscar por Código de barras'")
+        observaciones = f"Error al abrir el dropdown: {e}"
+        estado = "FALLIDO"
+        registrar_resultado(id_caso, estado, observaciones)
 except Exception as e:
     print(f"❌ Error durante la ejecución: {str(e)}")
+    observaciones = f"Error durante la ejecución: {str(e)}"
+    estado = "FALLIDO"
+    registrar_resultado(id_caso, estado, observaciones)
