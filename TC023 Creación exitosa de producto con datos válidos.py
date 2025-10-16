@@ -201,15 +201,15 @@ try:
 
     opcion_unidad_encontrada = None
     for opcion in opciones_unidad:
-        if opcion.text.strip() == "Kilogramo":  # Cambia aquí por la unidad que necesites
+        if opcion.text.strip() == "Unidad":  # Cambia aquí por la unidad que necesites
             opcion_unidad_encontrada = opcion
             break
 
     if opcion_unidad_encontrada:
         opcion_unidad_encontrada.click()
-        print("✅ Unidad 'Kilogramo' seleccionada")
+        print("✅ Unidad 'Unidad' seleccionada")
     else:
-        print("❌ No se encontró la unidad 'Kilogramo'")
+        print("❌ No se encontró la unidad 'Unidad'")
 
     # Descripción del producto
     descripcionproducto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))
@@ -254,7 +254,7 @@ try:
             return False
     configurar_producto_perecedero(driver, es_perecedero=False)
     time.sleep(2)
-
+    # TENER EN CUENTA QUE PARA LAS FUNCIONES DE ABAJO, SE DEBE ACTIVAR agregar_atributos=True PARA QUE FUNCIONEN
     def manejar_atributos_adicionales(driver, agregar_atributos=False, timeout=10):
         """
         Maneja el botón 'Agregar nuevo atributo' y retorna los valores usados
@@ -312,11 +312,16 @@ try:
         
     nombre_atributo, valores_atributos = manejar_atributos_adicionales(driver, agregar_atributos=False)
     time.sleep(2)
-    def generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10):
+    def generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=False):
         """
         Genera SKU, barcode, costo y precio para cada combinación de atributos
         Maneja IDs con espacios como: advanced_search_memoria 1tbsku
         """
+        # Si no se deben agregar atributos, salir sin ejecutar
+        if not agregar_atributos:
+            print("⏭️  generar_campos_por_atributo: agregar_atributos=False, no se ejecuta")
+            return False
+
         try:
             wait = WebDriverWait(driver, timeout)
         
@@ -333,7 +338,7 @@ try:
                     campo_sku = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}sku")))
                 except:
                     # Si falla, buscar por contains
-                    campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'sku')]")))
+                    campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'sku')]")) )
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_sku)
                 time.sleep(0.5)
                 campo_sku.clear()
@@ -345,7 +350,7 @@ try:
                 try:
                     campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}barcode")))
                 except:
-                    campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'barcode')]")))
+                    campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'barcode')]")) )
                 campo_barcode.clear()
                 campo_barcode.send_keys(barcode_aleatorio)
                 print(f"✅ Barcode para {valor_atributo}: '{barcode_aleatorio}'")
@@ -355,7 +360,7 @@ try:
                 try:
                     campo_costo = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}cost")))
                 except:
-                    campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'cost')]")))
+                    campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'cost')]")) )
                 campo_costo.clear()
                 campo_costo.send_keys(valor_costo)
                 print(f"✅ Costo para {valor_costo}: '{valor_costo}'")
@@ -365,7 +370,7 @@ try:
                 try:
                     campo_precio = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}price")))
                 except:
-                    campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'price')]")))
+                    campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'price')]")) )
                 campo_precio.clear()
                 campo_precio.send_keys(valor_precio)
                 print(f"✅ Precio para {valor_atributo}: '{valor_precio}'")
@@ -375,7 +380,96 @@ try:
         except Exception as e:
             print(f"❌ Error al generar campos para atributos: {e}")
             return False
-    generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10)
+    generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=False)
     
+    def variantes_referencias_producto(driver, timeout=10, agregar_atributos=False):
+        """
+        Placeholder para la función variantes_referencias_producto
+        """
+        # Generar SKU aleatorio y agregarlo al campo correspondiente
+        sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+        campo_sku = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_sku")))
+        campo_sku.clear()
+        campo_sku.send_keys(sku_aleatorio)
+        print(f"✅ SKU para variantes_referencias_producto: '{sku_aleatorio}'")
+        
+        # Generar Barcode aleatorio y agregarlo al campo correspondiente
+        barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+        campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_barcode")))
+        campo_barcode.clear()
+        campo_barcode.send_keys(barcode_aleatorio)
+        print(f"✅ Barcode para variantes_referencias_producto: '{barcode_aleatorio}'")
+
+        # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
+        valor_costo = input(f"Ingresa Valor de costo para el producto: ")            
+        campo_costo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_cost")))
+        campo_costo.clear()
+        campo_costo.send_keys(valor_costo)
+        print(f"✅ Costo para el producto: '{valor_costo}'")
+
+        # Solicitar Valor de precio al usuario y agregarlo al campo correspondiente
+        valor_precio = input(f"Ingresa Valor de precio para el producto: ")
+        campo_precio = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_defaultPrice")))
+        campo_precio.clear()
+        campo_precio.send_keys(valor_precio)
+        print(f"✅ Precio para el producto: '{valor_precio}'")
+
+        return True 
+    variantes_referencias_producto(driver, timeout=10, agregar_atributos=False)
+
+    boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
+    boton_anadir.click()
+    print("✅ Click en Añadir")
+    time.sleep(10)
+    
+    try:
+        # abrir el select y esperar a que el dropdown esté visible sin que se cierre
+        select_xpath = "//div[contains(@class, 'ant-select') and .//span[contains(@title, 'Buscar por')]]"
+        select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
+        # usar ActionChains para abrir y mantener foco
+        ActionChains(driver).move_to_element(select_element).click().perform()
+
+        # esperar a que el dropdown real de Ant Design sea visible
+        dropdown = WebDriverWait(driver, 10).until(
+            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]"))
+        )
+        # mover el cursor dentro del dropdown para evitar que el foco se pierda y se cierre
+        ActionChains(driver).move_to_element(dropdown).perform()
+        time.sleep(0.5)
+
+        # ahora buscar las opciones dentro del dropdown (no vuelvas a clickear el select)
+        opciones_dropdown = wait.until(
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown')]//div[contains(@class,'ant-select-item-option-content')]"))
+        )
+
+        print("Opciones de busqueda encontradas:")
+        for opcion in opciones_dropdown:
+            print(opcion.text)
+        opcion_busqueda_encontrada = None
+        for opcion in opciones_dropdown:
+            if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
+                opcion_busqueda_encontrada = opcion
+                break
+        if opcion_busqueda_encontrada:
+                opcion_busqueda_encontrada.click()
+                print("✅ Opción de búsqueda 'Buscar por Código de barras' seleccionada")
+        else:
+            print("❌ No se encontró la opción de búsqueda 'Buscar por Código de barras'")
+    except Exception as e:
+        print(f"❌ Error al abrir el dropdown: {e}")
+        print("Opciones de busqueda encontradas:")
+    for opcion in select_element.find_elements(By.TAG_NAME, "span"):
+        print(opcion.text)
+    opcion_busqueda_encontrada = None
+    for opcion in select_element.find_elements(By.TAG_NAME, "span"):
+        if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
+            opcion_busqueda_encontrada = opcion
+            break
+    if opcion_busqueda_encontrada:
+            opcion_busqueda_encontrada.click()
+            print("✅ Opción de búsqueda 'Buscar por Código de barras' seleccionada")
+    else:
+        print("❌ No se encontró la opción de búsqueda 'Buscar por Código de barras'")
 except Exception as e:
     print(f"❌ Error durante la ejecución: {str(e)}")
