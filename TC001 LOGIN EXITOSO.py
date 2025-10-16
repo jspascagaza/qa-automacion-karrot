@@ -7,6 +7,11 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
 
+email_input = input("Ingrese el correo electrónico: ")
+#js.pascagaza@karrotup.com
+password_input = input("Ingrese la contraseña: ")
+#P4sc4g4z42025#*
+
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
 # =====================
@@ -61,10 +66,10 @@ id_caso = "TC001"  # <- Ajusta el ID del caso que estés corriendo
 try:
     # Login
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
-    email_input.send_keys("js.pascagaza@karrotup.com")
+    email_input.send_keys(email_input)
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(password_input)
 
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]")))
     login_button.click()
