@@ -271,38 +271,116 @@ try:
         print("❌ No se encontró la unidad 'Cantidad / Unidades'")
 
     try:
-    # 1️⃣ Hacer click directamente en el input search (puede funcionar)
-        selector_visible = wait.until(EC.element_to_be_clickable((
-            By.XPATH,
-            "//div[contains(@class, 'ant-select')][.//input[@id='rc_select_2']]"
-        )))
+    # 1️⃣ Intentar múltiples estrategias para encontrar y clickear el select
+        selector_encontrado = False
+        
+        # Estrategia 1: Buscar por el input directamente
+        try:
+            input_element = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@id='rc_select_2']")))
+            print("✅ Input encontrado directamente")
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", input_element)
+            time.sleep(0.5)
+            
+            # Intentar click con JavaScript si el click normal falla
+            try:
+                input_element.click()
+                print("✅ Click normal funcionó")
+            except:
+                driver.execute_script("arguments[0].click();", input_element)
+                print("✅ Click con JavaScript funcionó")
+            
+            selector_encontrado = True
+        except Exception as e1:
+            print(f"⚠️ Estrategia 1 falló: {e1}")
+            
+        # Estrategia 2: Buscar por el contenedor ant-select
+        if not selector_encontrado:
+            try:
+                select_container = wait.until(EC.presence_of_element_located((
+                    By.XPATH,
+                    "//div[contains(@class, 'ant-select')]//input[@id='rc_select_2']/ancestor::div[contains(@class, 'ant-select-selector')]"
+                )))
+                print("✅ Contenedor ant-select encontrado")
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", select_container)
+                time.sleep(0.5)
+                select_container.click()
+                print("✅ Click en contenedor exitoso")
+                selector_encontrado = True
+            except Exception as e2:
+                print(f"⚠️ Estrategia 2 falló: {e2}")
+        
+        # Estrategia 3: Buscar cualquier input después del campo de descripción
+        if not selector_encontrado:
+            try:
+                # Buscar el input que sigue al campo de descripción
+                descripcion_element = driver.find_element(By.XPATH, "//*[@id='advanced_search_description']")
+                # Buscar el siguiente input en el formulario
+                siguiente_input = descripcion_element.find_element(By.XPATH, "./following::input[contains(@class, 'ant-select-selection-search')]")
+                print("✅ Input siguiente encontrado")
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", siguiente_input)
+                time.sleep(0.5)
+                siguiente_input.click()
+                print("✅ Click en input siguiente exitoso")
+                selector_encontrado = True
+            except Exception as e3:
+                print(f"⚠️ Estrategia 3 falló: {e3}")
 
-        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", selector_visible)
-        time.sleep(0.5)
-        selector_visible.click()
-        print("✅ Input clickeado, desplegando dropdown...")
-
+        if not selector_encontrado:
+            print("❌ No se pudo encontrar el selector con ninguna estrategia")
+            raise Exception("No se pudo encontrar el selector")
+        
         # 2️⃣ Esperar a que aparezca el dropdown
         time.sleep(2)  # Espera adicional para Ant Design
-    
-        opciones = wait.until(EC.presence_of_all_elements_located((
-            By.XPATH,
-            "//div[@id='rc_select_2_list']//div[contains(@class, 'ant-select-item-option-content')]"
-        )))
+        
+        # Intentar encontrar las opciones del dropdown
+        opciones_encontradas = False
+        opciones = None
+        
+        try:
+            opciones = wait.until(EC.presence_of_all_elements_located((
+                By.XPATH,
+                "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"
+            )))
+            print("✅ Opciones encontradas con XPATH estándar")
+            opciones_encontradas = True
+        except Exception as e4:
+            print(f"⚠️ No se encontraron opciones con XPATH estándar: {e4}")
+        
+        # Intentar con el ID específico rc_select_2_list
+        if not opciones_encontradas:
+            try:
+                opciones = wait.until(EC.presence_of_all_elements_located((
+                    By.XPATH,
+                    "//div[@id='rc_select_2_list']//div[contains(@class, 'ant-select-item-option-content')]"
+                )))
+                print("✅ Opciones encontradas con ID específico")
+                opciones_encontradas = True
+            except Exception as e5:
+                print(f"⚠️ No se encontraron opciones con ID específico: {e5}")
+        
+        if opciones and len(opciones) > 0:
+            print("📋 Opciones encontradas:")
+            for opcion in opciones:
+                print("-", opcion.text)
 
-        print("📋 Opciones encontradas:")
-        for opcion in opciones:
-            print("-", opcion.text)
-
-        # Seleccionar "Unidad (u)"
-        for opcion in opciones:
-            if "Unidad (u)" in opcion.text:
-                opcion.click()
-                print("✅ Opción 'Unidad' seleccionada correctamente")
-                break
+            # Seleccionar "Unidad (u)"
+            encontrada = False
+            for opcion in opciones:
+                if "Unidad (u)" in opcion.text:
+                    opcion.click()
+                    print("✅ Opción 'Unidad' seleccionada correctamente")
+                    encontrada = True
+                    break
+            
+            if not encontrada:
+                print("⚠️ No se encontró la opción 'Unidad (u)' en la lista")
+        else:
+            print("❌ No se encontraron opciones en el dropdown")
 
     except Exception as e:
         print(f"❌ Error: {e}")
+        import traceback
+        traceback.print_exc()
 
     # Descripción del producto
     descripcionproducto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))
