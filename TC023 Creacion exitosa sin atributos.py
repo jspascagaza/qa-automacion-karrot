@@ -58,7 +58,18 @@ elif hasattr(fake, 'product_description'):
 else:
     descripcion = fake.sentence(nb_words=15)
 print (f"🛒 Nombre del producto generado: {nombre_producto}")
-pregunta_atributos = "¿crear atributos? (true/false "
+if hasattr(fake, 'ecommerce_price'):
+    precio = fake.ecommerce_price()
+elif hasattr(fake, 'commerce_price'):
+    precio = fake.commerce_price()
+elif hasattr(fake, 'commerce_price_in_cents'):
+    precio = fake.commerce_price_in_cents()
+else:
+    # Fallback: precio aleatorio realista en COP (ej. entre 400k y 8M)
+    precio = round(random.uniform(400_000, 8_000_000), 2)
+print(f"💰 Precio del producto generado: {precio}")
+
+pregunta_atributos = "true"
 if pregunta_atributos == 'true':
     activar_atributos = True
     noactivar_atributos = False
@@ -95,7 +106,7 @@ url_final = ""
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
 # =====================
-id_caso = "TC023"
+id_caso = "TC023-002"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
     """
@@ -183,10 +194,10 @@ try:
     time.sleep(2)
 
     # Selección tipo de producto
-    respuesta = input("¿Vas a crear un producto? (si/no): ").lower().strip()
+    respuesta = "si"
     while respuesta not in ['si', 's', 'no', 'n']:
         print("Respuesta no válida. Por favor responde 'si' o 'no'")
-        respuesta = input("¿Vas a crear un producto? (si/no): ").lower().strip()
+        respuesta = "si"
 
     if respuesta in ['si', 's']:
         driver.find_element(By.XPATH, "//input[@value='Product']").click()
@@ -231,19 +242,19 @@ try:
     # Selección de unidad (tipo de unidad)
     # Esperar el input (aunque no sea clickeable)
     input_unidad = wait.until(
-        EC.presence_of_element_located((By.ID, "advanced_search_unit"))
+        EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
     )
 
     # Buscar el contenedor visual del dropdown y hacer clic ahí
     dropdown_container = input_unidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
-    wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unit']]")))
+    wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
     ActionChains(driver).move_to_element(dropdown_container).click().perform()
     time.sleep(1)
 
     # Ahora selecciona la opción como ya lo haces
     opciones_unidad = wait.until(
-        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-    )
+        EC.presence_of_all_elements_located((By.XPATH, "//*[@id='advanced_search']/div[2]/div/div[1]/div/div[2]/div[1]/div[1]/div[4]/div/div[2]/div[1]/div/div"))
+    )   
 
     print("Opciones de unidad encontradas:")
     for opcion in opciones_unidad:
@@ -251,7 +262,7 @@ try:
 
     opcion_unidad_encontrada = None
     for opcion in opciones_unidad:
-        if opcion.text.strip() == "Unidad":  # Cambia aquí por la unidad que necesites
+    #    if opcion.text.strip() == "Unidad":  # Cambia aquí por la unidad que necesites
             opcion_unidad_encontrada = opcion
             break
 
@@ -328,7 +339,7 @@ try:
             print("✅ Botón 'Agregar nuevo atributo' clickeado")
         
             # Obtener nombre del atributo (mantener espacios)
-            nombre_atributo = input("Nombre del atributo: ").strip()
+            nombre_atributo = "memoria"
             input_nombre_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_attributeName")))
             input_nombre_atributo.send_keys(nombre_atributo)
 
@@ -408,7 +419,7 @@ try:
                 print(f"✅ Barcode para {valor_atributo}: '{barcode_aleatorio}'")
 
                 # 3. Costo
-                valor_costo = input(f"Ingresa Valor de costo para {valor_atributo}: ")            
+                valor_costo = (f"Ingresa Valor de costo para {valor_atributo}: ")            
                 try:
                     campo_costo = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}cost")))
                 except:
@@ -456,14 +467,14 @@ try:
         print(f"✅ Barcode para variantes_referencias_producto: '{barcode_aleatorio}'")
 
         # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
-        valor_costo = input(f"Ingresa Valor de costo para el producto: ")            
+        valor_costo = precio            
         campo_costo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_cost")))
         campo_costo.clear()
         campo_costo.send_keys(valor_costo)
         print(f"✅ Costo para el producto: '{valor_costo}'")
 
         # Solicitar Valor de precio al usuario y agregarlo al campo correspondiente
-        valor_precio = input(f"Ingresa Valor de precio para el producto: ")
+        valor_precio = precio
         campo_precio = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_defaultPrice")))
         campo_precio.clear()
         campo_precio.send_keys(valor_precio)

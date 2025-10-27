@@ -12,14 +12,16 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.relative_locator import locate_with
+from faker import Faker
+import random
 
 # =====================
 # DATOS DE ENTRADA
 # =====================
-nombre = input("Ingrese el nombre de la sede: ")
-direccion = input("Ingrese la dirección de la sede: ")
-usuario = input("Ingrese el correo del usuario: ")
-ciudad = input("Ingrese la ciudad: ")
+nombre = f"{random.choice(['Tienda', 'Supermercado', 'Mini Market', 'Boutique', 'Almacén', 'Punto'])} {random.choice(['La Esquina', 'El Sol', 'Central', 'Del Norte', 'Express', 'Del Pueblo', '24 Horas', 'Económico'])}"
+direccion = Faker.address().replace("\n", ", ")
+usuario = Faker.email()
+ciudad = Faker.city()
 
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS

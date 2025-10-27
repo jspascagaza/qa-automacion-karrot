@@ -53,8 +53,8 @@ def registrar_resultado(id_caso, estado, observaciones=""):
 # =====================
 id_caso = "TC002"   # <- ajusta el caso de prueba que estés validando
 
-email_user = input("👉 Ingresa tu correo: ")
-password_user = input("👉 Ingresa tu contraseña: ")
+email_user = "js.pasca@karrotup.com"
+password_user = "ContraseñaIncorrecta123#*"
 
 driver = webdriver.Chrome()
 driver.maximize_window()

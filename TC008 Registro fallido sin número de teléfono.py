@@ -7,6 +7,8 @@ from selenium.webdriver.support import expected_conditions as EC
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+import random
+import string
 
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
@@ -74,12 +76,16 @@ def limpiar_campo_completamente(elemento):
         print(f"⚠️ Error al limpiar campo: {e}")
 
 # --- Pedir datos al usuario ---
-company_name = input("👉 Ingresa el nombre de tu negocio o tienda: ")
-first_name = input("👉 Ingresa tu nombre: ")
-last_name = input("👉 Ingresa tu apellido: ")
-email = input("👉 Ingresa tu correo electrónico: ")
-phone_number = ""  # Celular VACÍO para probar el error
-password = input("👉 Ingresa tu contraseña: ")
+company_name =  "Empresa de Prueba S.A.S." 
+first_names = ["Juan","Carlos","Luis","Ana","María","Laura","José","Miguel","Sofía","Valentina"]
+last_names = ["Pérez","González","Rodríguez","López","Martínez","Sánchez","Gómez","Ramírez"]
+first_name = (random.choice(first_names))
+last_name = (random.choice(last_names))
+user = (first_name[0] + last_name).lower().replace(" ", "")
+email = f"{user}{random.randint(10,999)}@example.com"
+phone_number = f"+57{random.randint(300000000,399999999)}"  # ajusta país/longitud según necesites
+alphabet = string.ascii_letters + string.digits + "!@#$%&*"
+password = ''.join(random.choice(alphabet) for _ in range(12))
 
 # Inicializar navegador
 driver = webdriver.Chrome()

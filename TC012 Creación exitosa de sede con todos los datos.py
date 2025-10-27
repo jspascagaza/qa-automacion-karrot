@@ -12,13 +12,16 @@ from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.relative_locator import locate_with
-
+from faker import Faker
 # =====================
 # DATOS DE ENTRADA
 # =====================
-nombre = input("Ingrese el nombre de la sede: ")
-direccion = input("Ingrese la dirección de la sede: ")
-usuario = input("Ingrese el correo del usuario: ")
+fake = Faker('es_CO')
+
+nombre = fake.name()
+correo = fake.email()
+telefono = fake.phone_number()
+direccion = fake.address()
 
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS

@@ -7,7 +7,11 @@ from selenium.webdriver.support import expected_conditions as EC
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 from datetime import datetime
+import random
+import string
+from faker import Faker
 
+fake = Faker('es_CO')
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
 # =====================
@@ -52,13 +56,17 @@ def registrar_resultado(id_caso, estado, observaciones=""):
     except Exception as e:
         print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
 
-# --- Pedir datos al usuario (dejando nombre vacío) ---
-company_name = ""  # Nombre vacío para probar el error
-first_name = input("👉 Ingresa tu nombre: ")
-last_name = input("👉 Ingresa tu apellido: ")
-email = input("👉 Ingresa tu correo electrónico: ")
-phone_number = input("👉 Ingresa tu número de celular: ")
-password = input("👉 Ingresa tu contraseña: ")
+# --- Generar datos aleatorios en lugar de pedirlos ---
+company_name =  "" # Nombre vacío para probar el error
+first_names = [fake.first_name() for _ in range(5)]
+last_names = [fake.last_name() for _ in range(5)]
+first_name = random.choice(first_names)
+last_name = random.choice(last_names)
+user = (first_name[0] + last_name).lower().replace(" ", "")
+email = fake.email()
+phone_number = f"+57{random.randint(300000000,399999999)}"  # ajusta país/longitud según necesites
+password = fake.password(length=10, special_chars=True, digits=True, upper_case=True, lower_case=True)
+print("Datos generados ->", company_name, first_name, last_name, email, phone_number)
 
 # Inicializar navegador
 driver = webdriver.Chrome()
