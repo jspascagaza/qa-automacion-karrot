@@ -106,7 +106,7 @@ url_final = ""
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
 # =====================
-id_caso = "TC023-002"
+id_caso = "TC023-004"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
     """
@@ -300,6 +300,45 @@ try:
     descripcionproducto.send_keys(descripcion)
     time.sleep(2)
     
+     # Aquí puedes continuar con el flujo de guardado, etc.
+    def configurar_producto_perecedero(driver, es_perecedero=True, timeout=10):
+        """
+        Controla el switch basado en el atributo aria-checked
+        """
+        try:
+            wait = WebDriverWait(driver, timeout)
+        
+            # Buscar el switch por role y clase
+            switch_xpath = "//button[@role='switch' and contains(@class, 'ant-switch')]"
+            switch_btn = wait.until(EC.element_to_be_clickable((By.XPATH, switch_xpath)))
+        
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", switch_btn)
+            time.sleep(0.5)
+        
+            # Verificar estado actual usando aria-checked
+            current_state = switch_btn.get_attribute("aria-checked")
+            is_currently_checked = current_state == "true"
+        
+            print(f"🔍 Estado actual del switch: {'ACTIVADO' if is_currently_checked else 'DESACTIVADO'}")
+        
+            # Activar/desactivar solo si es necesario
+            if es_perecedero and not is_currently_checked:
+                switch_btn.click()
+                print("✅ Switch ACTIVADO (Producto perecedero)")
+            elif not es_perecedero and is_currently_checked:
+                switch_btn.click()
+                print("✅ Switch DESACTIVADO (Producto no perecedero)")
+            else:
+                print(f"⏭️ Switch ya está en el estado deseado")
+        
+            return True
+        
+        except Exception as e:
+            print(f"❌ Error al configurar el switch: {e}")
+            return False
+    configurar_producto_perecedero(driver, es_perecedero=True)
+    time.sleep(2)
+
     def variantes_referencias_producto(driver, timeout=10, agregar_atributos=True):
         """
         Placeholder para la función variantes_referencias_producto

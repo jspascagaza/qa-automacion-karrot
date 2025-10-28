@@ -58,7 +58,7 @@ elif hasattr(fake, 'product_description'):
 else:
     descripcion = fake.sentence(nb_words=15)
 print (f"🛒 Nombre del producto generado: {nombre_producto}")
-pregunta_atributos = "¿crear atributos? (true/false "
+pregunta_atributos = "false"
 if pregunta_atributos == 'true':
     activar_atributos = True
     noactivar_atributos = False
@@ -183,12 +183,8 @@ try:
     time.sleep(2)
 
     # Selección tipo de producto
-    respuesta = input("¿Vas a crear un producto? (si/no): ").lower().strip()
-    while respuesta not in ['si', 's', 'no', 'n']:
-        print("Respuesta no válida. Por favor responde 'si' o 'no'")
-        respuesta = input("¿Vas a crear un producto? (si/no): ").lower().strip()
-
-    if respuesta in ['si', 's']:
+    respuesta = "si"
+    if respuesta == "si":
         driver.find_element(By.XPATH, "//input[@value='Product']").click()
         print("Producto seleccionado")
     else:
@@ -228,38 +224,60 @@ try:
     else:
         print("❌ No se encontró la categoría 'Portátiles'")
 
-    # Selección de unidad (tipo de unidad)
-    # Esperar el input (aunque no sea clickeable)
-    input_unidad = wait.until(
-        EC.presence_of_element_located((By.ID, "advanced_search_unit"))
+
+    input_tipounidad = wait.until(
+        EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
     )
 
-    # Buscar el contenedor visual del dropdown y hacer clic ahí
-    dropdown_container = input_unidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
-    wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unit']]")))
+    time.sleep(1)    
+    dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
+    wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
     ActionChains(driver).move_to_element(dropdown_container).click().perform()
-    time.sleep(1)
-
-    # Ahora selecciona la opción como ya lo haces
+    time.sleep(1)   
     opciones_unidad = wait.until(
-        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
     )
 
-    print("Opciones de unidad encontradas:")
     for opcion in opciones_unidad:
         print(opcion.text)
 
     opcion_unidad_encontrada = None
     for opcion in opciones_unidad:
-        if opcion.text.strip() == "Unidad":  # Cambia aquí por la unidad que necesites
+        if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
             opcion_unidad_encontrada = opcion
             break
+    if opcion_unidad_encontrada:
+        opcion_unidad_encontrada.click()
+        print("✅ Unidad 'Cantidad / Unidades' seleccionada")
+    else:
+        print("❌ No se encontró la unidad 'Cantidad / Unidades'")
 
+    # Selección de unidad (tipo de unidad)
+    # Esperar el input (aunque no sea clickeable)
+    inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
+    # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
+    if not inputs:
+        raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
+    index = 2 if len(inputs) > 2 else len(inputs) - 1
+    imput_unidad = inputs[index]
+    imput_unidad.click()    
+    time.sleep(1)
+
+    opciones_unidad = wait.until(
+        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+    )
+
+    for opcion in opciones_unidad:
+        print(opcion.text)
+        if opcion.text.strip() == "Unidad (u)":
+            opcion_unidad_encontrada = opcion
+            break
     if opcion_unidad_encontrada:
         opcion_unidad_encontrada.click()
         print("✅ Unidad 'Unidad' seleccionada")
     else:
         print("❌ No se encontró la unidad 'Unidad'")
+
 
     # Descripción del producto
     descripcionproducto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))

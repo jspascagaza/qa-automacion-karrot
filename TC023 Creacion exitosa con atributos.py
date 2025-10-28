@@ -270,11 +270,36 @@ try:
     else:
         print("❌ No se encontró la unidad 'Cantidad / Unidades'")
 
+
+    inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
+    # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
+    if not inputs:
+        raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
+    index = 2 if len(inputs) > 2 else len(inputs) - 1
+    imput_unidad = inputs[index]
+    imput_unidad.click()    
+    time.sleep(1)
+
+    opciones_unidad = wait.until(
+        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+    )
+
+    for opcion in opciones_unidad:
+        print(opcion.text)
+        if opcion.text.strip() == "Unidad (u)":
+            opcion_unidad_encontrada = opcion
+            break
+    if opcion_unidad_encontrada:
+        opcion_unidad_encontrada.click()
+        print("✅ Unidad 'Unidad' seleccionada")
+    else:
+        print("❌ No se encontró la unidad 'Unidad'")    
+
     # Descripción del producto
     descripcionproducto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))
     descripcionproducto.send_keys(descripcion)
     time.sleep(2)
-
+    
     # Aquí puedes continuar con el flujo de guardado, etc.
     def configurar_producto_perecedero(driver, es_perecedero=True, timeout=10):
         """
@@ -311,7 +336,7 @@ try:
         except Exception as e:
             print(f"❌ Error al configurar el switch: {e}")
             return False
-    configurar_producto_perecedero(driver, es_perecedero=False)
+    configurar_producto_perecedero(driver, es_perecedero=True)
     time.sleep(2)
     
     # TENER EN CUENTA QUE PARA LAS FUNCIONES DE ABAJO, SE DEBE ACTIVAR agregar_atributos=True PARA QUE FUNCIONEN
