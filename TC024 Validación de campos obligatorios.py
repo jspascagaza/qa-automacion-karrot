@@ -147,12 +147,14 @@ def buscar_texto_con_espera(driver, texto, timeout=10):
         elemento = wait.until(EC.presence_of_element_located((By.XPATH, f"//*[contains(text(), '{texto}')]")))
         print(f"✅ Texto encontrado: {elemento.text}")
         time.sleep(5)
-        return elemento
+        return elemento 
     except TimeoutException:
         print(f"❌ Texto no apareció después de {timeout}s: {texto}")
+        observaciones = f"No se encontró el texto: {texto}"
         return None
     except Exception as e:
         print(f"❌ Error: {e}")
+        observaciones = f"Error: {e}"
         return None
 
 # Uso
@@ -165,5 +167,18 @@ textos_a_buscar = [
 ]
 
 for texto in textos_a_buscar:
-    buscar_texto_con_espera(driver, texto, 10)
+    elemento = buscar_texto_con_espera(driver, texto, 10)
+    if elemento:
+        exito = True
+    else:
+        exito = False
+        
 
+if exito==True:
+    observaciones = f"Se encontró el texto los campos obligatorios"
+    estado = "ÉXITOSO"
+    registrar_resultado(id_caso, estado, observaciones)
+else:
+    observaciones = f"No se encontró el texto"
+    estado = "FALLIDO"
+    registrar_resultado(id_caso, estado, observaciones)

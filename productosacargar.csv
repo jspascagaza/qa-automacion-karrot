@@ -1,51 +1,11 @@
 Name*,Type*,Description*,Category*,Unit*,isPerishable*,SKU*,Barcode*,Cost*,Price*
-PlayStation 5,producto,Consola de videojuegos última generación,Consolas,Per Unit,false,CON-PS5-001,1945273846512,1800000,2396000
-Xbox Series X,producto,Consola gaming 4K,Consolas,Per Unit,false,CON-XBX-002,1945273846513,1680000,2196000
-Nintendo Switch,producto,Consola híbrida portátil,Consolas,Per Unit,false,CON-NSW-003,1945273846514,1120000,1396000
-iPhone 15 Pro,producto,Smartphone flagship Apple,Celulares,Per Unit,false,CEL-IP15-004,1945273846515,3400000,4796000
-Samsung Galaxy S24,producto,Teléfono Android alta gama,Celulares,Per Unit,false,CEL-SGS24-005,1945273846516,2600000,3596000
-Google Pixel 8,producto,Smartphone con Android puro,Celulares,Per Unit,false,CEL-GP8-006,1945273846517,2080000,2796000
-Funda iPhone 15,producto,Funda protectora silicona,Accesorios,Per Unit,false,ACC-FUN-007,1945273846518,32000,100000
-Vidrio Templado,producto,Protector de pantalla,Accesorios,Per Unit,false,ACC-VID-008,1945273846519,12000,60000
-Cargador Rápido,producto,Cargador 20W USB-C,Accesorios,Per Unit,false,ACC-CAR-009,1945273846520,48000,140000
-MacBook Pro 16,producto,Laptop profesional Apple,Portátiles,Per Unit,false,POR-MBP-010,1945273846521,7200000,9596000
-Dell XPS 15,producto,Laptop empresarial,Portátiles,Per Unit,false,POR-DXP-011,1945273846522,4800000,6396000
-PlayStation 5 Digital,producto,Consola sin lector disco,Consolas,Per Unit,false,CON-PS5D-012,1945273846523,1520000,1996000
-Xbox Series S,producto,Consola digital económica,Consolas,Per Unit,false,CON-XBS-013,1945273846524,1000000,1196000
-Nintendo Switch OLED,producto,Versión con pantalla OLED,Consolas,Per Unit,false,CON-NSO-014,1945273846525,1280000,1596000
-OnePlus 12,producto,Smartphone performance,Celulares,Per Unit,false,CEL-OP12-015,1945273846526,2320000,2996000
-Xiaomi 14,producto,Teléfono gama alta,Celulares,Per Unit,false,CEL-XM14-016,1945273846527,1920000,2596000
-AirPods Pro,producto,Audífonos inalámbricos,Accesorios,Per Unit,false,ACC-AIR-017,1945273846528,600000,996000
-Power Bank 10000mAh,producto,Batería externa,Accesorios,Per Unit,false,ACC-PWB-018,1945273846529,72000,180000
-Soporte Vehicular,producto,Soporte para carro,Accesorios,Per Unit,false,ACC-SOP-019,1945273846530,24000,80000
-Lenovo ThinkPad X1,producto,Laptop empresarial,Portátiles,Per Unit,false,POR-LTX-020,1945273846531,4400000,5996000
-HP Spectre x360,producto,Laptop convertible,Portátiles,Per Unit,false,POR-HPS-021,1945273846532,3800000,5196000
-PlayStation 4 Slim,producto,Consola anterior generación,Consolas,Per Unit,false,CON-PS4-022,1945273846533,880000,1196000
-Nintendo Switch Lite,producto,Consola solo portátil,Consolas,Per Unit,false,CON-NSL-023,1945273846534,720000,916000
-Motorola Edge 40,producto,Smartphone valor,Celulares,Per Unit,false,CEL-ME40-024,1945273846535,1280000,1716000
-Samsung Galaxy A54,producto,Teléfono gama media,Celulares,Per Unit,false,CEL-SGA54-025,1945273846536,920000,1396000
-Cable USB-C 2m,producto,Cable de carga,Accesorios,Per Unit,false,ACC-CAB-026,1945273846537,16000,48000
-Adaptador HDMI,producto,Adaptador a HDMI,Accesorios,Per Unit,false,ACC-ADH-027,1945273846538,60000,160000
-Estuche Audífonos,producto,Case protector,Accesorios,Per Unit,false,ACC-EST-028,1945273846539,20000,72000
-ASUS ROG Zephyrus,producto,Laptop gaming,Portátiles,Per Unit,false,POR-ARZ-029,1945273846540,6400000,8396000
-Acer Swift 3,producto,Laptop ultradelgado,Portátiles,Per Unit,false,POR-AS3-030,1945273846541,2600000,3396000
-PlayStation VR2,producto,Gafas realidad virtual,Consolas,Per Unit,false,CON-PVR2-031,1945273846542,1400000,1996000
-Meta Quest 3,producto,VR standalone,Consolas,Per Unit,false,CON-MQ3-032,1945273846543,1600000,2116000
-iPhone 14,producto,Modelo anterior Apple,Celulares,Per Unit,false,CEL-IP14-033,1945273846544,2400000,3196000
-Samsung Galaxy Z Flip5,producto,Teléfono plegable,Celulares,Per Unit,false,CEL-SGZF-034,1945273846545,3200000,3996000
-Cargador Inalámbrico,producto,Base carga wireless,Accesorios,Per Unit,false,ACC-CIW-035,1945273846546,80000,200000
-Lápiz Óptico,producto,Stylus para tablet,Accesorios,Per Unit,false,ACC-LAP-036,1945273846547,140000,316000
-Microsoft Surface Laptop 5,producto,Laptop premium,Portátiles,Per Unit,false,POR-MSL5-037,1945273846548,5200000,6796000
-Razer Blade 15,producto,Laptop gaming,Portátiles,Per Unit,false,POR-RB15-038,1945273846549,7200000,9196000
-Steam Deck,producto,Handheld gaming PC,Consolas,Per Unit,false,CON-STD-039,1945273846550,1680000,2196000
-Atari 2600+,producto,Consola retro,Consolas,Per Unit,false,CON-ATA-040,1945273846551,480000,676000
-Google Pixel 7a,producto,Smartphone mid-range,Celulares,Per Unit,false,CEL-GP7A-041,1945273846552,1400000,1796000
-Nothing Phone 2,producto,Teléfono diseño único,Celulares,Per Unit,false,CEL-NP2-042,1945273846553,1800000,2396000
-Soporte Pared,producto,Soporte TV/wall mount,Accesorios,Per Unit,false,ACC-SPA-043,1945273846554,100000,240000
-Hub USB-C,producto,Adaptador múltiple,Accesorios,Per Unit,false,ACC-HUB-044,1945273846555,120000,300000
-Apple Watch Charger,producto,Cargador reloj,Accesorios,Per Unit,false,ACC-AWC-045,1945273846556,48000,140000
-MSI Katana 15,producto,Laptop gaming,Portátiles,Per Unit,false,POR-MK15-046,1945273846557,5600000,7196000
-LG Gram 17,producto,Laptop ultraligero,Portátiles,Per Unit,false,POR-LGG17-047,1945273846558,5000000,6396000
-Nintendo 3DS,producto,Consola portátil,Consolas,Per Unit,false,CON-N3DS-048,1945273846559,600000,796000
-Sony Xperia 5 V,producto,Smartphone compacto,Celulares,Per Unit,false,CEL-SX5V-049,1945273846560,2800000,3596000
-Tablet S7 Fe,producto,Tablet Samsung,Accesorios,Per Unit,false,ACC-TS7F-050,1945273846561,1520000,1996000
+Apple Watch Series 9,P,Reloj inteligente Apple 45mm GPS,Celulares y Portátiles,Unidad,NO,APLWS9001,1234567891101,250.00,399.99
+Dell XPS 13,P,Portátil Windows 13" i7/16GB/512GB,Celulares y Portátiles,Unidad,NO,DELXPS002,1234567891102,800.00,1199.99
+Huawei Matebook D15,P,Portátil 15.6" Ryzen 5/8GB/512GB,Celulares y Portátiles,Unidad,NO,HUAMBD003,1234567891103,400.00,599.99
+MacBook Air M2,P,Portátil Apple 13" 8GB/256GB M2,Celulares y Portátiles,Unidad,NO,MACAIR004,1234567891104,900.00,1399.99
+Microsoft Surface Pro 9,P,Tablet Windows 13" i5/8GB/256GB,Celulares y Portátiles,Unidad,NO,MICSP9005,1234567891105,900.00,1399.99
+Realme GT Neo 5,P,Smartphone 5G 128GB 240W,Celulares y Portátiles,Unidad,NO,RELGT5006,1234567891106,250.00,379.99
+Samsung Galaxy Tab S9,P,Tablet Android 11" 128GB S-Pen,Celulares y Portátiles,Unidad,NO,SAMTBS007,1234567891107,550.00,849.99
+Sony Xperia 1 V,P,Smartphone 4K 256GB cámara profesional,Celulares y Portátiles,Unidad,NO,SONXP1008,1234567891108,800.00,1199.99
+Xiaomi Redmi Note 13,P,Smartphone 128GB AMOLED 120Hz,Celulares y Portátiles,Unidad,NO,XIARN13009,1234567891109,180.00,279.99
+iPad Pro 11 M2,P,Tablet Apple 11" 128GB M2 Chip,Celulares y Portátiles,Unidad,NO,IPAPRO010,1234567891110,700.00,1099.99
