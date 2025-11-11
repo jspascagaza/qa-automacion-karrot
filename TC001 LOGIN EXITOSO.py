@@ -38,7 +38,9 @@ def registrar_resultado(id_caso, estado, observaciones=""):
         fila = celda.row
         fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
 
+        automatizado = "Sí"
         # Solo actualiza hasta la columna O (13 a 15)
+        sheet.update_cell(fila, 11, automatizado)   # Columna K
         sheet.update_cell(fila, 13, fecha)          # Columna M
         sheet.update_cell(fila, 14, estado)         # Columna N
         sheet.update_cell(fila, 15, observaciones)  # Columna O
