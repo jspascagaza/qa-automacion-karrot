@@ -98,7 +98,7 @@ try:
     # Esperar campo de correo
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("js.pascagaza@karrotup.com")
+    email_input.send_keys("karrotdev@outlook.com")
     print("✅ Correo electrónico ingresado")
 
     # Esperar campo de contraseña

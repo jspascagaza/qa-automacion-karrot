@@ -78,7 +78,7 @@ try:
     
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("js.pascagaza@karrotup.com")
+    email_input.send_keys("karrotdev@outlook.com")
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
@@ -111,10 +111,13 @@ try:
 
     listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[7]/div/button[2]")))
     listado_editar.click()
-    URL_caja = "https://dev.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-cashdrawers/abda433b-d026-4726-ab7d-3b4eddb765c3"
-    driver.get(URL_caja)
+    editar_caja = wait.until(
+    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Ver Cajas']"))
+    )
+    editar_caja.click()
+    print("✅ Click en Borrar producto")
     time.sleep(5)
-
+    
     boton_agregar_caja = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div[2]/button")))
     boton_agregar_caja.click()
     time.sleep(10)
@@ -125,7 +128,7 @@ try:
         EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Nombre de caja' or contains(@class, 'input')]"))
         )
         nombre_caja.clear() 
-        nombre_caja.send_keys("C1")
+        nombre_caja.send_keys("C2")
         time.sleep(4)
 
         boton_agregar_caja = WebDriverWait(driver, 15).until(
@@ -134,7 +137,7 @@ try:
         boton_agregar_caja.click()
         time.sleep(10)
         elemento = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, "//span[text()='PRUEBA CAJA 01']"))
+        EC.presence_of_element_located((By.XPATH, "//span[text()='C2']"))
         )
         observaciones = "Caja creada exitosamente"
         print("✅ Caja creada exitosamente")

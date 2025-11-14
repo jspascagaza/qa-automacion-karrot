@@ -76,7 +76,7 @@ try:
         # Login
         email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
         email_input.click()
-        email_input.send_keys("js.pascagaza@karrotup.com")
+        email_input.send_keys("karrotdev@outlook.com")
 
         password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
         password_input.click()
@@ -107,7 +107,7 @@ try:
         time.sleep(10)
 
         productos_servicios = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+            EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Inventario']"))
         )
         productos_servicios.click()
         print("✅ Click en Productos y Servicios")
@@ -115,52 +115,3 @@ try:
 except Exception as e:
         print(f"❌ Error inesperado {str(e)}")
 
-
-listar_opciones_producto = wait.until(
-EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[11]/td[6]/div/button"))
-)
-driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listar_opciones_producto)
-listar_opciones_producto.click()
-print("✅ Click en los 3 puntos")
-time.sleep(5)
-
-borrar_producto = wait.until(
-EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Borrar']"))
-)
-borrar_producto.click()
-print("✅ Click en Borrar producto")
-time.sleep(5)
-
-mensaje_confirmacion = wait.until(
-        EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Estás seguro que deseas eliminar este producto?')]"))
-    )
-print("✅ Mensaje de confirmación encontrado")
-
-def encontrar_boton_eliminar():
-    selectors = [
-        "//button[contains(@class, 'ant-btn-primary') and contains(text(), 'Eliminar')]",
-        "//button[contains(text(), 'Eliminar')]",
-        "//span[contains(text(), 'Eliminar')]/ancestor::button",
-        "//div[contains(@class, 'ant-modal')]//button[contains(text(), 'Eliminar')]"
-    ]
-    
-    for selector in selectors:
-        try:
-            elemento = wait.until(EC.element_to_be_clickable((By.XPATH, selector)))
-            print(f"✅ Botón Eliminar encontrado con: {selector}")
-            return elemento
-        except Exception as e:
-            print(f"❌ Selector falló: {selector}")
-            continue
-    
-    print("❌ No se pudo encontrar el botón Eliminar")
-    return None
-
-# Uso
-boton_eliminar = encontrar_boton_eliminar()
-if boton_eliminar:
-    boton_eliminar.click()
-time.sleep(10)
-
-
-#pendiente por terminar hasta poder encontrar una solucion donde se pueda verificar que el producto seleccionado fue eliminado.

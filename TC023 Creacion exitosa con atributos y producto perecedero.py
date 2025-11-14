@@ -522,12 +522,15 @@ try:
                 campo_busqueda.clear()
                 campo_busqueda.send_keys(barcode_aleatorio)
                 time.sleep(10)  # Usar el barcode generado
+                campo_busqueda.send_keys(Keys.CONTROL + "a")
+                campo_busqueda.send_keys(barcode_aleatorio)    
                 campo_busqueda.send_keys(Keys.ARROW_DOWN)
                 time.sleep(2)
                 campo_busqueda.send_keys(Keys.ENTER)
                 print(f"✅ Búsqueda realizada con : {barcode_aleatorio}")
                 time.sleep(5)
-                elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
+                elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto
+                }')]")
                 print("✅ campo encontrado enviado en campo de búsqueda")
                 time.sleep(5)
                 observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
