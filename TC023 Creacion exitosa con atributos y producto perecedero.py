@@ -143,7 +143,8 @@ try:
     # Login
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("js.pascagaza@karrotup.com")
+    #email_input.send_keys("js.pascagaza@karrotup.com")
+    email_input.send_keys("karrotdev@outlook.com")
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
@@ -215,31 +216,106 @@ try:
     time.sleep(1)
 
     # Selección de categoría
-    listadocategorias = wait.until(
-        EC.element_to_be_clickable((By.ID, "advanced_search_category"))
-    )
-    ActionChains(driver).move_to_element(listadocategorias).click().perform()
-    time.sleep(1)
+    def crear_categoria_si_es_necesario(driver, wait):
+        """
+        Verifica si existe el botón 'añadir categoria' y lo crea si es necesario
+        """
+        try:
+            # Verificar si existe el botón "añadir categoria"
+            # Hacer clic y mantener el hover sobre el dropdown
+            dropdown_element = wait.until(EC.element_to_be_clickable((By.CLASS_NAME, "ant-select-selector")))
+            actions = ActionChains(driver)
+            actions.click_and_hold(dropdown_element).perform()
 
-    opciones_categorias = wait.until(
-        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
-    )
+            # Obtener las opciones
+            opciones_categorias = wait.until(
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
+            )
 
-    print("Opciones encontradas:")
-    for opcion in opciones_categorias:
-        print(opcion.text)
-
-    opcion_encontrada = None
-    for opcion in opciones_categorias:
-        if opcion.text.strip() == "Portátiles":
-            opcion_encontrada = opcion
+            # Liberar cuando termines
+            actions.release().perform()
+            boton_anadir_categoria_xpath = "/html/body/div[4]/div/div/div/div/div/div[3]/button"
+            boton_anadir_categoria = WebDriverWait(driver, 3).until(
+                EC.element_to_be_clickable((By.XPATH, boton_anadir_categoria_xpath))
+            )
+            
+            if boton_anadir_categoria:
+                print("🔍 Botón 'añadir categoria' encontrado, procediendo a crear categoría...")
+                boton_anadir_categoria.click()
+                time.sleep(2)
+                
+                # Esperar a que aparezca el input para agregar categoría
+                categoria_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input.ant-input")))
+                
+                # Generar nombre de categoría (puedes ajustar según tus necesidades)
+                categorias_posibles = ["Consolas", "Computadores", "Celulares", "Accesorios", "Portátiles", "Otros"]
+                nombre_categoria = random.choice(categorias_posibles)
+                categoria_input.send_keys(nombre_categoria)
+                print(f"✅ Nombre de categoría ingresado: {nombre_categoria}")
+                time.sleep(2)
+                
+                # Hacer click en el botón de confirmar (OK o similar)
+                boton_confirmar = wait.until(
+                    EC.element_to_be_clickable((By.CSS_SELECTOR, "button.ant-btn-primary"))
+                )
+                boton_confirmar.click()
+                print("✅ Categoría creada exitosamente")
+                time.sleep(3)
+                
+                return True
+        except TimeoutException:
+            # El botón no existe, continuar con el flujo normal
+            print("ℹ️ No se encontró el botón 'añadir categoria', continuando con el flujo normal")
+            return False
+        except Exception as e:
+            print(f"⚠️ Error al verificar/crear categoría: {e}")
+            return False
+    
+    # Intentar seleccionar categoría (con reintentos si es necesario crear una)
+    max_intentos = 2
+    categoria_seleccionada = False
+    
+    for intento in range(max_intentos):
+        listadocategorias = wait.until(
+            EC.element_to_be_clickable((By.ID, "advanced_search_category"))
+        )
+        ActionChains(driver).move_to_element(listadocategorias).click().perform()
+        time.sleep(1)
+        
+        # Verificar si necesitamos crear una categoría
+        if intento == 0:
+            crear_categoria_si_es_necesario(driver, wait)
+        
+        opciones_categorias = wait.until(
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
+        )
+        
+        print("Opciones encontradas:")
+        for opcion in opciones_categorias:
+            print(opcion.text)
+        
+        opcion_encontrada = None
+        for opcion in opciones_categorias:
+            if opcion.text.strip() == "Portátiles":
+                opcion_encontrada = opcion
+                break
+        
+        if opcion_encontrada:
+            opcion_encontrada.click()
+            print("✅ Categoría 'Portátiles' seleccionada")
+            categoria_seleccionada = True
             break
+        else:
+            print(f"❌ No se encontró la categoría 'Portátiles' (intento {intento + 1}/{max_intentos})")
+            if intento < max_intentos - 1:
+                # Cerrar el dropdown y reintentar
+                driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ESCAPE)
+                time.sleep(1)
+    
+    if not categoria_seleccionada:
+        print("❌ No se pudo seleccionar la categoría 'Portátiles' después de los intentos")
 
-    if opcion_encontrada:
-        opcion_encontrada.click()
-        print("✅ Categoría 'Portátiles' seleccionada")
-    else:
-        print("❌ No se encontró la categoría 'Portátiles'")
+    crear_categoria_si_es_necesario(driver, wait)
 
     # Selección de unidad (tipo de unidad)
     # Esperar el input (aunque no sea clickeable)
