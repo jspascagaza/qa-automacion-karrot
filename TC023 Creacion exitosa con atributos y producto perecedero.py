@@ -17,7 +17,8 @@ import string
 from faker import Faker
 import faker_commerce; print(faker_commerce.__file__)
 import random
-
+import subprocess
+import sys
 
 fake = Faker('es_CO')
 # =====================
@@ -134,88 +135,12 @@ def registrar_resultado(id_caso, estado, observaciones=""):
 # =====================
 # INICIO DE AUTOMATIZACIÓN
 # =====================
-try:
-    driver = webdriver.Chrome()
-    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
-    driver.maximize_window()
-    wait = WebDriverWait(driver, 40)
-
-    # Login
-    email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
-    email_input.click()
-    #email_input.send_keys("js.pascagaza@karrotup.com")
-    email_input.send_keys("karrotdev@outlook.com")
-
-    password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
-    password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
-
-    login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]")))
-    login_button.click()
-    time.sleep(15)
-
-    # Ir al panel de administración
-    panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
-    )
-    panel_button.click()
-
-    wait.until(
-        EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
-    )
-    print("✅ Panel de control cargado correctamente")
-    time.sleep(5)
-
-    # Menú Catálogo
-    catalogo = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
-    )
-    catalogo.click()
-    print("✅ Click en Catálogo")
-    time.sleep(10)
-
-    productos_servicios = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
-    )
-    productos_servicios.click()
-    print("✅ Click en Productos y Servicios")
-    time.sleep(10)
-
-    # Agregar Artículo
-    boton_agregar = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Agregar Artículo')]"))
-    )
-    boton_agregar.click()
-    print("✅ Click en Agregar Artículo")
-    time.sleep(10)
-
-    # Verificar que el texto "Añadir nuevo producto" esté presente
-    elemento = WebDriverWait(driver, 10).until(
-        EC.visibility_of_element_located((By.XPATH, "//h2[@class='mb-3' and text()='Añadir nuevo producto']"))
-    )
-    print("Texto encontrado:", elemento.text)
-    time.sleep(2)
-
-    # Selección tipo de producto
-    respuesta = "si"
-    while respuesta not in ['si', 's', 'no', 'n']:
-        print("Respuesta no válida. Por favor responde 'si' o 'no'")
-        respuesta = "si"
-
-    if respuesta in ['si', 's']:
-        driver.find_element(By.XPATH, "//input[@value='Product']").click()
-        print("Producto seleccionado")
-    else:
-        driver.find_element(By.XPATH, "//input[@value='Service']").click()
-        print("Servicio seleccionado")
-    time.sleep(2)
-
-    # Nombre del producto
-    input_nombre_producto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_name']")))
-    input_nombre_producto.send_keys(nombre_producto)
-    time.sleep(1)
-
-    # Selección de categoría
+def pantalla_login(nombre_producto, reintentar=True):
+    """
+    Función principal que ejecuta todo el flujo
+    Si reintentar=True y se crea una categoría, se reinicia la ejecución
+    """
+    
     def crear_categoria_si_es_necesario(driver, wait):
         """
         Verifica si existe el botón 'añadir categoria' y lo crea si es necesario
@@ -228,40 +153,23 @@ try:
             actions.click_and_hold(dropdown_element).perform()
 
             # Obtener las opciones
-            opciones_categorias = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
-            )
-
-            # Liberar cuando termines
-            actions.release().perform()
-            boton_anadir_categoria_xpath = "/html/body/div[4]/div/div/div/div/div/div[3]/button"
-            boton_anadir_categoria = WebDriverWait(driver, 3).until(
-                EC.element_to_be_clickable((By.XPATH, boton_anadir_categoria_xpath))
-            )
-            
-            if boton_anadir_categoria:
+            texto_agregar_categoria = driver.find_element(By.XPATH, "//*[text()=' Añadir Categoría']")            
+            if texto_agregar_categoria:
                 print("🔍 Botón 'añadir categoria' encontrado, procediendo a crear categoría...")
-                boton_anadir_categoria.click()
+                script_path = "Agregar categoria.py"
+                # Ejecutar el script
+                result = subprocess.run([sys.executable, script_path], 
+                    capture_output=True, 
+                    text=True, 
+                    timeout=120)
                 time.sleep(2)
                 
-                # Esperar a que aparezca el input para agregar categoría
-                categoria_input = wait.until(EC.presence_of_element_located((By.CSS_SELECTOR, "input.ant-input")))
-                
-                # Generar nombre de categoría (puedes ajustar según tus necesidades)
-                categorias_posibles = ["Consolas", "Computadores", "Celulares", "Accesorios", "Portátiles", "Otros"]
-                nombre_categoria = random.choice(categorias_posibles)
-                categoria_input.send_keys(nombre_categoria)
-                print(f"✅ Nombre de categoría ingresado: {nombre_categoria}")
-                time.sleep(2)
-                
-                # Hacer click en el botón de confirmar (OK o similar)
-                boton_confirmar = wait.until(
-                    EC.element_to_be_clickable((By.CSS_SELECTOR, "button.ant-btn-primary"))
-                )
-                boton_confirmar.click()
-                print("✅ Categoría creada exitosamente")
-                time.sleep(3)
-                
+                # Si se creó una categoría, reiniciar la ejecución
+                if reintentar:
+                    print("🔄 Categoría creada, reiniciando ejecución...")
+                    driver.quit()
+                    pantalla_login(nombre_producto, reintentar=False)
+                    return True
                 return True
         except TimeoutException:
             # El botón no existe, continuar con el flujo normal
@@ -270,113 +178,7 @@ try:
         except Exception as e:
             print(f"⚠️ Error al verificar/crear categoría: {e}")
             return False
-    
-    # Intentar seleccionar categoría (con reintentos si es necesario crear una)
-    max_intentos = 2
-    categoria_seleccionada = False
-    
-    for intento in range(max_intentos):
-        listadocategorias = wait.until(
-            EC.element_to_be_clickable((By.ID, "advanced_search_category"))
-        )
-        ActionChains(driver).move_to_element(listadocategorias).click().perform()
-        time.sleep(1)
-        
-        # Verificar si necesitamos crear una categoría
-        if intento == 0:
-            crear_categoria_si_es_necesario(driver, wait)
-        
-        opciones_categorias = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
-        )
-        
-        print("Opciones encontradas:")
-        for opcion in opciones_categorias:
-            print(opcion.text)
-        
-        opcion_encontrada = None
-        for opcion in opciones_categorias:
-            if opcion.text.strip() == "Portátiles":
-                opcion_encontrada = opcion
-                break
-        
-        if opcion_encontrada:
-            opcion_encontrada.click()
-            print("✅ Categoría 'Portátiles' seleccionada")
-            categoria_seleccionada = True
-            break
-        else:
-            print(f"❌ No se encontró la categoría 'Portátiles' (intento {intento + 1}/{max_intentos})")
-            if intento < max_intentos - 1:
-                # Cerrar el dropdown y reintentar
-                driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ESCAPE)
-                time.sleep(1)
-    
-    if not categoria_seleccionada:
-        print("❌ No se pudo seleccionar la categoría 'Portátiles' después de los intentos")
 
-    crear_categoria_si_es_necesario(driver, wait)
-
-    # Selección de unidad (tipo de unidad)
-    # Esperar el input (aunque no sea clickeable)
-    input_tipounidad = wait.until(
-        EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
-    )
-
-    time.sleep(1)    
-    dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
-    wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
-    ActionChains(driver).move_to_element(dropdown_container).click().perform()
-    time.sleep(1)   
-    opciones_unidad = wait.until(
-    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-    )
-
-    for opcion in opciones_unidad:
-        print(opcion.text)
-
-    opcion_unidad_encontrada = None
-    for opcion in opciones_unidad:
-        if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
-            opcion_unidad_encontrada = opcion
-            break
-    if opcion_unidad_encontrada:
-        opcion_unidad_encontrada.click()
-        print("✅ Unidad 'Cantidad / Unidades' seleccionada")
-    else:
-        print("❌ No se encontró la unidad 'Cantidad / Unidades'")
-
-
-    inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
-    # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
-    if not inputs:
-        raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
-    index = 2 if len(inputs) > 2 else len(inputs) - 1
-    imput_unidad = inputs[index]
-    imput_unidad.click()    
-    time.sleep(1)
-
-    opciones_unidad = wait.until(
-        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-    )
-
-    for opcion in opciones_unidad:
-        print(opcion.text)
-        if opcion.text.strip() == "Unidad (u)":
-            opcion_unidad_encontrada = opcion
-            break
-    if opcion_unidad_encontrada:
-        opcion_unidad_encontrada.click()
-        print("✅ Unidad 'Unidad' seleccionada")
-    else:
-        print("❌ No se encontró la unidad 'Unidad'")    
-
-    # Descripción del producto
-    descripcionproducto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))
-    descripcionproducto.send_keys(descripcion)
-    time.sleep(2)
-    
-    # Aquí puedes continuar con el flujo de guardado, etc.
     def configurar_producto_perecedero(driver, es_perecedero=True, timeout=10):
         """
         Controla el switch basado en el atributo aria-checked
@@ -412,14 +214,11 @@ try:
         except Exception as e:
             print(f"❌ Error al configurar el switch: {e}")
             return False
-    configurar_producto_perecedero(driver, es_perecedero=True)
-    time.sleep(2)
-    
-    # TENER EN CUENTA QUE PARA LAS FUNCIONES DE ABAJO, SE DEBE ACTIVAR agregar_atributos=True PARA QUE FUNCIONEN
+
     def manejar_atributos_adicionales(driver, agregar_atributos=False, timeout=10):
         """
         Maneja el botón 'Agregar nuevo atributo' y retorna los valores usados
-     """
+        """
         try:
             if not agregar_atributos:
                 print("⏭️  No se agregarán atributos adicionales")
@@ -470,10 +269,7 @@ try:
         except Exception as e:
             print(f"❌ Error al hacer clic en 'Agregar nuevo atributo': {e}")
             return None, None
-        
-    nombre_atributo, valores_atributos = manejar_atributos_adicionales(driver, agregar_atributos=activar_atributos)
-    time.sleep(2)
-    
+
     def generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=False):
         """
         Genera SKU, barcode, costo y precio para cada combinación de atributos
@@ -500,7 +296,7 @@ try:
                     campo_sku = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}sku")))
                 except:
                     # Si falla, buscar por contains
-                    campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'sku')]")) )
+                    campo_sku = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'sku')]")))
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_sku)
                 time.sleep(0.5)
                 campo_sku.clear()
@@ -512,7 +308,7 @@ try:
                 try:
                     campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}barcode")))
                 except:
-                    campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'barcode')]")) )
+                    campo_barcode = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'barcode')]")))
                 campo_barcode.clear()
                 campo_barcode.send_keys(barcode_aleatorio)
                 print(f"✅ Barcode para {valor_atributo}: '{barcode_aleatorio}'")
@@ -522,7 +318,7 @@ try:
                 try:
                     campo_costo = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}cost")))
                 except:
-                    campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'cost')]")) )
+                    campo_costo = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'cost')]")))
                 campo_costo.clear()
                 campo_costo.send_keys(valor_costo)
                 print(f"✅ Costo para {valor_costo}: '{valor_costo}'")
@@ -532,7 +328,7 @@ try:
                 try:
                     campo_precio = wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}price")))
                 except:
-                    campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'price')]")) )
+                    campo_precio = wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'price')]")))
                 campo_precio.clear()
                 campo_precio.send_keys(valor_precio)
                 print(f"✅ Precio para {valor_atributo}: '{valor_precio}'")
@@ -542,89 +338,284 @@ try:
         except Exception as e:
             print(f"❌ Error al generar campos para atributos: {e}")
             return False
-    resultado = generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=activar_atributos)
-    
-    # Capturar los valores de barcode y sku
-    if activar_atributos and resultado:
-        barcode_aleatorio, sku_aleatorio = resultado
-    else:
-        barcode_aleatorio = None
-        sku_aleatorio = None
-    print(f"✅ Barcode: {barcode_aleatorio}, SKU: {sku_aleatorio}")
 
-    boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
-    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
-    boton_anadir.click()
-    print("✅ Click en Añadir")
-    time.sleep(10)
-    driver.refresh()
-    time.sleep(5)
+    # =====================
+    # EJECUCIÓN PRINCIPAL
+    # =====================
     try:
-        # abrir el select y esperar a que el dropdown esté visible sin que se cierre
-        select_xpath = "//div[contains(@class, 'ant-select') and .//span[contains(@title, 'Buscar por')]]"
-        select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
-        print("✅ Select encontrado")
-        # usar ActionChains para abrir y mantener foco
-        ActionChains(driver).move_to_element(select_element).click().perform()
-        time.sleep(1)
-        print("✅ Select abierto")
-        # esperar a que el dropdown real de Ant Design sea visible
-        dropdown = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]"))
+        driver = webdriver.Chrome()
+        driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+        driver.maximize_window()
+        wait = WebDriverWait(driver, 40)
+
+        # Login
+        email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
+        email_input.click()
+        email_input.send_keys("karrotdev@outlook.com")
+
+        password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
+        password_input.click()
+        password_input.send_keys("P4sc4g4z42025#*")
+
+        login_button = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]"))
         )
-        print("✅ Dropdown visible")
-        # mover el cursor dentro del dropdown para evitar que el foco se pierda y se cierre
-        ActionChains(driver).move_to_element(dropdown).perform()
-        time.sleep(1)
-        print("✅ Dropdown movido")
-        # ahora buscar las opciones dentro del dropdown (no vuelvas a clickear el select)
-        opciones_dropdown = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown')]//div[contains(@class,'ant-select-item-option-content')]"))
+        login_button.click()
+        time.sleep(15)
+
+        # Ir al panel de administración
+        panel_button = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
         )
+        panel_button.click()
+
+        wait.until(
+            EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+        )
+        print("✅ Panel de control cargado correctamente")
+        time.sleep(5)
+
+        # Menú Catálogo
+        catalogo = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+        )
+        catalogo.click()
+        print("✅ Click en Catálogo")
+        time.sleep(10)
+
+        productos_servicios = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+        )
+        productos_servicios.click()
+        print("✅ Click en Productos y Servicios")
+        time.sleep(10)
+
+        # Agregar Artículo
+        boton_agregar = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Agregar Artículo')]"))
+        )
+        boton_agregar.click()
+        print("✅ Click en Agregar Artículo")
+        time.sleep(10)
+
+        # Verificar texto "Añadir nuevo producto"
+        elemento = wait.until(
+            EC.visibility_of_element_located((By.XPATH, "//h2[@class='mb-3' and text()='Añadir nuevo producto']"))
+        )
+        print("Texto encontrado:", elemento.text)
+        time.sleep(2)
+
+        # Selección tipo de producto
+        driver.find_element(By.XPATH, "//input[@value='Product']").click()
+        print("Producto seleccionado")
+        time.sleep(2)
+
+        # Nombre del producto
+        input_nombre_producto = wait.until(
+            EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_name']"))
+        )
+        input_nombre_producto.send_keys(nombre_producto)
         time.sleep(1)
-        print("Opciones de busqueda encontradas:")
-        for opcion in opciones_dropdown:
-            print(opcion.text)
-        opcion_busqueda_encontrada = None
-        for opcion in opciones_dropdown:
-            if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
-                opcion_busqueda_encontrada = opcion
+
+        # Selección de categoría
+        max_intentos = 2
+        categoria_seleccionada = False
+        
+        for intento in range(max_intentos):
+            listadocategorias = wait.until(
+                EC.element_to_be_clickable((By.ID, "advanced_search_category"))
+            )
+            ActionChains(driver).move_to_element(listadocategorias).click().perform()
+            time.sleep(1)
+            
+            # Verificar si necesitamos crear una categoría
+            if intento == 0:
+                crear_categoria_si_es_necesario(driver, wait)
+            
+            opciones_categorias = wait.until(
+                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
+            )
+            
+            print("Opciones encontradas:")
+            for opcion in opciones_categorias:
+                print(opcion.text)
+            
+            opcion_encontrada = None
+            for opcion in opciones_categorias:
+                    opcion_encontrada = opcion
+                    break
+            
+            if opcion_encontrada:
+                opcion_encontrada.click()
+                print("✅ Categoría seleccionada")
+                categoria_seleccionada = True
                 break
-        if opcion_busqueda_encontrada:
-                opcion_busqueda_encontrada.click()
-                print("✅ Opción de búsqueda 'Buscar por codigo de barras ' seleccionada")
-                time.sleep(5)
-                campo_busqueda = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")))
-                campo_busqueda.clear()
-                campo_busqueda.send_keys(barcode_aleatorio)
-                time.sleep(10)  # Usar el barcode generado
-                campo_busqueda.send_keys(Keys.CONTROL + "a")
-                campo_busqueda.send_keys(barcode_aleatorio)    
-                campo_busqueda.send_keys(Keys.ARROW_DOWN)
-                time.sleep(2)
-                campo_busqueda.send_keys(Keys.ENTER)
-                print(f"✅ Búsqueda realizada con : {barcode_aleatorio}")
-                time.sleep(5)
-                elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto
-                }')]")
-                print("✅ campo encontrado enviado en campo de búsqueda")
-                time.sleep(5)
-                observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
-                estado = "EXITOSO"
-                registrar_resultado(id_caso, estado, observaciones)
+            else:
+                print(f"❌ No se encontró la categorías (intento {intento + 1}/{max_intentos})")
+                if intento < max_intentos - 1:
+                    # Cerrar el dropdown y reintentar
+                    driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ESCAPE)
+                    time.sleep(1)
+        if not categoria_seleccionada:
+            print("❌ No se pudo seleccionar la categoría 'Portátiles' después de los intentos")
+
+        crear_categoria_si_es_necesario(driver, wait)
+
+        # Selección de unidad (tipo de unidad)
+        # Esperar el input (aunque no sea clickeable)
+        input_tipounidad = wait.until(
+            EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
+        )
+
+        time.sleep(1)    
+        dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
+        wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
+        ActionChains(driver).move_to_element(dropdown_container).click().perform()
+        time.sleep(1)   
+        opciones_unidad = wait.until(
+        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+        )
+
+        for opcion in opciones_unidad:
+            print(opcion.text)
+
+        opcion_unidad_encontrada = None
+        for opcion in opciones_unidad:
+            if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
+                opcion_unidad_encontrada = opcion
+                break
+        if opcion_unidad_encontrada:
+            opcion_unidad_encontrada.click()
+            print("✅ Unidad 'Cantidad / Unidades' seleccionada")
         else:
-            print("❌ No se encontró la opción de búsqueda 'Buscar ")
-            observaciones = "No se encontró la opción de búsqueda 'Buscar por Nombre'"
+            print("❌ No se encontró la unidad 'Cantidad / Unidades'")
+
+        inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
+        # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
+        if not inputs:
+            raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
+        index = 2 if len(inputs) > 2 else len(inputs) - 1
+        imput_unidad = inputs[index]
+        imput_unidad.click()    
+        time.sleep(1)
+
+        opciones_unidad = wait.until(
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+        )
+
+        for opcion in opciones_unidad:
+            print(opcion.text)
+            if opcion.text.strip() == "Unidad (u)":
+                opcion_unidad_encontrada = opcion
+                break
+        if opcion_unidad_encontrada:
+            opcion_unidad_encontrada.click()
+            print("✅ Unidad 'Unidad' seleccionada")
+        else:
+            print("❌ No se encontró la unidad 'Unidad'")    
+
+        # Descripción del producto
+        descripcionproducto = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))
+        descripcionproducto.send_keys(descripcion)
+        time.sleep(2)
+        
+        # Configurar producto perecedero
+        configurar_producto_perecedero(driver, es_perecedero=True)
+        time.sleep(2)
+        
+        # Manejar atributos adicionales
+        nombre_atributo, valores_atributos = manejar_atributos_adicionales(driver, agregar_atributos=activar_atributos)
+        time.sleep(2)
+        
+        # Generar campos por atributo
+        resultado = generar_campos_por_atributo(driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=activar_atributos)
+        # Capturar los valores de barcode y sku
+        if activar_atributos and resultado:
+            barcode_aleatorio, sku_aleatorio = resultado
+        else:
+            barcode_aleatorio = None
+            sku_aleatorio = None
+        print(f"✅ Barcode: {barcode_aleatorio}, SKU: {sku_aleatorio}")
+        
+        boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
+        boton_anadir.click()
+        print("✅ Click en Añadir")
+        time.sleep(10)
+        driver.refresh()
+        time.sleep(5)
+        
+        try:
+            # abrir el select y esperar a que el dropdown esté visible sin que se cierre
+            select_xpath = "//div[contains(@class, 'ant-select') and .//span[contains(@title, 'Buscar por')]]"
+            select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
+            print("✅ Select encontrado")
+            # usar ActionChains para abrir y mantener foco
+            ActionChains(driver).move_to_element(select_element).click().perform()
+            time.sleep(1)
+            print("✅ Select abierto")
+            # esperar a que el dropdown real de Ant Design sea visible
+            dropdown = WebDriverWait(driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]"))
+            )
+            print("✅ Dropdown visible")
+            # mover el cursor dentro del dropdown para evitar que el foco se pierda y se cierre
+            ActionChains(driver).move_to_element(dropdown).perform()
+            time.sleep(1)
+            print("✅ Dropdown movido")
+            # ahora buscar las opciones dentro del dropdown (no vuelvas a clickear el select)
+            opciones_dropdown = wait.until(
+                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown')]//div[contains(@class,'ant-select-item-option-content')]"))
+            )
+            time.sleep(1)
+            print("Opciones de busqueda encontradas:")
+            for opcion in opciones_dropdown:
+                print(opcion.text)
+            opcion_busqueda_encontrada = None
+            for opcion in opciones_dropdown:
+                if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
+                    opcion_busqueda_encontrada = opcion
+                    break
+            if opcion_busqueda_encontrada:
+                    opcion_busqueda_encontrada.click()
+                    print("✅ Opción de búsqueda 'Buscar por codigo de barras ' seleccionada")
+                    time.sleep(5)
+                    campo_busqueda = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")))
+                    campo_busqueda.clear()
+                    campo_busqueda.send_keys(barcode_aleatorio)
+                    time.sleep(10)  # Usar el barcode generado
+                    campo_busqueda.send_keys(Keys.CONTROL + "a")
+                    campo_busqueda.send_keys(barcode_aleatorio)    
+                    campo_busqueda.send_keys(Keys.ARROW_DOWN)
+                    time.sleep(2)
+                    campo_busqueda.send_keys(Keys.ENTER)
+                    print(f"✅ Búsqueda realizada con : {barcode_aleatorio}")
+                    time.sleep(5)
+                    elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
+                    print("✅ campo encontrado enviado en campo de búsqueda")
+                    time.sleep(5)
+                    observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                    estado = "EXITOSO"
+                    registrar_resultado(id_caso, estado, observaciones)
+            else:
+                print("❌ No se encontró la opción de búsqueda 'Buscar '")
+                observaciones = "No se encontró la opción de búsqueda 'Buscar por Nombre'"
+                estado = "FALLIDO"
+                registrar_resultado(id_caso, estado, observaciones)
+        except Exception as e:
+            print(f"❌ Error al abrir el dropdown: {e}")
+            print("Opciones de busqueda encontradas:")
+            observaciones = f"Error al abrir el dropdown: {e}"
             estado = "FALLIDO"
             registrar_resultado(id_caso, estado, observaciones)
+
+        registrar_resultado(id_caso, estado, observaciones)
+
     except Exception as e:
-        print(f"❌ Error al abrir el dropdown: {e}")
-        print("Opciones de busqueda encontradas:")
-        observaciones = f"Error al abrir el dropdown: {e}"
+        print(f"❌ Error durante la ejecución: {str(e)}")
+        observaciones = f"Error durante la ejecución: {str(e)}"
         estado = "FALLIDO"
         registrar_resultado(id_caso, estado, observaciones)
-except Exception as e:
-    print(f"❌ Error durante la ejecución: {str(e)}")
-    observaciones = f"Error durante la ejecución: {str(e)}"
-    estado = "FALLIDO"
-    registrar_resultado(id_caso, estado, observaciones)
+
+# Ejecutar la función principal
+pantalla_login(nombre_producto)

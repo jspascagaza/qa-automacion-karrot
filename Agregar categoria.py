@@ -42,7 +42,7 @@ url_final = ""
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
 # =====================
-id_caso = "TC025"
+#id_caso = "TC025"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
     """
@@ -80,8 +80,8 @@ try:
         # Login
         email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
         email_input.click()
-        email_input.send_keys("js.pascagaza@karrotup.com")
-        #email_input.send_keys("karrotdev@outlook.com")
+        #email_input.send_keys("js.pascagaza@karrotup.com")
+        email_input.send_keys("karrotdev@outlook.com")
 
         password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
         password_input.click()
@@ -135,5 +135,6 @@ try:
         )
         panel_button.click()
         time.sleep(5)
+        driver.quit()
 except Exception as e:
         print(f"❌ Error inesperado {str(e)}")
