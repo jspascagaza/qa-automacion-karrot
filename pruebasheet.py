@@ -3,7 +3,7 @@ from google.oauth2.service_account import Credentials
 
 # Autenticación con tu JSON
 scopes = ["https://www.googleapis.com/auth/spreadsheets"]
-creds = Credentials.from_service_account_file("automatizacion-karrot-1105a7349e3e.json", scopes=scopes)
+creds = Credentials.from_service_account_file(r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json", scopes=scopes)
 client = gspread.authorize(creds)
 
 # Abre el spreadsheet

@@ -206,27 +206,27 @@ try:
         )
         catalogo.click()
         print("✅ Click en Catálogo")
-        time.sleep(10)
+        time.sleep(5)
 
         productos_servicios = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
         )
         productos_servicios.click()
         print("✅ Click en Productos y Servicios")
-        time.sleep(10)
+        time.sleep(5)
 except Exception as e:
         print(f"❌ Error inesperado {str(e)}")
 
 def editar_producto_completo():
     try:
 
-        elemento = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]/div/div[2]/span')))
+        elemento = wait.until(EC.presence_of_element_located((By.XPATH, '//*[@id="root"]/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[2]/div/div[2]')))
         valor = elemento.text
         print(f"📖 Valor del elemento: '{valor}'")
         time.sleep(5)
 
         listar_opciones_producto = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[6]/div/button"))
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[7]/div/button"))
         )
         listar_opciones_producto.click()
         print("✅ Click en los 3 puntos")
@@ -241,57 +241,57 @@ def editar_producto_completo():
 
         # Selección de unidad (tipo de unidad)
         # Esperar el input (aunque no sea clickeable)
-        input_tipounidad = wait.until(
-            EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
-        )
+        #input_tipounidad = wait.until(
+        #    EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
+        #)
 
-        time.sleep(1)    
-        dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
-        wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
-        ActionChains(driver).move_to_element(dropdown_container).click().perform()
-        time.sleep(1)   
-        opciones_unidad = wait.until(
-        EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-        )
+        #time.sleep(1)    
+        #dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
+        #wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
+        #ActionChains(driver).move_to_element(dropdown_container).click().perform()
+        #time.sleep(1)   
+        #opciones_unidad = wait.until(
+        #EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+        #)
 
-        for opcion in opciones_unidad:
-            print(opcion.text)
+        #for opcion in opciones_unidad:
+        #    print(opcion.text)
 
-        opcion_unidad_encontrada = None
-        for opcion in opciones_unidad:
-            if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
-                opcion_unidad_encontrada = opcion
-                break
-        if opcion_unidad_encontrada:
-            opcion_unidad_encontrada.click()
-            print("✅ Unidad 'Cantidad / Unidades' seleccionada")
-        else:
-            print("❌ No se encontró la unidad 'Cantidad / Unidades'")
+        #opcion_unidad_encontrada = None
+        #for opcion in opciones_unidad:
+        #    if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
+        #        opcion_unidad_encontrada = opcion
+        #        break
+        #if opcion_unidad_encontrada:
+        #    opcion_unidad_encontrada.click()
+        #    print("✅ Unidad 'Cantidad / Unidades' seleccionada")
+        #else:
+        #    print("❌ No se encontró la unidad 'Cantidad / Unidades'")
 
 
-        inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
+       # inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
         # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
-        if not inputs:
-            raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
-        index = 2 if len(inputs) > 2 else len(inputs) - 1
-        imput_unidad = inputs[index]
-        imput_unidad.click()    
-        time.sleep(1)
+        #if not inputs:
+        #    raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
+        #index = 2 if len(inputs) > 2 else len(inputs) - 1
+        #imput_unidad = inputs[index]
+        #imput_unidad.click()    
+        #time.sleep(1)
 
-        opciones_unidad = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-        )
+        #opciones_unidad = wait.until(
+        #    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+        #)
 
-        for opcion in opciones_unidad:
-            print(opcion.text)
-            if opcion.text.strip() == "Unidad (u)":
-                opcion_unidad_encontrada = opcion
-                break
-        if opcion_unidad_encontrada:
-            opcion_unidad_encontrada.click()
-            print("✅ Unidad 'Unidad' seleccionada")
-        else:
-            print("❌ No se encontró la unidad 'Unidad'")    
+        #for opcion in opciones_unidad:
+        #    print(opcion.text)
+        #    if opcion.text.strip() == "Unidad (u)":
+        #        opcion_unidad_encontrada = opcion
+        #        break
+        #if opcion_unidad_encontrada:
+        #    opcion_unidad_encontrada.click()
+        #    print("✅ Unidad 'Unidad' seleccionada")
+        #else:
+        #    print("❌ No se encontró la unidad 'Unidad'")    
 
                 # Generar SKU aleatorio y agregarlo al campo correspondiente
         sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
@@ -343,7 +343,7 @@ manejar_confirmacion_precios()
 time.sleep(3)
 
 listar_opciones_producto = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[6]/div/button"))
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[7]/div/button"))
         )
 listar_opciones_producto.click()
 print("✅ Click en los 3 puntos")

@@ -25,7 +25,8 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "automatizacion-karrot-1105a7349e3e.json", scope
+    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    scope
 )
 client = gspread.authorize(creds)
 
@@ -117,7 +118,7 @@ except Exception as e:
 
 
 listar_opciones_producto = wait.until(
-EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[11]/td[6]/div/button"))
+EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[7]/div/button"))
 )
 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listar_opciones_producto)
 listar_opciones_producto.click()

@@ -31,7 +31,8 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "automatizacion-karrot-1105a7349e3e.json", scope
+    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json", 
+    scope
 )
 client = gspread.authorize(creds)
 
