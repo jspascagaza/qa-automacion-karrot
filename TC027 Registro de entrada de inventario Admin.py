@@ -25,7 +25,7 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    r"C:\Users\karrot\Documents\qa-automacion-feature-qa-automacion\qa-automacion-feature-qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
     scope
 )
 client = gspread.authorize(creds)
@@ -43,7 +43,7 @@ url_final = ""
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
 # =====================
-id_caso = "TC025"
+id_caso = "TC027"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
     """

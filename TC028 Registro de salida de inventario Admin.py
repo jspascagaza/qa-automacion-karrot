@@ -43,7 +43,7 @@ url_final = ""
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
 # =====================
-id_caso = "TC025"
+id_caso = "TC028"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
     """
@@ -398,7 +398,7 @@ try:
                             print("✅ Teclas enviadas (DOWN + ENTER)")
                             seleccionado = True
                         except Exception as e_key:
-                             print(f"❌ Falló selección por teclado: {e_key}")
+                             print(f"❌ Falló selección por teclado: {e_key}")  
 
                     # Verificar cambio
                     time.sleep(1)
@@ -422,16 +422,23 @@ try:
                         (By.XPATH, "//input[contains(@class, 'ant-input-number-input') and @role='spinbutton']")
                     ))
                     
-                    # Generar valor aleatorio entre 1 y 100
-                    valor_a_ingresar = str(random.randint(1, 100))
+                    # Obtener el stock disponible (usando bogota_num que es la suma de sedes calculada)
+                    stock_disponible = int(valores.get('bogota_num', 100))
+                    print(f"   Stock disponible para salida: {stock_disponible}")
+                    
+                    # Asegurar que el límite sea al menos 1 para evitar errores en randint
+                    limite_random = stock_disponible if stock_disponible > 0 else 1
+                    
+                    # Generar valor aleatorio entre 1 y el stock disponible
+                    valor_a_ingresar = str(random.randint(1, limite_random))
                     
                     input_cantidad.click() # Asegurar foco
                     # Limpiar por si acaso
                     input_cantidad.send_keys(Keys.BACK_SPACE * 5) 
                     input_cantidad.send_keys(valor_a_ingresar)
                     
-                    print(f"✅ Valor aleatorio ingresado: {valor_a_ingresar}")
-                    observaciones += f" | Valor {valor_a_ingresar} ingresado"
+                    print(f"✅ Valor aleatorio ingresado: {valor_a_ingresar} (Limitado por stock: {stock_disponible})")
+                    observaciones += f" | Valor {valor_a_ingresar} ingresado (Stock: {stock_disponible})"
                 except Exception as e:
                     print(f"❌ Error al ingresar valor: {e}")
                     observaciones += " | Fallo al ingresar valor"
@@ -500,26 +507,26 @@ try:
                     
                     if valores_finales and 'valor_a_ingresar' in locals():
                         bogota_final = valores_finales.get('bogota_num', 0)
-                        valor_agregado_num = float(valor_a_ingresar)
+                        valor_salida_num = float(valor_a_ingresar)
                         
                         # Recalcular valor inicial desde el diccionario original por seguridad
                         bogota_inicial = valores.get('bogota_num', 0)
                         
                         print(f"\n🧮 VALIDACIÓN MATEMÁTICA:")
                         print(f"   Inicial: {bogota_inicial}")
-                        print(f"   Agregado: {valor_agregado_num}")
-                        print(f"   Esperado (Resta): {bogota_inicial - valor_agregado_num}")
+                        print(f"   Salida: {valor_salida_num}")
+                        print(f"   Esperado (Resta): {bogota_inicial - valor_salida_num}")
                         print(f"   Obtenido: {bogota_final}")
                         
                         # Usamos una pequeña tolerancia (VALIDACIÓN DE RESTA PARA SALIDA)
-                        if abs((bogota_inicial - valor_agregado_num) - bogota_final) < 0.01:
+                        if abs((bogota_inicial - valor_salida_num) - bogota_final) < 0.01:
                             print("✅ VALIDACIÓN EXITOSA: El inventario se actualizó correctamente.")
                             observaciones += " | Validación Matemática OK"
                             # Sobreescribimos el éxito general basado en esta prueba crucial
                             exito = True
                         else:
                             print("❌ VALIDACIÓN FALLIDA: Los valores no coinciden.")
-                            observaciones += f" | Fallo Matemático (Esp: {bogota_inicial - valor_agregado_num}, Obt: {bogota_final})"
+                            observaciones += f" | Fallo Matemático (Esp: {bogota_inicial - valor_salida_num}, Obt: {bogota_final})"
                             exito = False
                     else:
                          print("❌ No se pudo extraer el inventario final o falta el valor ingresado.")

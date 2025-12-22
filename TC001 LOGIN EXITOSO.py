@@ -68,7 +68,7 @@ try:
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.send_keys("P4sc4g4z42025#*")
 
-    login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]")))
+    login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
 
     # Espera unos segundos para verificar que cargó la siguiente página

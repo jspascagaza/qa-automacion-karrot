@@ -41,7 +41,7 @@ print("✅ Contraseña ingresada")
 
 # Click en el botón "Iniciar sesión"
 login_button = wait.until(
-    EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]"))
+    EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button"))
 )
 login_button.click()
 print("✅ Botón de login clickeado")

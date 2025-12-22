@@ -90,7 +90,8 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    "automatizacion-karrot-1105a7349e3e.json", scope
+    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    scope
 )
 client = gspread.authorize(creds)
 
@@ -183,7 +184,7 @@ try:
         password_input.click()
         password_input.send_keys("P4sc4g4z42025#*")
 
-        login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Iniciar sesión')]")))
+        login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
         login_button.click()
         time.sleep(15)
 
