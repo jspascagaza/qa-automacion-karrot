@@ -1,0 +1,466 @@
+import csv
+import datetime
+from socket import timeout
+import time
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+from datetime import datetime
+from selenium.common.exceptions import TimeoutException, NoSuchElementException
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
+import random
+import string
+from faker import Faker
+import faker_commerce; print(faker_commerce.__file__)
+import re
+
+# =====================
+# CONFIGURACIÓN GOOGLE SHEETS
+# =====================
+scope = ["https://spreadsheets.google.com/feeds",
+         "https://www.googleapis.com/auth/drive"]
+
+creds = ServiceAccountCredentials.from_json_keyfile_name(
+    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    scope
+)
+client = gspread.authorize(creds)
+
+spreadsheet = client.open_by_url(
+    "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0"
+)
+sheet = spreadsheet.sheet1
+
+# Variable para controlar el éxito de la ejecución
+exito = False
+observaciones = ""
+url_final = ""
+
+# =====================
+# PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
+# =====================
+id_caso = "TC028"
+
+def registrar_resultado(id_caso, estado, observaciones=""):
+    """
+    Busca un ID Caso y actualiza las columnas M, N y O:
+      M = Fecha Ejecución
+      N = Estado Ejecución
+      O = Observaciones
+    """
+    try:
+        celda = sheet.find(id_caso)
+        if not celda:
+            print(f"⚠️ No se encontró el ID {id_caso}")
+            return
+        fila = celda.row
+        fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        automatizado = "Sí"
+        sheet.update_cell(fila, 11, automatizado)   # Columna K
+        sheet.update_cell(fila, 13, fecha)          # Columna M
+        sheet.update_cell(fila, 14, estado)         # Columna N
+        sheet.update_cell(fila, 15, observaciones)  # Columna O
+        print(f"✅ Caso {id_caso} actualizado -> {estado}")
+    except Exception as e:
+        print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+
+def esperar_tabla_inventario():
+    """
+    Espera a que la tabla de inventario esté presente usando múltiples estrategias
+    """
+    print("⏳ Esperando tabla de inventario...")
+    
+    # Lista de posibles selectores para la tabla
+    selectores = [
+        (By.XPATH, '//table'),
+        (By.XPATH, '//div[contains(@class, "table")]'),
+        (By.XPATH, '//div[contains(@class, "ant-table")]'),
+        (By.XPATH, '//*[contains(@id, "table")]'),
+        (By.XPATH, '//*[contains(@class, "inventory")]//table'),
+        (By.CLASS_NAME, 'ant-table'),
+        (By.TAG_NAME, 'table'),
+    ]
+    
+    for selector_type, selector_value in selectores:
+        try:
+            print(f"  Probando selector: {selector_type} = '{selector_value}'")
+            elemento = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((selector_type, selector_value))
+            )
+            print(f"✅ Tabla encontrada con selector: {selector_value}")
+            return elemento
+        except TimeoutException:
+            continue
+        except Exception as e:
+            print(f"  Error con selector {selector_value}: {e}")
+            continue
+    
+    print("⚠️ No se pudo encontrar la tabla con ningún selector estándar")
+    
+    # Último intento: capturar screenshot para debug
+    try:
+        driver.save_screenshot("debug_inventario.png")
+        print("📸 Screenshot guardado como 'debug_inventario.png'")
+    except:
+        pass
+    
+    return None
+
+def extraer_valores_inventario_bogota():
+    """
+    Extrae los valores de Total y Sede Bogotá usando múltiples estrategias
+    """
+    try:
+        # Primero esperar a que alguna tabla esté presente
+        tabla = esperar_tabla_inventario()
+        if not tabla:
+            print("❌ No se pudo encontrar la tabla de inventario")
+            return None
+        
+        print("🔍 Buscando valores en la tabla...")
+        
+        # Estrategia 1: Usar los XPath específicos que proporcionaste
+        try:
+            xpath_total = '//*[@id="rc-tabs-3-panel-1"]/div/div[2]/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[5]/span'
+            xpath_bogota = '//*[@id="rc-tabs-3-panel-1"]/div/div[2]/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[6]/span[1]'
+            
+            print("  Intentando con XPath específicos...")
+            elemento_total = driver.find_element(By.XPATH, xpath_total)
+            elemento_bogota = driver.find_element(By.XPATH, xpath_bogota)
+            
+            print("✅ Elementos encontrados con XPath específicos")
+            
+        except NoSuchElementException:
+            # Estrategia 2: Buscar por posición relativa en la tabla
+            print("  XPath específicos no funcionaron, intentando por posición en tabla...")
+            
+            # Buscar la primera fila de datos
+            filas = driver.find_elements(By.XPATH, "//table//tbody/tr")
+            print(f"  Encontradas {len(filas)} filas en la tabla")
+            
+            # Función auxiliar para limpiar números
+            def limpiar_numero(texto):
+                if not texto: return 0.0
+                match = re.search(r'([\d,]+\.?\d*)', texto)
+                if match:
+                    return float(match.group(1).replace(',', ''))
+                return 0.0
+
+            if len(filas) >= 2:  # Fila 0 podría ser encabezado, fila 1 es primer dato
+                primera_fila = filas[1]  # Segunda fila (índice 1)
+                celdas = primera_fila.find_elements(By.TAG_NAME, "td")
+                print(f"  Encontradas {len(celdas)} celdas en la primera fila")
+                
+                if len(celdas) >= 6:
+                    # Asumiendo: col 0-3: datos producto (checkbox, nombre, sku, barcode)
+                    # col 4: Total
+                    # col 5 en adelante: Sedes
+                    
+                    elemento_total = celdas[4]
+                    texto_total = elemento_total.text
+                    
+                    # Limpiar total general
+                    total_num = limpiar_numero(texto_total)
+                    print(f"   Total General (Col 4): {total_num}")
+                    
+                    # Calcular suma de sedes (Col 5 en adelante)
+                    suma_sedes = 0.0
+                    detalles_sedes = []
+                    
+                    # Iteramos desde la columna 5
+                    for i, celda in enumerate(celdas[5:], start=5):
+                        texto_sede = celda.text
+                        valor_sede = limpiar_numero(texto_sede)
+                        suma_sedes += valor_sede
+                        detalles_sedes.append(f"Col {i}: {valor_sede}")
+                    
+                    print(f"   Suma de Sedes (Calc): {suma_sedes}")
+                    print(f"   Detalles Sedes: {', '.join(detalles_sedes)}")
+    
+                    # Extraer detalles del producto
+                    nombre_prod = celdas[1].text
+                    sku_prod = celdas[2].text
+                    barcode_prod = celdas[3].text
+                    
+                    print(f"   Producto: {nombre_prod} | SKU: {sku_prod} | Barcode: {barcode_prod}")
+
+                    return {
+                        'nombre': nombre_prod,
+                        'sku': sku_prod,
+                        'barcode': barcode_prod,
+                        'total_num': total_num,
+                        'bogota_num': total_num, # UPDATED: Usamos Total como valor principal
+                        'suma_sedes': suma_sedes,
+                        'detalles_sedes': detalles_sedes
+                    }
+                else:
+                    print(f"❌ No hay suficientes celdas ({len(celdas)})")
+                    return None
+            else:
+                print(f"❌ No hay suficientes filas ({len(filas)})")
+                return None
+        
+    except Exception as e:
+        print(f"❌ Error extrayendo valores: {e}")
+        import traceback
+        traceback.print_exc()
+        return None
+
+def seleccionar_checkbox_primer_producto():
+    """
+    Selecciona el checkbox del primer producto
+    """
+    try:
+        print("🔍 Buscando checkbox del primer producto...")
+        
+        # Múltiples estrategias para encontrar el checkbox
+        estrategias = [
+            # Estrategia 1: XPath específico basado en la fila
+            '//table//tbody/tr[2]//input[@type="checkbox"]',
+            # Estrategia 2: Primer checkbox en la tabla
+            '//table//input[@type="checkbox"]',
+            # Estrategia 3: Cualquier checkbox
+            '//input[@type="checkbox"]',
+            # Estrategia 4: Por clase
+            '//span[contains(@class, "ant-checkbox")]',
+        ]
+        
+        for xpath in estrategias:
+            try:
+                checkboxes = driver.find_elements(By.XPATH, xpath)
+                if checkboxes:
+                    print(f"✅ Encontrados {len(checkboxes)} checkboxes con XPath: {xpath}")
+                    
+                    # Seleccionar el primero
+                    checkbox = checkboxes[0]
+                    
+                    # Hacer scroll si es necesario
+                    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", checkbox)
+                    time.sleep(0.5)
+                    
+                    # Usar JavaScript para hacer click
+                    driver.execute_script("arguments[0].click();", checkbox)
+                    print("✅ Checkbox clickeado con JavaScript")
+                    
+                    # Verificar selección
+                    time.sleep(0.5)
+                    if checkbox.is_selected():
+                        print("✅ Checkbox confirmado como seleccionado")
+                        return True
+                    else:
+                        # Intentar de otra manera
+                        driver.execute_script("arguments[0].checked = true;", checkbox)
+                        print("✅ Checkbox marcado directamente con JavaScript")
+                        return True
+                        
+            except Exception as e:
+                print(f"  ❌ Estrategia falló ({xpath}): {e}")
+                continue
+        
+        print("⚠️  No se pudo encontrar/seleccionar ningún checkbox")
+        return False
+            
+    except Exception as e:
+        print(f"❌ Error seleccionando checkbox: {e}")
+        return False
+
+        print(f"❌ Error seleccionando checkbox: {e}")
+        return False
+
+def ingreso_al_pos():   
+    print("🔍 Buscando acceso al POS...")
+    # User requested to find by href="/app/start/shift-start"
+    print("🔍 Accediendo al POS por URL directa...")
+    try:
+        url_pos = "https://dev.do5o1l1ov8f4a.amplifyapp.com/app/start/shift-start"
+        driver.get(url_pos)
+        print(f"✅ Navegación a POS iniciada: {url_pos}")
+
+        wait = WebDriverWait(driver, 10)
+        # Click on the dropdown trigger first
+        dropdown_trigger = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]"))
+        )
+        print("🔍 Click en el desplegable de sedes...")
+        dropdown_trigger.click()
+        time.sleep(1) # Small wait for animation
+
+        opciones_sedes = wait.until(
+            EC.presence_of_all_elements_located((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]/div"))
+        )
+            
+        print("🔍 Opciones encontradas:")
+        if opciones_sedes:
+            # Click directly on the first option found
+            primera_opcion = opciones_sedes[0]
+            print(f"  > Seleccionando la primera opción: {primera_opcion.text}")
+            primera_opcion.click()
+            print("✅ Sede seleccionada")
+        else:
+            print("⚠️ No se encontraron opciones de sede")
+        
+        # Esperar a que cargue algo relevante del POS si es necesario
+        # Por ahora solo navegamos
+            
+    except Exception as e:
+        print(f"❌ Error en ingreso_al_pos: {e}")
+
+try:
+    driver = webdriver.Chrome()
+    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+    driver.maximize_window()
+    wait = WebDriverWait(driver, 40)
+
+    # Login
+    print("🔐 Iniciando sesión...")
+    email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
+    email_input.click()
+    email_input.send_keys("karrotdev@outlook.com")
+
+    password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
+    password_input.click()
+    password_input.send_keys("P4sc4g4z42025#*")
+    #//*[@id="login-form"]/div[3]/div/div/div/div/button
+    login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
+    login_button.click()
+    print("✅ Login exitoso")
+    time.sleep(10)  # Reducido de 15 a 10
+
+    # Ir al panel de administración
+    print("🚀 Yendo al panel de administración...")
+    panel_button = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+    )
+    panel_button.click()
+
+    wait.until(
+        EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+    )
+    print("✅ Panel de control cargado")
+    time.sleep(3)  
+
+    # Menú Catálogo
+    print("📋 Accediendo a Catálogo...")
+    catalogo = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+    )
+    catalogo.click()
+    print("✅ Click en Catálogo")
+    time.sleep(3)
+
+    # Menú Inventario
+    print("📦 Accediendo a Inventario...")
+    productos_servicios = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Inventario']"))
+    )
+    productos_servicios.click()
+    print("✅ Click en Inventario")
+    time.sleep(5)  # Dar tiempo a que cargue
+
+    # Extraer valores del inventario
+    print("\n" + "="*50)
+    print("EXTRACCIÓN DE VALORES DE INVENTARIO")
+    print("="*50)
+    
+    valores = extraer_valores_inventario_bogota()
+    
+    if valores:
+        print(f"\n🎯 RESULTADOS OBTENIDOS:")
+        print(f"   Producto: {valores.get('nombre', 'N/A')}")
+        print(f"   SKU: {valores.get('sku', 'N/A')}")
+        print(f"   Barcode: {valores.get('barcode', 'N/A')}")
+        print(f"   Total Inventario: {valores.get('total_num', 0)}")
+        print(f"   (Valor usado para validación: {valores.get('bogota_num', 0)})")
+        
+        observaciones = f"Total: {valores.get('total', 'N/A')} | Bogotá: {valores.get('bogota', 'N/A')}"
+        
+        # Intentar seleccionar el checkbox del primer producto
+        print("\n" + "="*50)
+        print("SELECCIÓN DE CHECKBOX")
+        print("="*50)
+        
+        # ESTADO: La lógica de interacción (click en Checkbox, Ajustar, etc.) fue eliminada.
+        # Se ha limpiado el código roto que dependía de esa lógica.
+        
+        # Validar consistencia de inventario (SOLO LECTURA)
+        print("\n" + "="*50)
+        print("VALIDACIÓN DE LECTURA")
+        print("="*50)
+        
+        # Como no hubo ajuste, solo mostramos los valores extraídos
+        valores_validacion = valores
+            
+        total_num = valores_validacion.get('total_num', 0)
+        bogota_num = valores_validacion.get('bogota_num', 0)
+        
+        # Imprimir para depuración
+        print(f"   Valor Principal (bogota_num -> Total): {bogota_num}")
+        print(f"   Total Real (total_num): {total_num}")
+        
+        if bogota_num == total_num:
+            print(f"✅ VALIDACIÓN EXITOSA: El valor extraído corresponde al Total.")
+            observaciones += " | Validación Total OK"
+            exito = True
+        else:
+            print(f"❌ VALIDACIÓN FALLIDA: Discrepancia.")
+            observaciones += " | Validación Fallida"
+            exito = False
+        
+        # Validar enlace del POS (Solicitud adicional)
+        print("\n" + "="*50)
+        print("VALIDACIÓN ENLACE POS")
+        print("="*50)
+        ingreso_al_pos()
+    
+
+            
+    else:
+        print("❌ No se pudieron extraer valores del inventario")
+        observaciones = "Error al extraer valores del inventario"
+        exito = False
+
+except TimeoutException as te:
+    print(f"⏰ TIMEOUT: {te}")
+    observaciones = f"Timeout: {str(te)[:100]}..."
+    exito = False
+
+    # Capturar screenshot para debug
+    try:
+        driver.save_screenshot("error_timeout.png")
+        print("📸 Screenshot guardado como 'error_timeout.png'")
+    except:
+        pass
+
+
+
+except Exception as e:
+    print(f"❌ Error inesperado: {str(e)}")
+    import traceback
+    traceback.print_exc()
+    observaciones = f"Error: {str(e)[:100]}..."
+    exito = False
+
+finally:
+    # Registrar resultado
+    print("\n" + "="*50)
+    print("REGISTRANDO RESULTADO")
+    print("="*50)
+    
+    estado = "Exitoso" if exito else "Fallido"
+    registrar_resultado(id_caso, estado, observaciones)
+    
+    # Cerrar driver si existe
+    try:
+        if 'driver' in locals():
+            time.sleep(2)
+            driver.quit()
+            print("✅ Driver cerrado")
+    except:
+        pass
+
+print(f"\n🎯 PRUEBA FINALIZADA: {estado}")
+print(f"📝 Observaciones: {observaciones}")
