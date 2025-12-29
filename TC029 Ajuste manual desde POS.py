@@ -43,7 +43,7 @@ url_final = ""
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
 # =====================
-id_caso = "TC028"
+id_caso = "TC029"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
     """
@@ -273,7 +273,6 @@ def seleccionar_checkbox_primer_producto():
 
 def ingreso_al_pos():   
     print("🔍 Buscando acceso al POS...")
-    # User requested to find by href="/app/start/shift-start"
     print("🔍 Accediendo al POS por URL directa...")
     try:
         url_pos = "https://dev.do5o1l1ov8f4a.amplifyapp.com/app/start/shift-start"
@@ -281,33 +280,168 @@ def ingreso_al_pos():
         print(f"✅ Navegación a POS iniciada: {url_pos}")
 
         wait = WebDriverWait(driver, 10)
-        # Click on the dropdown trigger first
-        dropdown_trigger = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]"))
-        )
-        print("🔍 Click en el desplegable de sedes...")
-        dropdown_trigger.click()
-        time.sleep(1) # Small wait for animation
-
-        opciones_sedes = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]/div"))
-        )
-            
-        print("🔍 Opciones encontradas:")
-        if opciones_sedes:
-            # Click directly on the first option found
-            primera_opcion = opciones_sedes[0]
-            print(f"  > Seleccionando la primera opción: {primera_opcion.text}")
-            primera_opcion.click()
-            print("✅ Sede seleccionada")
-        else:
-            print("⚠️ No se encontraron opciones de sede")
         
-        # Esperar a que cargue algo relevante del POS si es necesario
-        # Por ahora solo navegamos
+        # 1. Click dropdown trigger
+        print("🔍 Click en el desplegable de sedes...")
+        try:
+            # Volvemos al XPath específico que sabemos que funciona para ABRIR el menú
+            dropdown_trigger = wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]"))
+            )
+            dropdown_trigger.click()
+            print("✅ Click en dropdown (XPath específico)")
+        except Exception as e:
+             print(f"⚠️ Falló click inicial ({e}), intentando por texto...")
+             # Fallback secundario
+             dropdown_trigger = wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Selecciona Ubicacion')]/.."))
+             )
+             dropdown_trigger.click()
+        
+        time.sleep(1) # Esperar animación del menú
+
+        # 2. Seleccionar Opción
+        print("🔍 Buscando opción de sede...")
+        try:
+            # Estrategia 1: Buscar 'sede bogota' usando (.) para incluir hijos. 
+            # IMPORTANTE: El menú ya debe estar abierto.
+            # UPDATED: Buscamos un elemento leaf (sin hijos con texto) o div específico para evitar contenedores de tamaño 0
+            opcion = wait.until(
+                EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'sede bogota')] | //*[contains(., 'sede bogota') and not(contains(., 'Selecciona')) and count(.//*)=0]"))
+            )
+            print(f"  > Opción encontrada: {opcion.text or 'Elemento sin texto directo'}")
+            
+            # Scroll para asegurar visibilidad
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", opcion)
+            time.sleep(0.5)
+            
+            try:
+                opcion.click()
+                print("✅ Sede seleccionada (Click Normal)")
+            except Exception as e:
+                print(f"⚠️ Falló Click Normal ({e}), intentando JS Click...")
+                driver.execute_script("arguments[0].click();", opcion)
+                print("✅ Sede seleccionada (JS Click)")
+            
+        except Exception as e:
+            print(f"⚠️ Falló estrategia específica ({e}), intentando genérica...")
+            try:
+                 # Estrategia 2: Cualquier elemento con 'sede' que sea visible
+                opciones_genericas = wait.until(
+                    EC.presence_of_all_elements_located((By.XPATH, "//*[contains(., 'sede') and not(contains(., 'Selecciona'))]"))
+                )
+                
+                # Filtramos visibles y que tengan un tamaño razonable 
+                opciones_candidatas = []
+                for opt in opciones_genericas:
+                    if opt.is_displayed() and opt.size['height'] > 0: 
+                        opciones_candidatas.append(opt)
+                
+                if opciones_candidatas:
+                    opcion_final = opciones_candidatas[0]
+                    print(f"  > Seleccionando opción genérica: {opcion_final.text[:50]}...")
+                    driver.execute_script("arguments[0].click();", opcion_final)
+                    print("✅ Sede seleccionada (Genérica JS)")
+                else:
+                    print("❌ No se encontraron opciones interactuables")
+                    raise Exception("No se pudo seleccionar la sede (ni específica ni genérica)")
+
+            except Exception as ex_gen:
+                print(f"❌ Error final selección: {ex_gen}")
+                raise ex_gen
+        
+        time.sleep(2)
+
+        # ==========================================
+        # 3. SELECCIONAR CAJA
+        # ==========================================
+        print("\n🔍 Buscando desplegable de CAJA...")
+        try:
+            # Esperar antes de interactuar
+            time.sleep(2)
+            
+            print("  Estrategia TECLADO: Enfocar y usar flechas (evita clicks)...")
+            
+            # Buscar el input oculto de Ant Design
+            # Suele tener clase 'ant-select-selection-search-input'
+            xpath_input = "//input[contains(@class, 'ant-select-selection-search-input')]"
+            
+            try:
+                # Buscamos todos los inputs de este tipo
+                inputs = driver.find_elements(By.XPATH, xpath_input)
+                
+                # ASUNCIÓN: El primer input fue Sede, el segundo debería ser Caja
+                # Filtramos por visibilidad o posición si es necesario, pero usualmente 
+                # estos inputs técnicamente no son "visibles" porque tienen opacity 0.
+                
+                target_input = None
+                
+                # Intentamos encontrar el que corresponde a la caja buscando el label cercano
+                for inp in inputs:
+                     # Verificamos si tiene el ID rc_select_2 o está cerca del texto "Selecciona Caja"
+                     try:
+                         id_attr = inp.get_attribute('id')
+                         if id_attr == 'rc_select_2':
+                             target_input = inp
+                             print("  > Input encontrado por ID rc_select_2")
+                             break
+                     except: pass
+                
+                # Si no encontramos por ID, usamos el último input de la página (a veces es el orden lógico)
+                if not target_input and inputs:
+                    target_input = inputs[-1]
+                    print("  > Usando el último input de selección encontrado (Probable Caja)")
+
+                if target_input:
+                    # 1. Enfocar forzosamente con JS
+                    driver.execute_script("arguments[0].focus();", target_input)
+                    print("  > Input enfocado con JS")
+                    time.sleep(0.5)
+                    
+                    # 2. Enviar Flecha AABAJO para abrir menú
+                    # Nota: Enviamos claves al activo o al body si el input es rarito
+                    target_input.send_keys(Keys.DOWN)
+                    print("  > Enviada tecla DOWN para abrir")
+                    time.sleep(1)
+                    
+                    # 3. Enviar ENTER para seleccionar el primero que esté resaltado (o DOWN + ENTER)
+                    target_input.send_keys(Keys.ENTER)
+                    print("  > Enviada tecla ENTER para seleccionar")
+                    
+                    # Fallback opcional: Si no se seleccionó, intentar DOWN + ENTER
+                    time.sleep(1)
+                    target_input.send_keys(Keys.DOWN)
+                    target_input.send_keys(Keys.ENTER)
+                    print("  > Enviada secuencia DOWN+ENTER de respaldo")
+                    
+                else:
+                    print("❌ No se encontraron inputs de selección.")
+                    raise Exception("Inputs no encontrados")
+
+            except Exception as e_key:
+                print(f"⚠️ Falló estrategia teclado: {e_key}")
+                # Fallback final a click JS en texto
+                print("  Intentando click JS forzado en texto 'Selecciona Caja'...")
+                driver.execute_script("var x = document.evaluate(\"//div[contains(text(), 'Selecciona Caja')]\", document, null, 9, null).singleNodeValue; if(x) x.click();")
+
+        except Exception as e:
+             print(f"❌ Error crítico seleccionando Caja: {e}")
+             try:
+                driver.save_screenshot("error_caja_critico.png")
+             except: pass
+        
+        # Validación final de que estamos en el POS (o intento de continuar)
+        time.sleep(2) 
+
+        time.sleep(2)
             
     except Exception as e:
         print(f"❌ Error en ingreso_al_pos: {e}")
+        try:
+            driver.save_screenshot("error_pos_seleccion.png")
+            print("📸 Screenshot guardado: error_pos_seleccion.png")
+        except:
+            pass
 
 try:
     driver = webdriver.Chrome()
@@ -376,7 +510,7 @@ try:
         print(f"   Total Inventario: {valores.get('total_num', 0)}")
         print(f"   (Valor usado para validación: {valores.get('bogota_num', 0)})")
         
-        observaciones = f"Total: {valores.get('total', 'N/A')} | Bogotá: {valores.get('bogota', 'N/A')}"
+        observaciones = f"Total: {valores.get('total_num', 'N/A')} | Bogotá: {valores.get('bogota_num', 'N/A')}"
         
         # Intentar seleccionar el checkbox del primer producto
         print("\n" + "="*50)
