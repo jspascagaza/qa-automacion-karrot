@@ -431,9 +431,16 @@ def ingreso_al_pos():
              except: pass
         
         # Validación final de que estamos en el POS (o intento de continuar)
-        time.sleep(2) 
+        time.sleep(5) 
 
-        time.sleep(2)
+        # 4. Click en boton ingresar
+        print("🔍 Buscando boton ingresar...")
+        try:
+            boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[3]/button")))
+            boton_ingresar.click()
+            print("✅ Boton ingresar clickeado")
+        except Exception as e:
+            print(f"⚠️ Falló click en boton ingresar: {e}")
             
     except Exception as e:
         print(f"❌ Error en ingreso_al_pos: {e}")
@@ -442,6 +449,31 @@ def ingreso_al_pos():
             print("📸 Screenshot guardado: error_pos_seleccion.png")
         except:
             pass
+
+def validacion_pos():
+    try:
+        print("🚀 Validando POS...")
+        seleccionar_checkbox_primer_producto = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[2]/div/div/div")))
+        seleccionar_checkbox_primer_producto.click()
+        print("✅ Checkbox primer producto seleccionado")
+        time.sleep(5)
+        boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[9]/div/div[2]/div/div[2]/div[2]/div/div[2]/button")))
+        boton_agregar.click()
+        print("✅ Boton agregar clickeado")
+
+        
+
+
+
+
+    except Exception as e:
+        print(f"❌ Error en validacion_pos: {e}")
+        try:
+            driver.save_screenshot("error_pos_validacion.png")
+            print("📸 Screenshot guardado: error_pos_validacion.png")
+        except:
+            pass
+
 
 try:
     driver = webdriver.Chrome()
@@ -549,6 +581,9 @@ try:
         print("VALIDACIÓN ENLACE POS")
         print("="*50)
         ingreso_al_pos()
+        validacion_pos()
+
+
     
 
             
