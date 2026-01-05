@@ -450,16 +450,78 @@ def ingreso_al_pos():
         except:
             pass
 
-def validacion_pos():
+def validacion_pos(inventario_maximo=0):
     try:
         print("🚀 Validando POS...")
         seleccionar_checkbox_primer_producto = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[2]/div/div/div")))
         seleccionar_checkbox_primer_producto.click()
         print("✅ Checkbox primer producto seleccionado")
         time.sleep(5)
-        boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "/html/body/div[9]/div/div[2]/div/div[2]/div[2]/div/div[2]/button")))
+        # Usar un XPath más robusto basado en el texto del botón
+        # Buscamos un botón que contenga "Agregar" (o su span hijo)
+        boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Añadir al carrito')]")))
         boton_agregar.click()
         print("✅ Boton agregar clickeado")
+
+        time.sleep(2)
+        
+        # 5. Ingresar cantidad aleatoria
+        print("🔍 Buscando campo de cantidad...")
+        try:
+            # Click en el botón de cantidad (el que indicó el usuario)
+            boton_cantidad = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="cart-list"]/div/div/div/div/ul/div/div[2]/div[1]/button[2]')))
+            boton_cantidad.click()
+            print("✅ Click en botón de cantidad")
+            
+            time.sleep(1)
+            
+            # Generar cantidad aleatoria
+            max_val = int(inventario_maximo) if inventario_maximo > 1 else 1
+            cantidad_random = random.randint(1, max_val)
+            print(f"🎲 Cantidad aleatoria generada: {cantidad_random} (Max: {max_val})")
+            
+            # Buscar el input dentro del popover (ajustado para ser más robusto)
+            # Buscamos un input numérico visible o el input de Ant Design
+            try:
+                # Intento 1: Input genérico visible (el popover debería ser lo último abierto)
+                input_cantidad = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-popover')]//input | //input[@type='text' or @type='number']")))
+                
+                # Limpiar usando Ctrl+A (más seguro para inputs de React/AntD)
+                input_cantidad.send_keys(Keys.CONTROL + "a")
+                input_cantidad.send_keys(Keys.BACKSPACE)
+                time.sleep(0.2)
+                input_cantidad.send_keys(str(cantidad_random))
+                print(f"✅ Cantidad {cantidad_random} escrita en input")
+                
+                time.sleep(0.5)
+                
+                # Buscar y clickear el botón "Yes" usando el XPath proporcionado por el usuario
+                # /html/body/div[13]/div/div/div/div[2]/div/div[1]/div/div
+                print("  Click en 'Yes' usando XPath de usuario...")
+                try:
+                    xpath_yes_user = "/html/body/div[13]/div/div/div/div[2]/div/div[1]/div/div"
+                    # Es posible que el botón sea un hijo de ese div o ese div mismo. 
+                    # Intentamos clickear el elemento en esa ruta, o un botón dentro.
+                    boton_yes = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_yes_user)))
+                    boton_yes.click()
+                    print("✅ Botón 'Yes' clickeado (XPath Usuario)")
+                except Exception as e_xp:
+                    print(f"⚠️ Falló XPath usuario por: {e_xp}, intentando por texto 'Yes'...")
+                    boton_yes = driver.find_element(By.XPATH, "//button[contains(., 'Yes')]")
+                    boton_yes.click()
+                    print("✅ Botón 'Yes' clickeado (Fallback Texto)")
+                
+            except Exception as e_input:
+                print(f"⚠️ Error interactuando con popover: {e_input}")
+                # Fallback a ActionChains si el input específico falla
+                actions = ActionChains(driver)
+                actions.send_keys(str(cantidad_random))
+                actions.send_keys(Keys.ENTER)
+                actions.perform()
+                print("⚠️ Usado fallback ActionChains")
+            
+        except Exception as e:
+            print(f"⚠️ Error ingresando cantidad: {e}")
 
         
 
@@ -581,7 +643,7 @@ try:
         print("VALIDACIÓN ENLACE POS")
         print("="*50)
         ingreso_al_pos()
-        validacion_pos()
+        validacion_pos(valores.get('bogota_num', 0))
 
 
     
