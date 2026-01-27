@@ -25,7 +25,7 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    r"C:\Users\yonas\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
     scope
 )
 client = gspread.authorize(creds)
@@ -453,10 +453,79 @@ def ingreso_al_pos():
 def validacion_pos(inventario_maximo=0):
     try:
         print("🚀 Validando POS...")
-        seleccionar_checkbox_primer_producto = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[2]/div/div/div")))
-        seleccionar_checkbox_primer_producto.click()
-        print("✅ Checkbox primer producto seleccionado")
-        time.sleep(5)
+        
+        # 1. Seleccionar primer producto (Checkbox)
+        try:
+            print("⏳ Buscando producto en POS...")
+            # XPath original del usuario
+            xpath_producto = "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[2]/div/div[3]"
+            
+            # Intentar scroll primero
+            producto = wait.until(EC.presence_of_element_located((By.XPATH, xpath_producto)))
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", producto)
+            time.sleep(0.5)
+            producto.click()
+            print("✅ Checkbox primer producto seleccionado")
+        except Exception as e:
+            print(f"⚠️ Falló selección producto con XPath original: {e}")
+            # Fallback: buscar cualquier producto clickable en la grilla
+            print("  Intentando selector genérico de producto...")
+            producto = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'product-card')] | //div[contains(@class, 'ant-card')]")))
+            producto.click()
+            print("✅ Producto seleccionado (Genérico)")
+
+        # 2. Seleccionar Atributo (Sabor/Memoria/Color)
+        # El usuario reportó error en: //*[@id='advanced_search_memoria']/label[2]/span[1]
+        try:
+            print("⏳ Buscando atributos del producto...")
+            
+            # Estrategia: Buscar cualquier contenedor de búsqueda avanzada que sea visible
+            # IDs comunes: advanced_search_memoria, advanced_search_color, etc.
+            
+            # Esperar a que aparezca algún panel de atributos
+            time.sleep(1)
+            
+            # Intentar encontrar el contenedor específico o genérico
+            xpath_atributos = [
+                "//*[@id='advanced_search_memoria']//label",        # El específico del usuario (todos los labels hijos)
+                "//div[contains(@id, 'advanced_search')]//label",   # Genérico por ID
+                "//div[contains(@class, 'ant-radio-group')]//label" # Genérico por clase AntD
+            ]
+            
+            opcion_atributo = None
+            for xpath in xpath_atributos:
+                try:
+                    opciones = driver.find_elements(By.XPATH, xpath)
+                    # Filtrar visibles
+                    opciones_visibles = [op for op in opciones if op.is_displayed()]
+                    
+                    if opciones_visibles:
+                        # Seleccionar el segundo si existe (como quería el usuario), sino el primero
+                        if len(opciones_visibles) >= 2:
+                            opcion_atributo = opciones_visibles[1] 
+                        else:
+                            opcion_atributo = opciones_visibles[0]
+                            
+                        print(f"✅ Opción de atributo encontrada con: {xpath}")
+                        break
+                except:
+                    continue
+            
+            if opcion_atributo:
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", opcion_atributo)
+                time.sleep(0.5)
+                opcion_atributo.click()
+                print("✅ Atributo seleccionado exitosamente")
+            else:
+                print("⚠️ No se encontraron atributos para seleccionar (puede que el producto no tenga variantes)")
+                
+        except Exception as e:
+            print(f"❌ Error seleccionando atributo: {e}")
+            # No lanzamos excepción crítica, intentamos seguir al botón agregar
+            
+        time.sleep(2) # Esperar tras selección
+            
+        # 3. Botón Agregar
         # Usar un XPath más robusto basado en el texto del botón
         # Buscamos un botón que contenga "Agregar" (o su span hijo)
         boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Añadir al carrito')]")))
@@ -492,42 +561,50 @@ def validacion_pos(inventario_maximo=0):
                 time.sleep(0.2)
                 input_cantidad.send_keys(str(cantidad_random))
                 print(f"✅ Cantidad {cantidad_random} escrita en input")
-                
                 time.sleep(0.5)
                 
-                # Buscar y clickear el botón "Yes" usando el XPath proporcionado por el usuario
-                # /html/body/div[13]/div/div/div/div[2]/div/div[1]/div/div
-                print("  Click en 'Yes' usando XPath de usuario...")
+                # Intentar confirmar usando ENTER en el input (método más rápido y fiable en React)
+                print("  Confirmando cantidad...")
+                input_cantidad.send_keys(Keys.ENTER)
+                time.sleep(0.5)
+                
+                # Verificar si el popover se cerró (éxito)
                 try:
-                    xpath_yes_user = "/html/body/div[13]/div/div/div/div[2]/div/div[1]/div/div"
-                    # Es posible que el botón sea un hijo de ese div o ese div mismo. 
-                    # Intentamos clickear el elemento en esa ruta, o un botón dentro.
-                    boton_yes = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_yes_user)))
-                    boton_yes.click()
-                    print("✅ Botón 'Yes' clickeado (XPath Usuario)")
-                except Exception as e_xp:
-                    print(f"⚠️ Falló XPath usuario por: {e_xp}, intentando por texto 'Yes'...")
-                    boton_yes = driver.find_element(By.XPATH, "//button[contains(., 'Yes')]")
-                    boton_yes.click()
-                    print("✅ Botón 'Yes' clickeado (Fallback Texto)")
+                    # Si el input ya no es visible o interactuable, asumimos que se cerró
+                    if not input_cantidad.is_displayed():
+                        print("✅ Cantidad confirmada con ENTER")
+                    else:
+                        raise Exception("Popover sigue abierto tras ENTER")
+                except:
+                    # Si falló ENTER, intentamos clickear el botón "Yes"
+                    print("⚠️ ENTER no cerró el popover, intentando click en 'Yes'...")
+                    try:
+                        # Buscamos el botón Yes específicamente dentro de un popover o globalmente por texto
+                        # Priorizamos el botón visible con texto "Yes"
+                        xpath_yes = "//div[contains(@class, 'ant-popover')]//button[contains(., 'Yes')] | //button[contains(., 'Yes')]"
+                        
+                        boton_yes = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_yes)))
+                        boton_yes.click()
+                        print("✅ Botón 'Yes' clickeado")
+                    except Exception as e_click:
+                        print(f"❌ Falló click en 'Yes': {e_click}")
+                        
+                        # Último recurso: JS Click en cualquier cosa que diga "Yes"
+                        driver.execute_script("var xpath = \"//div[contains(text(), 'Yes')]\"; var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; if (matchingElement) matchingElement.click();")
+                        print("⚠️ Intentado JS Click en texto 'Yes'")
                 
             except Exception as e_input:
                 print(f"⚠️ Error interactuando con popover: {e_input}")
-                # Fallback a ActionChains si el input específico falla
+                # Fallback a ActionChains global
                 actions = ActionChains(driver)
                 actions.send_keys(str(cantidad_random))
                 actions.send_keys(Keys.ENTER)
                 actions.perform()
-                print("⚠️ Usado fallback ActionChains")
+                print("⚠️ Usado fallback ActionChains global")
             
         except Exception as e:
             print(f"⚠️ Error ingresando cantidad: {e}")
-
-        
-
-
-
-
+            
     except Exception as e:
         print(f"❌ Error en validacion_pos: {e}")
         try:
