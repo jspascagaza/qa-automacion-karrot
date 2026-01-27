@@ -25,7 +25,7 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    r"C:\Users\karrot\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    r"C:\Users\yonas\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
     scope
 )
 client = gspread.authorize(creds)
@@ -354,6 +354,65 @@ try:
                 ))
                 print("✅ Pantalla de ajuste aparecida")
                 observaciones += " | Botón Ajustar clickeado"
+
+                # --- SELECCIÓN DE SEDE ---
+                try:
+                    print("⏳ Buscando selector de Sede...")
+                    
+                    # Estrategias para encontrar el dropdown de ubicación
+                    estrat_dropdown = [
+                        # 1. Por el label "Ubicación" (Más robusto)
+                        "//label[contains(., 'Ubicación')]/../..//div[contains(@class, 'ant-select-selector')]",
+                        # 2. Por clase de ant-modal y select
+                        "//div[contains(@class, 'ant-modal-content')]//div[contains(@class, 'ant-select-selector')]",
+                        # 3. XPath directo si los anteriores fallan (input)
+                        "//input[contains(@id, 'rc_select')]",
+                    ]
+                    
+                    dropdown = None
+                    for xpath in estrat_dropdown:
+                        try:
+                            print(f"  Probando selector: {xpath}")
+                            dropdown = wait.until(EC.element_to_be_clickable((By.XPATH, xpath)))
+                            if dropdown:
+                                print(f"✅ Dropdown encontrado con: {xpath}")
+                                break
+                        except:
+                            continue
+                            
+                    if not dropdown:
+                        raise Exception("No se pudo encontrar el dropdown de ubicación con ninguna estrategia")
+                    
+                    # Click en el dropdown
+                    dropdown.click()
+                    print("✅ Dropdown de Ubicación clickeado")
+                    
+                    time.sleep(1) # Esperar animación de despliegue
+                    
+                    # Seleccionar la primera opción disponible
+                    # Usamos un selector general para opciones de Ant Design
+                    print("⏳ Buscando opciones...")
+                    opcion = wait.until(EC.element_to_be_clickable(
+                        (By.XPATH, "//div[contains(@class, 'ant-select-dropdown') and not(contains(@class, 'ant-select-dropdown-hidden'))]//div[contains(@class, 'ant-select-item-option') and not(contains(@class, 'ant-select-item-option-disabled'))]")
+                    ))
+                    
+                    nombre_sede = opcion.text
+                    print(f"✅ Opción encontrada: {nombre_sede}")
+                    opcion.click()
+                    print(f"✅ Sede seleccionada: {nombre_sede}")
+                    observaciones += f" | Sede: {nombre_sede}"
+                    
+                    time.sleep(1) # Esperar actualización UI
+                    
+                except Exception as e:
+                    print(f"⚠️ Error/Advertencia en selección de sede: {e}")
+                    observaciones += " | Fallo Selección Sede"
+                    # Captura de pantalla para debug
+                    try:
+                        driver.save_screenshot("error_sede.png")
+                        print("📸 Screenshot error_sede.png guardado")
+                    except: pass
+                # --- FIN SELECCIÓN DE SEDE ---
                 
                 # --- NUEVO CÓDIGO INPUT ---
                 try:
