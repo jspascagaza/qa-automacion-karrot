@@ -759,23 +759,43 @@ try:
     print("✅ Panel de control cargado")
     time.sleep(3)  
 
-    # Menú Catálogo
-    print("📋 Accediendo a Catálogo...")
-    catalogo = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
-    )
-    catalogo.click()
-    print("✅ Click en Catálogo")
+    # Menú Inventario (Desplegable)
+    print("� Desplegando menú Inventario...")
+    # Click en el menú padre 'Inventario'
+    try:
+        menu_inventario_padre = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Inventario']"))
+        )
+        menu_inventario_padre.click()
+        print("✅ Click en Inventario (Padre)")
+        time.sleep(2)
+        
+        # Submenú Inventario
+        print("📦 Accediendo a opción Inventario...")
+        # Estrategia: Buscar el item de menú (hijo) que contiene el texto 'Inventario'
+        # Usamos //li[contains(@class, 'ant-menu-item')] para diferenciar del padre
+        submenu_inventario = wait.until(
+            EC.element_to_be_clickable((By.XPATH, "//li[contains(@class, 'ant-menu-item')]//span[normalize-space()='Inventario']"))
+        )
+        submenu_inventario.click()
+        print("✅ Click en Submenú Inventario")
+        time.sleep(5)
+        
+    except Exception as e:
+        print(f"⚠️ Error en navegación Inventario -> Inventario: {e}")
+        # Fallback: intentar buscar por texto visible si la estructura es diferente
+        try:
+             print("  Intentando fallback: click en segundo elemento 'Inventario' visible...")
+             elementos = driver.find_elements(By.XPATH, "//span[normalize-space()='Inventario']")
+             visibles = [el for el in elementos if el.is_displayed()]
+             if len(visibles) >= 2:
+                 visibles[1].click()
+             else:
+                 print("  No se encontraron 2 elementos visibles.")
+        except: pass
+    
+    # Asegurar tiempo de carga
     time.sleep(3)
-
-    # Menú Inventario
-    print("📦 Accediendo a Inventario...")
-    productos_servicios = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Inventario']"))
-    )
-    productos_servicios.click()
-    print("✅ Click en Inventario")
-    time.sleep(5)  # Dar tiempo a que cargue
 
     # Extraer valores del inventario
     print("\n" + "="*50)
