@@ -3,6 +3,7 @@ import datetime
 from socket import timeout
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -268,9 +269,6 @@ def seleccionar_checkbox_primer_producto():
         print(f"❌ Error seleccionando checkbox: {e}")
         return False
 
-        print(f"❌ Error seleccionando checkbox: {e}")
-        return False
-
 def ingreso_al_pos():   
     print("🔍 Buscando acceso al POS...")
     print("🔍 Accediendo al POS por URL directa...")
@@ -452,6 +450,18 @@ def ingreso_al_pos():
 
 def validacion_pos(inventario_maximo=0):
     try:
+        # --- BLOQUEO REFORZADO DE IMPRESIÓN ---
+        # Bloqueamos la función print en el window principal y tratamos de hacerlo preventivamente
+        print("🚫 Bloqueando funciones de impresión vía JavaScript...")
+        driver.execute_script("""
+            window.print = function() { console.log('Print blocked by automation'); };
+            Object.defineProperty(window, 'print', { value: function() { console.log('Print blocked'); }, writable: false });
+            // Bloqueo para posibles iframes
+            var style = document.createElement('style');
+            style.innerHTML = '@media print { body { display: none !important; } }';
+            document.head.appendChild(style);
+        """)
+        
         print("🚀 Validando POS...")
         
         # 1. Seleccionar primer producto (Checkbox)
@@ -696,6 +706,7 @@ def validacion_pos(inventario_maximo=0):
         # 9. Click en Confirmar Venta
         print("🔍 Buscando botón 'Confirmar Venta'...")
         try:
+            # --- CONFIRMACIÓN ---
             time.sleep(2) # Esperar a que se habilite el botón
             
             # XPath específico proporcionado por el usuario
@@ -707,15 +718,52 @@ def validacion_pos(inventario_maximo=0):
                 print("✅ 'Confirmar Venta' clickeado (XPath Usuario)")
             except Exception as e_xpath:
                 print(f"⚠️ Falló XPath usuario para Confirmar Venta: {e_xpath}")
-                # Fallback: Buscar por texto
-                print("  Intentando buscar por texto 'Confirmar Venta'...")
                 boton_confirmar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Confirmar Venta')] | //span[contains(text(), 'Confirmar Venta')]")))
                 boton_confirmar.click()
                 print("✅ 'Confirmar Venta' clickeado (Por texto)")
+
+            time.sleep(5)
+            ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+            print("✅ ESC enviado después de 'Confirmar Venta'")
+
+            # --- PASOS POST-VENTA ---
+            print("⏳ Procediendo con pasos post-venta...")
+            time.sleep(3)
+
+            # Click en botón 'Hecho'
+            print("🔍 Buscando botón 'Hecho'...")
+            xpath_hecho = "/html/body/div[27]/div/div[2]/div/div[2]/div[2]/div/div[2]/button"
+            try:
+                boton_hecho = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_hecho)))
+                boton_hecho.click()
+                print("✅ Botón 'Hecho' clickeado")
+            except Exception as e:
+                print(f"⚠️ Falló XPath para Hecho, intentando por texto: {e}")
+                boton_hecho = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Hecho')]")))
+                boton_hecho.click()
+                print("✅ Botón 'Hecho' clickeado (Por texto)")
+
+            time.sleep(3)
+
+            # Click en 'Finalizar turno'
+            print("🔍 Buscando botón 'Finalizar turno'...")
+            xpath_finalizar_turno = "//*[@id='root']/div/section/header/div/div[2]/div[2]/div[1]/button[2]"
+            try:
+                boton_finalizar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_finalizar_turno)))
+                boton_finalizar.click()
+                print("✅ Botón 'Finalizar turno' clickeado")
+            except Exception as e:
+                print(f"⚠️ Falló XPath para Finalizar turno, intentando por texto: {e}")
+                boton_finalizar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Finalizar Turno')]")))
+                boton_finalizar.click()
+                print("✅ Botón 'Finalizar turno' clickeado (Por texto)")
                 
-        except Exception as e:
-            print(f"⚠️ Falló click en Confirmar Venta: {e}")
-            
+        except Exception as e_post:
+            print(f"⚠️ Error en confirmación o pasos post-venta: {e_post}")
+            try:
+                driver.save_screenshot("error_post_venta.png")
+            except: pass
+
     except Exception as e:
         print(f"❌ Error en validacion_pos: {e}")
         try:
@@ -726,7 +774,12 @@ def validacion_pos(inventario_maximo=0):
 
 
 try:
-    driver = webdriver.Chrome()
+    # Configuración de Chrome para bloquear diálogos de impresión
+    chrome_options = Options()
+    # --kiosk-printing silencia tanto la vista previa de Chrome como el diálogo del sistema
+    chrome_options.add_argument('--kiosk-printing')
+    
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     wait = WebDriverWait(driver, 40)
@@ -772,13 +825,22 @@ try:
         
         # Submenú Inventario
         print("📦 Accediendo a opción Inventario...")
-        # Estrategia: Buscar el item de menú (hijo) que contiene el texto 'Inventario'
-        # Usamos //li[contains(@class, 'ant-menu-item')] para diferenciar del padre
-        submenu_inventario = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//li[contains(@class, 'ant-menu-item')]//span[normalize-space()='Inventario']"))
-        )
-        submenu_inventario.click()
-        print("✅ Click en Submenú Inventario")
+        try:
+            # Estrategia Principal: Usar selector basado en el ID del popup (Usuario: //*[@id="rc-menu-uuid-...-inventory-popup"]/li[1]/span/span)
+            # Simplificado a contener '-inventory-popup' y el primer elemento de la lista
+            xpath_submenu = "//*[contains(@id, '-inventory-popup')]//li[1]"
+            submenu_inventario = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_submenu)))
+            submenu_inventario.click()
+            print("✅ Click en Submenú Inventario (Estrategia Popup)")
+        except Exception as e:
+            print(f"⚠️ Falló estrategia principal ({e}), intentando fallback...")
+            # Fallback: Estrategia por texto y clase
+            submenu_inventario = wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//li[contains(@class, 'ant-menu-item')]//span[normalize-space()='Inventario']"))
+            )
+            submenu_inventario.click()
+            print("✅ Click en Submenú Inventario (Fallback)")
+            
         time.sleep(5)
         
     except Exception as e:
