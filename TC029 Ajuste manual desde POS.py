@@ -464,6 +464,24 @@ def validacion_pos(inventario_maximo=0):
         
         print("🚀 Validando POS...")
         
+        # --- VERIFICACIÓN DE CAJA CERRADA ---
+        print("🔍 Verificando estado de la caja...")
+        try:
+            # Buscar si existe el texto "Caja Cerrada"
+            mensaje_caja_cerrada = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Cerrada')]")
+            
+            if mensaje_caja_cerrada:
+                print("⚠️ Mensaje 'Caja Cerrada' detectado. Intentando abrir caja...")
+                xpath_boton_abrir = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
+                boton_abrir = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, xpath_boton_abrir)))
+                boton_abrir.click()
+                print("✅ Botón 'Abrir Caja' clickeado")
+                time.sleep(3) # Esperar a que la caja se abra
+            else:
+                print("ℹ️ No se detectó el mensaje 'Caja Cerrada', continuando...")
+        except Exception as e:
+            print(f"ℹ️ Error o no se encontró mensaje de caja cerrada: {e}. Continuando...")
+        
         # 1. Seleccionar primer producto (Checkbox)
         try:
             print("⏳ Buscando producto en POS...")

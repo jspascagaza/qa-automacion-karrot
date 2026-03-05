@@ -285,320 +285,33 @@ def ingreso_al_pos():
 
 def validacion_pos(inventario_maximo=0):
     try:
-        # --- BLOQUEO REFORZADO DE IMPRESIÓN ---
-        # Bloqueamos la función print en el window principal y tratamos de hacerlo preventivamente
-        print("🚫 Bloqueando funciones de impresión vía JavaScript...")
-        driver.execute_script("""
-            window.print = function() { console.log('Print blocked by automation'); };
-            Object.defineProperty(window, 'print', { value: function() { console.log('Print blocked'); }, writable: false });
-            // Bloqueo para posibles iframes
-            var style = document.createElement('style');
-            style.innerHTML = '@media print { body { display: none !important; } }';
-            document.head.appendChild(style);
-        """)
-        
-        print("🚀 Validando POS...")
-        
-        # 1. Seleccionar primer producto (Checkbox)
+        # --- VERIFICACIÓN DE CAJA CERRADA ---
+        print("🔍 Verificando estado de la caja...")
         try:
-            print("⏳ Buscando producto en POS...")
-            # XPath original del usuario
-            xpath_producto = "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[2]/div/div[3]"
+            # Buscar si existe el texto "Caja Cerrada"
+            mensaje_caja_cerrada = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Cerrada')]")
             
-            # Intentar scroll primero
-            producto = wait.until(EC.presence_of_element_located((By.XPATH, xpath_producto)))
-            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", producto)
-            time.sleep(0.5)
-            producto.click()
-            print("✅ Checkbox primer producto seleccionado")
-        except Exception as e:
-            print(f"⚠️ Falló selección producto con XPath original: {e}")
-            # Fallback: buscar cualquier producto clickable en la grilla
-            print("  Intentando selector genérico de producto...")
-            producto = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'product-card')] | //div[contains(@class, 'ant-card')]")))
-            producto.click()
-            print("✅ Producto seleccionado (Genérico)")
-
-        # 2. Seleccionar Atributo (Sabor/Memoria/Color)
-        # El usuario reportó error en: //*[@id='advanced_search_memoria']/label[2]/span[1]
-        try:
-            print("⏳ Buscando atributos del producto...")
-            
-            # Estrategia: Buscar cualquier contenedor de búsqueda avanzada que sea visible
-            # IDs comunes: advanced_search_memoria, advanced_search_color, etc.
-            
-            # Esperar a que el modal y los atributos carguen completamente
-            print("⏳ Esperando carga completa del modal de producto...")
-            time.sleep(3) # Aumentado de 1 a 3 segundos para asegurar carga
-            
-            # Intentar encontrar el contenedor específico o genérico
-            xpath_atributos = [
-                "//*[@id='advanced_search_memoria']//label",        # El específico del usuario (todos los labels hijos)
-                "//div[contains(@id, 'advanced_search')]//label",   # Genérico por ID
-                "//div[contains(@class, 'ant-radio-group')]//label", # Genérico por clase AntD
-                "//div[contains(@class, 'ant-modal')]//label"       # Genérico dentro del modal
-            ]
-            
-            opcion_atributo = None
-            for xpath in xpath_atributos:
-                try:
-                    opciones = driver.find_elements(By.XPATH, xpath)
-                    # Filtrar visibles
-                    opciones_visibles = [op for op in opciones if op.is_displayed()]
-                    
-                    if opciones_visibles:
-                        # Debug: Mostrar qué opciones se encontraron
-                        print(f"  > Opciones encontradas con {xpath}: {[op.text for op in opciones_visibles]}")
-                        
-                        # Buscar específicamente la opción "2tb"
-                        found_2tb = False
-                        for op in opciones_visibles:
-                            texto_op = op.text.lower().strip()
-                            if "2tb" in texto_op or "2 tb" in texto_op:
-                                opcion_atributo = op
-                                found_2tb = True
-                                print(f"✅ Opción '2tb' encontrada y seleccionada: {op.text}")
-                                break
-                        
-                        if not found_2tb:
-                            # Fallback original: Seleccionar el segundo si existe, sino el primero
-                            print("⚠️ No se encontró opción explícita '2tb', usando lógica por defecto (Seleccionar 2da opción)")
-                            if len(opciones_visibles) >= 2:
-                                opcion_atributo = opciones_visibles[1] 
-                            else:
-                                opcion_atributo = opciones_visibles[0]
-                            
-                        print(f"✅ Opción de atributo lista para click: {opcion_atributo.text}")
-                        break
-                except Exception as e_xpath:
-                    print(f"  Error probando xpath {xpath}: {e_xpath}")
-                    continue
-            
-            if opcion_atributo:
-                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", opcion_atributo)
-                time.sleep(1) # Esperar un poco tras scroll
-                
-                # Intentar click normal y luego JS
-                try:
-                    opcion_atributo.click()
-                    print("✅ Atributo clickeado (Normal)")
-                except:
-                    driver.execute_script("arguments[0].click();", opcion_atributo)
-                    print("✅ Atributo clickeado (JS)")
+            if mensaje_caja_cerrada:
+                print("⚠️ Mensaje 'Caja Cerrada' detectado. Intentando abrir caja...")
+                xpath_boton_abrir = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
+                boton_abrir = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, xpath_boton_abrir)))
+                boton_abrir.click()
+                print("✅ Botón 'Abrir Caja' clickeado")
+                time.sleep(3) # Esperar a que la caja se abra
             else:
-                print("⚠️ No se encontraron atributos para seleccionar (puede que el producto no tenga variantes)")
-                
+                print("ℹ️ No se detectó el mensaje 'Caja Cerrada', continuando...")
         except Exception as e:
-            print(f"❌ Error seleccionando atributo: {e}")
-            # No lanzamos excepción crítica, intentamos seguir al botón agregar
-            
-        time.sleep(2) # Esperar tras selección
-            
-        # 3. Botón Agregar
-        # Usar un XPath más robusto basado en el texto del botón
-        # Buscamos un botón que contenga "Agregar" (o su span hijo)
-        boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Añadir al carrito')]")))
-        boton_agregar.click()
-        print("✅ Boton agregar clickeado")
+            print(f"ℹ️ Error o no se encontró mensaje de caja cerrada: {e}. Continuando...")
 
-        time.sleep(2)
-        
-        # 5. Ingresar cantidad aleatoria
-        print("🔍 Buscando campo de cantidad...")
+        # --- NAVEGACIÓN A INVENTARIO ---
+        print("📦 Accediendo a opción Inventario via Popup...")
         try:
-            # Click en el botón de cantidad (el que indicó el usuario)
-            boton_cantidad = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="cart-list"]/div/div/div/div/ul/div/div[2]/div[1]/button[2]')))
-            boton_cantidad.click()
-            print("✅ Click en botón de cantidad")
-            
-            time.sleep(1)
-            
-            # Generar cantidad aleatoria
-            max_val = int(inventario_maximo) if inventario_maximo > 1 else 1
-            cantidad_random = random.randint(1, max_val)
-            print(f"🎲 Cantidad aleatoria generada: {cantidad_random} (Max: {max_val})")
-            
-            # Buscar el input dentro del popover (ajustado para ser más robusto)
-            # Buscamos un input numérico visible o el input de Ant Design
-            try:
-                # Intento 1: Input genérico visible (el popover debería ser lo último abierto)
-                input_cantidad = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-popover')]//input | //input[@type='text' or @type='number']")))
-                
-                # Limpiar usando Ctrl+A (más seguro para inputs de React/AntD)
-                input_cantidad.send_keys(Keys.CONTROL + "a")
-                input_cantidad.send_keys(Keys.BACKSPACE)
-                time.sleep(0.2)
-                input_cantidad.send_keys(str(cantidad_random))
-                print(f"✅ Cantidad {cantidad_random} escrita en input")
-                time.sleep(0.5)
-                
-                # Intentar confirmar usando ENTER en el input (método más rápido y fiable en React)
-                print("  Confirmando cantidad...")
-                input_cantidad.send_keys(Keys.ENTER)
-                time.sleep(0.5)
-                
-                # Verificar si el popover se cerró (éxito)
-                try:
-                    # Si el input ya no es visible o interactuable, asumimos que se cerró
-                    if not input_cantidad.is_displayed():
-                        print("✅ Cantidad confirmada con ENTER")
-                    else:
-                        raise Exception("Popover sigue abierto tras ENTER")
-                except:
-                    # Si falló ENTER, intentamos clickear el botón "Yes"
-                    print("⚠️ ENTER no cerró el popover, intentando click en 'Yes'...")
-                    try:
-                        # Buscamos el botón Yes específicamente dentro de un popover o globalmente por texto
-                        # Priorizamos el botón visible con texto "Yes"
-                        xpath_yes = "//div[contains(@class, 'ant-popover')]//button[contains(., 'Yes')] | //button[contains(., 'Yes')]"
-                        
-                        boton_yes = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_yes)))
-                        boton_yes.click()
-                        print("✅ Botón 'Yes' clickeado")
-                    except Exception as e_click:
-                        print(f"❌ Falló click en 'Yes': {e_click}")
-                        
-                        # Último recurso: JS Click en cualquier cosa que diga "Yes"
-                        driver.execute_script("var xpath = \"//div[contains(text(), 'Yes')]\"; var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; if (matchingElement) matchingElement.click();")
-                        print("⚠️ Intentado JS Click en texto 'Yes'")
-                
-            except Exception as e_input:
-                print(f"⚠️ Error interactuando con popover: {e_input}")
-                # Fallback a ActionChains global
-                actions = ActionChains(driver)
-                actions.send_keys(str(cantidad_random))
-                actions.send_keys(Keys.ENTER)
-                actions.perform()
-                print("⚠️ Usado fallback ActionChains global")
-            
+            xpath_submenu = '//*[@id="rc-menu-uuid-17907-7-inventory-popup"]/li[1]/span'
+            submenu_inventario = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_submenu)))
+            submenu_inventario.click()
+            print("✅ Click en Submenú Inventario (Estrategia Popup)")
         except Exception as e:
-            print(f"⚠️ Error ingresando cantidad: {e}")
-
-        # 6. Click en Realizar Venta
-        print("🔍 Buscando botón 'Realizar venta'...")
-        try:
-            time.sleep(2) # Esperar a que se cierre el modal de cantidad
-            # Usar XPath proporcionado por el usuario
-            xpath_venta = "//*[@id='cart-summary']/div/button"
-            boton_venta = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_venta)))
-            boton_venta.click()
-            print("✅ Botón 'Realizar venta' clickeado")
-        except Exception as e:
-            print(f"⚠️ Falló click en 'Realizar venta' ({xpath_venta}): {e}")
-            try:
-                # Fallback con JS
-                driver.execute_script("var xpath = \"//*[@id='cart-summary']/div/button\"; var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; if (matchingElement) matchingElement.click();")
-                print("✅ Botón 'Realizar venta' clickeado (JS)")
-            except:
-                print("❌ No se pudo clickear 'Realizar venta'")
-
-        # 7. Seleccionar Cliente Anonimo
-        print("🔍 Buscando opción 'Cliente Anonimo'...")
-        try:
-            time.sleep(3) # Esperar a que cargue la vista de selección de cliente
-            
-            # XPath específico proporcionado por el usuario
-            xpath_anonimo = "/html/body/div[21]/div/div[2]/div/div[2]/div[1]/div/div/div/div[1]/div/div/div[2]/div/div/div/div[2]/div"
-            
-            try:
-                cliente_anonimo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_anonimo)))
-                cliente_anonimo.click()
-                print("✅ 'Cliente Anonimo' seleccionado (XPath Usuario)")
-            except Exception as e_xpath:
-                print(f"⚠️ Falló XPath usuario para cliente anónimo: {e_xpath}")
-                # Fallback: Buscar por texto
-                print("  Intentando buscar por texto 'Cliente Anonimo'...")
-                cliente_anonimo = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Cliente Anonimo')] | //span[contains(text(), 'Cliente Anonimo')]")))
-                cliente_anonimo.click()
-                print("✅ 'Cliente Anonimo' seleccionado (Por texto)")
-                
-        except Exception as e:
-            print(f"⚠️ Falló selección de Cliente Anonimo: {e}")
-
-        # 8. Seleccionar Efectivo
-        print("🔍 Buscando opción 'Efectivo'...")
-        try:
-            time.sleep(2) # Esperar a que cargue la vista de pagos
-            
-            # XPath específico proporcionado por el usuario
-            xpath_efectivo = "/html/body/div[23]/div/div[2]/div/div[2]/div[1]/div/div/div/div[1]/div/div/div[2]/div[2]/div[1]/div[1]/button[1]"
-            
-            try:
-                boton_efectivo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_efectivo)))
-                boton_efectivo.click()
-                print("✅ 'Efectivo' seleccionado (XPath Usuario)")
-            except Exception as e_xpath:
-                print(f"⚠️ Falló XPath usuario para Efectivo: {e_xpath}")
-                # Fallback: Buscar por texto
-                print("  Intentando buscar por texto 'Efectivo'...")
-                boton_efectivo = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Efectivo')] | //div[contains(text(), 'Efectivo')]")))
-                boton_efectivo.click()
-                print("✅ 'Efectivo' seleccionado (Por texto)")
-                
-        except Exception as e:
-            print(f"⚠️ Falló selección de Efectivo: {e}")
-
-        # 9. Click en Confirmar Venta
-        print("🔍 Buscando botón 'Confirmar Venta'...")
-        try:
-            # --- CONFIRMACIÓN ---
-            time.sleep(2) # Esperar a que se habilite el botón
-            
-            # XPath específico proporcionado por el usuario
-            xpath_confirmar = "/html/body/div[10]/div/div[2]/div/div[2]/div[2]/div/div[2]/button[2]"
-            
-            try:
-                boton_confirmar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_confirmar)))
-                boton_confirmar.click()
-                print("✅ 'Confirmar Venta' clickeado (XPath Usuario)")
-            except Exception as e_xpath:
-                print(f"⚠️ Falló XPath usuario para Confirmar Venta: {e_xpath}")
-                boton_confirmar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Confirmar Venta')] | //span[contains(text(), 'Confirmar Venta')]")))
-                boton_confirmar.click()
-                print("✅ 'Confirmar Venta' clickeado (Por texto)")
-
-            time.sleep(5)
-            ActionChains(driver).send_keys(Keys.ESCAPE).perform()
-            print("✅ ESC enviado después de 'Confirmar Venta'")
-
-            # --- PASOS POST-VENTA ---
-            print("⏳ Procediendo con pasos post-venta...")
-            time.sleep(3)
-
-            # Click en botón 'Hecho'
-            print("🔍 Buscando botón 'Hecho'...")
-            xpath_hecho = "/html/body/div[27]/div/div[2]/div/div[2]/div[2]/div/div[2]/button"
-            try:
-                boton_hecho = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_hecho)))
-                boton_hecho.click()
-                print("✅ Botón 'Hecho' clickeado")
-            except Exception as e:
-                print(f"⚠️ Falló XPath para Hecho, intentando por texto: {e}")
-                boton_hecho = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Hecho')]")))
-                boton_hecho.click()
-                print("✅ Botón 'Hecho' clickeado (Por texto)")
-
-            time.sleep(3)
-
-            # Click en 'Finalizar turno'
-            print("🔍 Buscando botón 'Finalizar turno'...")
-            xpath_finalizar_turno = "//*[@id='root']/div/section/header/div/div[2]/div[2]/div[1]/button[2]"
-            try:
-                boton_finalizar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_finalizar_turno)))
-                boton_finalizar.click()
-                print("✅ Botón 'Finalizar turno' clickeado")
-            except Exception as e:
-                print(f"⚠️ Falló XPath para Finalizar turno, intentando por texto: {e}")
-                boton_finalizar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Finalizar Turno')]")))
-                boton_finalizar.click()
-                print("✅ Botón 'Finalizar turno' clickeado (Por texto)")
-                
-        except Exception as e_post:
-            print(f"⚠️ Error en confirmación o pasos post-venta: {e_post}")
-            try:
-                driver.save_screenshot("error_post_venta.png")
-            except: pass
-
+            print(f"⚠️ Falló click en submenú inventario: {e}")
     except Exception as e:
         print(f"❌ Error en validacion_pos: {e}")
         try:
@@ -615,7 +328,7 @@ try:
     chrome_options.add_argument('--kiosk-printing')
     
     driver = webdriver.Chrome(options=chrome_options)
-    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     wait = WebDriverWait(driver, 40)
 
