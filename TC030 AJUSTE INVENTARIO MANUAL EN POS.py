@@ -285,28 +285,121 @@ def ingreso_al_pos():
 
 def validacion_pos(inventario_maximo=0):
     try:
-        # --- VERIFICACIÓN DE CAJA CERRADA ---
+        # --- VERIFICACIÓN DE ESTADO DE CAJA ---
         print("🔍 Verificando estado de la caja...")
-        try:
-            # Buscar si existe el texto "Caja Cerrada"
-            mensaje_caja_cerrada = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Cerrada')]")
-            
-            if mensaje_caja_cerrada:
-                print("⚠️ Mensaje 'Caja Cerrada' detectado. Intentando abrir caja...")
+        
+        # Esperar un momento a que cargue la interfaz inicial
+        time.sleep(3)
+        
+        caja_vencida = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Vencida') or contains(text(), 'CAJA VENCIDA') or contains(text(), 'apertura de caja ha vencido')]")
+        caja_cerrada = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Cerrada') or contains(text(), 'CAJA CERRADA')]")
+
+        if caja_vencida:
+            print("⚠️ Estado 'Caja Vencida' detectado. Iniciando proceso de cierre...")
+            try:
+                # Boton principal de Cerrar Caja
+                xpath_boton_cerrar = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
+                boton_cerrar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_cerrar)))
+                boton_cerrar.click()
+                print("✅ Botón 'Cerrar Caja' (Principal) clickeado")
+                time.sleep(2)
+                
+                # Pop-up de cierre de caja (Paso 1: Tipo de balance)
+                # Pop-up de cierre de caja (Paso 1: Tipo de balance)
+                #-print("📦 En Pop-up de Cierre de Caja. Seleccionando 'Cierre Caja - Fin de Día'...")
+                
+                # Clic en "Cierre Caja - Fin de Día" (Basado en texto visible)
+                #xpath_opcion_cierre = '//*[contains(text(), "Cierre Caja - Fin de Día") or contains(., "Cierre Caja - Fin de Día")]'
+                #opcion_cierre = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_opcion_cierre)))
+                
+                # Desplazar hasta el elemento por si acaso
+                #driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", opcion_cierre)
+                #time.sleep(0.5)
+                
+                #try:
+                #    opcion_cierre.click()
+                #    print("✅ Opción 'Cierre Caja - Fin de Día' seleccionada (Click Normal)")
+                #except Exception as e:
+                #    driver.execute_script("arguments[0].click();", opcion_cierre)
+                #    print(f"✅ Opción 'Cierre Caja - Fin de Día' seleccionada (JS Click) - Advertencia: {e}")
+                
+                #time.sleep(1)/*
+                
+                # Clic en "Siguiente"
+                print("📦 Buscando el botón 'Siguiente'...")
+                xpath_boton_siguiente = '//button[contains(., "Siguiente")]'
+                boton_siguiente = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente)))
+                
+                try:
+                    boton_siguiente.click()
+                    print("✅ Botón 'Siguiente' en Pop-up clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente)
+                    print(f"✅ Botón 'Siguiente' en Pop-up clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(3)
+                
+                # TODO: Aquí faltaría el resto del flujo de cierre (Conteo físico, etc.) y luego apertura
+                # Paso 2: Conteo Físico
+                print("📦 En Pop-up de Cierre de Caja (Paso 2: Conteo Físico). Haciendo clic en Siguiente sin modificar saldos...")
+                
+                # Por ahora solo damos clic en Siguiente nuevamente
+                xpath_boton_siguiente_conteo = '//button[contains(., "Siguiente")]'
+                boton_siguiente_conteo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_conteo)))
+                
+                try:
+                    boton_siguiente_conteo.click()
+                    print("✅ Botón 'Siguiente' en Conteo Físico clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente_conteo)
+                    print(f"✅ Botón 'Siguiente' en Conteo Físico clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(3)
+                
+                # Paso 3: Comparación de Saldo
+                print("📦 En Pop-up de Cierre de Caja (Paso 3: Comparación de Saldo). Haciendo clic en Siguiente...")
+                time.sleep(1)
+                
+                xpath_boton_siguiente_comparacion = '//button[contains(., "Siguiente")]'
+                boton_siguiente_comparacion = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_comparacion)))
+                
+                try:
+                    boton_siguiente_comparacion.click()
+                    print("✅ Botón 'Siguiente' en Comparación de Saldo clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente_comparacion)
+                    print(f"✅ Botón 'Siguiente' en Comparación de Saldo clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(3)
+                
+                print("ℹ️ Pendiente: Continuación del flujo de cierre de caja (Paso 4: Retiro de Saldos y apertura)")
+                
+            except Exception as e:
+                print(f"❌ Error en flujo Caja Vencida: {e}")
+
+        elif caja_cerrada:
+            print("⚠️ Estado 'Caja Cerrada' detectado. Intentando abrir caja...")
+            try:
                 xpath_boton_abrir = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
-                boton_abrir = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, xpath_boton_abrir)))
+                boton_abrir = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_abrir)))
                 boton_abrir.click()
                 print("✅ Botón 'Abrir Caja' clickeado")
                 time.sleep(3) # Esperar a que la caja se abra
-            else:
-                print("ℹ️ No se detectó el mensaje 'Caja Cerrada', continuando...")
-        except Exception as e:
-            print(f"ℹ️ Error o no se encontró mensaje de caja cerrada: {e}. Continuando...")
+                
+                # TODO: Flujo del pop-up de apertura de caja
+                print("ℹ️ Pendiente: Flujo del pop-up de Apertura de Caja")
+            except Exception as e:
+                print(f"❌ Error en flujo Caja Cerrada: {e}")
+        else:
+            print("✅ Estado 'Caja Aperturada' detectado o no hay bloqueos. Continuando flujo normal...")
 
         # --- NAVEGACIÓN A INVENTARIO ---
         print("📦 Accediendo a opción Inventario via Popup...")
         try:
+            # Esperar a que la opción esté disponible después de manejar la caja
+            time.sleep(2)
             xpath_submenu = '//*[@id="rc-menu-uuid-17907-7-inventory-popup"]/li[1]/span'
+            # Es posible que el ID rc-menu-uuid cambie dinámicamente, pero se mantiene el original
             submenu_inventario = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_submenu)))
             submenu_inventario.click()
             print("✅ Click en Submenú Inventario (Estrategia Popup)")
@@ -352,7 +445,7 @@ try:
         
     # Validar enlace del POS (Solicitud adicional)
     ingreso_al_pos()
-    # validacion_pos(valores.get('bogota_num', 0))
+    validacion_pos()
 
 
 
