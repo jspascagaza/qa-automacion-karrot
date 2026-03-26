@@ -1,0 +1,5302 @@
+[
+  {
+    "type": "Product",
+    "name": "Producto 1",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 1",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00001-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 65427,
+        "imgKey": "",
+        "defaultCost": 50329,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00001-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 66123,
+        "imgKey": "",
+        "defaultCost": 50864,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 2",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 2",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00002-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 347469,
+        "imgKey": "",
+        "defaultCost": 267284,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00002-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 347096,
+        "imgKey": "",
+        "defaultCost": 266997,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00002-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 348179,
+        "imgKey": "",
+        "defaultCost": 267830,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 3",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 3",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00003-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 348732,
+        "imgKey": "",
+        "defaultCost": 268256,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 4",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 4",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00004-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 371068,
+        "imgKey": "",
+        "defaultCost": 285437,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 5",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 5",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00005-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 166098,
+        "imgKey": "",
+        "defaultCost": 127768,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00005-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 165841,
+        "imgKey": "",
+        "defaultCost": 127570,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00005-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 165898,
+        "imgKey": "",
+        "defaultCost": 127614,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 6",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 6",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00006-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 268368,
+        "imgKey": "",
+        "defaultCost": 206437,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00006-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 270224,
+        "imgKey": "",
+        "defaultCost": 207865,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00006-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 269644,
+        "imgKey": "",
+        "defaultCost": 207419,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "blanco",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 7",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 7",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00007-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 547344,
+        "imgKey": "",
+        "defaultCost": 421034,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00007-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 548208,
+        "imgKey": "",
+        "defaultCost": 421699,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 8",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 8",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00008-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 420157,
+        "imgKey": "",
+        "defaultCost": 323198,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 9",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 9",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00009-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 561722,
+        "imgKey": "",
+        "defaultCost": 432094,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00009-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 561122,
+        "imgKey": "",
+        "defaultCost": 431633,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00009-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 561571,
+        "imgKey": "",
+        "defaultCost": 431978,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 10",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 10",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00010-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 533020,
+        "imgKey": "",
+        "defaultCost": 410016,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00010-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 533487,
+        "imgKey": "",
+        "defaultCost": 410375,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00010-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 534595,
+        "imgKey": "",
+        "defaultCost": 411227,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 11",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 11",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00011-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 628191,
+        "imgKey": "",
+        "defaultCost": 483224,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00011-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 628204,
+        "imgKey": "",
+        "defaultCost": 483234,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00011-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 628665,
+        "imgKey": "",
+        "defaultCost": 483589,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "blanco",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 12",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 12",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00012-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 583780,
+        "imgKey": "",
+        "defaultCost": 449062,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00012-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 585631,
+        "imgKey": "",
+        "defaultCost": 450486,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00012-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 583256,
+        "imgKey": "",
+        "defaultCost": 448659,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "rojo",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 13",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 13",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00013-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 116963,
+        "imgKey": "",
+        "defaultCost": 89972,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00013-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 116656,
+        "imgKey": "",
+        "defaultCost": 89736,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00013-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 116577,
+        "imgKey": "",
+        "defaultCost": 89675,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "negro",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 14",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 14",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00014-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 20040,
+        "imgKey": "",
+        "defaultCost": 15416,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00014-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 21292,
+        "imgKey": "",
+        "defaultCost": 16379,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00014-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 21544,
+        "imgKey": "",
+        "defaultCost": 16573,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "verde",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 15",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 15",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00015-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 157665,
+        "imgKey": "",
+        "defaultCost": 121281,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00015-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 157749,
+        "imgKey": "",
+        "defaultCost": 121346,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 16",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 16",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00016-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 125979,
+        "imgKey": "",
+        "defaultCost": 96907,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00016-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 125127,
+        "imgKey": "",
+        "defaultCost": 96252,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 17",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 17",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00017-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 613330,
+        "imgKey": "",
+        "defaultCost": 471793,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00017-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 611353,
+        "imgKey": "",
+        "defaultCost": 470272,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00017-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 611468,
+        "imgKey": "",
+        "defaultCost": 470360,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00017-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 612504,
+        "imgKey": "",
+        "defaultCost": 471157,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "negro",
+          "verde",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 18",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 18",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00018-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 197689,
+        "imgKey": "",
+        "defaultCost": 152069,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 19",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 19",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00019-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 637988,
+        "imgKey": "",
+        "defaultCost": 490760,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00019-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 638045,
+        "imgKey": "",
+        "defaultCost": 490804,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00019-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 640181,
+        "imgKey": "",
+        "defaultCost": 492447,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00019-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 639340,
+        "imgKey": "",
+        "defaultCost": 491800,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "azul",
+          "verde",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 20",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 20",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00020-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 514029,
+        "imgKey": "",
+        "defaultCost": 395407,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00020-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 513229,
+        "imgKey": "",
+        "defaultCost": 394792,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00020-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 513334,
+        "imgKey": "",
+        "defaultCost": 394873,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 21",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 21",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00021-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 353718,
+        "imgKey": "",
+        "defaultCost": 272091,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 22",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 22",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00022-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 220594,
+        "imgKey": "",
+        "defaultCost": 169688,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00022-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 220712,
+        "imgKey": "",
+        "defaultCost": 169779,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 23",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 23",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00023-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 337997,
+        "imgKey": "",
+        "defaultCost": 259998,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00023-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 338811,
+        "imgKey": "",
+        "defaultCost": 260624,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00023-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 339107,
+        "imgKey": "",
+        "defaultCost": 260852,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 24",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 24",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00024-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 526949,
+        "imgKey": "",
+        "defaultCost": 405346,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 25",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 25",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00025-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 413047,
+        "imgKey": "",
+        "defaultCost": 317729,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 26",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 26",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00026-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 268994,
+        "imgKey": "",
+        "defaultCost": 206919,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00026-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 269935,
+        "imgKey": "",
+        "defaultCost": 207643,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 27",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 27",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00027-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 511734,
+        "imgKey": "",
+        "defaultCost": 393642,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00027-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 511621,
+        "imgKey": "",
+        "defaultCost": 393555,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00027-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 510045,
+        "imgKey": "",
+        "defaultCost": 392343,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "rojo",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 28",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 28",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00028-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 632512,
+        "imgKey": "",
+        "defaultCost": 486548,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00028-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 633062,
+        "imgKey": "",
+        "defaultCost": 486971,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00028-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 632901,
+        "imgKey": "",
+        "defaultCost": 486847,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "blanco",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 29",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 29",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00029-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 482154,
+        "imgKey": "",
+        "defaultCost": 370888,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00029-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 482803,
+        "imgKey": "",
+        "defaultCost": 371387,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00029-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 483355,
+        "imgKey": "",
+        "defaultCost": 371812,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "negro",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 30",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 30",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00030-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 563885,
+        "imgKey": "",
+        "defaultCost": 433758,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 31",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 31",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00031-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 39663,
+        "imgKey": "",
+        "defaultCost": 30510,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00031-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 39490,
+        "imgKey": "",
+        "defaultCost": 30377,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 32",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 32",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00032-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 541070,
+        "imgKey": "",
+        "defaultCost": 416208,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00032-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 542133,
+        "imgKey": "",
+        "defaultCost": 417026,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 33",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 33",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00033-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 159413,
+        "imgKey": "",
+        "defaultCost": 122626,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00033-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 157924,
+        "imgKey": "",
+        "defaultCost": 121480,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00033-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 157861,
+        "imgKey": "",
+        "defaultCost": 121432,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00033-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 158174,
+        "imgKey": "",
+        "defaultCost": 121673,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "verde",
+          "azul",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 34",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 34",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00034-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 481334,
+        "imgKey": "",
+        "defaultCost": 370257,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00034-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 482335,
+        "imgKey": "",
+        "defaultCost": 371027,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00034-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 481600,
+        "imgKey": "",
+        "defaultCost": 370462,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00034-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 482731,
+        "imgKey": "",
+        "defaultCost": 371332,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "blanco",
+          "rojo",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 35",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 35",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00035-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 85884,
+        "imgKey": "",
+        "defaultCost": 66065,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 36",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 36",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00036-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 620029,
+        "imgKey": "",
+        "defaultCost": 476946,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 37",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 37",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00037-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 76453,
+        "imgKey": "",
+        "defaultCost": 58810,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00037-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 75387,
+        "imgKey": "",
+        "defaultCost": 57990,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 38",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 38",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00038-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 245264,
+        "imgKey": "",
+        "defaultCost": 188665,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00038-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 247145,
+        "imgKey": "",
+        "defaultCost": 190112,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 39",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 39",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00039-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 361992,
+        "imgKey": "",
+        "defaultCost": 278456,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00039-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 362494,
+        "imgKey": "",
+        "defaultCost": 278842,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00039-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 362503,
+        "imgKey": "",
+        "defaultCost": 278849,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00039-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 361723,
+        "imgKey": "",
+        "defaultCost": 278249,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "verde",
+          "rojo",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 40",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 40",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00040-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 350303,
+        "imgKey": "",
+        "defaultCost": 269464,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00040-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 351139,
+        "imgKey": "",
+        "defaultCost": 270107,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00040-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 350873,
+        "imgKey": "",
+        "defaultCost": 269903,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00040-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 351679,
+        "imgKey": "",
+        "defaultCost": 270523,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo",
+          "azul",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 41",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 41",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00041-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 532719,
+        "imgKey": "",
+        "defaultCost": 409784,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00041-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 534834,
+        "imgKey": "",
+        "defaultCost": 411411,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 42",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 42",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00042-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 90383,
+        "imgKey": "",
+        "defaultCost": 69526,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00042-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 90896,
+        "imgKey": "",
+        "defaultCost": 69920,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 43",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 43",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00043-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 78626,
+        "imgKey": "",
+        "defaultCost": 60482,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00043-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 78066,
+        "imgKey": "",
+        "defaultCost": 60051,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 44",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 44",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00044-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 468257,
+        "imgKey": "",
+        "defaultCost": 360198,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00044-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 468413,
+        "imgKey": "",
+        "defaultCost": 360318,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00044-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 468763,
+        "imgKey": "",
+        "defaultCost": 360587,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 45",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 45",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00045-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 318081,
+        "imgKey": "",
+        "defaultCost": 244678,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00045-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 318734,
+        "imgKey": "",
+        "defaultCost": 245180,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 46",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 46",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00046-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 169503,
+        "imgKey": "",
+        "defaultCost": 130387,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00046-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 168820,
+        "imgKey": "",
+        "defaultCost": 129862,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00046-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 169171,
+        "imgKey": "",
+        "defaultCost": 130132,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00046-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 169023,
+        "imgKey": "",
+        "defaultCost": 130018,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "verde",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 47",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 47",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00047-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 449849,
+        "imgKey": "",
+        "defaultCost": 346038,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 48",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 48",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00048-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 171815,
+        "imgKey": "",
+        "defaultCost": 132166,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00048-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 170527,
+        "imgKey": "",
+        "defaultCost": 131175,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00048-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 172545,
+        "imgKey": "",
+        "defaultCost": 132727,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00048-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 171472,
+        "imgKey": "",
+        "defaultCost": 131902,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "rojo",
+          "verde",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 49",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 49",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00049-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 363369,
+        "imgKey": "",
+        "defaultCost": 279515,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00049-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 364262,
+        "imgKey": "",
+        "defaultCost": 280202,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 50",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 50",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00050-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 227510,
+        "imgKey": "",
+        "defaultCost": 175008,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00050-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 228876,
+        "imgKey": "",
+        "defaultCost": 176059,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 51",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 51",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00051-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 500113,
+        "imgKey": "",
+        "defaultCost": 384703,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00051-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 500583,
+        "imgKey": "",
+        "defaultCost": 385064,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 52",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 52",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00052-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 418824,
+        "imgKey": "",
+        "defaultCost": 322173,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00052-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 418888,
+        "imgKey": "",
+        "defaultCost": 322222,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00052-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 418241,
+        "imgKey": "",
+        "defaultCost": 321724,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 53",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 53",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00053-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 498990,
+        "imgKey": "",
+        "defaultCost": 383839,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 54",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 54",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00054-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 442989,
+        "imgKey": "",
+        "defaultCost": 340761,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00054-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 443313,
+        "imgKey": "",
+        "defaultCost": 341010,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00054-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 441554,
+        "imgKey": "",
+        "defaultCost": 339657,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "verde",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 55",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 55",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00055-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 76417,
+        "imgKey": "",
+        "defaultCost": 58783,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00055-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 76433,
+        "imgKey": "",
+        "defaultCost": 58795,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 56",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 56",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00056-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 297757,
+        "imgKey": "",
+        "defaultCost": 229044,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 57",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 57",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00057-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 134143,
+        "imgKey": "",
+        "defaultCost": 103187,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00057-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 134160,
+        "imgKey": "",
+        "defaultCost": 103200,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00057-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 132425,
+        "imgKey": "",
+        "defaultCost": 101866,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "negro",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 58",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 58",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00058-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 622963,
+        "imgKey": "",
+        "defaultCost": 479203,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00058-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 622818,
+        "imgKey": "",
+        "defaultCost": 479091,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 59",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 59",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00059-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 645083,
+        "imgKey": "",
+        "defaultCost": 496218,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00059-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 644278,
+        "imgKey": "",
+        "defaultCost": 495599,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 60",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 60",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00060-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 265577,
+        "imgKey": "",
+        "defaultCost": 204290,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00060-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 266362,
+        "imgKey": "",
+        "defaultCost": 204894,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 61",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 61",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00061-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 95759,
+        "imgKey": "",
+        "defaultCost": 73661,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00061-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 96051,
+        "imgKey": "",
+        "defaultCost": 73886,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00061-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 97567,
+        "imgKey": "",
+        "defaultCost": 75052,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00061-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 96393,
+        "imgKey": "",
+        "defaultCost": 74149,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "verde",
+          "negro",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 62",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 62",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00062-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 625612,
+        "imgKey": "",
+        "defaultCost": 481240,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 63",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 63",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00063-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 478836,
+        "imgKey": "",
+        "defaultCost": 368336,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 64",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 64",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00064-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 521186,
+        "imgKey": "",
+        "defaultCost": 400913,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00064-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 519058,
+        "imgKey": "",
+        "defaultCost": 399276,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00064-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 518896,
+        "imgKey": "",
+        "defaultCost": 399151,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00064-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 520387,
+        "imgKey": "",
+        "defaultCost": 400298,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "azul",
+          "rojo",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 65",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 65",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00065-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 80444,
+        "imgKey": "",
+        "defaultCost": 61880,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00065-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 80082,
+        "imgKey": "",
+        "defaultCost": 61602,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 66",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 66",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00066-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 445828,
+        "imgKey": "",
+        "defaultCost": 342945,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00066-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 444386,
+        "imgKey": "",
+        "defaultCost": 341836,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 67",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 67",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00067-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 27493,
+        "imgKey": "",
+        "defaultCost": 21149,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 68",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 68",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00068-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 440971,
+        "imgKey": "",
+        "defaultCost": 339209,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00068-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 441044,
+        "imgKey": "",
+        "defaultCost": 339265,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00068-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 440936,
+        "imgKey": "",
+        "defaultCost": 339182,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "azul",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 69",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 69",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00069-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 114012,
+        "imgKey": "",
+        "defaultCost": 87702,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00069-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 115482,
+        "imgKey": "",
+        "defaultCost": 88833,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00069-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 115144,
+        "imgKey": "",
+        "defaultCost": 88573,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00069-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 114788,
+        "imgKey": "",
+        "defaultCost": 88299,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "negro",
+          "verde",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 70",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 70",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00070-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 411160,
+        "imgKey": "",
+        "defaultCost": 316277,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00070-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 410098,
+        "imgKey": "",
+        "defaultCost": 315460,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 71",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 71",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00071-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 212453,
+        "imgKey": "",
+        "defaultCost": 163426,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00071-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 213850,
+        "imgKey": "",
+        "defaultCost": 164500,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 72",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 72",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00072-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 476357,
+        "imgKey": "",
+        "defaultCost": 366429,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00072-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 478316,
+        "imgKey": "",
+        "defaultCost": 367936,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00072-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 478432,
+        "imgKey": "",
+        "defaultCost": 368025,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00072-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 477209,
+        "imgKey": "",
+        "defaultCost": 367084,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "rojo",
+          "negro",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 73",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 73",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00073-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 477874,
+        "imgKey": "",
+        "defaultCost": 367596,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00073-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 477978,
+        "imgKey": "",
+        "defaultCost": 367676,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00073-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 478624,
+        "imgKey": "",
+        "defaultCost": 368173,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "azul",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 74",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 74",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00074-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 213001,
+        "imgKey": "",
+        "defaultCost": 163847,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 75",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 75",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00075-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 205093,
+        "imgKey": "",
+        "defaultCost": 157764,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00075-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 203552,
+        "imgKey": "",
+        "defaultCost": 156579,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 76",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 76",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00076-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 381904,
+        "imgKey": "",
+        "defaultCost": 293773,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 77",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 77",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00077-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 208989,
+        "imgKey": "",
+        "defaultCost": 160761,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00077-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 207171,
+        "imgKey": "",
+        "defaultCost": 159363,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 78",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 78",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00078-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 488640,
+        "imgKey": "",
+        "defaultCost": 375877,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00078-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 488896,
+        "imgKey": "",
+        "defaultCost": 376074,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00078-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 488354,
+        "imgKey": "",
+        "defaultCost": 375657,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00078-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 487493,
+        "imgKey": "",
+        "defaultCost": 374995,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "blanco",
+          "negro",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 79",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 79",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00079-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 437365,
+        "imgKey": "",
+        "defaultCost": 336435,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00079-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 436481,
+        "imgKey": "",
+        "defaultCost": 335755,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00079-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 437659,
+        "imgKey": "",
+        "defaultCost": 336661,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00079-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 436472,
+        "imgKey": "",
+        "defaultCost": 335748,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "negro",
+          "rojo",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 80",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 80",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00080-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 422773,
+        "imgKey": "",
+        "defaultCost": 325210,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00080-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 423187,
+        "imgKey": "",
+        "defaultCost": 325529,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00080-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 421705,
+        "imgKey": "",
+        "defaultCost": 324389,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00080-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 422113,
+        "imgKey": "",
+        "defaultCost": 324703,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "negro",
+          "azul",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 81",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 81",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00081-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 101680,
+        "imgKey": "",
+        "defaultCost": 78216,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 82",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 82",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00082-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 420115,
+        "imgKey": "",
+        "defaultCost": 323166,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 83",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 83",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00083-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 129964,
+        "imgKey": "",
+        "defaultCost": 99973,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00083-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 127838,
+        "imgKey": "",
+        "defaultCost": 98337,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00083-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 128865,
+        "imgKey": "",
+        "defaultCost": 99127,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00083-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 128489,
+        "imgKey": "",
+        "defaultCost": 98838,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "verde",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 84",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 84",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00084-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 80542,
+        "imgKey": "",
+        "defaultCost": 61956,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00084-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 80291,
+        "imgKey": "",
+        "defaultCost": 61763,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00084-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 81913,
+        "imgKey": "",
+        "defaultCost": 63010,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00084-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 79918,
+        "imgKey": "",
+        "defaultCost": 61476,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "blanco",
+          "negro",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 85",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 85",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00085-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 161934,
+        "imgKey": "",
+        "defaultCost": 124565,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00085-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 163447,
+        "imgKey": "",
+        "defaultCost": 125729,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 86",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 86",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00086-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 539814,
+        "imgKey": "",
+        "defaultCost": 415242,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00086-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 540884,
+        "imgKey": "",
+        "defaultCost": 416065,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 87",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 87",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00087-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 456158,
+        "imgKey": "",
+        "defaultCost": 350891,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 88",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 88",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00088-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 650559,
+        "imgKey": "",
+        "defaultCost": 500430,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00088-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 650492,
+        "imgKey": "",
+        "defaultCost": 500379,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00088-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 650262,
+        "imgKey": "",
+        "defaultCost": 500202,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00088-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 648995,
+        "imgKey": "",
+        "defaultCost": 499227,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "blanco",
+          "negro",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 89",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 89",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00089-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 649568,
+        "imgKey": "",
+        "defaultCost": 499668,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00089-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 650352,
+        "imgKey": "",
+        "defaultCost": 500271,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00089-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 648603,
+        "imgKey": "",
+        "defaultCost": 498926,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 90",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 90",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00090-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 377492,
+        "imgKey": "",
+        "defaultCost": 290379,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00090-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 379785,
+        "imgKey": "",
+        "defaultCost": 292143,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 91",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 91",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00091-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 417355,
+        "imgKey": "",
+        "defaultCost": 321043,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 92",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 92",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00092-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 562659,
+        "imgKey": "",
+        "defaultCost": 432815,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00092-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 562915,
+        "imgKey": "",
+        "defaultCost": 433012,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 93",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 93",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00093-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 144430,
+        "imgKey": "",
+        "defaultCost": 111100,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00093-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 145483,
+        "imgKey": "",
+        "defaultCost": 111910,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00093-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 145341,
+        "imgKey": "",
+        "defaultCost": 111801,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00093-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 143752,
+        "imgKey": "",
+        "defaultCost": 110579,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "rojo",
+          "blanco",
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 94",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 94",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00094-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 599838,
+        "imgKey": "",
+        "defaultCost": 461414,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00094-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 601326,
+        "imgKey": "",
+        "defaultCost": 462559,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00094-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 599240,
+        "imgKey": "",
+        "defaultCost": 460954,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00094-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 600670,
+        "imgKey": "",
+        "defaultCost": 462054,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "verde",
+          "rojo",
+          "azul",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 95",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 95",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00095-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 192501,
+        "imgKey": "",
+        "defaultCost": 148078,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00095-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 192987,
+        "imgKey": "",
+        "defaultCost": 148452,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00095-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 192842,
+        "imgKey": "",
+        "defaultCost": 148340,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul",
+          "rojo",
+          "verde"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 96",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 96",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00096-AZU",
+        "name": "azul",
+        "barcode": "",
+        "defaultPrice": 481516,
+        "imgKey": "",
+        "defaultCost": 370397,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "azul"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 97",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 97",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00097-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 201414,
+        "imgKey": "",
+        "defaultCost": 154934,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00097-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 200930,
+        "imgKey": "",
+        "defaultCost": 154562,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "blanco",
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 98",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 98",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00098-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 265184,
+        "imgKey": "",
+        "defaultCost": 203988,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 99",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 99",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00099-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 252452,
+        "imgKey": "",
+        "defaultCost": 194194,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00099-VER",
+        "name": "verde",
+        "barcode": "",
+        "defaultPrice": 253379,
+        "imgKey": "",
+        "defaultCost": 194907,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00099-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 251544,
+        "imgKey": "",
+        "defaultCost": 193496,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "rojo",
+          "verde",
+          "blanco"
+        ]
+      }
+    ],
+    "customProperties": []
+  },
+  {
+    "type": "Product",
+    "name": "Producto 100",
+    "units": "UNIT",
+    "imgKey": "",
+    "active": true,
+    "description": "Descripción para Producto 100",
+    "isPerishable": false,
+    "allowPriceEditInPOS": false,
+    "countryID": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+    "categoryID": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+    "categoryFullPathString": "Dispositivos móviles y tecnología",
+    "categoryFullPath": [],
+    "purchaseMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "stockMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "saleMeasurementUnitID": "a8832d23-509b-4971-9c59-03232a624fc4",
+    "measurementUnitGroupID": "e5a94b7e-4f5a-4c60-b517-273b36cb1d5a",
+    "vendors": [],
+    "variants": [
+      {
+        "sku": "PROD-00100-NEG",
+        "name": "negro",
+        "barcode": "",
+        "defaultPrice": 644241,
+        "imgKey": "",
+        "defaultCost": 495570,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00100-BLA",
+        "name": "blanco",
+        "barcode": "",
+        "defaultPrice": 645223,
+        "imgKey": "",
+        "defaultCost": 496326,
+        "rawMaterials": []
+      },
+      {
+        "sku": "PROD-00100-ROJ",
+        "name": "rojo",
+        "barcode": "",
+        "defaultPrice": 643162,
+        "imgKey": "",
+        "defaultCost": 494740,
+        "rawMaterials": []
+      }
+    ],
+    "attributes": [
+      {
+        "name": "color",
+        "options": [
+          "negro",
+          "blanco",
+          "rojo"
+        ]
+      }
+    ],
+    "customProperties": []
+  }
+]

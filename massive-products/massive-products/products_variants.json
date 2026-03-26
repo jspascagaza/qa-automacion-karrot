@@ -1,0 +1,3802 @@
+[
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 41mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Verde",
+                "option2": "Rojo",
+                "options": "Verde, Rojo, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "970b9ba5",
+                "name": "Verde",
+                "sku": "APPL-VER-1021",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2157115,
+                "status": "",
+                "cost": 1509980
+            },
+            {
+                "id": "6c5ca89d",
+                "name": "Rojo",
+                "sku": "APPL-ROJ-8134",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2333907,
+                "status": "",
+                "cost": 1633734
+            },
+            {
+                "id": "7847105d",
+                "name": "Blanco",
+                "sku": "APPL-BLA-6869",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2266915,
+                "status": "",
+                "cost": 1586840
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Oro",
+                "option2": "Negro",
+                "options": "Oro, Negro, Gris Espacial, Azul, Plata",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "ae4fcc58",
+                "name": "Oro",
+                "sku": "IPHO-ORO-7159",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7092194,
+                "status": "",
+                "cost": 4964535
+            },
+            {
+                "id": "8f362b7d",
+                "name": "Negro",
+                "sku": "IPHO-NEG-5508",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7074955,
+                "status": "",
+                "cost": 4952468
+            },
+            {
+                "id": "1f38a76c",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-5613",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7177479,
+                "status": "",
+                "cost": 5024235
+            },
+            {
+                "id": "4f7deb37",
+                "name": "Azul",
+                "sku": "IPHO-AZU-3913",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7256270,
+                "status": "",
+                "cost": 5079389
+            },
+            {
+                "id": "62ba11f1",
+                "name": "Plata",
+                "sku": "IPHO-PLA-7250",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7764731,
+                "status": "",
+                "cost": 5435311
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Samsung Galaxy S23 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Samsung Galaxy S23",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Rojo",
+                "option2": "Verde",
+                "options": "Rojo, Verde",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "b31c453a",
+                "name": "Rojo",
+                "sku": "SAMS-ROJ-3277",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4278915,
+                "status": "",
+                "cost": 2995240
+            },
+            {
+                "id": "f100b306",
+                "name": "Verde",
+                "sku": "SAMS-VER-3373",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4454184,
+                "status": "",
+                "cost": 3117928
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 41mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Verde",
+                "option2": "Gris Espacial",
+                "options": "Verde, Gris Espacial, Negro, Blanco, Oro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "be08a0a0",
+                "name": "Verde",
+                "sku": "APPL-VER-1060",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2314157,
+                "status": "",
+                "cost": 1619909
+            },
+            {
+                "id": "83e3a19a",
+                "name": "Gris Espacial",
+                "sku": "APPL-GRI-3866",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2369186,
+                "status": "",
+                "cost": 1658430
+            },
+            {
+                "id": "68e04af4",
+                "name": "Negro",
+                "sku": "APPL-NEG-2388",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 1991532,
+                "status": "",
+                "cost": 1394072
+            },
+            {
+                "id": "297ae576",
+                "name": "Blanco",
+                "sku": "APPL-BLA-4069",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2227223,
+                "status": "",
+                "cost": 1559056
+            },
+            {
+                "id": "d6515615",
+                "name": "Oro",
+                "sku": "APPL-ORO-2862",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2273112,
+                "status": "",
+                "cost": 1591178
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPad Pro 11 M2 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPad Pro 11 M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Negro",
+                "option2": "Plata",
+                "options": "Negro, Plata, Gris Espacial, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "a5e0063f",
+                "name": "Negro",
+                "sku": "IPAD-NEG-7516",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5349020,
+                "status": "",
+                "cost": 3744313
+            },
+            {
+                "id": "42426e9f",
+                "name": "Plata",
+                "sku": "IPAD-PLA-2526",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6014626,
+                "status": "",
+                "cost": 4210238
+            },
+            {
+                "id": "4cdc83ee",
+                "name": "Gris Espacial",
+                "sku": "IPAD-GRI-3576",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5589063,
+                "status": "",
+                "cost": 3912344
+            },
+            {
+                "id": "208cdc0a",
+                "name": "Blanco",
+                "sku": "IPAD-BLA-4636",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5962513,
+                "status": "",
+                "cost": 4173759
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Negro",
+                "option2": "Azul",
+                "options": "Negro, Azul, Verde, Blanco, Plata",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8e3ef987",
+                "name": "Negro",
+                "sku": "IPHO-NEG-2703",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6511427,
+                "status": "",
+                "cost": 4557998
+            },
+            {
+                "id": "a95cdd43",
+                "name": "Azul",
+                "sku": "IPHO-AZU-1606",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5837320,
+                "status": "",
+                "cost": 4086123
+            },
+            {
+                "id": "a85b1c6a",
+                "name": "Verde",
+                "sku": "IPHO-VER-9695",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5825705,
+                "status": "",
+                "cost": 4077993
+            },
+            {
+                "id": "25a62600",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-5865",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6480323,
+                "status": "",
+                "cost": 4536226
+            },
+            {
+                "id": "69517f42",
+                "name": "Plata",
+                "sku": "IPHO-PLA-2310",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6428279,
+                "status": "",
+                "cost": 4499795
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 45mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Negro",
+                "option2": "Verde",
+                "options": "Negro, Verde, Gris Espacial, Rojo, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "aed2bc3d",
+                "name": "Negro",
+                "sku": "APPL-NEG-3122",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2297860,
+                "status": "",
+                "cost": 1608502
+            },
+            {
+                "id": "d0547c9c",
+                "name": "Verde",
+                "sku": "APPL-VER-5535",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2128592,
+                "status": "",
+                "cost": 1490014
+            },
+            {
+                "id": "6cd02d13",
+                "name": "Gris Espacial",
+                "sku": "APPL-GRI-3588",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2291690,
+                "status": "",
+                "cost": 1604183
+            },
+            {
+                "id": "2f6d2c09",
+                "name": "Rojo",
+                "sku": "APPL-ROJ-6238",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2299688,
+                "status": "",
+                "cost": 1609781
+            },
+            {
+                "id": "6ade018a",
+                "name": "Blanco",
+                "sku": "APPL-BLA-9846",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2190679,
+                "status": "",
+                "cost": 1533475
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 41mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "Verde",
+                "options": "Gris Espacial, Verde, Plata, Rojo, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "4799c945",
+                "name": "Gris Espacial",
+                "sku": "APPL-GRI-7828",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2376136,
+                "status": "",
+                "cost": 1663295
+            },
+            {
+                "id": "b201d4cd",
+                "name": "Verde",
+                "sku": "APPL-VER-4918",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2360326,
+                "status": "",
+                "cost": 1652228
+            },
+            {
+                "id": "d4837b05",
+                "name": "Plata",
+                "sku": "APPL-PLA-8584",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2188280,
+                "status": "",
+                "cost": 1531796
+            },
+            {
+                "id": "ec9575e4",
+                "name": "Rojo",
+                "sku": "APPL-ROJ-8106",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2194157,
+                "status": "",
+                "cost": 1535909
+            },
+            {
+                "id": "6540323b",
+                "name": "Blanco",
+                "sku": "APPL-BLA-6253",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2211748,
+                "status": "",
+                "cost": 1548223
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Rojo",
+                "option2": "Negro",
+                "options": "Rojo, Negro, Oro, Verde, Azul",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "754c6373",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-1185",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6022547,
+                "status": "",
+                "cost": 4215782
+            },
+            {
+                "id": "a1004d47",
+                "name": "Negro",
+                "sku": "IPHO-NEG-3575",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6045238,
+                "status": "",
+                "cost": 4231666
+            },
+            {
+                "id": "3b4a2941",
+                "name": "Oro",
+                "sku": "IPHO-ORO-9310",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5698673,
+                "status": "",
+                "cost": 3989071
+            },
+            {
+                "id": "28d21cf2",
+                "name": "Verde",
+                "sku": "IPHO-VER-3923",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6537682,
+                "status": "",
+                "cost": 4576377
+            },
+            {
+                "id": "7dae6b99",
+                "name": "Azul",
+                "sku": "IPHO-AZU-8467",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6335642,
+                "status": "",
+                "cost": 4434949
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Samsung Galaxy S23 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Samsung Galaxy S23",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Verde",
+                "option2": "Gris Espacial",
+                "options": "Verde, Gris Espacial, Plata, Azul",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "958b914c",
+                "name": "Verde",
+                "sku": "SAMS-VER-3982",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4257565,
+                "status": "",
+                "cost": 2980295
+            },
+            {
+                "id": "ec363df3",
+                "name": "Gris Espacial",
+                "sku": "SAMS-GRI-2405",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4435391,
+                "status": "",
+                "cost": 3104773
+            },
+            {
+                "id": "9c09b51d",
+                "name": "Plata",
+                "sku": "SAMS-PLA-5007",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4365318,
+                "status": "",
+                "cost": 3055722
+            },
+            {
+                "id": "fe366089",
+                "name": "Azul",
+                "sku": "SAMS-AZU-8732",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4695241,
+                "status": "",
+                "cost": 3286668
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 64GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Azul",
+                "option2": "Blanco",
+                "options": "Azul, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "6ae23cd7",
+                "name": "Azul",
+                "sku": "IPHO-AZU-7739",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6582821,
+                "status": "",
+                "cost": 4607974
+            },
+            {
+                "id": "7c1dd674",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-8779",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6022002,
+                "status": "",
+                "cost": 4215401
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Samsung Galaxy S23 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Samsung Galaxy S23",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Rojo",
+                "option2": "Blanco",
+                "options": "Rojo, Blanco, Azul, Oro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8828857f",
+                "name": "Rojo",
+                "sku": "SAMS-ROJ-2448",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4596030,
+                "status": "",
+                "cost": 3217221
+            },
+            {
+                "id": "6ff42b6b",
+                "name": "Blanco",
+                "sku": "SAMS-BLA-3980",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4559587,
+                "status": "",
+                "cost": 3191710
+            },
+            {
+                "id": "9e2afef5",
+                "name": "Azul",
+                "sku": "SAMS-AZU-2558",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4932802,
+                "status": "",
+                "cost": 3452961
+            },
+            {
+                "id": "185dc961",
+                "name": "Oro",
+                "sku": "SAMS-ORO-3022",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4083933,
+                "status": "",
+                "cost": 2858753
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 45mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Rojo",
+                "option2": "Azul",
+                "options": "Rojo, Azul, Negro, Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "7e8b0cdd",
+                "name": "Rojo",
+                "sku": "APPL-ROJ-3030",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2045566,
+                "status": "",
+                "cost": 1431896
+            },
+            {
+                "id": "35648459",
+                "name": "Azul",
+                "sku": "APPL-AZU-7123",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2042342,
+                "status": "",
+                "cost": 1429639
+            },
+            {
+                "id": "c4a5feb8",
+                "name": "Negro",
+                "sku": "APPL-NEG-2171",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2418954,
+                "status": "",
+                "cost": 1693267
+            },
+            {
+                "id": "fb2f87da",
+                "name": "Gris Espacial",
+                "sku": "APPL-GRI-3826",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2283604,
+                "status": "",
+                "cost": 1598522
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Google Pixel 8 Pro 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Google Pixel 8 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Oro",
+                "option2": "Negro",
+                "options": "Oro, Negro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "d91c0b87",
+                "name": "Oro",
+                "sku": "GOOG-ORO-6727",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5110955,
+                "status": "",
+                "cost": 3577668
+            },
+            {
+                "id": "7d0cf976",
+                "name": "Negro",
+                "sku": "GOOG-NEG-2670",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4752137,
+                "status": "",
+                "cost": 3326495
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 64GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "Negro",
+                "options": "Plata, Negro, Azul, Oro, Rojo",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "22b46d61",
+                "name": "Plata",
+                "sku": "IPHO-PLA-8243",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5827726,
+                "status": "",
+                "cost": 4079408
+            },
+            {
+                "id": "280d17d1",
+                "name": "Negro",
+                "sku": "IPHO-NEG-2823",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5721310,
+                "status": "",
+                "cost": 4004916
+            },
+            {
+                "id": "1f39266a",
+                "name": "Azul",
+                "sku": "IPHO-AZU-4614",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5591916,
+                "status": "",
+                "cost": 3914341
+            },
+            {
+                "id": "b8b87991",
+                "name": "Oro",
+                "sku": "IPHO-ORO-7834",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6380656,
+                "status": "",
+                "cost": 4466459
+            },
+            {
+                "id": "debad436",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-2480",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5726848,
+                "status": "",
+                "cost": 4008793
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 64GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "",
+                "options": "Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "835a0229",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-6859",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6197891,
+                "status": "",
+                "cost": 4338523
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "Rojo",
+                "options": "Gris Espacial, Rojo",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "a3cd5852",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-3247",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7570094,
+                "status": "",
+                "cost": 5299065
+            },
+            {
+                "id": "c7fd7ae7",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-5597",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 8135398,
+                "status": "",
+                "cost": 5694778
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Samsung Galaxy S23 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Samsung Galaxy S23",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Verde",
+                "option2": "",
+                "options": "Verde",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "453e9e36",
+                "name": "Verde",
+                "sku": "SAMS-VER-4991",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4837207,
+                "status": "",
+                "cost": 3386044
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Google Pixel 8 Pro 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Google Pixel 8 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "Plata",
+                "options": "Gris Espacial, Plata, Oro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "9ec5cf49",
+                "name": "Gris Espacial",
+                "sku": "GOOG-GRI-1340",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5326123,
+                "status": "",
+                "cost": 3728286
+            },
+            {
+                "id": "ab8ad81e",
+                "name": "Plata",
+                "sku": "GOOG-PLA-1933",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5235862,
+                "status": "",
+                "cost": 3665103
+            },
+            {
+                "id": "41f578c2",
+                "name": "Oro",
+                "sku": "GOOG-ORO-6415",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4816237,
+                "status": "",
+                "cost": 3371365
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "",
+                "options": "Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "93c34fb6",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-1574",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6770037,
+                "status": "",
+                "cost": 4739025
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "Blanco",
+                "options": "Gris Espacial, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "258a8cbd",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-6688",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6823527,
+                "status": "",
+                "cost": 4776468
+            },
+            {
+                "id": "b57f289e",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-8050",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7325679,
+                "status": "",
+                "cost": 5127975
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Verde",
+                "option2": "Gris Espacial",
+                "options": "Verde, Gris Espacial, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "5ea5527d",
+                "name": "Verde",
+                "sku": "IPHO-VER-2856",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 8082454,
+                "status": "",
+                "cost": 5657717
+            },
+            {
+                "id": "568bb993",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-2293",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6934963,
+                "status": "",
+                "cost": 4854474
+            },
+            {
+                "id": "4fd099ef",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-7137",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7972571,
+                "status": "",
+                "cost": 5580799
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Rojo",
+                "option2": "",
+                "options": "Rojo",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "b978a201",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-5879",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 8171924,
+                "status": "",
+                "cost": 5720346
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 41mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Oro",
+                "option2": "Rojo",
+                "options": "Oro, Rojo, Negro, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "27ec4a70",
+                "name": "Oro",
+                "sku": "APPL-ORO-2194",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2175247,
+                "status": "",
+                "cost": 1522672
+            },
+            {
+                "id": "ad5b17d8",
+                "name": "Rojo",
+                "sku": "APPL-ROJ-5692",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2086546,
+                "status": "",
+                "cost": 1460582
+            },
+            {
+                "id": "795f2769",
+                "name": "Negro",
+                "sku": "APPL-NEG-2582",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2278937,
+                "status": "",
+                "cost": 1595255
+            },
+            {
+                "id": "04fed4b5",
+                "name": "Blanco",
+                "sku": "APPL-BLA-1063",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 1997245,
+                "status": "",
+                "cost": 1398071
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "",
+                "options": "Plata",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "3afdad19",
+                "name": "Plata",
+                "sku": "IPHO-PLA-6238",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7868862,
+                "status": "",
+                "cost": 5508203
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Google Pixel 8 Pro 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Google Pixel 8 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "Negro",
+                "options": "Gris Espacial, Negro, Plata, Rojo, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "5f74dde5",
+                "name": "Gris Espacial",
+                "sku": "GOOG-GRI-4509",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4569489,
+                "status": "",
+                "cost": 3198642
+            },
+            {
+                "id": "027b910a",
+                "name": "Negro",
+                "sku": "GOOG-NEG-3026",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5041753,
+                "status": "",
+                "cost": 3529227
+            },
+            {
+                "id": "6c93f329",
+                "name": "Plata",
+                "sku": "GOOG-PLA-8691",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4795131,
+                "status": "",
+                "cost": 3356591
+            },
+            {
+                "id": "961b74fd",
+                "name": "Rojo",
+                "sku": "GOOG-ROJ-9162",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5495082,
+                "status": "",
+                "cost": 3846557
+            },
+            {
+                "id": "560454e4",
+                "name": "Blanco",
+                "sku": "GOOG-BLA-4294",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5400456,
+                "status": "",
+                "cost": 3780319
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 45mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "",
+                "options": "Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "12ebb3c1",
+                "name": "Blanco",
+                "sku": "APPL-BLA-2514",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2319051,
+                "status": "",
+                "cost": 1623335
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "Rojo",
+                "options": "Plata, Rojo, Blanco, Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8b9d1635",
+                "name": "Plata",
+                "sku": "IPHO-PLA-8854",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7187877,
+                "status": "",
+                "cost": 5031513
+            },
+            {
+                "id": "211f77bd",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-2657",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6948070,
+                "status": "",
+                "cost": 4863649
+            },
+            {
+                "id": "1532195a",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-7053",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7676945,
+                "status": "",
+                "cost": 5373861
+            },
+            {
+                "id": "4a8928d0",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-2195",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7586432,
+                "status": "",
+                "cost": 5310502
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Negro",
+                "option2": "Rojo",
+                "options": "Negro, Rojo, Azul",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "5fe2b668",
+                "name": "Negro",
+                "sku": "IPHO-NEG-2441",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7227471,
+                "status": "",
+                "cost": 5059229
+            },
+            {
+                "id": "6b0f0f15",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-5077",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7063120,
+                "status": "",
+                "cost": 4944184
+            },
+            {
+                "id": "b28572bf",
+                "name": "Azul",
+                "sku": "IPHO-AZU-8466",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 8222170,
+                "status": "",
+                "cost": 5755519
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Rojo",
+                "option2": "Verde",
+                "options": "Rojo, Verde, Blanco, Plata, Negro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "1ebca233",
+                "name": "Rojo",
+                "sku": "IPHO-ROJ-3932",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5920130,
+                "status": "",
+                "cost": 4144090
+            },
+            {
+                "id": "089fc125",
+                "name": "Verde",
+                "sku": "IPHO-VER-9944",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5665219,
+                "status": "",
+                "cost": 3965653
+            },
+            {
+                "id": "cac8bb84",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-6862",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6126307,
+                "status": "",
+                "cost": 4288414
+            },
+            {
+                "id": "39802425",
+                "name": "Plata",
+                "sku": "IPHO-PLA-8735",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5845067,
+                "status": "",
+                "cost": 4091546
+            },
+            {
+                "id": "fa73fb12",
+                "name": "Negro",
+                "sku": "IPHO-NEG-2604",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5689027,
+                "status": "",
+                "cost": 3982318
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPad Pro 11 M2 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPad Pro 11 M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "Azul",
+                "options": "Blanco, Azul, Gris Espacial, Verde",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "ef0e7e1e",
+                "name": "Blanco",
+                "sku": "IPAD-BLA-4976",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5745070,
+                "status": "",
+                "cost": 4021548
+            },
+            {
+                "id": "ae022175",
+                "name": "Azul",
+                "sku": "IPAD-AZU-8055",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5322899,
+                "status": "",
+                "cost": 3726029
+            },
+            {
+                "id": "4833ff28",
+                "name": "Gris Espacial",
+                "sku": "IPAD-GRI-8081",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5442187,
+                "status": "",
+                "cost": 3809530
+            },
+            {
+                "id": "c3e63b5d",
+                "name": "Verde",
+                "sku": "IPAD-VER-1778",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5722346,
+                "status": "",
+                "cost": 4005642
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Samsung Galaxy S23 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Samsung Galaxy S23",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "",
+                "options": "Plata",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "717b0d8e",
+                "name": "Plata",
+                "sku": "SAMS-PLA-4020",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4832996,
+                "status": "",
+                "cost": 3383097
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPad Pro 11 M2 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPad Pro 11 M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "Blanco",
+                "options": "Plata, Blanco, Azul, Rojo",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "d0ba6394",
+                "name": "Plata",
+                "sku": "IPAD-PLA-5718",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5699521,
+                "status": "",
+                "cost": 3989664
+            },
+            {
+                "id": "80a031a4",
+                "name": "Blanco",
+                "sku": "IPAD-BLA-1087",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5902666,
+                "status": "",
+                "cost": 4131866
+            },
+            {
+                "id": "8baed568",
+                "name": "Azul",
+                "sku": "IPAD-AZU-9881",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5741107,
+                "status": "",
+                "cost": 4018774
+            },
+            {
+                "id": "068bb971",
+                "name": "Rojo",
+                "sku": "IPAD-ROJ-2257",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5992229,
+                "status": "",
+                "cost": 4194560
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "MacBook Air M2 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for MacBook Air M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Negro",
+                "option2": "",
+                "options": "Negro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "7485bd55",
+                "name": "Negro",
+                "sku": "MACB-NEG-3376",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5297250,
+                "status": "",
+                "cost": 3708074
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Samsung Galaxy S23 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Samsung Galaxy S23",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Oro",
+                "option2": "Blanco",
+                "options": "Oro, Blanco, Gris Espacial, Rojo",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "14e13381",
+                "name": "Oro",
+                "sku": "SAMS-ORO-2481",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4412558,
+                "status": "",
+                "cost": 3088790
+            },
+            {
+                "id": "f41a26a6",
+                "name": "Blanco",
+                "sku": "SAMS-BLA-1915",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4200799,
+                "status": "",
+                "cost": 2940559
+            },
+            {
+                "id": "e1795bb8",
+                "name": "Gris Espacial",
+                "sku": "SAMS-GRI-2154",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4895807,
+                "status": "",
+                "cost": 3427064
+            },
+            {
+                "id": "59caa11a",
+                "name": "Rojo",
+                "sku": "SAMS-ROJ-5605",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4664850,
+                "status": "",
+                "cost": 3265395
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "MacBook Air M2 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for MacBook Air M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Azul",
+                "option2": "Gris Espacial",
+                "options": "Azul, Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8a666b24",
+                "name": "Azul",
+                "sku": "MACB-AZU-1934",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5193295,
+                "status": "",
+                "cost": 3635306
+            },
+            {
+                "id": "57b3af3d",
+                "name": "Gris Espacial",
+                "sku": "MACB-GRI-1815",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4975570,
+                "status": "",
+                "cost": 3482899
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "MacBook Air M2 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for MacBook Air M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Azul",
+                "option2": "Gris Espacial",
+                "options": "Azul, Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8fc392e6",
+                "name": "Azul",
+                "sku": "MACB-AZU-8855",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5659369,
+                "status": "",
+                "cost": 3961558
+            },
+            {
+                "id": "1932728f",
+                "name": "Gris Espacial",
+                "sku": "MACB-GRI-5978",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5489441,
+                "status": "",
+                "cost": 3842608
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "MacBook Air M2 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for MacBook Air M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Azul",
+                "option2": "Blanco",
+                "options": "Azul, Blanco, Negro, Gris Espacial, Oro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "4d554123",
+                "name": "Azul",
+                "sku": "MACB-AZU-2427",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5258096,
+                "status": "",
+                "cost": 3680667
+            },
+            {
+                "id": "544e6941",
+                "name": "Blanco",
+                "sku": "MACB-BLA-2713",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5024660,
+                "status": "",
+                "cost": 3517262
+            },
+            {
+                "id": "5c6ae413",
+                "name": "Negro",
+                "sku": "MACB-NEG-4596",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5095796,
+                "status": "",
+                "cost": 3567057
+            },
+            {
+                "id": "3b48152f",
+                "name": "Gris Espacial",
+                "sku": "MACB-GRI-2415",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5338282,
+                "status": "",
+                "cost": 3736797
+            },
+            {
+                "id": "97ca7e1f",
+                "name": "Oro",
+                "sku": "MACB-ORO-2100",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5409400,
+                "status": "",
+                "cost": 3786579
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 1024GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Gris Espacial",
+                "option2": "Blanco",
+                "options": "Gris Espacial, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "0db857db",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-7359",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 8182445,
+                "status": "",
+                "cost": 5727711
+            },
+            {
+                "id": "bc079016",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-7211",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7710716,
+                "status": "",
+                "cost": 5397501
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Google Pixel 8 Pro 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Google Pixel 8 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "",
+                "options": "Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "97a464bd",
+                "name": "Blanco",
+                "sku": "GOOG-BLA-8628",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5296408,
+                "status": "",
+                "cost": 3707485
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "Verde",
+                "options": "Blanco, Verde, Azul, Plata",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "79ba2879",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-4440",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6203811,
+                "status": "",
+                "cost": 4342667
+            },
+            {
+                "id": "6158e04d",
+                "name": "Verde",
+                "sku": "IPHO-VER-5704",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5793335,
+                "status": "",
+                "cost": 4055334
+            },
+            {
+                "id": "c8bbea5c",
+                "name": "Azul",
+                "sku": "IPHO-AZU-9722",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5622069,
+                "status": "",
+                "cost": 3935448
+            },
+            {
+                "id": "47e83256",
+                "name": "Plata",
+                "sku": "IPHO-PLA-9852",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5969872,
+                "status": "",
+                "cost": 4178910
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Apple Watch Series 9 41mm",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Apple Watch Series 9",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "Blanco",
+                "options": "Plata, Blanco, Rojo, Oro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8c15cf75",
+                "name": "Plata",
+                "sku": "APPL-PLA-3780",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2235510,
+                "status": "",
+                "cost": 1564857
+            },
+            {
+                "id": "d458161d",
+                "name": "Blanco",
+                "sku": "APPL-BLA-4747",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2220597,
+                "status": "",
+                "cost": 1554417
+            },
+            {
+                "id": "e30eabd9",
+                "name": "Rojo",
+                "sku": "APPL-ROJ-7420",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2205766,
+                "status": "",
+                "cost": 1544036
+            },
+            {
+                "id": "aebd54db",
+                "name": "Oro",
+                "sku": "APPL-ORO-2550",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 2301431,
+                "status": "",
+                "cost": 1611001
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPad Pro 11 M2 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPad Pro 11 M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Plata",
+                "option2": "Blanco",
+                "options": "Plata, Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "eec300e6",
+                "name": "Plata",
+                "sku": "IPAD-PLA-4397",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5260097,
+                "status": "",
+                "cost": 3682067
+            },
+            {
+                "id": "ba677f04",
+                "name": "Blanco",
+                "sku": "IPAD-BLA-7048",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5618734,
+                "status": "",
+                "cost": 3933113
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Google Pixel 8 Pro 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Google Pixel 8 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "",
+                "options": "Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "d3c232ef",
+                "name": "Blanco",
+                "sku": "GOOG-BLA-2873",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5462877,
+                "status": "",
+                "cost": 3824013
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "Google Pixel 8 Pro 128GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for Google Pixel 8 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Oro",
+                "option2": "Rojo",
+                "options": "Oro, Rojo, Azul, Blanco, Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "8e297f8e",
+                "name": "Oro",
+                "sku": "GOOG-ORO-8425",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5178225,
+                "status": "",
+                "cost": 3624757
+            },
+            {
+                "id": "5b457548",
+                "name": "Rojo",
+                "sku": "GOOG-ROJ-7068",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4596700,
+                "status": "",
+                "cost": 3217690
+            },
+            {
+                "id": "7e57bc4c",
+                "name": "Azul",
+                "sku": "GOOG-AZU-3760",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5157575,
+                "status": "",
+                "cost": 3610302
+            },
+            {
+                "id": "d72d371f",
+                "name": "Blanco",
+                "sku": "GOOG-BLA-6634",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5199529,
+                "status": "",
+                "cost": 3639670
+            },
+            {
+                "id": "e76780f2",
+                "name": "Gris Espacial",
+                "sku": "GOOG-GRI-1830",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 4787110,
+                "status": "",
+                "cost": 3350977
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Oro",
+                "option2": "Blanco",
+                "options": "Oro, Blanco, Negro, Verde, Gris Espacial",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "3742b720",
+                "name": "Oro",
+                "sku": "IPHO-ORO-9849",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5992781,
+                "status": "",
+                "cost": 4194946
+            },
+            {
+                "id": "9ef640a8",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-5738",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6303935,
+                "status": "",
+                "cost": 4412754
+            },
+            {
+                "id": "590693ce",
+                "name": "Negro",
+                "sku": "IPHO-NEG-4971",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5451881,
+                "status": "",
+                "cost": 3816316
+            },
+            {
+                "id": "bdbab9f2",
+                "name": "Verde",
+                "sku": "IPHO-VER-5447",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6325846,
+                "status": "",
+                "cost": 4428092
+            },
+            {
+                "id": "0076f3f7",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-6592",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6270330,
+                "status": "",
+                "cost": 4389231
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPad Pro 11 M2 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPad Pro 11 M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "Negro",
+                "options": "Blanco, Negro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "5e05aa5c",
+                "name": "Blanco",
+                "sku": "IPAD-BLA-5411",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5502798,
+                "status": "",
+                "cost": 3851958
+            },
+            {
+                "id": "912f14f5",
+                "name": "Negro",
+                "sku": "IPAD-NEG-2469",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5941406,
+                "status": "",
+                "cost": 4158984
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "MacBook Air M2 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for MacBook Air M2",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Blanco",
+                "option2": "",
+                "options": "Blanco",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "1faad6ad",
+                "name": "Blanco",
+                "sku": "MACB-BLA-7961",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5848085,
+                "status": "",
+                "cost": 4093659
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 256GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Verde",
+                "option2": "Gris Espacial",
+                "options": "Verde, Gris Espacial, Negro",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "c6730077",
+                "name": "Verde",
+                "sku": "IPHO-VER-5683",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 5685775,
+                "status": "",
+                "cost": 3980042
+            },
+            {
+                "id": "2ed0c4c7",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-1044",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6327330,
+                "status": "",
+                "cost": 4429131
+            },
+            {
+                "id": "a0ab958f",
+                "name": "Negro",
+                "sku": "IPHO-NEG-4615",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6526377,
+                "status": "",
+                "cost": 4568463
+            }
+        ]
+    },
+    {
+        "imgFile": "",
+        "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad",
+        "isPerishable": false,
+        "allowPriceEditInPOS": false,
+        "values": {
+            "type": "Product",
+            "name": "iPhone 13 Pro 512GB",
+            "category": {
+                "label": "Dispositivos móviles y tecnología",
+                "value": "682e7102-cc22-432f-b1b9-45ae21bcf3cf"
+            },
+            "unitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+            "description": "Description for iPhone 13 Pro",
+            "active": true,
+            "unit": "a8832d23-509b-4971-9c59-03232a624fc4"
+        },
+        "customUnitsData": null,
+        "selectedUnitGroup": "f7c82967-5cb1-42b8-9213-792d8cf5e3f4",
+        "selectedCategory": {
+            "id": "682e7102-cc22-432f-b1b9-45ae21bcf3cf",
+            "name": "Dispositivos móviles y tecnología",
+            "type": "Product",
+            "img": null,
+            "companyID": "1fafaa4d-ef88-410e-8ebc-3ba494c331ad"
+        },
+        "selectedCountry": {
+            "id": "ca2b69a5-acb2-4adc-938a-8364a8341353",
+            "name": "Mexico",
+            "code": "MEX"
+        },
+        "selectVendors": [],
+        "attribute": [
+            {
+                "attributeName": "color",
+                "option1": "Negro",
+                "option2": "Blanco",
+                "options": "Negro, Blanco, Plata, Gris Espacial, Azul",
+                "id": "color"
+            }
+        ],
+        "customProperties": [],
+        "variant": [
+            {
+                "id": "ea1738e6",
+                "name": "Negro",
+                "sku": "IPHO-NEG-1224",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6890412,
+                "status": "",
+                "cost": 4823288
+            },
+            {
+                "id": "9aeda9f8",
+                "name": "Blanco",
+                "sku": "IPHO-BLA-5979",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 6878992,
+                "status": "",
+                "cost": 4815294
+            },
+            {
+                "id": "ae55d90e",
+                "name": "Plata",
+                "sku": "IPHO-PLA-4003",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 8020068,
+                "status": "",
+                "cost": 5614047
+            },
+            {
+                "id": "78db41ce",
+                "name": "Gris Espacial",
+                "sku": "IPHO-GRI-5253",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7752993,
+                "status": "",
+                "cost": 5427095
+            },
+            {
+                "id": "facae715",
+                "name": "Azul",
+                "sku": "IPHO-AZU-9837",
+                "imgFile": "",
+                "barcode": "",
+                "defaultPrice": 7197591,
+                "status": "",
+                "cost": 5038313
+            }
+        ]
+    }
+]
