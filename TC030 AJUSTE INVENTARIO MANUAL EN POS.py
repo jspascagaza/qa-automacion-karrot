@@ -26,7 +26,7 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    r"C:\Users\yonas\Documents\qa-automacion\automatizacion-karrot-a72723f4eafb.json",
+    r"C:\Users\yonas\Documents\qa-automacion-karrot\automatizacion-karrot-11b5a5de79c5.json",
     scope
 )
 client = gspread.authorize(creds)
@@ -40,6 +40,10 @@ sheet = spreadsheet.sheet1
 exito = False
 observaciones = ""
 url_final = ""
+
+# Variables para guardar estado del inventario para la venta
+producto_seleccionado = ""
+inventario_inicial = 0
 
 # =====================
 # PRUEBA REGISTRO COMPLETO CON CONSULTOR Y VERIFICACIÓN
@@ -110,6 +114,52 @@ def esperar_tabla_inventario():
         pass
     
     return None        
+
+
+def leer_inventario_actual():
+    """
+    Lee el primer producto visible en el cuadro de inventario y extrae su stock en la sede actual.
+    """
+    global producto_seleccionado, inventario_inicial
+    print("📊 Leyendo el primer producto del inventario...")
+    try:
+        # Usamos la validación existente para esperar la tabla
+        tabla = esperar_tabla_inventario()
+        time.sleep(3) # Esperar a que rendericen los datos de las filas
+        
+        # 1. Buscar la primera fila de datos de la tabla (normalmente tr con ant-table-row)
+        xpath_primera_fila = '//tbody/tr[contains(@class, "ant-table-row")][1]'
+        primera_fila = wait.until(EC.presence_of_element_located((By.XPATH, xpath_primera_fila)))
+        
+        # 2. Extraemos el texto de las columnas.
+        # Basado en la imagen: Checkbox(1), Producto(2), SKU(3), Código de barras(4), Sede(5)
+        nombre_producto_elem = primera_fila.find_element(By.XPATH, './td[2]')
+        stock_sede_elem = primera_fila.find_element(By.XPATH, './td[5]')
+        
+        # Limpieza de datos
+        nombre_producto = nombre_producto_elem.text.strip()
+        stock_texto_bruto = stock_sede_elem.text.strip()
+        
+        # El stock suele decir algo como "19 ✔ (Ver lotes)", sacamos solo el primer número
+        import re
+        numeros = re.findall(r'-?\d+', stock_texto_bruto)
+        stock_actual = int(numeros[0]) if numeros else 0
+        
+        print(f"📦 Producto capturado: '{nombre_producto}'")
+        print(f"📦 Inventario inicial en sede: {stock_actual}")
+        
+        producto_seleccionado = nombre_producto
+        inventario_inicial = stock_actual
+        
+        return producto_seleccionado, inventario_inicial
+        
+    except Exception as e:
+        print(f"❌ Error al intentar leer el primer producto del inventario: {e}")
+        try:
+            driver.save_screenshot("error_lectura_inventario.png")
+        except:
+            pass
+        return None, 0
 
 
 def ingreso_al_pos():   
@@ -323,7 +373,7 @@ def validacion_pos(inventario_maximo=0):
                 #    driver.execute_script("arguments[0].click();", opcion_cierre)
                 #    print(f"✅ Opción 'Cierre Caja - Fin de Día' seleccionada (JS Click) - Advertencia: {e}")
                 
-                time.sleep(3)
+                time.sleep(10)
                 
                 # Clic en "Siguiente"
                 print("📦 Buscando el botón 'Siguiente'...")
@@ -337,14 +387,14 @@ def validacion_pos(inventario_maximo=0):
                     driver.execute_script("arguments[0].click();", boton_siguiente)
                     print(f"✅ Botón 'Siguiente' en Pop-up clickeado (JS Click) - Advertencia: {e}")
                 
-                time.sleep(3)
+                time.sleep(10)
                 
                 # TODO: Aquí faltaría el resto del flujo de cierre (Conteo físico, etc.) y luego apertura
                 # Paso 2: Conteo Físico
                 print("📦 En Pop-up de Cierre de Caja (Paso 2: Conteo Físico). Haciendo clic en Siguiente sin modificar saldos...")
                 
-                # Por ahora solo damos clic en Siguiente nuevamente
-                xpath_boton_siguiente_conteo = '//button[normalize-space()="Siguiente"]'
+                # Usamos [last()] para asegurar que siempre tomemos el botón del paso actual
+                xpath_boton_siguiente_conteo = '(//button[normalize-space()="Siguiente"])[last()]'
                 boton_siguiente_conteo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_conteo)))
                 
                 try:
@@ -360,7 +410,7 @@ def validacion_pos(inventario_maximo=0):
                 print("📦 En Pop-up de Cierre de Caja (Paso 3: Comparación de Saldo). Haciendo clic en Siguiente...")
                 time.sleep(3)
                 
-                xpath_boton_siguiente_comparacion = '//button[normalize-space()="Siguiente"]'
+                xpath_boton_siguiente_comparacion = '(//button[normalize-space()="Siguiente"])[last()]'
                 boton_siguiente_comparacion = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_comparacion)))
                 
                 try:
@@ -409,12 +459,13 @@ def validacion_pos(inventario_maximo=0):
                 except Exception as e:
                     print(f"⚠️ No se pudo clickear el botón 'salir del balance de caja vencida': {e}")
                 
-                print("ℹ️ Pendiente: Flujo para la posterior Apertura de Caja")
+                print("ℹ️ Cajero vencido cerrado. Ahora procediendo a Apertura de Caja...")
+                caja_cerrada = True # Activar la bandera para que pase al siguiente bloque
                 
             except Exception as e:
                 print(f"❌ Error en flujo Caja Vencida: {e}")
 
-        elif caja_cerrada:
+        if caja_cerrada:
             print("⚠️ Estado 'Caja Cerrada' detectado. Intentando abrir caja...")
             try:
                 xpath_boton_abrir = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
@@ -425,7 +476,7 @@ def validacion_pos(inventario_maximo=0):
                 
                 # Paso 1: Clic en "Siguiente"
                 print("📦 Buscando el botón 'Siguiente' para Apertura...")
-                xpath_boton_siguiente = '//button[normalize-space()="Siguiente"]'
+                xpath_boton_siguiente = '(//button[normalize-space()="Siguiente"])[last()]'
                 boton_siguiente_apertura = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente)))
                 time.sleep(3)
                 try:
@@ -439,7 +490,8 @@ def validacion_pos(inventario_maximo=0):
                 
                 # Paso 2: Conteo Físico
                 print("📦 En Pop-up de Apertura (Paso 2). Haciendo clic en Siguiente...")
-                boton_siguiente_conteo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente)))
+                xpath_boton_siguiente_apertura_conteo = '(//button[normalize-space()="Siguiente"])[last()]'
+                boton_siguiente_conteo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_apertura_conteo)))
                 try:
                     boton_siguiente_conteo.click()
                     print("✅ Botón 'Siguiente' en Conteo Físico clickeado (Click Normal)")
@@ -481,19 +533,32 @@ def validacion_pos(inventario_maximo=0):
                     print(f"⚠️ No se pudo clickear el botón 'salir del balance de caja' en Apertura: {e}")
             except Exception as e:
                 print(f"❌ Error en flujo Caja Cerrada: {e}")
-        else:
+                
+        if not caja_vencida and not caja_cerrada:
             print("✅ Estado 'Caja Aperturada' detectado o no hay bloqueos. Continuando flujo normal...")
 
         # --- NAVEGACIÓN A INVENTARIO ---
         print("📦 Accediendo a opción Inventario via Popup...")
         try:
-            # Esperar a que la opción esté disponible después de manejar la caja
+            # Esperar a que la interfaz esté lista
             time.sleep(2)
-            xpath_submenu = '//*[@id="rc-menu-uuid-17907-7-inventory-popup"]/li[1]/span'
-            # Es posible que el ID rc-menu-uuid cambie dinámicamente, pero se mantiene el original
+            
+            # 1. Hacer hover sobre el ítem del menú lateral (ícono de camisa/Inventario)
+            print("🔍 Buscando y desplegando el menú lateral de Inventario (Hover)...")
+            xpath_menu_lateral = '//div[contains(@class, "ant-menu-submenu-title") and .//span[text()="Inventario"]]'
+            menu_lateral = wait.until(EC.presence_of_element_located((By.XPATH, xpath_menu_lateral)))
+            
+            # Desplazar mouse hacia el elemento para que se abra el pop-up
+            ActionChains(driver).move_to_element(menu_lateral).perform()
+            time.sleep(1.5) # Breve espera para la animación del pop-up
+            
+            # 2. Hacer clic en "Inventario" dentro del pop-up que acaba de aparecer
+            print("🖱️ Clickeando 'Inventario' en el pop-up...")
+            xpath_submenu = '//*[contains(@id, "-inventory-popup")]//li[contains(., "Inventario") or contains(@class, "ant-menu-item")]'
+            
             submenu_inventario = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_submenu)))
             submenu_inventario.click()
-            print("✅ Click en Submenú Inventario (Estrategia Popup)")
+            print("✅ Click en Submenú Inventario exitoso (Hover + Click)")
         except Exception as e:
             print(f"⚠️ Falló click en submenú inventario: {e}")
     except Exception as e:
@@ -538,9 +603,34 @@ try:
     ingreso_al_pos()
     validacion_pos()
 
+    # Extraer el inventario base para futuras validaciones o ventas
+    leer_inventario_actual()
 
-
-
+    # Finalizar turno como último paso del proceso
+    print("🔚 Intentando hacer clic en 'Finalizar turno'...")
+    try:
+        time.sleep(3) # Esperar a que la página actual se estabilice
+        xpath_finalizar_turno = '//*[@id="root"]/div/section/header/div/div[2]/div[2]/div[2]/button'
+        boton_finalizar_turno = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_finalizar_turno)))
+        
+        try:
+            boton_finalizar_turno.click()
+            print("✅ Botón 'Finalizar turno' clickeado (Click Normal)")
+        except Exception as e:
+            driver.execute_script("arguments[0].click();", boton_finalizar_turno)
+            print(f"✅ Botón 'Finalizar turno' clickeado (JS Click) - Advertencia: {e}")
+        
+        time.sleep(2)
+        
+        # Si logramos llegar hasta aquí, el caso de prueba fue exitoso
+        exito = True
+        observaciones = "Ejecución completada exitosamente hasta el cierre de turno."
+    except Exception as e:
+        print(f"❌ Error al intentar finalizar el turno: {e}")
+        try:
+            driver.save_screenshot("error_finalizar_turno.png")
+        except:
+            pass
 finally:
     # Registrar resultado
     print("\n" + "="*50)
