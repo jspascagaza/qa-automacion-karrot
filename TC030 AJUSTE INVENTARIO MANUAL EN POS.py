@@ -18,6 +18,10 @@ import string
 from faker import Faker
 import faker_commerce; print(faker_commerce.__file__)
 import re
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
@@ -26,13 +30,13 @@ scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    r"C:\Users\yonas\Documents\qa-automacion-karrot\automatizacion-karrot-11b5a5de79c5.json",
+    os.getenv("GOOGLE_CREDENTIALS_PATH", "automatizacion-karrot-11b5a5de79c5.json"),
     scope
 )
 client = gspread.authorize(creds)
 
 spreadsheet = client.open_by_url(
-    "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0"
+    os.getenv("GOOGLE_SHEET_URL", "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0")
 )
 sheet = spreadsheet.sheet1
 
@@ -564,11 +568,11 @@ try:
     print("🔐 Iniciando sesión...")
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("karrotdev@outlook.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL", ""))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD", ""))
     #//*[@id="login-form"]/div[3]/div/div/div/div/button
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
