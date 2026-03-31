@@ -60,7 +60,7 @@ password_user = "ContraseñaIncorrecta123#*"
 
 driver = webdriver.Chrome()
 driver.maximize_window()
-driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
 
 wait = WebDriverWait(driver, 20)
 

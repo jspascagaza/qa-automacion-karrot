@@ -77,7 +77,7 @@ print(f"Datos generados -> Empresa: {company_name}, Nombre: {first_name} {last_n
 # Inicializar navegador
 driver = webdriver.Chrome()
 driver.maximize_window()
-driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/register/es")
+driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/register/es")
 
 wait = WebDriverWait(driver, 20)
 

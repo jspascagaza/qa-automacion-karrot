@@ -68,7 +68,7 @@ def registrar_resultado(id_caso, estado, observaciones=""):
 # =====================
 try:
     driver = webdriver.Chrome()
-    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     print("✅ Navegador iniciado correctamente")
 except Exception as e:
@@ -117,7 +117,7 @@ try:
     driver.get(segundopath.get_attribute("href"))
     time.sleep(10)
 
-    url_agregar = "https://dev.do5o1l1ov8f4a.amplifyapp.com/app/locations/add-locations"
+    url_agregar = "https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/add-locations"
     driver.get(url_agregar)
     time.sleep(5)
 

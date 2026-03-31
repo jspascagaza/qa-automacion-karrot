@@ -272,7 +272,7 @@ def ingreso_al_pos():
     print("🔍 Buscando acceso al POS...")
     print("🔍 Accediendo al POS por URL directa...")
     try:
-        url_pos = "https://dev.do5o1l1ov8f4a.amplifyapp.com/app/start/shift-start"
+        url_pos = "https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/start/shift-start"
         driver.get(url_pos)
         print(f"✅ Navegación a POS iniciada: {url_pos}")
 
@@ -797,7 +797,7 @@ try:
     chrome_options.add_argument('--kiosk-printing')
     
     driver = webdriver.Chrome(options=chrome_options)
-    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     wait = WebDriverWait(driver, 40)
 

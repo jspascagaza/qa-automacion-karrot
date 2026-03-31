@@ -59,7 +59,7 @@ def registrar_resultado(id_caso, estado, observaciones=""):
 # =====================
 try:
     driver = webdriver.Chrome()
-    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     print("✅ Navegador iniciado correctamente")
 except Exception as e:
@@ -111,7 +111,7 @@ try:
 
     listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[7]/div/button[2]")))
     listado_editar.click()
-    URL_caja = "https://dev.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-cashdrawers/abda433b-d026-4726-ab7d-3b4eddb765c3"
+    URL_caja = "https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-cashdrawers/abda433b-d026-4726-ab7d-3b4eddb765c3"
     driver.get(URL_caja)
     
     # Hacer clic en el botón de tres puntos

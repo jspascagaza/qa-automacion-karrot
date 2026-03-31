@@ -62,7 +62,7 @@ def registrar_resultado(id_caso, estado, observaciones=""):
 # =====================
 try:
     driver = webdriver.Chrome()
-    driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     print("✅ Navegador iniciado correctamente")
 except Exception as e:

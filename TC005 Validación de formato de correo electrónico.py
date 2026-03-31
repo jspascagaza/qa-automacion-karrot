@@ -74,7 +74,7 @@ password = ''.join(random.choice(alphabet) for _ in range(12))
 # Inicializar navegador
 driver = webdriver.Chrome()
 driver.maximize_window()
-driver.get("https://dev.do5o1l1ov8f4a.amplifyapp.com/auth/register/es")
+driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/register/es")
 
 wait = WebDriverWait(driver, 20)
 

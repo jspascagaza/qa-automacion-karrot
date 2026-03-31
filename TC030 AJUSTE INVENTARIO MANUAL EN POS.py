@@ -351,28 +351,7 @@ def validacion_pos(inventario_maximo=0):
                 xpath_boton_cerrar = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
                 boton_cerrar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_cerrar)))
                 boton_cerrar.click()
-                print("✅ Botón 'Cerrar Caja' (Principal) clickeado")
-                time.sleep(2)
-                
-                # Pop-up de cierre de caja (Paso 1: Tipo de balance)
-                # Pop-up de cierre de caja (Paso 1: Tipo de balance)
-                #-print("📦 En Pop-up de Cierre de Caja. Seleccionando 'Cierre Caja - Fin de Día'...")
-                
-                # Clic en "Cierre Caja - Fin de Día" (Basado en texto visible)
-                #xpath_opcion_cierre = '//*[contains(text(), "Cierre Caja - Fin de Día") or contains(., "Cierre Caja - Fin de Día")]'
-                #opcion_cierre = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_opcion_cierre)))
-                
-                # Desplazar hasta el elemento por si acaso
-                #driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", opcion_cierre)
-                #time.sleep(0.5)
-                
-                #try:
-                #    opcion_cierre.click()
-                #    print("✅ Opción 'Cierre Caja - Fin de Día' seleccionada (Click Normal)")
-                #except Exception as e:
-                #    driver.execute_script("arguments[0].click();", opcion_cierre)
-                #    print(f"✅ Opción 'Cierre Caja - Fin de Día' seleccionada (JS Click) - Advertencia: {e}")
-                
+                print("✅ Botón 'Cerrar Caja' (Principal) clickeado")    
                 time.sleep(10)
                 
                 # Clic en "Siguiente"
@@ -486,7 +465,7 @@ def validacion_pos(inventario_maximo=0):
                     driver.execute_script("arguments[0].click();", boton_siguiente_apertura)
                     print(f"✅ Botón 'Siguiente' en Pop-up (Paso 1) clickeado (JS Click) - Advertencia: {e}")
                 
-                time.sleep(3)
+                time.sleep(10)
                 
                 # Paso 2: Conteo Físico
                 print("📦 En Pop-up de Apertura (Paso 2). Haciendo clic en Siguiente...")
@@ -499,7 +478,7 @@ def validacion_pos(inventario_maximo=0):
                     driver.execute_script("arguments[0].click();", boton_siguiente_conteo)
                     print(f"✅ Botón 'Siguiente' en Conteo Físico clickeado (JS Click) - Advertencia: {e}")
                 
-                time.sleep(3)
+                time.sleep(10)
                 
                 # Paso 3: Retiro de Saldos (Apertura)
                 print("📦 En Pop-up de Apertura (Paso 4). Haciendo clic en Finalizar...")
