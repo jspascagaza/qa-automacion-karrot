@@ -3,6 +3,7 @@ import datetime
 from socket import timeout
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
@@ -296,7 +297,14 @@ def seleccionar_checkbox_primer_producto():
         return False
 
 try:
-    driver = webdriver.Chrome()
+    chrome_options = Options()
+    if os.getenv("JENKINS_URL") or os.getenv("CI") or os.getenv("HEADLESS") == "true":
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--window-size=1920,1080")
+        
+    driver = webdriver.Chrome(options=chrome_options)
     driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
     wait = WebDriverWait(driver, 40)

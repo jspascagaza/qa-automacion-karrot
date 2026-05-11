@@ -1,0 +1,1464 @@
+Running as SYSTEM
+Ejecutando. en el espacio de trabajo C:\ProgramData\Jenkins\.jenkins\workspace\QA_Automation_Karrot_Test
+[QA_Automation_Karrot_Test] $ cmd /c call C:\WINDOWS\TEMP\jenkins6658516277563186417.bat
+==========================================
+BIENVENIDO AL JENKINS DE YONAS
+EQUIPO QA - KARROT
+==========================================
+[+] Iniciando ejecucion de pruebas...
+
+[RUN] Ejecutando: TC001 LOGIN EXITOSO.py
+âœ… Caso TC001 actualizado -> Exitosa
+[RESULT] Exito en TC001 LOGIN EXITOSO.py
+------------------------------------------
+[RUN] Ejecutando: TC002 LOGIN FALLIDO.py
+Mensaje encontrado en pantalla: 'User does not exist.'
+âœ… Caso exitoso: mensaje correcto detectado
+âœ… Caso TC002 actualizado -> Exitosa
+[RESULT] Exito en TC002 LOGIN FALLIDO.py
+------------------------------------------
+[RUN] Ejecutando: TC003 REGISTRO EXITOSO.py
+Datos generados -> Empresa: Empresa7585, Nombre: Valentina Pedraza, Email: nquintero@example.com, Tel: +573363641643
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âœ… Colombia seleccionado desde dropdown (mÃ©todo 1)
+âœ… Numero de tiendas ingresado
+âœ… Correo electrÃ³nico ingresado
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+ðŸŽ‰ Todos los campos fueron llenados correctamente
+ðŸ“¸ Captura de pantalla guardada como 'formulario_lleno.png'
+âœ… Caso TC003 actualizado -> Exitosa
+
+==================================================
+RESUMEN DE EJECUCIÃ“N
+==================================================
+ID Caso: TC003
+Estado: Exitosa
+Observaciones: Formulario completado exitosamente - PaÃ­s Colombia seleccionado
+==================================================
+[RESULT] Exito en TC003 REGISTRO EXITOSO.py
+------------------------------------------
+[RUN] Ejecutando: TC004 Registro fallido sin nombre de negocio.py
+Datos generados ->  Ingrid GÃ³mez enrique11@example.org +57357341418
+âš ï¸� Nombre de empresa dejado vacÃ­o (esto es intencional para la prueba)
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âœ… Colombia seleccionado desde dropdown (mÃ©todo 1)
+âœ… Correo electrÃ³nico ingresado
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+ðŸ”„ Haciendo clic en el botÃ³n de registro...
+âœ… BotÃ³n de registro presionado
+ðŸ”„ Esperando mensaje de error...
+âœ… Mensaje de error encontrado: 'Introduce el nombre de tu empresa'
+ðŸ“¸ Captura de error guardada como 'error_nombre_vacio.png'
+âœ… Caso TC004 actualizado -> Exitosa
+
+==================================================
+RESUMEN DE EJECUCIÃ“N - PRUEBA NOMBRE VACÃ�O
+==================================================
+ID Caso: TC004
+Estado: Exitosa
+Observaciones: Prueba exitosa - Mensaje de error detectado: Introduce el nombre de tu empresa
+Mensaje de error: Introduce el nombre de tu empresa
+==================================================
+[RESULT] Exito en TC004 Registro fallido sin nombre de negocio.py
+------------------------------------------
+[RUN] Ejecutando: TC005 ValidaciÃ³n de formato de correo electrÃ³nico.py
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC005 ValidaciÃ³n de formato de correo electrÃ³nico.py", line 106, in <module>
+    user = (first_name[0] + last_name).lower().replace(" ", "")
+            ~~~~~~~~~~^^^
+IndexError: string index out of range
+[RESULT] Fallo detectado en TC005 ValidaciÃ³n de formato de correo electrÃ³nico.py
+------------------------------------------
+[RUN] Ejecutando: TC006 ValidaciÃ³n de formato de correo electrÃ³nico.py
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âœ… Colombia seleccionado desde dropdown (mÃ©todo 1)
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+ðŸ”„ Iniciando ciclo de validaciÃ³n del campo correo...
+
+--- Prueba 1: CORREO_INCOMPLETO ---
+âœ… Campo limpiado completamente
+âœ… Valor ingresado: 'correoincompleto@'
+âœ… Foco cambiado para activar validaciÃ³n
+âœ… Mensaje de error encontrado: 'Â¡Introduce un correo electrÃ³nico vÃ¡lido!'
+ðŸ“¸ Captura guardada como 'error_correo_incompleto_1.png'
+
+--- Prueba 2: CORREO_VACIO ---
+âœ… Campo limpiado completamente
+âœ… Foco cambiado para activar validaciÃ³n
+âœ… Mensaje de error encontrado: 'Introduce tu direcciÃ³n de correo electrÃ³nico'
+ðŸ“¸ Captura guardada como 'error_correo_vacio_2.png'
+âœ… Todos los mensajes de error encontrados correctamente
+
+ðŸ”„ Verificando validaciÃ³n final...
+âœ… Campo limpiado completamente
+âœ… BotÃ³n de registro presionado
+ðŸ“¸ Captura final de validaciÃ³n exitosa guardada
+âœ… Caso TC006 actualizado -> EXITOSO
+
+================================================================================
+RESUMEN DE EJECUCIÃ“N - CICLO DE VALIDACIÃ“N DE CORREO
+================================================================================
+ID Caso: TC006
+Estado: EXITOSO
+Observaciones: Prueba exitosa - Todos los mensajes de error detectados correctamente
+
+Detalle de pruebas realizadas:
+  1. CORREO_INCOMPLETO: âœ… - Â¡Introduce un correo electrÃ³nico vÃ¡lido!
+  2. CORREO_VACIO: âœ… - Introduce tu direcciÃ³n de correo electrÃ³nico
+
+Mensajes de error encontrados:
+  â€¢ CORREO_INCOMPLETO: Â¡Introduce un correo electrÃ³nico vÃ¡lido!
+  â€¢ CORREO_VACIO: Introduce tu direcciÃ³n de correo electrÃ³nico
+================================================================================
+[RESULT] Exito en TC006 ValidaciÃ³n de formato de correo electrÃ³nico.py
+------------------------------------------
+[RUN] Ejecutando: TC007 ValidaciÃ³n de contraseÃ±a.py
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âœ… Colombia seleccionado desde dropdown (mÃ©todo 1)
+âœ… Correo electrÃ³nico ingresado
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+âš ï¸� Mensaje mostrado en pantalla: 'La contraseÃ±a debe tener al menos 8 caracteres'
+âœ… Caso exitoso: validaciÃ³n de contraseÃ±a detectada
+âœ… Caso TC007 actualizado -> Exitosa
+[RESULT] Exito en TC007 ValidaciÃ³n de contraseÃ±a.py
+------------------------------------------
+[RUN] Ejecutando: TC008 Registro fallido sin nÃºmero de telÃ©fono.py
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âœ… Colombia seleccionado desde dropdown (mÃ©todo 1)
+âœ… Correo electrÃ³nico ingresado
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+ðŸ”„ Haciendo clic en el botÃ³n de registro...
+âœ… BotÃ³n de registro presionado
+ðŸ”„ Esperando mensaje de error...
+â�Œ No se encontrÃ³ el mensaje de error esperado
+Otros errores detectados: ['views.auth.auth-register.rule-store_number']
+ðŸ“¸ Captura de pantalla guardada como 'sin_mensaje_error_celular.png'
+âœ… Caso TC008 actualizado -> FALLIDO
+
+======================================================================
+RESUMEN DE EJECUCIÃ“N - PRUEBA CELULAR VACÃ�O
+======================================================================
+ID Caso: TC008
+Estado: FALLIDO
+Observaciones: Fallo en la prueba - No se detectÃ³ el mensaje de error esperado. Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+ Otros errores encontrados: views.auth.auth-register.rule-store_number
+======================================================================
+[RESULT] Exito en TC008 Registro fallido sin nÃºmero de telÃ©fono.py
+------------------------------------------
+[RUN] Ejecutando: TC009 Registro con campo de referencia seleccionando cualquier.py
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âœ… Colombia seleccionado desde dropdown (mÃ©todo 1)
+âœ… Correo electrÃ³nico ingresado
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+ðŸ”„ Seleccionando consultor de negocios...
+âš ï¸� Error al seleccionar consultor: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+ðŸ”„ Intentando selecciÃ³n de consultor con JavaScript...
+âœ… SelecciÃ³n de consultor realizada con JavaScript
+ðŸ”„ Completando proceso de registro...
+âœ… BotÃ³n de registro presionado
+ðŸ”„ Esperando confirmaciÃ³n de registro...
+âš ï¸� Registro completado pero sin confirmaciÃ³n clara
+âœ… Caso TC009 actualizado -> FALLIDO
+
+================================================================================
+RESUMEN DE EJECUCIÃ“N - REGISTRO CON CONSULTOR
+================================================================================
+ID Caso: TC009
+Estado: FALLIDO
+Observaciones: Registro completado pero no se pudo verificar el Ã©xito
+================================================================================
+[RESULT] Exito en TC009 Registro con campo de referencia seleccionando cualquier.py
+------------------------------------------
+[RUN] Ejecutando: TC011 RedirecciÃ³n a login para usuarios registrados.py
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+âœ… Apellido ingresado
+ðŸ”„ Intentando seleccionar paÃ­s...
+âœ… Click en el selector de paÃ­s
+âš ï¸� MÃ©todo dropdown fallÃ³: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[contains(@class, 'ant-select-item-option') and @title='Colombia']"}
+  (Session info: chrome=148.0.7778.96); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âš ï¸� MÃ©todo escritura fallÃ³: Message: invalid element state
+  (Session info: chrome=148.0.7778.96)
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd386]
+	chromedriver!(No symbol) [0x7ff6b2d0d9d2]
+	chromedriver!(No symbol) [0x7ff6b2d3f76a]
+	chromedriver!(No symbol) [0x7ff6b2d0ad76]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Valor establecido con JavaScript
+âœ… Correo electrÃ³nico ingresado
+âœ… NÃºmero de celular ingresado
+âœ… ContraseÃ±a ingresada
+ðŸ”„ Completando proceso de registro...
+âœ… BotÃ³n de registro presionado
+â�Œ Error en el proceso: Message: 
+
+ðŸ“¸ Captura de error guardada
+âœ… Caso TC011 actualizado -> FALLIDO
+
+URL final: https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/register/es
+TÃ­tulo de la pÃ¡gina: Karrot - Controla tus tiendas con el mejor software de Punto de Venta
+
+================================================================================
+RESUMEN DE EJECUCIÃ“N - REGISTRO CON REDIRECCIÃ“N
+================================================================================
+ID Caso: TC011
+Estado: FALLIDO
+URL Final: 
+Observaciones: MÃ©todo dropdown fallÃ³: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[contains(@class, 'ant-select-item-option') and @title='Colombia']"}
+  (Session info: chrome=148.0.7778.96); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+. MÃ©todo escritura fallÃ³: Message: invalid element state
+  (Session info: chrome=148.0.7778.96)
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd386]
+	chromedriver!(No symbol) [0x7ff6b2d0d9d2]
+	chromedriver!(No symbol) [0x7ff6b2d3f76a]
+	chromedriver!(No symbol) [0x7ff6b2d0ad76]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+. Error final: Message: 
+
+================================================================================
+[RESULT] Exito en TC011 RedirecciÃ³n a login para usuarios registrados.py
+------------------------------------------
+[RUN] Ejecutando: TC012 CreaciÃ³n exitosa de sede con todos los datos.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+âœ… Correo electrÃ³nico ingresado
+âœ… ContraseÃ±a ingresada
+âœ… BotÃ³n de login clickeado
+âœ… Click en 'Ir al panel de administraciÃ³n'
+â�Œ Timeout esperando elemento: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC012 actualizado -> FALLIDO
+âœ… Resultado registrado en Google Sheets
+
+ðŸŒ� URL final: https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/home
+ðŸ“„ TÃ­tulo de la pÃ¡gina: Karrot - Controla tus tiendas con el mejor software de Punto de Venta
+âœ… Navegador cerrado
+
+================================================================================
+RESUMEN DE EJECUCIÃ“N - REGISTRO SEDE CON TODOS LOS DATOS
+================================================================================
+ðŸ“‹ ID Caso: TC012
+âœ… Estado: FALLIDO
+ðŸ”— URL Final: 
+ðŸ“� Observaciones: Timeout esperando elemento: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+================================================================================
+[RESULT] Exito en TC012 CreaciÃ³n exitosa de sede con todos los datos.py
+------------------------------------------
+[RUN] Ejecutando: TC013 CreaciÃ³n fallida sin nombre de ubicaciÃ³n.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+âœ… Correo electrÃ³nico ingresado
+âœ… ContraseÃ±a ingresada
+âœ… BotÃ³n de login clickeado
+âœ… Click en 'Ir al panel de administraciÃ³n'
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC013 CreaciÃ³n fallida sin nombre de ubicaciÃ³n.py", line 165, in <module>
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]")))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC013 CreaciÃ³n fallida sin nombre de ubicaciÃ³n.py", line 298, in <module>
+    if registrar_resultado(id_caso, estado, observaciones):
+                                    ^^^^^^
+NameError: name 'estado' is not defined
+[RESULT] Fallo detectado en TC013 CreaciÃ³n fallida sin nombre de ubicaciÃ³n.py
+------------------------------------------
+[RUN] Ejecutando: TC014 ValidaciÃ³n de direcciÃ³n obligatoria.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+âœ… Correo electrÃ³nico ingresado
+âœ… ContraseÃ±a ingresada
+âœ… BotÃ³n de login clickeado
+âœ… Click en 'Ir al panel de administraciÃ³n'
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC014 ValidaciÃ³n de direcciÃ³n obligatoria.py", line 165, in <module>
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]")))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC014 ValidaciÃ³n de direcciÃ³n obligatoria.py", line 311, in <module>
+    if registrar_resultado(id_caso, estado, observaciones):
+                                    ^^^^^^
+NameError: name 'estado' is not defined
+[RESULT] Fallo detectado en TC014 ValidaciÃ³n de direcciÃ³n obligatoria.py
+------------------------------------------
+[RUN] Ejecutando: TC015 ValidaciÃ³n de ciudad obligatoria.py
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC015 ValidaciÃ³n de ciudad obligatoria.py", line 59, in <module>
+    direccion = Faker.address().replace("\n", ", ")
+                ^^^^^^^^^^^^^
+AttributeError: type object 'Faker' has no attribute 'address'
+[RESULT] Fallo detectado en TC015 ValidaciÃ³n de ciudad obligatoria.py
+------------------------------------------
+[RUN] Ejecutando: TC016 CreaciÃ³n de sede sin usuarios asignados.py
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC016 CreaciÃ³n de sede sin usuarios asignados.py", line 56, in <module>
+    direccion = Faker.address().replace("\n", ", ")
+                ^^^^^^^^^^^^^
+AttributeError: type object 'Faker' has no attribute 'address'
+[RESULT] Fallo detectado en TC016 CreaciÃ³n de sede sin usuarios asignados.py
+------------------------------------------
+[RUN] Ejecutando: TC017 CreaciÃ³n de caja una sede.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+[RESULT] Exito en TC017 CreaciÃ³n de caja una sede.py
+------------------------------------------
+[RUN] Ejecutando: TC018 eliminacion de sede existente.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+[RESULT] Exito en TC018 eliminacion de sede existente.py
+------------------------------------------
+[RUN] Ejecutando: TC019 eliminacion de sede existente.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+[RESULT] Exito en TC019 eliminacion de sede existente.py
+------------------------------------------
+[RUN] Ejecutando: TC020 Registro de acciones en bitÃ¡cora.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC020 actualizado -> FALLIDO
+[RESULT] Exito en TC020 Registro de acciones en bitÃ¡cora.py
+------------------------------------------
+[RUN] Ejecutando: TC021 Creacion de actividad bitacora.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+
+âœ… Caso TC021 actualizado -> FALLIDO
+[RESULT] Exito en TC021 Creacion de actividad bitacora.py
+------------------------------------------
+[RUN] Ejecutando: TC022 editar una bitacora.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+
+âœ… Caso TC022 actualizado -> FALLIDO
+[RESULT] Exito en TC022 editar una bitacora.py
+------------------------------------------
+[RUN] Ejecutando: TC023 Creacion de producto maestro.py
+============================================================
+ðŸš€ INICIANDO EJECUCIÃ“N MAESTRA DE TODOS LOS CASOS TC023
+============================================================
+
+============================================================
+ðŸš€ INICIANDO EJECUCIÃ“N DE: Creacion exitosa con atributos (TC023-001)
+ðŸ‘‰ Atributos: SÃ­
+ðŸ‘‰ Perecedero: No
+============================================================
+ðŸ›’ Nombre del producto generado: Towels
+ðŸ’° Precio del producto generado: 31118284
+â�Œ Error durante la ejecuciÃ³n del caso TC023-001: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-001 actualizado -> FALLIDO
+
+============================================================
+ðŸš€ INICIANDO EJECUCIÃ“N DE: Creacion exitosa sin atributos (TC023-002)
+ðŸ‘‰ Atributos: No
+ðŸ‘‰ Perecedero: No
+============================================================
+ðŸ›’ Nombre del producto generado: Intelligent Plastic Tuna
+ðŸ’° Precio del producto generado: 64819840
+â�Œ Error durante la ejecuciÃ³n del caso TC023-002: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-002 actualizado -> FALLIDO
+
+============================================================
+ðŸš€ INICIANDO EJECUCIÃ“N DE: Creacion exitosa con atributos y producto perecedero (TC023-003)
+ðŸ‘‰ Atributos: SÃ­
+ðŸ‘‰ Perecedero: SÃ­
+============================================================
+ðŸ›’ Nombre del producto generado: Fish
+ðŸ’° Precio del producto generado: 89667002
+â�Œ Error durante la ejecuciÃ³n del caso TC023-003: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-003 actualizado -> FALLIDO
+
+============================================================
+ðŸš€ INICIANDO EJECUCIÃ“N DE: Creacion exitosa sin atributos y perecedero (TC023-004)
+ðŸ‘‰ Atributos: No
+ðŸ‘‰ Perecedero: SÃ­
+============================================================
+ðŸ›’ Nombre del producto generado: Salad
+ðŸ’° Precio del producto generado: 15524419
+â�Œ Error durante la ejecuciÃ³n del caso TC023-004: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-004 actualizado -> FALLIDO
+
+âœ… TODAS LAS EJECUCIONES HAN TERMINADO.
+[RESULT] Exito en TC023 Creacion de producto maestro.py
+------------------------------------------
+[RUN] Ejecutando: TC023 Creacion exitosa con atributos y producto perecedero.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ›’ Nombre del producto generado: Granite Computer
+ðŸ’° Precio del producto generado: 1086569
+âœ… Modo: ACTIVAR atributos
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-003 actualizado -> FALLIDO
+[RESULT] Exito en TC023 Creacion exitosa con atributos y producto perecedero.py
+------------------------------------------
+[RUN] Ejecutando: TC023 Creacion exitosa con atributos.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ›’ Nombre del producto generado: Unbranded Cotton Soap
+ðŸ’° Precio del producto generado: 55879795
+âœ… Modo: ACTIVAR atributos
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-001 actualizado -> FALLIDO
+[RESULT] Exito en TC023 Creacion exitosa con atributos.py
+------------------------------------------
+[RUN] Ejecutando: TC023 Creacion exitosa sin atributos y perecedero.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ›’ Nombre del producto generado: Chicken
+ðŸ’° Precio del producto generado: 31884730
+â�­ï¸� Modo: NO activar atributos
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-004 actualizado -> FALLIDO
+[RESULT] Exito en TC023 Creacion exitosa sin atributos y perecedero.py
+------------------------------------------
+[RUN] Ejecutando: TC023 Creacion exitosa sin atributos.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ›’ Nombre del producto generado: Handmade Soap
+ðŸ’° Precio del producto generado: 87049319
+â�­ï¸� Modo: NO activar atributos
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023-002 actualizado -> FALLIDO
+[RESULT] Exito en TC023 Creacion exitosa sin atributos.py
+------------------------------------------
+[RUN] Ejecutando: TC023 CreaciÃ³n exitosa de producto con datos vÃ¡lidos.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ›’ Nombre del producto generado: Metal Bike
+â�­ï¸� Modo: NO activar atributos
+â�Œ Error durante la ejecuciÃ³n: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+âœ… Caso TC023 actualizado -> FALLIDO
+[RESULT] Exito en TC023 CreaciÃ³n exitosa de producto con datos vÃ¡lidos.py
+------------------------------------------
+[RUN] Ejecutando: TC024 ValidaciÃ³n de campos obligatorios.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+â�Œ Error al encontrar el elemento: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC024 ValidaciÃ³n de campos obligatorios.py", line 176, in <module>
+    boton_anadir = driver.find_element(By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'AÃ±adir')]")
+                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 802, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 432, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\errorhandler.py", line 232, in check_response
+    raise exception_class(message, screen, stacktrace)
+selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'AÃ±adir')]"}
+  (Session info: chrome=148.0.7778.96); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+[RESULT] Fallo detectado en TC024 ValidaciÃ³n de campos obligatorios.py
+------------------------------------------
+[RUN] Ejecutando: TC025 EdiciÃ³n de producto existente.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ›’ Nombre del producto generado: Intelligent Chicken
+ðŸ’° Precio del producto generado: 53619322
+â�­ï¸� Modo: NO activar atributos
+â�Œ Error inesperado Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+â�Œ Error al editar el producto: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC025 EdiciÃ³n de producto existente.py", line 371, in <module>
+    valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost,valor =  editar_producto_completo()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+[RESULT] Fallo detectado en TC025 EdiciÃ³n de producto existente.py
+------------------------------------------
+[RUN] Ejecutando: TC026 EliminaciÃ³n de producto.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸš€ Intentando ir al panel de administraciÃ³n...
+â„¹ï¸� BotÃ³n 'Ir al panel de administraciÃ³n' no encontrado. Continuando flujo...
+âœ… Click en CatÃ¡logo
+âœ… Click en Productos y Servicios
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC026 EliminaciÃ³n de producto.py", line 162, in <module>
+    listar_opciones_producto = wait.until(
+    EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[7]/div/button"))
+    )
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+[RESULT] Fallo detectado en TC026 EliminaciÃ³n de producto.py
+------------------------------------------
+[RUN] Ejecutando: TC027 Registro de entrada de inventario Admin.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ”� Iniciando sesiÃ³n...
+âœ… Login exitoso
+ðŸš€ Yendo al panel de administraciÃ³n...
+â„¹ï¸� BotÃ³n 'Ir al panel de administraciÃ³n' no encontrado. Continuando flujo...
+ðŸ“¦ Desplegando menÃº Inventario...
+âš ï¸� Error en navegaciÃ³n Inventario -> Inventario: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+  Intentando fallback: click en segundo elemento 'Inventario' visible...
+  No se encontraron 2 elementos visibles.
+
+==================================================
+EXTRACCIÃ“N DE VALORES DE INVENTARIO
+==================================================
+â�³ Esperando tabla de inventario...
+  Probando selector: xpath = '//table'
+  Probando selector: xpath = '//div[contains(@class, "table")]'
+  Probando selector: xpath = '//div[contains(@class, "ant-table")]'
+  Probando selector: xpath = '//*[contains(@id, "table")]'
+  Probando selector: xpath = '//*[contains(@class, "inventory")]//table'
+  Probando selector: class name = 'ant-table'
+  Probando selector: tag name = 'table'
+âš ï¸� No se pudo encontrar la tabla con ningÃºn selector estÃ¡ndar
+ðŸ“¸ Screenshot guardado como 'debug_inventario.png'
+â�Œ No se pudo encontrar la tabla de inventario
+â�Œ No se pudieron extraer valores del inventario
+
+==================================================
+REGISTRANDO RESULTADO
+==================================================
+âœ… Caso TC027 actualizado -> Fallido
+âœ… Driver cerrado
+
+ðŸŽ¯ PRUEBA FINALIZADA: Fallido
+ðŸ“� Observaciones: Error al extraer valores del inventario
+[RESULT] Exito en TC027 Registro de entrada de inventario Admin.py
+------------------------------------------
+[RUN] Ejecutando: TC028 Registro de salida de inventario Admin.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ”� Iniciando sesiÃ³n...
+âœ… Login exitoso
+ðŸš€ Yendo al panel de administraciÃ³n...
+â�° TIMEOUT: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+ðŸ“¸ Screenshot guardado como 'error_timeout.png'
+
+==================================================
+REGISTRANDO RESULTADO
+==================================================
+âœ… Caso TC028 actualizado -> Fallido
+âœ… Driver cerrado
+
+ðŸŽ¯ PRUEBA FINALIZADA: Fallido
+ðŸ“� Observaciones: Timeout: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandle...
+[RESULT] Exito en TC028 Registro de salida de inventario Admin.py
+------------------------------------------
+[RUN] Ejecutando: TC029 Ajuste manual desde POS.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ”� Iniciando sesiÃ³n...
+âœ… Login exitoso
+ðŸš€ Yendo al panel de administraciÃ³n...
+â�° TIMEOUT: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+ðŸ“¸ Screenshot guardado como 'error_timeout.png'
+
+==================================================
+REGISTRANDO RESULTADO
+==================================================
+âœ… Caso TC029 actualizado -> Fallido
+âœ… Driver cerrado
+
+ðŸŽ¯ PRUEBA FINALIZADA: Fallido
+ðŸ“� Observaciones: Timeout: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandle...
+[RESULT] Exito en TC029 Ajuste manual desde POS.py
+------------------------------------------
+[RUN] Ejecutando: TC030 AJUSTE INVENTARIO MANUAL EN POS.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸ”� Iniciando sesiÃ³n...
+âœ… Login exitoso
+ðŸ”� Comprobando si hay un turno activo previo...
+ðŸ”� Seleccionando sede: 'sede bogota' (Estrategia Teclado)...
+âœ… Sede seleccionada (Teclado)
+
+ðŸ”� Buscando desplegable de CAJA...
+âœ… Caja seleccionada (Teclado)
+ðŸ”� Verificando estado del turno antes de ingresar...
+â„¹ï¸� No hay mensaje de turno activo. Usando botÃ³n normal...
+âœ… Boton ingresar clickeado
+ðŸ”� Verificando estado de la caja...
+âœ… Estado 'Caja Aperturada' detectado o no hay bloqueos. Continuando flujo normal...
+ðŸ“¦ Accediendo a opciÃ³n Inventario via Popup...
+ðŸ”� Buscando y desplegando el menÃº lateral de Inventario (Hover)...
+âš ï¸� FallÃ³ click en submenÃº inventario: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+ðŸ“Š Leyendo el primer producto del inventario...
+â�³ Esperando tabla de inventario...
+  Probando selector: xpath = '//table'
+  Probando selector: xpath = '//div[contains(@class, "table")]'
+  Probando selector: xpath = '//div[contains(@class, "ant-table")]'
+  Probando selector: xpath = '//*[contains(@id, "table")]'
+  Probando selector: xpath = '//*[contains(@class, "inventory")]//table'
+  Probando selector: class name = 'ant-table'
+  Probando selector: tag name = 'table'
+âš ï¸� No se pudo encontrar la tabla con ningÃºn selector estÃ¡ndar
+ðŸ“¸ Screenshot guardado como 'debug_inventario.png'
+â�Œ Error al intentar leer el primer producto del inventario: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+ðŸ“¦ Ingresando valores en el modal de Ajuste de Inventario...
+â�Œ Error al ingresar el ajuste manual: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 242, in ingresar_ajuste_manual
+    wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Ajustar la cantidad de inventario')]")))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+ðŸ“¸ Screenshot guardado en error_ajuste_manual.png
+â�³ Esperando actualizaciÃ³n de inventario...
+
+ðŸ“Š EXTRAYENDO VALORES FINALES:
+ðŸ“Š Leyendo el primer producto del inventario...
+â�³ Esperando tabla de inventario...
+  Probando selector: xpath = '//table'
+  Probando selector: xpath = '//div[contains(@class, "table")]'
+  Probando selector: xpath = '//div[contains(@class, "ant-table")]'
+  Probando selector: xpath = '//*[contains(@id, "table")]'
+  Probando selector: xpath = '//*[contains(@class, "inventory")]//table'
+  Probando selector: class name = 'ant-table'
+  Probando selector: tag name = 'table'
+âš ï¸� No se pudo encontrar la tabla con ningÃºn selector estÃ¡ndar
+ðŸ“¸ Screenshot guardado como 'debug_inventario.png'
+â�Œ Error al intentar leer el primer producto del inventario: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+	chromedriver!(No symbol) [0x7ff6b2d0a4f3]
+	chromedriver!GetHandleVerifier [0x7ff6b326b779+312f99]
+	chromedriver!GetHandleVerifier [0x7ff6b3265c8b+30d4ab]
+	chromedriver!GetHandleVerifier [0x7ff6b3289012+330832]
+	chromedriver!GetHandleVerifier [0x7ff6b2f8a485+31ca5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f92e7c+3a69c]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76a74+1e294]
+	chromedriver!GetHandleVerifier [0x7ff6b2f76c04+1e424]
+	chromedriver!GetHandleVerifier [0x7ff6b2f5b327+2b47]
+	KERNEL32!BaseThreadInitThunk [0x7ff804f1e8d7+17]
+	ntdll!RtlUserThreadStart [0x7ff80636c3fc+2c]
+
+
+ðŸ§® VALIDACIÃ“N MATEMÃ�TICA:
+   Inicial: 0
+   Agregado/Ajustado por: 0
+   Esperado: 0
+   Obtenido: 0
+âœ… VALIDACIÃ“N EXITOSA: El inventario se actualizÃ³ correctamente.
+ðŸ”š Intentando hacer clic en 'Finalizar turno'...
+âœ… BotÃ³n 'Finalizar turno' clickeado (Click Normal)
+
+==================================================
+REGISTRANDO RESULTADO
+==================================================
+âœ… Caso TC030 actualizado -> Exitoso
+âœ… Driver cerrado
+
+ðŸŽ¯ PRUEBA FINALIZADA: Exitoso
+ðŸ“� Observaciones: EjecuciÃ³n completada exitosamente hasta el cierre de turno.
+[RESULT] Exito en TC030 AJUSTE INVENTARIO MANUAL EN POS.py
+------------------------------------------
+
+==========================================
+PROCESO FINALIZADO
+==========================================
+Finished: SUCCESS

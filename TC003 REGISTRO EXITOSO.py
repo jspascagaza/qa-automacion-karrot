@@ -1,5 +1,6 @@
 import time
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.ui import WebDriverWait
@@ -113,7 +114,14 @@ password = fake.password(length=10, special_chars=True, digits=True, upper_case=
 print(f"Datos generados -> Empresa: {company_name}, Nombre: {first_name} {last_name}, Email: {email}, Tel: {phone_number}")
 
 # Inicializar navegador
-driver = webdriver.Chrome()
+chrome_options = Options()
+if os.getenv("JENKINS_URL") or os.getenv("CI") or os.getenv("HEADLESS") == "true":
+    chrome_options.add_argument("--headless=new")
+    chrome_options.add_argument("--no-sandbox")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--window-size=1920,1080")
+
+driver = webdriver.Chrome(options=chrome_options)
 driver.maximize_window()
 driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/register/es")
 

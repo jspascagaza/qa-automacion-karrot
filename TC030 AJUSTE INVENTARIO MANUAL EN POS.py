@@ -786,6 +786,12 @@ try:
     # --kiosk-printing silencia tanto la vista previa de Chrome como el diálogo del sistema
     chrome_options.add_argument('--kiosk-printing')
     
+    if os.getenv("JENKINS_URL") or os.getenv("CI") or os.getenv("HEADLESS") == "true":
+        chrome_options.add_argument("--headless=new")
+        chrome_options.add_argument("--no-sandbox")
+        chrome_options.add_argument("--disable-dev-shm-usage")
+        chrome_options.add_argument("--window-size=1920,1080")
+    
     driver = webdriver.Chrome(options=chrome_options)
     driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
     driver.maximize_window()
