@@ -7,6 +7,43 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import os
+from dotenv import load_dotenv
+load_dotenv()
+
+# =====================
+# CONFIGURACIÓN DE LOGS
+# =====================
+import sys
+import os
+from datetime import datetime
+
+if not os.path.exists("logs"):
+    os.makedirs("logs")
+
+nombre_archivo = os.path.basename(__file__).replace(".py", "")
+fecha_hora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_filename = f"logs/{nombre_archivo}_{fecha_hora}.log"
+
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a", encoding="utf-8")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+        self.log.flush()
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+sys.stdout = Logger(log_filename)
+sys.stderr = sys.stdout
+# =====================
+
+
 from datetime import datetime
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from selenium.webdriver.common.action_chains import ActionChains
@@ -29,7 +66,8 @@ ciudad = Faker.city()
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\yonas\Documents\qa-automacion-karrot\automatizacion-karrot-11b5a5de79c5.json", 
+creds = ServiceAccountCredentials.from_json_keyfile_name(
+    os.getenv("GOOGLE_CREDENTIALS_PATH", "automatizacion-karrot-456d1a1552ca.json"),
     scope
 )
 client = gspread.authorize(creds)

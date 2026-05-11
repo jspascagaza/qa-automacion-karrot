@@ -17,6 +17,43 @@ import string
 from faker import Faker
 import faker_commerce; print(faker_commerce.__file__)
 import re
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+# =====================
+# CONFIGURACIÓN DE LOGS
+# =====================
+import sys
+import os
+from datetime import datetime
+
+if not os.path.exists("logs"):
+    os.makedirs("logs")
+
+nombre_archivo = os.path.basename(__file__).replace(".py", "")
+fecha_hora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_filename = f"logs/{nombre_archivo}_{fecha_hora}.log"
+
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a", encoding="utf-8")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+        self.log.flush()
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+sys.stdout = Logger(log_filename)
+sys.stderr = sys.stdout
+# =====================
+
 
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
@@ -24,13 +61,14 @@ import re
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
-creds = ServiceAccountCredentials.from_json_keyfile_name(r"C:\Users\yonas\Documents\qa-automacion-karrot\automatizacion-karrot-11b5a5de79c5.json",
+creds = ServiceAccountCredentials.from_json_keyfile_name(
+    os.getenv("GOOGLE_CREDENTIALS_PATH", "automatizacion-karrot-456d1a1552ca.json"),
     scope
 )
 client = gspread.authorize(creds)
 
 spreadsheet = client.open_by_url(
-    "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0"
+    os.getenv("GOOGLE_SHEET_URL", "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0")
 )
 sheet = spreadsheet.sheet1
 
@@ -267,11 +305,11 @@ try:
     print("🔐 Iniciando sesión...")
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("karrotdev@outlook.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL", "karrotdev@outlook.com"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD", "P4sc4g4z42025#*"))
     #//*[@id="login-form"]/div[3]/div/div/div/div/button
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
@@ -280,15 +318,19 @@ try:
 
     # Ir al panel de administración
     print("🚀 Yendo al panel de administración...")
-    panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
-    )
-    panel_button.click()
+    try:
+        panel_button = WebDriverWait(driver, 5).until(
+            EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+        )
+        panel_button.click()
 
-    wait.until(
-        EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
-    )
-    print("✅ Panel de control cargado")
+        WebDriverWait(driver, 5).until(
+            EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+        )
+        print("✅ Panel de control cargado")
+    except TimeoutException:
+        print("ℹ️ Botón 'Ir al panel de administración' no encontrado. Continuando flujo...")
+        
     time.sleep(3)  # Reducido de 5 a 3
 
     # Menú Inventario (Desplegable)

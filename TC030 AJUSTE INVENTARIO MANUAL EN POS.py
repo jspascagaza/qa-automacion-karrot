@@ -24,13 +24,46 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # =====================
+# CONFIGURACIÓN DE LOGS
+# =====================
+import sys
+import os
+from datetime import datetime
+
+if not os.path.exists("logs"):
+    os.makedirs("logs")
+
+nombre_archivo = os.path.basename(__file__).replace(".py", "")
+fecha_hora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+log_filename = f"logs/{nombre_archivo}_{fecha_hora}.log"
+
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a", encoding="utf-8")
+
+    def write(self, message):
+        self.terminal.write(message)
+        self.log.write(message)
+        self.log.flush()
+
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+sys.stdout = Logger(log_filename)
+sys.stderr = sys.stdout
+# =====================
+
+
+# =====================
 # CONFIGURACIÓN GOOGLE SHEETS
 # =====================
 scope = ["https://spreadsheets.google.com/feeds",
          "https://www.googleapis.com/auth/drive"]
 
 creds = ServiceAccountCredentials.from_json_keyfile_name(
-    os.getenv("GOOGLE_CREDENTIALS_PATH", "automatizacion-karrot-11b5a5de79c5.json"),
+    os.getenv("GOOGLE_CREDENTIALS_PATH", "automatizacion-karrot-456d1a1552ca.json"),
     scope
 )
 client = gspread.authorize(creds)
@@ -120,7 +153,7 @@ def esperar_tabla_inventario():
     return None        
 
 
-def leer_inventario_actual():
+def leer_inventario_actual(iniciar_ajuste=True):
     """
     Lee el primer producto visible en el cuadro de inventario y extrae su stock en la sede actual.
     """
@@ -155,8 +188,42 @@ def leer_inventario_actual():
         producto_seleccionado = nombre_producto
         inventario_inicial = stock_actual
         
+        if iniciar_ajuste:
+            # Seleccionar el checkbox del producto
+            print("📦 Seleccionando el producto (checkbox)...")
+            try:
+                # Intentar primero con el XPath absoluto proporcionado por el usuario
+                xpath_checkbox = '//*[@id="root"]/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[1]/label/span/input'
+                checkbox = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_checkbox)))
+                
+                # Usar JS para hacer click y evitar intercepciones
+                driver.execute_script("arguments[0].click();", checkbox)
+                print("✅ Producto seleccionado exitosamente (XPath absoluto)")
+                time.sleep(1) # Pequeña pausa para asegurar que se registre la selección
+                
+            except Exception as e:
+                print(f"⚠️ Falló el click con XPath absoluto: {e}. Intentando estrategia relativa...")
+                try:
+                    # Fallback: Buscar el checkbox relativo dentro de la fila que ya tenemos identificada
+                    checkbox_relativo = primera_fila.find_element(By.XPATH, './/input[@type="checkbox"]')
+                    driver.execute_script("arguments[0].click();", checkbox_relativo)
+                    print("✅ Producto seleccionado exitosamente (Estrategia relativa)")
+                    time.sleep(1)
+                except Exception as e_fallback:
+                    print(f"❌ Error al intentar seleccionar el checkbox del producto: {e_fallback}")
+                    
+            # Hacer clic en el botón Ajuste Manual
+            print("🔍 Buscando botón de 'Ajuste manual'...")
+            try:
+                xpath_ajuste = '//*[@id="root"]/div/section/section/section/div/main/div[2]/div/div/div/div/div[1]/div/div[2]/button[1]'
+                boton_ajuste = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_ajuste)))
+                driver.execute_script("arguments[0].click();", boton_ajuste)
+                print("✅ Botón 'Ajuste manual' clickeado exitosamente")
+                time.sleep(2) # Dar tiempo para que se abra el modal o inicie el flujo de ajuste
+            except Exception as e_ajuste:
+                print(f"⚠️ Error al intentar clickear el botón 'Ajuste manual': {e_ajuste}")
+            
         return producto_seleccionado, inventario_inicial
-        
     except Exception as e:
         print(f"❌ Error al intentar leer el primer producto del inventario: {e}")
         try:
@@ -165,152 +232,264 @@ def leer_inventario_actual():
             pass
         return None, 0
 
+def ingresar_ajuste_manual():
+    """
+    Interactúa con el modal 'Ajustar la cantidad de inventario' para ingresar un valor.
+    """
+    print("📦 Ingresando valores en el modal de Ajuste de Inventario...")
+    try:
+        # Esperar a que el modal cargue
+        wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Ajustar la cantidad de inventario')]")))
+        time.sleep(3) # Dar tiempo extra a que la tabla y los inputs se rendericen dentro del modal
+        
+        # Generar un valor aleatorio a ingresar
+        valor_ajuste = random.randint(1, 10)
+        print(f"🎲 Valor aleatorio a ajustar (Ingreso): {valor_ajuste}")
+        
+        # Buscar todos los inputs dentro de la tabla del modal
+        # Usamos un XPath más general ya que tr[1] a veces falla si hay filas anidadas o headers dobles
+        xpath_inputs_tabla = "//div[contains(@class, 'ant-modal')]//table//input"
+        
+        # Hacemos varios intentos para encontrar los inputs por si demoran en cargar
+        input_cantidad = None
+        for intento in range(3):
+            try:
+                inputs = driver.find_elements(By.XPATH, xpath_inputs_tabla)
+                inputs_visibles = [inp for inp in inputs if inp.is_displayed()]
+                
+                if inputs_visibles:
+                    # El primer input visible en la tabla suele ser el de la cantidad (debajo de la Sede)
+                    # El segundo sería el costo, el tercero el lote, etc.
+                    input_cantidad = inputs_visibles[0]
+                    print(f"✅ Se encontraron {len(inputs_visibles)} inputs visibles. Seleccionando el primero.")
+                    break
+            except Exception as e_find:
+                print(f"  Intento {intento+1} fallido: {e_find}")
+            time.sleep(2)
+            
+        if not input_cantidad:
+            raise Exception("No se encontraron inputs visibles en la tabla del modal tras varios intentos")
+            
+        # Ingresar el valor
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", input_cantidad)
+        time.sleep(0.5)
+        
+        input_cantidad.click()
+        time.sleep(0.5)
+        # Usar Ctrl+A y Backspace para asegurar que se borre el "0.00"
+        input_cantidad.send_keys(Keys.CONTROL + "a")
+        time.sleep(0.2)
+        input_cantidad.send_keys(Keys.BACKSPACE)
+        time.sleep(0.5)
+        input_cantidad.send_keys(str(valor_ajuste))
+        print(f"✅ Valor {valor_ajuste} ingresado en el campo de cantidad")
+        time.sleep(1)
+        
+        # --- NUEVO: Ingresar Fechas y Lote (necesario en algunos casos para habilitar Guardar) ---
+        try:
+            print("⏳ Buscando campos de fecha...")
+            inputs_fecha = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal')]//input[@placeholder='Select date' or @placeholder='Seleccionar fecha']")
+            
+            if len(inputs_fecha) >= 2:
+                # Fecha de Fabricación
+                fecha_fab = inputs_fecha[0]
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", fecha_fab)
+                fecha_fab.click()
+                fecha_fab.send_keys("2025-12-15")
+                fecha_fab.send_keys(Keys.ENTER)
+                print("✅ Fecha Fabricación ingresada: 2025-12-15")
+                time.sleep(1)
+                
+                # Fecha de Caducidad
+                fecha_cad = inputs_fecha[1]
+                fecha_cad.click()
+                fecha_cad.send_keys("2025-12-15")
+                fecha_cad.send_keys(Keys.ENTER)
+                print("✅ Fecha Caducidad ingresada: 2025-12-15")
+                time.sleep(1)
+            else:
+                print(f"⚠️ No se encontraron suficientes campos de fecha (hallados: {len(inputs_fecha)})")
+                
+            print("⏳ Buscando campo de Lote...")
+            inputs_lote = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal')]//input[contains(@placeholder, 'Número de') or contains(@placeholder, 'Lote')]")
+            if inputs_lote:
+                lote = inputs_lote[0]
+                lote.click()
+                lote.send_keys("LOTE-TEST-123")
+                print("✅ Número de Lote ingresado: LOTE-TEST-123")
+                time.sleep(1)
+        except Exception as e_extra:
+            print(f"⚠️ Error al ingresar fechas o lote (puede que no sean obligatorios en esta sede): {e_extra}")
+        # --- FIN FECHAS Y LOTE ---
+        
+        # Clic en Guardar
+        print("🔍 Buscando botón 'Guardar'...")
+        try:
+            xpath_guardar = "//div[contains(@class, 'ant-modal')]//button[contains(., 'Guardar')]"
+            boton_guardar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_guardar)))
+            boton_guardar.click()
+            print("✅ Botón 'Guardar' clickeado (Normal)")
+        except Exception as e_btn:
+            print(f"⚠️ Falló click normal en Guardar: {e_btn}, intentando JS...")
+            boton_guardar = driver.find_element(By.XPATH, "//div[contains(@class, 'ant-modal')]//button[contains(., 'Guardar')]")
+            driver.execute_script("arguments[0].click();", boton_guardar)
+            print("✅ Botón 'Guardar' clickeado (JS)")
+            
+        # Esperar a que el modal se cierre y la página procese el cambio
+        time.sleep(3)
+        return valor_ajuste
+        
+    except Exception as e:
+        import traceback
+        print(f"❌ Error al ingresar el ajuste manual: {e}")
+        traceback.print_exc()
+        try:
+            driver.save_screenshot("error_ajuste_manual.png")
+            print("📸 Screenshot guardado en error_ajuste_manual.png")
+        except:
+            pass
+        return 0
+
+def validar_actualizacion_inventario(valor_a_ingresar):
+    """
+    Valida matemáticamente que el inventario se haya actualizado correctamente
+    después de un ajuste manual.
+    """
+    global inventario_inicial, exito, observaciones
+    try:
+        print("⏳ Esperando actualización de inventario...")
+        time.sleep(5) # Dar tiempo para que se procese y actualice la tabla
+        
+        print("\n📊 EXTRAYENDO VALORES FINALES:")
+        # Re-leemos el inventario sin interactuar con los botones de ajuste (iniciar_ajuste=False)
+        _, inventario_final = leer_inventario_actual(iniciar_ajuste=False)
+        
+        if inventario_final is not None:
+            valor_agregado_num = int(valor_a_ingresar)
+            
+            print(f"\n🧮 VALIDACIÓN MATEMÁTICA:")
+            print(f"   Inicial: {inventario_inicial}")
+            print(f"   Agregado/Ajustado por: {valor_agregado_num}")
+            print(f"   Esperado: {inventario_inicial + valor_agregado_num}")
+            print(f"   Obtenido: {inventario_final}")
+            
+            if (inventario_inicial + valor_agregado_num) == inventario_final:
+                print("✅ VALIDACIÓN EXITOSA: El inventario se actualizó correctamente.")
+                observaciones += " | Validación Matemática OK"
+                # Sobreescribimos el éxito general basado en esta prueba crucial
+                exito = True
+            else:
+                print("❌ VALIDACIÓN FALLIDA: Los valores no coinciden.")
+                observaciones += f" | Fallo Matemático (Esp: {inventario_inicial + valor_agregado_num}, Obt: {inventario_final})"
+                exito = False
+        else:
+             print("❌ No se pudo extraer el inventario final o falta el valor ingresado.")
+             observaciones += " | Fallo extracción final"
+             exito = False
+    except Exception as e:
+        print(f"❌ Error en validación de inventario: {e}")
+        observaciones += f" | Error validación: {e}"
+        exito = False
 
 def ingreso_al_pos():   
     try:
-        # 1. Click dropdown trigger
-        print("🔍 Click en el desplegable de sedes...")
+        print("🔍 Comprobando si hay un turno activo previo...")
+        turno_activo_sede = "sede bogota"
+        turno_activo_caja = None
         try:
-            # Volvemos al XPath específico que sabemos que funciona para ABRIR el menú
-            dropdown_trigger = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]"))
-            )
-            dropdown_trigger.click()
-            print("✅ Click en dropdown (XPath específico)")
+            time.sleep(2) # Dar tiempo a que el mensaje aparezca si existe
+            mensaje_turno = driver.find_elements(By.XPATH, "//*[contains(text(), 'Tienes un turno activo en')]")
+            if len(mensaje_turno) > 0:
+                texto_mensaje = mensaje_turno[0].text
+                print(f"ℹ️ Mensaje detectado: '{texto_mensaje}'")
+                import re
+                match = re.search(r"activo en (.+?) - (.+)", texto_mensaje)
+                if match:
+                    turno_activo_sede = match.group(1).strip()
+                    turno_activo_caja = match.group(2).strip()
+                    print(f"✅ Sede activa extraída: {turno_activo_sede}")
+                    print(f"✅ Caja activa extraída: {turno_activo_caja}")
         except Exception as e:
-             print(f"⚠️ Falló click inicial ({e}), intentando por texto...")
-             # Fallback secundario
-             dropdown_trigger = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Selecciona Ubicacion')]/.."))
-             )
-             dropdown_trigger.click()
-        
-        time.sleep(1) # Esperar animación del menú
+            print("No se encontró mensaje de turno activo previo o error extrayendo:", e)
 
-        # 2. Seleccionar Opción
-        print("🔍 Buscando opción de sede...")
+        # ==========================================
+        # 1. SELECCIONAR SEDE
+        # ==========================================
+        print(f"🔍 Seleccionando sede: '{turno_activo_sede}' (Estrategia Teclado)...")
         try:
-            # Estrategia 1: Buscar 'sede bogota' usando (.) para incluir hijos. 
-            # IMPORTANTE: El menú ya debe estar abierto.
-            # UPDATED: Buscamos un elemento leaf (sin hijos con texto) o div específico para evitar contenedores de tamaño 0
-            opcion = wait.until(
-                EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'sede bogota')] | //*[contains(., 'sede bogota') and not(contains(., 'Selecciona')) and count(.//*)=0]"))
-            )
-            print(f"  > Opción encontrada: {opcion.text or 'Elemento sin texto directo'}")
+            time.sleep(2)
+            xpath_input = "//input[contains(@class, 'ant-select-selection-search-input')]"
+            inputs = driver.find_elements(By.XPATH, xpath_input)
             
-            # Scroll para asegurar visibilidad
-            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", opcion)
-            time.sleep(0.5)
-            
-            try:
-                opcion.click()
-                print("✅ Sede seleccionada (Click Normal)")
-            except Exception as e:
-                print(f"⚠️ Falló Click Normal ({e}), intentando JS Click...")
-                driver.execute_script("arguments[0].click();", opcion)
-                print("✅ Sede seleccionada (JS Click)")
-            
+            target_input_sede = None
+            if inputs:
+                target_input_sede = inputs[0] # El primero suele ser Sede
+                
+            if target_input_sede:
+                driver.execute_script("arguments[0].focus();", target_input_sede)
+                time.sleep(0.5)
+                
+                # Enviar Flecha Abajo para abrir menú y luego la sede
+                target_input_sede.send_keys(Keys.DOWN)
+                time.sleep(1)
+                
+                target_input_sede.send_keys(Keys.CONTROL + "a")
+                target_input_sede.send_keys(Keys.BACKSPACE)
+                time.sleep(0.5)
+                target_input_sede.send_keys(turno_activo_sede)
+                time.sleep(1)
+                
+                target_input_sede.send_keys(Keys.DOWN)
+                time.sleep(0.5)
+                target_input_sede.send_keys(Keys.ENTER)
+                print("✅ Sede seleccionada (Teclado)")
+            else:
+                print("❌ No se encontraron inputs para Sede.")
+                raise Exception("Inputs no encontrados para Sede")
         except Exception as e:
-            print(f"⚠️ Falló estrategia específica ({e}), intentando genérica...")
-            try:
-                 # Estrategia 2: Cualquier elemento con 'sede' que sea visible
-                opciones_genericas = wait.until(
-                    EC.presence_of_all_elements_located((By.XPATH, "//*[contains(., 'sede') and not(contains(., 'Selecciona'))]"))
-                )
-                
-                # Filtramos visibles y que tengan un tamaño razonable 
-                opciones_candidatas = []
-                for opt in opciones_genericas:
-                    if opt.is_displayed() and opt.size['height'] > 0: 
-                        opciones_candidatas.append(opt)
-                
-                if opciones_candidatas:
-                    opcion_final = opciones_candidatas[0]
-                    print(f"  > Seleccionando opción genérica: {opcion_final.text[:50]}...")
-                    driver.execute_script("arguments[0].click();", opcion_final)
-                    print("✅ Sede seleccionada (Genérica JS)")
-                else:
-                    print("❌ No se encontraron opciones interactuables")
-                    raise Exception("No se pudo seleccionar la sede (ni específica ni genérica)")
+            print(f"❌ Error seleccionando Sede: {e}")
 
-            except Exception as ex_gen:
-                print(f"❌ Error final selección: {ex_gen}")
-                raise ex_gen
-        
         time.sleep(2)
 
         # ==========================================
-        # 3. SELECCIONAR CAJA
+        # 2. SELECCIONAR CAJA
         # ==========================================
         print("\n🔍 Buscando desplegable de CAJA...")
         try:
-            # Esperar antes de interactuar
-            time.sleep(2)
-            
-            print("  Estrategia TECLADO: Enfocar y usar flechas (evita clicks)...")
-            
-            # Buscar el input oculto de Ant Design
-            # Suele tener clase 'ant-select-selection-search-input'
+            time.sleep(2) # Dar tiempo para que el dropdown de Sede termine su efecto
             xpath_input = "//input[contains(@class, 'ant-select-selection-search-input')]"
+            inputs = driver.find_elements(By.XPATH, xpath_input)
             
-            try:
-                # Buscamos todos los inputs de este tipo
-                inputs = driver.find_elements(By.XPATH, xpath_input)
+            target_input_caja = None
+            if len(inputs) > 1:
+                target_input_caja = inputs[1] # El segundo suele ser Caja
+            elif inputs:
+                target_input_caja = inputs[-1]
                 
-                # ASUNCIÓN: El primer input fue Sede, el segundo debería ser Caja
-                # Filtramos por visibilidad o posición si es necesario, pero usualmente 
-                # estos inputs técnicamente no son "visibles" porque tienen opacity 0.
+            if target_input_caja:
+                driver.execute_script("arguments[0].focus();", target_input_caja)
+                time.sleep(0.5)
                 
-                target_input = None
+                target_input_caja.send_keys(Keys.DOWN)
+                time.sleep(1)
                 
-                # Intentamos encontrar el que corresponde a la caja buscando el label cercano
-                for inp in inputs:
-                     # Verificamos si tiene el ID rc_select_2 o está cerca del texto "Selecciona Caja"
-                     try:
-                         id_attr = inp.get_attribute('id')
-                         if id_attr == 'rc_select_2':
-                             target_input = inp
-                             print("  > Input encontrado por ID rc_select_2")
-                             break
-                     except: pass
-                
-                # Si no encontramos por ID, usamos el último input de la página (a veces es el orden lógico)
-                if not target_input and inputs:
-                    target_input = inputs[-1]
-                    print("  > Usando el último input de selección encontrado (Probable Caja)")
-
-                if target_input:
-                    # 1. Enfocar forzosamente con JS
-                    driver.execute_script("arguments[0].focus();", target_input)
-                    print("  > Input enfocado con JS")
+                if turno_activo_caja:
+                    target_input_caja.send_keys(Keys.CONTROL + "a")
+                    target_input_caja.send_keys(Keys.BACKSPACE)
                     time.sleep(0.5)
-                    
-                    # 2. Enviar Flecha AABAJO para abrir menú
-                    # Nota: Enviamos claves al activo o al body si el input es rarito
-                    target_input.send_keys(Keys.DOWN)
-                    print("  > Enviada tecla DOWN para abrir")
+                    target_input_caja.send_keys(turno_activo_caja)
                     time.sleep(1)
                     
-                    # 3. Enviar ENTER para seleccionar el primero que esté resaltado (o DOWN + ENTER)
-                    target_input.send_keys(Keys.ENTER)
-                    print("  > Enviada tecla ENTER para seleccionar")
-                    
-                    # Fallback opcional: Si no se seleccionó, intentar DOWN + ENTER
-                    time.sleep(1)
-                    target_input.send_keys(Keys.DOWN)
-                    target_input.send_keys(Keys.ENTER)
-                    print("  > Enviada secuencia DOWN+ENTER de respaldo")
-                    
-                else:
-                    print("❌ No se encontraron inputs de selección.")
-                    raise Exception("Inputs no encontrados")
-
-            except Exception as e_key:
-                print(f"⚠️ Falló estrategia teclado: {e_key}")
-                # Fallback final a click JS en texto
-                print("  Intentando click JS forzado en texto 'Selecciona Caja'...")
-                driver.execute_script("var x = document.evaluate(\"//div[contains(text(), 'Selecciona Caja')]\", document, null, 9, null).singleNodeValue; if(x) x.click();")
-
+                target_input_caja.send_keys(Keys.DOWN)
+                time.sleep(0.5)
+                target_input_caja.send_keys(Keys.ENTER)
+                print("✅ Caja seleccionada (Teclado)")
+            else:
+                print("❌ No se encontraron inputs para Caja.")
+                raise Exception("Inputs no encontrados para Caja")
+        except Exception as e_caja:
+            print(f"⚠️ Falló estrategia teclado caja: {e_caja}")
+                
         except Exception as e:
              print(f"❌ Error crítico seleccionando Caja: {e}")
              try:
@@ -321,9 +500,21 @@ def ingreso_al_pos():
         time.sleep(5) 
 
         # 4. Click en boton ingresar
-        print("🔍 Buscando boton ingresar...")
+        print("🔍 Verificando estado del turno antes de ingresar...")
         try:
-            boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[3]/button")))
+            xpath_caja_cerrada_normal = '//*[@id="root"]/div/div/div/div/div[2]/div/div/div[1]/div/div[3]/button'
+            xpath_caja_abierta = '//*[@id="root"]/div/div/div/div/div[2]/div/div/div[1]/div/div[4]/button'
+            
+            # Buscar si existe el mensaje de turno activo
+            turno_activo = driver.find_elements(By.XPATH, "//*[contains(text(), 'Tienes un turno activo')]")
+            
+            if len(turno_activo) > 0:
+                print("ℹ️ Mensaje de 'turno activo' detectado. Usando botón de caja abierta...")
+                boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_caja_abierta)))
+            else:
+                print("ℹ️ No hay mensaje de turno activo. Usando botón normal...")
+                boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_caja_cerrada_normal)))
+                
             boton_ingresar.click()
             print("✅ Boton ingresar clickeado")
         except Exception as e:
@@ -431,16 +622,34 @@ def validacion_pos(inventario_maximo=0):
                 # Clic en el botón de salir del balance de caja vencida
                 print("📦 Buscando el botón 'salir del balance de caja vencida'...")
                 try:
-                    xpath_boton_salir_balance = '/html/body/div[7]/div/div[2]/div/div[2]/div[2]/button'
-                    boton_salir_balance = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_salir_balance)))
-                    try:
-                        boton_salir_balance.click()
-                        print("✅ Botón 'salir del balance de caja vencida' clickeado (Click Normal)")
-                    except Exception as e:
-                        driver.execute_script("arguments[0].click();", boton_salir_balance)
-                        print(f"✅ Botón 'salir del balance de caja vencida' clickeado (JS Click) - Advertencia: {e}")
+                    xpaths_salir_balance = [
+                        '/html/body/div[7]/div/div[2]/div/div[2]/div[2]/button',
+                        '/html/body/div[last()]/div/div[2]/div/div[2]/div[2]/button',
+                        '//button[contains(normalize-space(), "Salir")]',
+                        '//button[contains(normalize-space(), "Cerrar")]'
+                    ]
+                    
+                    boton_salir_balance = None
+                    for xpath in xpaths_salir_balance:
+                        try:
+                            boton_salir_balance = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+                            print(f"✅ Botón encontrado con XPath: {xpath}")
+                            break
+                        except TimeoutException:
+                            continue
+                    
+                    if boton_salir_balance:
+                        try:
+                            time.sleep(1)
+                            boton_salir_balance.click()
+                            print("✅ Botón 'salir del balance de caja vencida' clickeado (Click Normal)")
+                        except Exception as e:
+                            driver.execute_script("arguments[0].click();", boton_salir_balance)
+                            print(f"✅ Botón 'salir del balance de caja vencida' clickeado (JS Click) - Advertencia: {e}")
+                    else:
+                        print("⚠️ No se pudo encontrar el botón 'salir del balance' con ninguno de los XPaths.")
                 except Exception as e:
-                    print(f"⚠️ No se pudo clickear el botón 'salir del balance de caja vencida': {e}")
+                    print(f"⚠️ Error general intentando clickear 'salir del balance de caja vencida': {e}")
                 
                 print("ℹ️ Cajero vencido cerrado. Ahora procediendo a Apertura de Caja...")
                 caja_cerrada = True # Activar la bandera para que pase al siguiente bloque
@@ -504,16 +713,34 @@ def validacion_pos(inventario_maximo=0):
                 # Clic en el botón de salir del balance de caja
                 print("📦 Buscando el botón 'salir del balance de caja' en Apertura...")
                 try:
-                    xpath_boton_salir_balance_apertura = '/html/body/div[7]/div/div[2]/div/div[2]/div[2]/button'
-                    boton_salir_balance_apertura = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_salir_balance_apertura)))
-                    try:
-                        boton_salir_balance_apertura.click()
-                        print("✅ Botón 'salir del balance de caja' en Apertura clickeado (Click Normal)")
-                    except Exception as e:
-                        driver.execute_script("arguments[0].click();", boton_salir_balance_apertura)
-                        print(f"✅ Botón 'salir del balance de caja' en Apertura clickeado (JS Click) - Advertencia: {e}")
+                    xpaths_salir_balance_apertura = [
+                        '/html/body/div[7]/div/div[2]/div/div[2]/div[2]/button',
+                        '/html/body/div[last()]/div/div[2]/div/div[2]/div[2]/button',
+                        '//button[contains(normalize-space(), "Salir")]',
+                        '//button[contains(normalize-space(), "Cerrar")]'
+                    ]
+                    
+                    boton_salir_balance_apertura = None
+                    for xpath in xpaths_salir_balance_apertura:
+                        try:
+                            boton_salir_balance_apertura = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+                            print(f"✅ Botón encontrado con XPath: {xpath}")
+                            break
+                        except TimeoutException:
+                            continue
+                    
+                    if boton_salir_balance_apertura:
+                        try:
+                            time.sleep(1)
+                            boton_salir_balance_apertura.click()
+                            print("✅ Botón 'salir del balance de caja' en Apertura clickeado (Click Normal)")
+                        except Exception as e:
+                            driver.execute_script("arguments[0].click();", boton_salir_balance_apertura)
+                            print(f"✅ Botón 'salir del balance de caja' en Apertura clickeado (JS Click) - Advertencia: {e}")
+                    else:
+                        print("⚠️ No se pudo encontrar el botón 'salir del balance' en Apertura con los XPaths proporcionados.")
                 except Exception as e:
-                    print(f"⚠️ No se pudo clickear el botón 'salir del balance de caja' en Apertura: {e}")
+                    print(f"⚠️ Error general intentando clickear 'salir del balance de caja' en Apertura: {e}")
             except Exception as e:
                 print(f"❌ Error en flujo Caja Cerrada: {e}")
                 
@@ -586,8 +813,14 @@ try:
     ingreso_al_pos()
     validacion_pos()
 
-    # Extraer el inventario base para futuras validaciones o ventas
+    # Extraer el inventario base y abrir el modal
     leer_inventario_actual()
+    
+    # Ingresar la cantidad a ajustar y guardar
+    valor_ajustado = ingresar_ajuste_manual()
+    
+    # Validar el resultado
+    validar_actualizacion_inventario(valor_ajustado)
 
     # Finalizar turno como último paso del proceso
     print("🔚 Intentando hacer clic en 'Finalizar turno'...")

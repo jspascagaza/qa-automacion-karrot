@@ -1,0 +1,51 @@
+{
+    "id": "ae7a6608-1a85-45ba-8822-9b45951daf92",
+    "cashierID": "04545eb9-b0fa-4334-b2f4-d33bdc53077d",
+    "subTotal": 16400,
+    "discount": 0,
+    "subTotalTwo": 16400,
+    "taxes": 0,
+    "total": 16400,
+    "totalWithholding": 0,
+    "tip": 0,
+    "saleChannel": "Reseller",
+    "deliveryConfirm": true,
+    "localTime": "2026-04-08T09:04:20.719Z",
+    "customerID": "4b5bc1e9-cd02-4755-9168-57e56b98651c",
+    "locationID": "124efc41-3271-475e-9c1b-fbfda460128b",
+    "payment": [
+        {
+            "id": "ad3ff496-d7ef-47b4-92b6-10402059b860",
+            "value": 16400
+        }
+    ],
+    "variants": [
+        {
+            "id": "ce4a028a-0db0-4f7f-9413-d1d8aca50307",
+            "name": "PAPAS TODO RICO BBQ",
+            "taxes": [],
+            "quantity": 1,
+            "salePrice": 2800,
+            "isFast": false,
+            "productName": "papas todo rico bbq"
+        },
+        {
+            "id": "19bad55e-1908-4e9f-8685-badb6d8ca453",
+            "name": "PERRO CALIENTE",
+            "taxes": [],
+            "quantity": 1,
+            "salePrice": 12000,
+            "isFast": false,
+            "productName": "perro caliente"
+        },
+        {
+            "id": "8bc6dea9-97d1-465f-9f11-6dc529202a1d",
+            "name": "400 ML",
+            "taxes": [],
+            "quantity": 1,
+            "salePrice": 1600,
+            "isFast": false,
+            "productName": "pow cola negra"
+        }
+    ]
+}
