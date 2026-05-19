@@ -102,7 +102,7 @@ last_names = ["Pérez","González","Rodríguez","López","Martínez","Sánchez",
 first_name = (random.choice(first_names))
 last_name = (random.choice(last_names))
 user = (first_name[0] + last_name).lower().replace(" ", "")
-email = f"{user}{random.randint(10,999)}@example.com"
+email = "karrotdev@outlook.com"
 phone_number = f"+57{random.randint(300000000,399999999)}"  # ajusta país/longitud según necesites
 alphabet = string.ascii_letters + string.digits + "!@#$%&*"
 password = ''.join(random.choice(alphabet) for _ in range(12))
@@ -192,6 +192,10 @@ try:
 
     if not pais_seleccionado:
         raise Exception("No se pudo seleccionar el país")
+
+    # Numero de tiendas
+    wait.until(EC.presence_of_element_located((By.ID, "register-form_storeNumber"))).send_keys(random.randint(1, 10))
+    print("✅ Numero de tiendas ingresado")
 
     # Correo electrónico
     wait.until(EC.presence_of_element_located((By.ID, "register-form_email"))).send_keys(email)

@@ -1,0 +1,69 @@
+* [33me5a6df0[m[33m ([m[1;32mfeature/qa-automacion[m[33m)[m Fix: resolver conflictos de integración
+* [33m739cc8d[m ajuste casos de pruebas y se agregan nuevas cosas
+*   [33m1674ffe[m Merge branch origin/feature/qa-automacion
+[32m|[m[33m\[m  
+* [33m|[m [33ma09c4f2[m Mi commit limpio sin carpetas de workspace
+* [33m|[m [33mc07725e[m chore: remove obsolete automation script and documentation files
+[33m|[m [33m|[m * [33m5ca9d7b[m[33m ([m[1;36mHEAD[m[33m, [m[1;31morigin/feature/qa-automacion[m[33m)[m se deja un caso que realiza los 5 casos de creacion de productos
+[33m|[m [33m|[m * [33m042081e[m actualizacion casos de prueba
+[33m|[m [33m|[m * [33m2936e21[m  ajuste casos
+[33m|[m [33m|[m[33m/[m  
+[33m|[m * [33m234c3dc[m feat: corrección de estructura y remoción de archivos sensibles
+[33m|[m * [33me3676d0[m ajuste url de ingreso
+[33m|[m *   [33m6cdde62[m Resolver conflictos manteniendo los archivos locales de prueba
+[33m|[m [35m|[m[33m\[m  
+[33m|[m [35m|[m[33m/[m  
+[33m|[m[33m/[m[35m|[m   
+* [35m|[m   [33md8c70d2[m ajuste credenciales casos de prueba
+[1;31m|[m[1;32m\[m [35m\[m  
+* [1;32m|[m [35m|[m [33m5286051[m ajuste credenciales sheet
+[1;32m|[m [1;32m|[m * [33m78b1240[m Actualizando credenciales de Google Sheets y README
+[1;32m|[m [1;32m|[m[1;32m/[m  
+[1;32m|[m [1;32m|[m *   [33m002ae23[m[33m ([m[1;31morigin/main[m[33m)[m Merge pull request #2 from jspascagaza/feature/qa-automacion
+[1;32m|[m [1;32m|[m [1;33m|[m[1;32m\[m  
+[1;32m|[m [1;32m|[m [1;33m|[m[1;32m/[m  
+[1;32m|[m [1;32m|[m[1;32m/[m[1;33m|[m   
+[1;32m|[m * [1;33m|[m [33m4c23d3d[m ajuste caso tc030
+[1;32m|[m[1;32m/[m [1;33m/[m  
+[1;32m|[m *   [33m1ab2ca6[m[33m ([m[1;32mmain[m[33m)[m Merge pull request #1 from jspascagaza/feature/qa-automacion
+[1;32m|[m [1;35m|[m[1;32m\[m  
+[1;32m|[m [1;35m|[m[1;32m/[m  
+[1;32m|[m[1;32m/[m[1;35m|[m   
+* [1;35m|[m [33m66f4172[m ajuste caso tc030
+* [1;35m|[m [33m7af6c51[m ajuste casos
+* [1;35m|[m [33m25db565[m creacion de nuevo caso TC030
+* [1;35m|[m [33ma836068[m ajuste caso tc029
+* [1;35m|[m [33m83608aa[m refactor: Enhance 'Inventario' menu navigation in inventory test cases with dynamic element selection and fallbacks.
+* [1;35m|[m [33m3ed9a98[m ajuste casos para inventario
+* [1;35m|[m [33me6cfd61[m avance caso tc029
+* [1;35m|[m [33mac32f7b[m ajuste caso tc028
+* [1;35m|[m [33mb13b350[m ajuste inventario
+* [1;35m|[m [33m21e9257[m ajuste caso tc029
+* [1;35m|[m [33mb16b523[m ajuste de caso tc029
+* [1;35m|[m [33m70a5c08[m ajuste caso tc029
+* [1;35m|[m [33md49c701[m agregar caso 29
+* [1;35m|[m [33mcae7ed8[m ajustes casos
+* [1;35m|[m [33m2f5d4a1[m ajustes xpath
+* [1;35m|[m [33mfde8712[m caso tc028
+* [1;35m|[m [33m35a1f3a[m ajuste casos de prueba
+* [1;35m|[m [33m16abf11[m ajuste casos y crear categoria
+* [1;35m|[m [33m7b4182f[m ajuste casos
+* [1;35m|[m [33mdafcebd[m agregar categorias
+* [1;35m|[m [33m2bdb122[m se agregan nuevos casos realizados TC026 Y TC027
+* [1;35m|[m [33mc0a064c[m se agregan nuevos casos realizados TC025 Y TC026
+* [1;35m|[m [33m91da5ba[m nuevo caso 24
+* [1;35m|[m [33m75bdeaf[m ingreso nuevos py y ajustes
+* [1;35m|[m [33mb1dd889[m ajuste final caso TC023
+* [1;35m|[m [33ma63a23f[m ajuste atributos
+* [1;35m|[m [33m9e7f0e6[m ajustes y nuevos py
+* [1;35m|[m [33mafa5587[m ajuste casos de prueba
+* [1;35m|[m [33mdf3872c[m ajuste caso tc001
+* [1;35m|[m [33m045e467[m caso de prueba completado
+* [1;35m|[m [33m6c3df25[m se agrega funcion que permite realizar busqueda del producto creado
+* [1;35m|[m [33mcf366e9[m agregando nuevas funciones
+* [1;35m|[m [33mf19f228[m ingreso de valores
+* [1;35m|[m [33m6ad7920[m ajuste  atributos
+* [1;35m|[m [33m70cfa1e[m segundo  commit
+* [1;35m|[m [33mec86c3e[m primer commit
+[1;35m|[m[1;35m/[m  
+* [33ma39c8be[m Initial commit

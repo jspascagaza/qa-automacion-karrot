@@ -114,11 +114,11 @@ try:
         # Login
         email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
         email_input.click()
-        email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL", "js.pascagaza@karrotup.com"))
+        email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
         password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
         password_input.click()
-        password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD", "P4sc4g4z42025#*"))
+        password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
 
         login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
         login_button.click()
@@ -128,12 +128,12 @@ try:
         print("🚀 Intentando ir al panel de administración...")
         try:
             panel_button = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
             )
             panel_button.click()
 
             WebDriverWait(driver, 5).until(
-                EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+                EC.url_contains("/app")
             )
             print("✅ Panel de control cargado correctamente")
         except TimeoutException:
@@ -160,7 +160,7 @@ except Exception as e:
 
 
 listar_opciones_producto = wait.until(
-EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[7]/div/button"))
+EC.element_to_be_clickable((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//button[last()]"))
 )
 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listar_opciones_producto)
 listar_opciones_producto.click()

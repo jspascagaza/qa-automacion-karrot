@@ -235,7 +235,11 @@ try:
     wait.until(EC.presence_of_element_located((By.ID, "register-form_password"))).send_keys(password)
     print("✅ Contraseña ingresada")
 
-    # --- CICLO DE VALIDACIÓN DEL CAMPO CORREO ELECTRÓNICO ---
+    # Numero de tiendas
+    wait.until(EC.presence_of_element_located((By.ID, "register-form_storeNumber"))).send_keys(random.randint(1, 10))
+    print("✅ Numero de tiendas ingresado")
+
+    # Correo electrónico
     email_input = wait.until(EC.presence_of_element_located((By.ID, "register-form_email")))
     
     # Lista de pruebas a realizar en el ciclo

@@ -217,6 +217,10 @@ try:
     if not pais_seleccionado:
         raise Exception("No se pudo seleccionar el país")
 
+    # Numero de tiendas
+    wait.until(EC.presence_of_element_located((By.ID, "register-form_storeNumber"))).send_keys(random.randint(1, 10))
+    print("✅ Numero de tiendas ingresado")
+
     # Correo electrónico
     wait.until(EC.presence_of_element_located((By.ID, "register-form_email"))).send_keys(email)
     print("✅ Correo electrónico ingresado")
@@ -224,7 +228,7 @@ try:
     # Celular (VACÍO - esta es la prueba)
     phone_input = wait.until(EC.presence_of_element_located((By.ID, "register-form_phoneNumber")))
     if phone_number:
-        phone_input.send_keys(phone_number)
+        phone_input.send_keys()
         print("✅ Número de celular ingresado")
     else:
         print("⚠️ Número de celular dejado vacío (esto es intencional para la prueba)")

@@ -183,10 +183,13 @@ def leer_inventario_actual(iniciar_ajuste=True):
         stock_actual = int(numeros[0]) if numeros else 0
         
         print(f"📦 Producto capturado: '{nombre_producto}'")
-        print(f"📦 Inventario inicial en sede: {stock_actual}")
         
-        producto_seleccionado = nombre_producto
-        inventario_inicial = stock_actual
+        if iniciar_ajuste:
+            print(f"📦 Inventario inicial en sede: {stock_actual}")
+            producto_seleccionado = nombre_producto
+            inventario_inicial = stock_actual
+        else:
+            print(f"📦 Inventario final en sede: {stock_actual}")
         
         if iniciar_ajuste:
             # Seleccionar el checkbox del producto
@@ -223,14 +226,14 @@ def leer_inventario_actual(iniciar_ajuste=True):
             except Exception as e_ajuste:
                 print(f"⚠️ Error al intentar clickear el botón 'Ajuste manual': {e_ajuste}")
             
-        return producto_seleccionado, inventario_inicial
+        return nombre_producto, stock_actual
     except Exception as e:
         print(f"❌ Error al intentar leer el primer producto del inventario: {e}")
         try:
             driver.save_screenshot("error_lectura_inventario.png")
         except:
             pass
-        return None, 0
+        return None, None
 
 def ingresar_ajuste_manual():
     """
@@ -360,6 +363,8 @@ def validar_actualizacion_inventario(valor_a_ingresar):
         print("⏳ Esperando actualización de inventario...")
         time.sleep(5) # Dar tiempo para que se procese y actualice la tabla
         
+        driver.refresh()
+        time.sleep(5)
         print("\n📊 EXTRAYENDO VALORES FINALES:")
         # Re-leemos el inventario sin interactuar con los botones de ajuste (iniciar_ajuste=False)
         _, inventario_final = leer_inventario_actual(iniciar_ajuste=False)
@@ -801,11 +806,11 @@ try:
     print("🔐 Iniciando sesión...")
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL", ""))
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD", ""))
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
     #//*[@id="login-form"]/div[3]/div/div/div/div/button
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()

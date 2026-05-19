@@ -201,6 +201,10 @@ try:
     if not pais_seleccionado:
         raise Exception("No se pudo seleccionar el país")
 
+    # Numero de tiendas
+    wait.until(EC.presence_of_element_located((By.ID, "register-form_storeNumber"))).send_keys(random.randint(1, 10))
+    print("✅ Numero de tiendas ingresado")
+
     # Correo electrónico
     wait.until(EC.presence_of_element_located((By.ID, "register-form_email"))).send_keys(email)
     print("✅ Correo electrónico ingresado")

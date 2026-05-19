@@ -170,11 +170,11 @@ try:
     # Login
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("js.pascagaza@karrotup.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
 
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
@@ -182,12 +182,12 @@ try:
 
     # Ir al panel de administración
     panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
     )
     panel_button.click()
 
     wait.until(
-        EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+        EC.url_contains("/app")
     )
     print("✅ Panel de control cargado correctamente")
     time.sleep(5)
@@ -208,9 +208,7 @@ try:
     time.sleep(10)
 
     # Agregar Artículo
-    boton_agregar = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Agregar Artículo')]"))
-    )
+    boton_agregar = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary') and (contains(., 'Agregar') or contains(., 'Añadir') or contains(., 'Nuevo'))]")))
     boton_agregar.click()
     print("✅ Click en Agregar Artículo")
     time.sleep(10)
@@ -530,7 +528,7 @@ try:
         return barcode_aleatorio, sku_aleatorio
     barcode_aleatorio, sku_aleatorio = variantes_referencias_producto(driver, timeout=10, agregar_atributos=noactivar_atributos)
 
-    boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
+    boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type=\'submit\' and contains(@class, \'ant-btn-primary\')]")))
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
     boton_anadir.click()
     print("✅ Click en Añadir")

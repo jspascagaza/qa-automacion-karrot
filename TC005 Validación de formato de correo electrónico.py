@@ -103,7 +103,8 @@ first_names = ["Juan","Carlos","Luis","Ana","María","Laura","José","Miguel","S
 last_names = ["Pérez","González","Rodríguez","López","Martínez","Sánchez","Gómez","Ramírez"]
 first_name = ""  # Dejado vacío para la prueba
 last_name = "" # Dejado vacío para la prueba
-user = (first_name[0] + last_name).lower().replace(" ", "")
+user_prefix = (first_name[0] if first_name else "user") + (last_name if last_name else "")
+user = user_prefix.lower().replace(" ", "")
 email = f"{user}{random.randint(10,999)}@example.com"
 phone_number = f"+57{random.randint(300000000,399999999)}"  # ajusta país/longitud según necesites
 alphabet = string.ascii_letters + string.digits + "!@#$%&*"
@@ -204,6 +205,10 @@ try:
 
     if not pais_seleccionado:
         raise Exception("No se pudo seleccionar el país")
+
+    # Numero de tiendas
+    wait.until(EC.presence_of_element_located((By.ID, "register-form_storeNumber"))).send_keys(random.randint(1, 10))
+    print("✅ Numero de tiendas ingresado")
 
     # Correo electrónico
     wait.until(EC.presence_of_element_located((By.ID, "register-form_email"))).send_keys(email)

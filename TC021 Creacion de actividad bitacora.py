@@ -116,30 +116,28 @@ try:
     
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("js.pascagaza@karrotup.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
 
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
     time.sleep(10)
 
     panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
     )
     panel_button.click()
 
-    wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]")))
+    wait.until(EC.url_contains("/app"))
     time.sleep(5)
 
     # =====================
     # NAVEGACIÓN A MODULO DE UBICACIONES
     # =====================
-    ModuloUbicaciones = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/aside/div/ul/li[1]/ul/li[12]/div"))
-    )
+    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
     ModuloUbicaciones.click()
     time.sleep(5)
 
@@ -147,7 +145,8 @@ try:
     opciones_submenu = driver.find_elements(By.XPATH, "//ul[contains(@class, 'ant-menu-sub')]//li")
     opcion_encontrada = None
     for opcion in opciones_submenu:
-        if "Actvidades" in opcion.text:
+        texto = opcion.text.lower()
+        if "actividades" in texto or "actvidades" in texto or "bitácora" in texto or "bitacora" in texto:
             opcion_encontrada = opcion
             break
 

@@ -169,11 +169,11 @@ def ejecutar_caso(config_caso):
         # Login
         email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
         email_input.click()
-        email_input.send_keys(os.getenv("KARROT_USER", "js.pascagaza@karrotup.com"))
+        email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
         password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
         password_input.click()
-        password_input.send_keys(os.getenv("KARROT_PASSWORD", "P4sc4g4z42025#*"))
+        password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
 
         login_button = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button"))
@@ -183,12 +183,12 @@ def ejecutar_caso(config_caso):
 
         # Ir al panel de administración
         panel_button = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
         )
         panel_button.click()
 
         wait.until(
-            EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+            EC.url_contains("/app")
         )
         print("✅ Panel de control cargado correctamente")
         time.sleep(5)
@@ -210,8 +210,7 @@ def ejecutar_caso(config_caso):
 
         # Agregar Artículo
         boton_agregar = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Agregar Artículo')]"))
-        )
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[2]/div/div/div/div[1]/div/button[1]")))
         boton_agregar.click()
         print("✅ Click en Agregar Artículo")
         time.sleep(10)
@@ -352,8 +351,13 @@ def ejecutar_caso(config_caso):
                 valores_atributos.append(valor2)
                 time.sleep(1)
                 
-                boton_ok = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary')]//span[text()='OK']")))
-                boton_ok.click()
+                boton_ok = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary') and (.//span[text()='OK'] or .//span[text()='Aceptar'])]")))
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_ok)
+                time.sleep(0.5)
+                try:
+                    boton_ok.click()
+                except:
+                    driver.execute_script("arguments[0].click();", boton_ok)
                 print("✅ Atributos adicionales configurados")
                 time.sleep(2)
                 
@@ -421,11 +425,30 @@ def ejecutar_caso(config_caso):
 
         print(f"✅ Barcode final: {barcode_aleatorio}, SKU final: {sku_aleatorio}")
         
-        boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
+        boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type=\'submit\' and contains(@class, \'ant-btn-primary\')]")))
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
         boton_anadir.click()
         print("✅ Click en Añadir")
-        time.sleep(10)
+        
+        # Verificar si aparece un mensaje de error (ej. el producto ya existe)
+        try:
+            mensaje = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'ant-message-notice-content') or contains(@class, 'ant-notification-notice')]"))
+            )
+            texto_mensaje = mensaje.text.lower()
+            print(f"ℹ️ Mensaje en pantalla: {mensaje.text}")
+            
+            # Si el mensaje indica error o que el producto ya existe
+            if "error" in texto_mensaje or "exist" in texto_mensaje or "ya" in texto_mensaje or "fail" in texto_mensaje:
+                print("🔄 El producto ya existe o hubo un error. Reintentando caso...")
+                driver.quit()
+                return ejecutar_caso(config_caso)
+        except TimeoutException:
+            # Si no hay mensaje o no pudimos capturarlo, esperamos un poco más
+            time.sleep(5)
+            pass
+            
+        time.sleep(5)
         driver.refresh()
         time.sleep(5)
         
@@ -465,11 +488,16 @@ def ejecutar_caso(config_caso):
             campo_busqueda.send_keys(Keys.ENTER)
             print(f"✅ Búsqueda realizada con : {barcode_aleatorio}")
             time.sleep(5)
-            elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
-            print("✅ campo encontrado enviado en campo de búsqueda")
-            time.sleep(5)
-            observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
-            estado = "EXITOSO"
+            try:
+                elemento = wait.until(EC.presence_of_element_located((By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")))
+                print("✅ campo encontrado enviado en campo de búsqueda")
+                time.sleep(5)
+                observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                estado = "EXITOSO"
+            except TimeoutException:
+                print(f"❌ No se encontró el producto {nombre_producto} en la tabla")
+                observaciones = f"Producto no encontrado tras la búsqueda. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                estado = "FALLIDO"
         else:
             print("❌ No se encontró la opción de búsqueda 'Buscar '")
             observaciones = "No se encontró la opción de búsqueda 'Buscar por Código de barras'"

@@ -265,7 +265,7 @@ def pantalla_login(nombre_producto, reintentar=True):
             wait = WebDriverWait(driver, timeout)
         
             # Buscar el botón por texto y clases
-            boton_xpath = "//button[contains(@class, 'ant-btn') and contains(text(), 'Agregar nuevo atributo')]"
+            boton_xpath = "//*[@id='advanced_search']/div[2]/div/div[1]/div/div[3]/div/div/button"
             boton = wait.until(EC.element_to_be_clickable((By.XPATH, boton_xpath)))
         
             # Scroll y clic
@@ -299,8 +299,13 @@ def pantalla_login(nombre_producto, reintentar=True):
             print("✅ Atributos adicionales configurados")
         
             # Guardar
-            boton_ok = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary')]//span[text()='OK']")))
-            boton_ok.click()
+            boton_aceptar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary') and .//span[text()='Aceptar']]")))
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_aceptar)
+            time.sleep(0.5)
+            try:
+                boton_aceptar.click()
+            except:
+                driver.execute_script("arguments[0].click();", boton_aceptar)
             print("✅ Atributos adicionales guardados")
         
             return nombre_atributo, valores_atributos
@@ -313,9 +318,9 @@ def pantalla_login(nombre_producto, reintentar=True):
         Genera SKU, barcode, costo y precio para cada combinación de atributos
         Maneja IDs con espacios como: advanced_search_memoria 1tbsku
         """
-        # Si no se deben agregar atributos, salir sin ejecutar
-        if not agregar_atributos:
-            print("⏭️  generar_campos_por_atributo: agregar_atributos=False, no se ejecuta")
+        # Si no se deben agregar atributos o no hay valores, salir sin ejecutar
+        if not agregar_atributos or not valores_atributos:
+            print("⏭️  generar_campos_por_atributo: agregar_atributos=False o no hay valores, no se ejecuta")
             return False
 
         try:
@@ -389,11 +394,11 @@ def pantalla_login(nombre_producto, reintentar=True):
         # Login
         email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
         email_input.click()
-        email_input.send_keys("karrotdev@outlook.com")
+        email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
         password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
         password_input.click()
-        password_input.send_keys("P4sc4g4z42025#*")
+        password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
 
         login_button = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button"))
@@ -403,12 +408,12 @@ def pantalla_login(nombre_producto, reintentar=True):
 
         # Ir al panel de administración
         panel_button = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
         )
         panel_button.click()
 
         wait.until(
-            EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+            EC.url_contains("/app")
         )
         print("✅ Panel de control cargado correctamente")
         time.sleep(5)
@@ -430,8 +435,7 @@ def pantalla_login(nombre_producto, reintentar=True):
 
         # Agregar Artículo
         boton_agregar = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[contains(text(), 'Agregar Artículo')]"))
-        )
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[2]/div/div/div/div[1]/div/button[1]")))
         boton_agregar.click()
         print("✅ Click en Agregar Artículo")
         time.sleep(10)
@@ -466,38 +470,35 @@ def pantalla_login(nombre_producto, reintentar=True):
             ActionChains(driver).move_to_element(listadocategorias).click().perform()
             time.sleep(1)
             
-            # Verificar si necesitamos crear una categoría
-            if intento == 0:
-                crear_categoria_si_es_necesario(driver, wait)
-            
             opciones_categorias = wait.until(
                 EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
             )
             
-            print("Opciones encontradas:")
-            for opcion in opciones_categorias:
-                print(opcion.text)
+            # Filtrar "Añadir Categoría" para saber si hay opciones reales
+            opciones_validas = [op for op in opciones_categorias if op.text.strip() and op.text.strip() != "Añadir Categoría"]
             
-            opcion_encontrada = None
-            for opcion in opciones_categorias:
-                    opcion_encontrada = opcion
-                    break
-            
-            if opcion_encontrada:
-                opcion_encontrada.click()
+            if len(opciones_validas) > 0:
+                print("Opciones encontradas:")
+                for opcion in opciones_validas:
+                    print(opcion.text)
+                
+                opciones_validas[0].click()
                 print("✅ Categoría seleccionada")
                 categoria_seleccionada = True
                 break
             else:
-                print(f"❌ No se encontró la categorías (intento {intento + 1}/{max_intentos})")
+                print(f"❌ No se encontraron categorías (intento {intento + 1}/{max_intentos})")
+                # Si no hay categorías en el primer intento, creamos una
+                if intento == 0:
+                    crear_categoria_si_es_necesario(driver, wait)
+                    
                 if intento < max_intentos - 1:
                     # Cerrar el dropdown y reintentar
                     driver.find_element(By.TAG_NAME, "body").send_keys(Keys.ESCAPE)
                     time.sleep(1)
+                    
         if not categoria_seleccionada:
-            print("❌ No se pudo seleccionar la categoría 'Portátiles' después de los intentos")
-
-        crear_categoria_si_es_necesario(driver, wait)
+            print("❌ No se pudo seleccionar la categoría después de los intentos")
 
         # Selección de unidad (tipo de unidad)
         # Esperar el input (aunque no sea clickeable)
@@ -575,11 +576,32 @@ def pantalla_login(nombre_producto, reintentar=True):
             sku_aleatorio = None
         print(f"✅ Barcode: {barcode_aleatorio}, SKU: {sku_aleatorio}")
         
-        boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'Añadir')]")))
+        boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]")))
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
         boton_anadir.click()
         print("✅ Click en Añadir")
-        time.sleep(10)
+        
+        # Verificar si aparece un mensaje de error (ej. el producto ya existe)
+        try:
+            mensaje = WebDriverWait(driver, 5).until(
+                EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'ant-message-notice-content') or contains(@class, 'ant-notification-notice')]"))
+            )
+            texto_mensaje = mensaje.text.lower()
+            print(f"ℹ️ Mensaje en pantalla: {mensaje.text}")
+            
+            # Si el mensaje indica error o que el producto ya existe
+            if "error" in texto_mensaje or "exist" in texto_mensaje or "ya" in texto_mensaje or "fail" in texto_mensaje:
+                print("🔄 El producto ya existe o hubo un error. Generando nuevo nombre y reintentando...")
+                driver.quit()
+                sufijo = ''.join(random.choices(string.ascii_uppercase + string.digits, k=4))
+                nuevo_nombre = f"{nombre_producto} {sufijo}"
+                return pantalla_login(nuevo_nombre, reintentar=reintentar)
+        except TimeoutException:
+            # Si no hay mensaje o no pudimos capturarlo, esperamos un poco más
+            time.sleep(5)
+            pass
+            
+        time.sleep(5)
         driver.refresh()
         time.sleep(5)
         
@@ -629,11 +651,16 @@ def pantalla_login(nombre_producto, reintentar=True):
                     campo_busqueda.send_keys(Keys.ENTER)
                     print(f"✅ Búsqueda realizada con : {barcode_aleatorio}")
                     time.sleep(5)
-                    elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
-                    print("✅ campo encontrado enviado en campo de búsqueda")
-                    time.sleep(5)
-                    observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
-                    estado = "EXITOSO"
+                    try:
+                        elemento = wait.until(EC.presence_of_element_located((By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")))
+                        print("✅ campo encontrado enviado en campo de búsqueda")
+                        time.sleep(5)
+                        observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                        estado = "EXITOSO"
+                    except TimeoutException:
+                        print(f"❌ No se encontró el producto {nombre_producto} en la tabla")
+                        observaciones = f"Producto no encontrado tras la búsqueda. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                        estado = "FALLIDO"
                     registrar_resultado(id_caso, estado, observaciones)
             else:
                 print("❌ No se encontró la opción de búsqueda 'Buscar '")

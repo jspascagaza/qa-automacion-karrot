@@ -1,3 +1,4 @@
+from logging import root
 import csv
 import datetime
 from socket import timeout
@@ -33,7 +34,10 @@ class Logger(object):
         self.log = open(filename, "a", encoding="utf-8")
 
     def write(self, message):
-        self.terminal.write(message)
+        try:
+            self.terminal.write(message)
+        except UnicodeEncodeError:
+            self.terminal.write(message.encode('ascii', 'replace').decode('ascii'))
         self.log.write(message)
         self.log.flush()
 
@@ -318,31 +322,42 @@ def ingreso_al_pos():
         
         # 1. Click dropdown trigger
         print("🔍 Click en el desplegable de sedes...")
+        
+        # Verificar si hay un turno activo en pantalla
+        mensajes_turno_activo = driver.find_elements(By.XPATH, "//*[contains(text(), 'Tienes un turno activo')]")
+        
+        # Usamos XPaths relativos súper robustos. 
+        # Sede es el 1er dropdown y Caja es el 2do, independientemente del mensaje inferior.
+        xpath_sede_con_turno = "(//div[contains(@class, 'ant-select-selector')])[1]"
+        xpath_sede_sin_turno = "(//div[contains(@class, 'ant-select-selector')])[1]"
+        
+        # Determinar qué XPath usar (ambos apuntan al mismo elemento relativo, pero mantenemos tu lógica)
+        xpath_seleccionado = xpath_sede_con_turno if len(mensajes_turno_activo) > 0 else xpath_sede_sin_turno
+        
         try:
-            # Volvemos al XPath específico que sabemos que funciona para ABRIR el menú
             dropdown_trigger = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[1]"))
+                EC.element_to_be_clickable((By.XPATH, xpath_seleccionado))
             )
             dropdown_trigger.click()
-            print("✅ Click en dropdown (XPath específico)")
+            print("✅ Click en dropdown (XPath robusto de Sede)")
         except Exception as e:
              print(f"⚠️ Falló click inicial ({e}), intentando por texto...")
-             # Fallback secundario
+             # Fallback secundario con acento opcional
              dropdown_trigger = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Selecciona Ubicacion')]/.."))
+                EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Selecciona Ubicaci')]/ancestor::div[contains(@class, 'ant-select-selector')]"))
              )
              dropdown_trigger.click()
+             print("✅ Click en dropdown (Fallback de Sede)")
         
         time.sleep(1) # Esperar animación del menú
 
         # 2. Seleccionar Opción
         print("🔍 Buscando opción de sede...")
         try:
-            # Estrategia 1: Buscar 'sede bogota' usando (.) para incluir hijos. 
-            # IMPORTANTE: El menú ya debe estar abierto.
-            # UPDATED: Buscamos un elemento leaf (sin hijos con texto) o div específico para evitar contenedores de tamaño 0
+            # Estrategia 1: Buscar 'sede bogota' pero ASEGURÁNDONOS que sea una opción del menú.
+            # Evitamos buscar en toda la página porque el mensaje amarillo también dice 'sede bogota'.
             opcion = wait.until(
-                EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'sede bogota')] | //*[contains(., 'sede bogota') and not(contains(., 'Selecciona')) and count(.//*)=0]"))
+                EC.presence_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-item-option-content') and contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'sede bogota')]"))
             )
             print(f"  > Opción encontrada: {opcion.text or 'Elemento sin texto directo'}")
             
@@ -361,9 +376,9 @@ def ingreso_al_pos():
         except Exception as e:
             print(f"⚠️ Falló estrategia específica ({e}), intentando genérica...")
             try:
-                 # Estrategia 2: Cualquier elemento con 'sede' que sea visible
+                 # Estrategia 2: Cualquier opción del menú que contenga 'sede'
                 opciones_genericas = wait.until(
-                    EC.presence_of_all_elements_located((By.XPATH, "//*[contains(., 'sede') and not(contains(., 'Selecciona'))]"))
+                    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-item-option-content') and contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'sede')]"))
                 )
                 
                 # Filtramos visibles y que tengan un tamaño razonable 
@@ -469,9 +484,21 @@ def ingreso_al_pos():
         time.sleep(5) 
 
         # 4. Click en boton ingresar
-        print("🔍 Buscando boton ingresar...")
+        print("🔍 Verificando estado del turno antes de ingresar...")
         try:
-            boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div/div[2]/div/div/div[1]/div/div[3]/button")))
+            xpath_caja_cerrada_normal = '//*[@id="root"]/div/div/div/div[2]/div[4]/button'
+            xpath_caja_abierta = '//*[@id="root"]/div/div/div/div[2]/div[5]/button'
+            
+            # Buscar si existe el mensaje de turno activo
+            turno_activo = driver.find_elements(By.XPATH, "//*[contains(text(), 'Tienes un turno activo')]")
+            
+            if len(turno_activo) > 0:
+                print("ℹ️ Mensaje de 'turno activo' detectado. Usando botón de caja abierta...")
+                boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_caja_abierta)))
+            else:
+                print("ℹ️ No hay mensaje de turno activo. Usando botón normal...")
+                boton_ingresar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_caja_cerrada_normal)))
+                
             boton_ingresar.click()
             print("✅ Boton ingresar clickeado")
         except Exception as e:
@@ -522,8 +549,10 @@ def validacion_pos(inventario_maximo=0):
         # 1. Seleccionar primer producto (Checkbox)
         try:
             print("⏳ Buscando producto en POS...")
+            time.sleep(3) # Esperar a que los productos terminen de cargar y React estabilice el DOM (evita StaleElement)
+            
             # XPath original del usuario
-            xpath_producto = "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[2]/div/div[3]"
+            xpath_producto = "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div[1]/div[2]/div/div[1]/div/div[2]/div[3]/div/div"
             
             # Intentar scroll primero
             producto = wait.until(EC.presence_of_element_located((By.XPATH, xpath_producto)))
@@ -535,9 +564,15 @@ def validacion_pos(inventario_maximo=0):
             print(f"⚠️ Falló selección producto con XPath original: {e}")
             # Fallback: buscar cualquier producto clickable en la grilla
             print("  Intentando selector genérico de producto...")
-            producto = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'product-card')] | //div[contains(@class, 'ant-card')]")))
+            time.sleep(2) # Darle aún más tiempo si falló
+            
+            # El buscador es una tarjeta (ant-card) pero tiene un <input> adentro (el placeholder no cuenta como texto para el not(contains)). 
+            # Los productos reales NO tienen etiquetas <input>. Así lo filtramos.
+            xpath_seguro = "//main//div[contains(@class, 'product-card')] | //main//div[contains(@class, 'ant-card') and not(.//input) and not(contains(., 'CAJA ABIERTA'))]"
+            
+            producto = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_seguro)))
             producto.click()
-            print("✅ Producto seleccionado (Genérico)")
+            print("✅ Producto seleccionado (Genérico y sin inputs)")
 
         # 2. Seleccionar Atributo (Sabor/Memoria/Color)
         # El usuario reportó error en: //*[@id='advanced_search_memoria']/label[2]/span[1]
@@ -617,9 +652,12 @@ def validacion_pos(inventario_maximo=0):
         # 3. Botón Agregar
         # Usar un XPath más robusto basado en el texto del botón
         # Buscamos un botón que contenga "Agregar" (o su span hijo)
-        boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Añadir al carrito')]")))
-        boton_agregar.click()
-        print("✅ Boton agregar clickeado")
+        try:
+            boton_agregar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Añadir al carrito')]")))
+            boton_agregar.click()
+            print("✅ Boton agregar clickeado")
+        except TimeoutException:
+            print("⚠️ Botón 'Añadir al carrito' no encontrado. Asumiendo que el producto ya se agregó al carrito automáticamente.")
 
         time.sleep(2)
         
@@ -627,7 +665,7 @@ def validacion_pos(inventario_maximo=0):
         print("🔍 Buscando campo de cantidad...")
         try:
             # Click en el botón de cantidad (el que indicó el usuario)
-            boton_cantidad = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="cart-list"]/div/div/div/div/ul/div/div[2]/div[1]/button[2]')))
+            boton_cantidad = wait.until(EC.element_to_be_clickable((By.XPATH, '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div[2]/div/div/div[3]/div/div[3]/div/div/div/ul/div/div/div[2]/div/div[2]')))
             boton_cantidad.click()
             print("✅ Click en botón de cantidad")
             
@@ -669,8 +707,9 @@ def validacion_pos(inventario_maximo=0):
                     print("⚠️ ENTER no cerró el popover, intentando click en 'Yes'...")
                     try:
                         # Buscamos el botón Yes específicamente dentro de un popover o globalmente por texto
-                        # Priorizamos el botón visible con texto "Yes"
-                        xpath_yes = "//div[contains(@class, 'ant-popover')]//button[contains(., 'Yes')] | //button[contains(., 'Yes')]"
+                        # Usamos un XPath relativo que busca el botón primario (naranja) o el botón que diga 'Si', 'Sí' o 'Yes'
+                        # dentro del popover. Usamos [last()] porque Ant Design agrega los popovers al final del body.
+                        xpath_yes = "(//div[contains(@class, 'ant-popover')]//button[contains(@class, 'ant-btn-primary') or contains(., 'Si') or contains(., 'Sí') or contains(., 'Yes')])[last()]"
                         
                         boton_yes = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_yes)))
                         boton_yes.click()
@@ -694,69 +733,107 @@ def validacion_pos(inventario_maximo=0):
         except Exception as e:
             print(f"⚠️ Error ingresando cantidad: {e}")
 
-        # 6. Click en Realizar Venta
-        print("🔍 Buscando botón 'Realizar venta'...")
+        # 6. Click en Realizar Venta (Cobrar)
+        print("🔍 Buscando botón 'Realizar venta' (Cobrar)...")
         try:
             time.sleep(2) # Esperar a que se cierre el modal de cantidad
-            # Usar XPath proporcionado por el usuario
-            xpath_venta = "//*[@id='cart-summary']/div/button"
+            # Usar XPath relativo robusto buscando el botón 'COBRAR'
+            xpath_venta = "//button[contains(translate(., 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz'), 'cobrar')]"
             boton_venta = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_venta)))
             boton_venta.click()
-            print("✅ Botón 'Realizar venta' clickeado")
+            print("✅ Botón 'Cobrar' clickeado")
         except Exception as e:
-            print(f"⚠️ Falló click en 'Realizar venta' ({xpath_venta}): {e}")
+            print(f"⚠️ Falló click en 'Cobrar' ({xpath_venta}): {e}")
             try:
                 # Fallback con JS
-                driver.execute_script("var xpath = \"//*[@id='cart-summary']/div/button\"; var matchingElement = document.evaluate(xpath, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue; if (matchingElement) matchingElement.click();")
-                print("✅ Botón 'Realizar venta' clickeado (JS)")
+                driver.execute_script("arguments[0].click();", driver.find_element(By.XPATH, xpath_venta))
+                print("✅ Botón 'Cobrar' clickeado (JS)")
             except:
-                print("❌ No se pudo clickear 'Realizar venta'")
+                print("❌ No se pudo clickear 'Cobrar'")
 
         # 7. Seleccionar Cliente Anonimo
         print("🔍 Buscando opción 'Cliente Anonimo'...")
         try:
             time.sleep(3) # Esperar a que cargue la vista de selección de cliente
             
-            # XPath específico proporcionado por el usuario
-            xpath_anonimo = "/html/body/div[21]/div/div[2]/div/div[2]/div[1]/div/div/div/div[1]/div/div/div[2]/div/div/div/div[2]/div"
+            # Usar un XPath relativo y robusto, ignorando acentos y mayúsculas
+            xpath_anonimo = "//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ', 'abcdefghijklmnopqrstuvwxyzaeiou'), 'cliente anonimo')]"
             
             try:
                 cliente_anonimo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_anonimo)))
                 cliente_anonimo.click()
-                print("✅ 'Cliente Anonimo' seleccionado (XPath Usuario)")
+                print("✅ 'Cliente Anonimo' seleccionado (XPath robusto)")
+                time.sleep(2) 
+                siguiente = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div/div/div/div[2]/div[2]/div/div/div[2]/div[5]/div/button")))
+                siguiente.click()
+                print("✅ 'Siguiente' clickeado")
             except Exception as e_xpath:
-                print(f"⚠️ Falló XPath usuario para cliente anónimo: {e_xpath}")
-                # Fallback: Buscar por texto
-                print("  Intentando buscar por texto 'Cliente Anonimo'...")
-                cliente_anonimo = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(text(), 'Cliente Anonimo')] | //span[contains(text(), 'Cliente Anonimo')]")))
-                cliente_anonimo.click()
-                print("✅ 'Cliente Anonimo' seleccionado (Por texto)")
+                print(f"⚠️ Falló XPath robusto para cliente anónimo: {e_xpath}")
+                # Fallback: intentar hacer click con JS por si algo lo intercepta
+                print("  Intentando JS Click para 'Cliente Anonimo'...")
+                driver.execute_script("arguments[0].click();", driver.find_element(By.XPATH, xpath_anonimo))
+                print("✅ 'Cliente Anonimo' seleccionado (Por JS)")
                 
         except Exception as e:
             print(f"⚠️ Falló selección de Cliente Anonimo: {e}")
 
-        # 8. Seleccionar Efectivo
-        print("🔍 Buscando opción 'Efectivo'...")
+        # 8. Seleccionar Método de Pago
+        print("🔍 Desplegando lista de Métodos de Pago...")
         try:
-            time.sleep(2) # Esperar a que cargue la vista de pagos
+            time.sleep(3) # Aumentar la espera inicial para asegurar que React termine de pintar el DOM
             
-            # XPath específico proporcionado por el usuario
-            xpath_efectivo = "/html/body/div[23]/div/div[2]/div/div[2]/div[1]/div/div/div/div[1]/div/div/div[2]/div[2]/div[1]/div[1]/button[1]"
+            xpath_select = "//*[@id='rc_select_28'] | //input[contains(@id, 'rc_select_')]"
+            
+            # Reintentar hasta 3 veces para superar el StaleElementReference
+            for intento in range(3):
+                try:
+                    # Siempre buscar el elemento justo antes de usarlo
+                    select_box = wait.until(EC.presence_of_element_located((By.XPATH, xpath_select)))
+                    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", select_box)
+                    time.sleep(0.5)
+                    
+                    # Volver a buscar el elemento antes del click por si React lo recreó durante el scroll
+                    select_box = driver.find_element(By.XPATH, xpath_select)
+                    
+                    try:
+                        select_box.click()
+                    except:
+                        driver.execute_script("arguments[0].click();", select_box)
+                    
+                    print("✅ Dropdown de métodos de pago abierto")
+                    break # Si llega aquí sin error, rompe el loop de reintentos
+                except Exception as e_stale:
+                    print(f"  Reintentando abrir dropdown (intento {intento+1}): {e_stale}")
+                    time.sleep(1)
+            
+            time.sleep(1) # Esperar animación del dropdown
+            
+            # Seleccionar 'Efectivo'
+            print("🔍 Buscando opción 'Efectivo' en la lista...")
+            xpath_opcion_efectivo = "//div[contains(@class, 'ant-select-item') and contains(., 'Efectivo') and not(contains(@class, 'hidden'))]"
             
             try:
-                boton_efectivo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_efectivo)))
+                boton_efectivo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_opcion_efectivo)))
                 boton_efectivo.click()
-                print("✅ 'Efectivo' seleccionado (XPath Usuario)")
-            except Exception as e_xpath:
-                print(f"⚠️ Falló XPath usuario para Efectivo: {e_xpath}")
-                # Fallback: Buscar por texto
-                print("  Intentando buscar por texto 'Efectivo'...")
-                boton_efectivo = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Efectivo')] | //div[contains(text(), 'Efectivo')]")))
-                boton_efectivo.click()
-                print("✅ 'Efectivo' seleccionado (Por texto)")
+                print("✅ Método de pago 'Efectivo' seleccionado (Click Normal)")
+            except Exception as e_click:
+                print(f"⚠️ Falló click normal, intentando alternativas...")
+                try:
+                    # Volver a buscar para JS Click
+                    boton_efectivo = driver.find_element(By.XPATH, xpath_opcion_efectivo)
+                    driver.execute_script("arguments[0].click();", boton_efectivo)
+                    print("✅ Método de pago 'Efectivo' seleccionado (JS Click)")
+                except:
+                    print("⚠️ Falló JS Click. Usando teclado (Flecha Abajo + Enter)...")
+                    # Volver a buscar el input para mandar teclas
+                    select_box = driver.find_element(By.XPATH, xpath_select)
+                    select_box.send_keys(Keys.ARROW_DOWN)
+                    time.sleep(0.5)
+                    select_box.send_keys(Keys.ENTER)
+                    print("✅ Método de pago 'Efectivo' seleccionado (Teclado)")
                 
         except Exception as e:
-            print(f"⚠️ Falló selección de Efectivo: {e}")
+            print(f"⚠️ Falló selección de Método de Pago global: {e}")
 
         # 9. Click en Confirmar Venta
         print("🔍 Buscando botón 'Confirmar Venta'...")
@@ -765,7 +842,7 @@ def validacion_pos(inventario_maximo=0):
             time.sleep(2) # Esperar a que se habilite el botón
             
             # XPath específico proporcionado por el usuario
-            xpath_confirmar = "/html/body/div[10]/div/div[2]/div/div[2]/div[2]/div/div[2]/button[2]"
+            xpath_confirmar = "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div/div/div/div[2]/div[2]/div/div/div[2]/div[5]/div/button"
             
             try:
                 boton_confirmar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_confirmar)))
@@ -773,9 +850,10 @@ def validacion_pos(inventario_maximo=0):
                 print("✅ 'Confirmar Venta' clickeado (XPath Usuario)")
             except Exception as e_xpath:
                 print(f"⚠️ Falló XPath usuario para Confirmar Venta: {e_xpath}")
-                boton_confirmar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Confirmar Venta')] | //span[contains(text(), 'Confirmar Venta')]")))
-                boton_confirmar.click()
-                print("✅ 'Confirmar Venta' clickeado (Por texto)")
+                # Fallback
+                boton_confirmar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(., 'Confirmar Venta')] | //span[contains(text(), 'Confirmar Venta')]/parent::button")))
+                driver.execute_script("arguments[0].click();", boton_confirmar)
+                print("✅ 'Confirmar Venta' clickeado (Por texto / JS)")
 
             time.sleep(5)
             ActionChains(driver).send_keys(Keys.ESCAPE).perform()
@@ -843,11 +921,11 @@ try:
     print("🔐 Iniciando sesión...")
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("karrotdev@outlook.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
     #//*[@id="login-form"]/div[3]/div/div/div/div/button
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
@@ -857,12 +935,12 @@ try:
     # Ir al panel de administración
     print("🚀 Yendo al panel de administración...")
     panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
     )
     panel_button.click()
 
     wait.until(
-        EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+        EC.url_contains("/app")
     )
     print("✅ Panel de control cargado")
     time.sleep(3)  

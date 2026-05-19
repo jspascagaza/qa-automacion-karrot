@@ -305,11 +305,11 @@ try:
     print("🔐 Iniciando sesión...")
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("karrotdev@outlook.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
     #//*[@id="login-form"]/div[3]/div/div/div/div/button
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
@@ -319,12 +319,12 @@ try:
     # Ir al panel de administración
     print("🚀 Yendo al panel de administración...")
     panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
     )
     panel_button.click()
 
     wait.until(
-        EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]"))
+        EC.url_contains("/app")
     )
     print("✅ Panel de control cargado")
     time.sleep(3)  # Reducido de 5 a 3
@@ -574,7 +574,7 @@ try:
                     print("⏳ Buscando botón Confirmar...")
                     # Buscamos por texto exacto 'Confirmar' en un span o button
                     btn_confirmar = wait.until(EC.element_to_be_clickable(
-                        (By.XPATH, "//span[normalize-space()='Confirmar'] | //button[contains(., 'Confirmar')]")
+                        (By.XPATH, "//div[contains(@class, 'ant-modal-footer')]//button[contains(@class, 'ant-btn-primary')] | //button[contains(@class, 'ant-btn-primary') and (contains(., 'Confirmar') or contains(., 'Guardar') or contains(., 'OK'))]")
                     ))
                     btn_confirmar.click()
                     print("✅ Click en Confirmar")
@@ -592,6 +592,8 @@ try:
                     print("⏳ Esperando actualización de inventario...")
                     time.sleep(5) # Dar tiempo para que se procese y actualice la tabla
                     
+                    driver.refresh()
+                    time.sleep(5)
                     print("\n📊 EXTRAYENDO VALORES FINALES:")
                     valores_finales = extraer_valores_inventario_bogota()
                     

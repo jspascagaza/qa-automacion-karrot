@@ -194,6 +194,10 @@ try:
     if not pais_seleccionado:
         raise Exception("No se pudo seleccionar el país")
 
+    # Numero de tiendas
+    wait.until(EC.presence_of_element_located((By.ID, "register-form_storeNumber"))).send_keys(random.randint(1, 10))
+    print("✅ Numero de tiendas ingresado")
+
     # Correo electrónico
     wait.until(EC.presence_of_element_located((By.ID, "register-form_email"))).send_keys(email)
     print("✅ Correo electrónico ingresado")
@@ -205,68 +209,6 @@ try:
     # Contraseña
     wait.until(EC.presence_of_element_located((By.ID, "register-form_password"))).send_keys(password)
     print("✅ Contraseña ingresada")
-
-    # --- SELECCIÓN DE CONSULTOR DE NEGOCIOS ---
-    print("🔄 Seleccionando consultor de negocios...")
-    
-    # Buscar y hacer clic en el dropdown de consultor
-    try:
-        # Buscar el dropdown de consultor (puede ser por diferentes selectores)
-        try:
-            # Intentar encontrar por clase ant-select
-            consultor_dropdown = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//span[contains(@class, 'ant-select-selection-item') and contains(@title, 'Sin Consultor')]]")))
-        except:
-            # Intentar encontrar por ID si existe
-            consultor_dropdown = wait.until(EC.element_to_be_clickable((By.ID, "register-form_consultant")))
-        
-        # Hacer clic para abrir el dropdown
-        consultor_dropdown.click()
-        print("✅ Dropdown de consultor abierto")
-        time.sleep(2)  # Esperar a que se desplieguen las opciones
-        
-        # Buscar y seleccionar "Andrea Areiza"
-        try:
-            # Buscar por título exacto
-            andrea_option = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select-item-option')]//span[contains(@class, 'ant-select-selection-item') and @title='Andrea Areiza']")))
-            andrea_option.click()
-            print("✅ Andrea Areiza seleccionada como consultor")
-        except:
-            # Buscar por texto en el contenido
-            andrea_option = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select-item-option') and contains(., 'Andrea Areiza')]")))
-            andrea_option.click()
-            print("✅ Andrea Areiza seleccionada como consultor (método alternativo)")
-            
-        time.sleep(1)
-        
-    except Exception as e:
-        print(f"⚠️ Error al seleccionar consultor: {e}")
-        observaciones += f"Error seleccionando consultor: {str(e)}. "
-        
-        # Intentar método alternativo con JavaScript
-        try:
-            print("🔄 Intentando selección de consultor con JavaScript...")
-            driver.execute_script("""
-                // Buscar el elemento del dropdown de consultor
-                var consultorDropdown = document.querySelector('div.ant-select[aria-expanded="false"]');
-                if (consultorDropdown) consultorDropdown.click();
-                
-                // Esperar a que se abra el dropdown
-                setTimeout(function() {
-                    // Buscar la opción de Andrea Areiza
-                    var options = document.querySelectorAll('div.ant-select-item-option');
-                    for (var i = 0; i < options.length; i++) {
-                        if (options[i].textContent.includes('Andrea Areiza')) {
-                            options[i].click();
-                            break;
-                        }
-                    }
-                }, 1000);
-            """)
-            print("✅ Selección de consultor realizada con JavaScript")
-            time.sleep(2)
-        except Exception as js_error:
-            print(f"❌ También falló el método JavaScript: {js_error}")
-            observaciones += f"Falló método JavaScript para consultor: {str(js_error)}. "
 
     # --- COMPLETAR REGISTRO ---
     print("🔄 Completando proceso de registro...")

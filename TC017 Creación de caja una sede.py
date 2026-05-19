@@ -116,35 +116,33 @@ try:
     
     email_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
     email_input.click()
-    email_input.send_keys("karrotdev@outlook.com")
+    email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
 
     password_input = wait.until(EC.presence_of_element_located((By.ID, "login-form_password")))
     password_input.click()
-    password_input.send_keys("P4sc4g4z42025#*")
+    password_input.send_keys(os.getenv("KARROT_LOGIN_PASSWORD"))
 
     login_button = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
     login_button.click()
     time.sleep(10)
 
     panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//button[contains(normalize-space(.), 'Ir al panel de administración')]"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
     )
     panel_button.click()
 
-    wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]")))
+    wait.until(EC.url_contains("/app"))
     time.sleep(5)
 
     # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================
-    ModuloUbicaciones = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/aside/div/ul/li[1]/ul/li[12]/div"))
-    )
+    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
     ModuloUbicaciones.click()
     time.sleep(5)
 
-    segundopath = ModuloUbicaciones.find_element(By.XPATH, "/html/body/div[1]/div/section/section/aside/div/ul/li[1]/ul/li[12]/ul/li[1]/span/a")
-    driver.get(segundopath.get_attribute("href"))
+#     segundopath = ModuloUbicaciones.find_element(By.XPATH, "/html/body/div[1]/div/section/section/aside/div/ul/li[1]/ul/li[12]/ul/li[1]/span/a")
+#     driver.get(segundopath.get_attribute("href"))
     time.sleep(5)
 
     listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[7]/div/button[2]")))
