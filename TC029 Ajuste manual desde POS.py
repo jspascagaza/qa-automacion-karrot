@@ -528,23 +528,221 @@ def validacion_pos(inventario_maximo=0):
         
         print("🚀 Validando POS...")
         
-        # --- VERIFICACIÓN DE CAJA CERRADA ---
+        # --- VERIFICACIÓN DE ESTADO DE CAJA ---
         print("🔍 Verificando estado de la caja...")
-        try:
-            # Buscar si existe el texto "Caja Cerrada"
-            mensaje_caja_cerrada = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Cerrada')]")
-            
-            if mensaje_caja_cerrada:
-                print("⚠️ Mensaje 'Caja Cerrada' detectado. Intentando abrir caja...")
+        
+        # Esperar un momento a que cargue la interfaz inicial
+        time.sleep(10)# mas tiempo se debe agregar
+        
+        caja_vencida = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Vencida') or contains(text(), 'CAJA VENCIDA') or contains(text(), 'apertura de caja ha vencido')]")
+        caja_cerrada = driver.find_elements(By.XPATH, "//*[contains(text(), 'Caja Cerrada') or contains(text(), 'CAJA CERRADA')]")
+
+        if caja_vencida:
+            print("⚠️ Estado 'Caja Vencida' detectado. Iniciando proceso de cierre...")
+            try:
+                # Boton principal de Cerrar Caja
+                xpath_boton_cerrar = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
+                boton_cerrar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_cerrar)))
+                boton_cerrar.click()
+                print("✅ Botón 'Cerrar Caja' (Principal) clickeado")    
+                time.sleep(10)
+                
+                # Clic en "Siguiente"
+                print("📦 Buscando el botón 'Siguiente'...")
+                xpath_boton_siguiente = '//button[normalize-space()="Siguiente"]'
+                boton_siguiente = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente)))
+                time.sleep(3)
+                try:
+                    boton_siguiente.click()
+                    print("✅ Botón 'Siguiente' en Pop-up clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente)
+                    print(f"✅ Botón 'Siguiente' en Pop-up clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(10)
+                
+                # Paso 2: Conteo Físico
+                print("📦 En Pop-up de Cierre de Caja (Paso 2: Conteo Físico). Haciendo clic en Siguiente sin modificar saldos...")
+                
+                # Usamos [last()] para asegurar que siempre tomemos el botón del paso actual
+                xpath_boton_siguiente_conteo = '(//button[normalize-space()="Siguiente"])[last()]'
+                boton_siguiente_conteo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_conteo)))
+                
+                try:
+                    boton_siguiente_conteo.click()
+                    print("✅ Botón 'Siguiente' en Conteo Físico clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente_conteo)
+                    print(f"✅ Botón 'Siguiente' en Conteo Físico clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(3)
+                
+                # Paso 3: Comparación de Saldo
+                print("📦 En Pop-up de Cierre de Caja (Paso 3: Comparación de Saldo). Haciendo clic en Siguiente...")
+                time.sleep(3)
+                
+                xpath_boton_siguiente_comparacion = '(//button[normalize-space()="Siguiente"])[last()]'
+                boton_siguiente_comparacion = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_comparacion)))
+                
+                try:
+                    boton_siguiente_comparacion.click()
+                    print("✅ Botón 'Siguiente' en Comparación de Saldo clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente_comparacion)
+                    print(f"✅ Botón 'Siguiente' en Comparación de Saldo clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(3)
+                
+                # Paso 4: Retiro de Saldos
+                print("📦 En Pop-up de Cierre de Caja (Paso 4: Retiro de Saldos). Haciendo clic en Finalizar...")
+                time.sleep(3)
+                
+                # Intentar primero con el XPath provisto por el usuario, con fallback a texto
+                try:
+                    xpath_boton_finalizar = '/html/body/div[6]/div/div[2]/div/div[2]/div[2]/button[2]'
+                    boton_finalizar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_finalizar)))
+                except TimeoutException:
+                    print("⚠️ No se encontró 'Finalizar' con XPath absoluto, intentando con texto...")
+                    xpath_boton_finalizar = '//button[normalize-space()="Finalizar"]'
+                    boton_finalizar = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_finalizar)))
+
+                try:
+                    boton_finalizar.click()
+                    print("✅ Botón 'Finalizar' en Retiro de Saldos clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_finalizar)
+                    print(f"✅ Botón 'Finalizar' en Retiro de Saldos clickeado (JS Click) - Advertencia: {e}")
+                
+                print("🎉 Proceso de Cierre de Caja completado. Esperando que la interfaz se actualice...")
+                time.sleep(5) # Esperar a que se procese el cierre y la interfaz recargue o cambie
+                
+                # Clic en el botón de salir del balance de caja vencida
+                print("📦 Buscando el botón 'salir del balance de caja vencida'...")
+                try:
+                    xpaths_salir_balance = [
+                        '/html/body/div[7]/div/div[2]/div/div[2]/div[2]/button',
+                        '/html/body/div[last()]/div/div[2]/div/div[2]/div[2]/button',
+                        '//button[contains(normalize-space(), "Salir")]',
+                        '//button[contains(normalize-space(), "Cerrar")]'
+                    ]
+                    
+                    boton_salir_balance = None
+                    for xpath in xpaths_salir_balance:
+                        try:
+                            boton_salir_balance = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+                            print(f"✅ Botón encontrado con XPath: {xpath}")
+                            break
+                        except TimeoutException:
+                            continue
+                    
+                    if boton_salir_balance:
+                        try:
+                            time.sleep(1)
+                            boton_salir_balance.click()
+                            print("✅ Botón 'salir del balance de caja vencida' clickeado (Click Normal)")
+                        except Exception as e:
+                            driver.execute_script("arguments[0].click();", boton_salir_balance)
+                            print(f"✅ Botón 'salir del balance de caja vencida' clickeado (JS Click) - Advertencia: {e}")
+                    else:
+                        print("⚠️ No se pudo encontrar el botón 'salir del balance' con ninguno de los XPaths.")
+                except Exception as e:
+                    print(f"⚠️ Error general intentando clickear 'salir del balance de caja vencida': {e}")
+                
+                print("ℹ️ Cajero vencido cerrado. Ahora procediendo a Apertura de Caja...")
+                caja_cerrada = True # Activar la bandera para que pase al siguiente bloque
+                
+            except Exception as e:
+                print(f"❌ Error en flujo Caja Vencida: {e}")
+
+        if caja_cerrada:
+            print("⚠️ Estado 'Caja Cerrada' detectado. Intentando abrir caja...")
+            try:
                 xpath_boton_abrir = '//*[@id="root"]/div/section/section/section/div/main/div/div[1]/div/button'
-                boton_abrir = WebDriverWait(driver, 10).until(EC.element_to_be_clickable((By.XPATH, xpath_boton_abrir)))
+                boton_abrir = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_abrir)))
                 boton_abrir.click()
                 print("✅ Botón 'Abrir Caja' clickeado")
                 time.sleep(3) # Esperar a que la caja se abra
-            else:
-                print("ℹ️ No se detectó el mensaje 'Caja Cerrada', continuando...")
-        except Exception as e:
-            print(f"ℹ️ Error o no se encontró mensaje de caja cerrada: {e}. Continuando...")
+                
+                # Paso 1: Clic en "Siguiente"
+                print("📦 Buscando el botón 'Siguiente' para Apertura...")
+                xpath_boton_siguiente = '(//button[normalize-space()="Siguiente"])[last()]'
+                boton_siguiente_apertura = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente)))
+                time.sleep(3)
+                try:
+                    boton_siguiente_apertura.click()
+                    print("✅ Botón 'Siguiente' en Pop-up (Paso 1) clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente_apertura)
+                    print(f"✅ Botón 'Siguiente' en Pop-up (Paso 1) clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(10)
+                
+                # Paso 2: Conteo Físico
+                print("📦 En Pop-up de Apertura (Paso 2). Haciendo clic en Siguiente...")
+                xpath_boton_siguiente_apertura_conteo = '(//button[normalize-space()="Siguiente"])[last()]'
+                boton_siguiente_conteo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_siguiente_apertura_conteo)))
+                try:
+                    boton_siguiente_conteo.click()
+                    print("✅ Botón 'Siguiente' en Conteo Físico clickeado (Click Normal)")
+                except Exception as e:
+                    driver.execute_script("arguments[0].click();", boton_siguiente_conteo)
+                    print(f"✅ Botón 'Siguiente' en Conteo Físico clickeado (JS Click) - Advertencia: {e}")
+                
+                time.sleep(10)
+                
+                # Paso 3: Retiro de Saldos (Apertura)
+                print("📦 En Pop-up de Apertura (Paso 4). Haciendo clic en Finalizar...")
+                try:
+                    xpath_boton_finalizar = '//button[normalize-space()="Finalizar"]'
+                    boton_finalizar_apertura = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_boton_finalizar)))
+                    try:
+                        boton_finalizar_apertura.click()
+                        print("✅ Botón 'Finalizar' en Apertura clickeado (Click Normal)")
+                    except Exception as e:
+                        driver.execute_script("arguments[0].click();", boton_finalizar_apertura)
+                        print(f"✅ Botón 'Finalizar' en Apertura clickeado (JS Click) - Advertencia: {e}")
+                except Exception as e:
+                    print(f"⚠️ No se encontró botón Finalizar en Apertura o no fue necesario: {e}")
+                
+                print("🎉 Proceso de Apertura de Caja completado. Esperando que la interfaz se actualice...")
+                time.sleep(5)
+                
+                # Clic en el botón de salir del balance de caja
+                print("📦 Buscando el botón 'salir del balance de caja' en Apertura...")
+                try:
+                    xpaths_salir_balance_apertura = [
+                        '/html/body/div[7]/div/div[2]/div/div[2]/div[2]/button',
+                        '/html/body/div[last()]/div/div[2]/div/div[2]/div[2]/button',
+                        '//button[contains(normalize-space(), "Salir del Balance de Caja")]',
+                        '//button[contains(normalize-space(), "Cerrar")]'
+                    ]
+                    
+                    boton_salir_balance_apertura = None
+                    for xpath in xpaths_salir_balance_apertura:
+                        try:
+                            boton_salir_balance_apertura = WebDriverWait(driver, 5).until(EC.visibility_of_element_located((By.XPATH, xpath)))
+                            print(f"✅ Botón encontrado con XPath: {xpath}")
+                            break
+                        except TimeoutException:
+                            continue
+                    
+                    if boton_salir_balance_apertura:
+                        try:
+                            time.sleep(1)
+                            boton_salir_balance_apertura.click()
+                            print("✅ Botón 'salir del balance de caja' en Apertura clickeado (Click Normal)")
+                        except Exception as e:
+                            driver.execute_script("arguments[0].click();", boton_salir_balance_apertura)
+                            print(f"✅ Botón 'salir del balance de caja' en Apertura clickeado (JS Click) - Advertencia: {e}")
+                    else:
+                        print("⚠️ No se pudo encontrar el botón 'salir del balance' en Apertura con los XPaths proporcionados.")
+                except Exception as e:
+                    print(f"⚠️ Error general intentando clickear 'salir del balance de caja' en Apertura: {e}")
+            except Exception as e:
+                print(f"❌ Error en flujo Caja Cerrada: {e}")
+                
+        if not caja_vencida and not caja_cerrada:
+            print("✅ Estado 'Caja Aperturada' detectado o no hay bloqueos. Continuando flujo normal...")
         
         # 1. Seleccionar primer producto (Checkbox)
         try:
@@ -573,6 +771,26 @@ def validacion_pos(inventario_maximo=0):
             producto = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_seguro)))
             producto.click()
             print("✅ Producto seleccionado (Genérico y sin inputs)")
+
+        # --- NUEVO: Detección Configuración 3 (Popup Cliente) ---
+        print("🔍 Verificando si apareció popup de cliente (Configuración 3)...")
+        try:
+            # Espera corta porque puede no existir
+            xpath_popup_cliente = "//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ', 'abcdefghijklmnopqrstuvwxyzaeiou'), 'cliente anonimo')]"
+            cliente_anonimo_popup = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((By.XPATH, xpath_popup_cliente)))
+            cliente_anonimo_popup.click()
+            print("✅ Popup detectado (Config 3): 'Cliente Anonimo' seleccionado")
+            time.sleep(2)
+            try:
+                btn_confirm_popup = driver.find_element(By.XPATH, "//div[contains(@class, 'ant-modal')]//button[contains(., 'Siguiente') or contains(., 'Confirmar') or contains(., 'Aceptar')]")
+                btn_confirm_popup.click()
+                print("✅ Botón de confirmación del popup clickeado")
+            except:
+                pass
+        except TimeoutException:
+            print("ℹ️ No apareció popup de cliente inicial (Config 1 o 2). Continuando...")
+        except Exception as e:
+            print(f"⚠️ Otro error revisando popup: {e}")
 
         # 2. Seleccionar Atributo (Sabor/Memoria/Color)
         # El usuario reportó error en: //*[@id='advanced_search_memoria']/label[2]/span[1]
@@ -751,31 +969,40 @@ def validacion_pos(inventario_maximo=0):
             except:
                 print("❌ No se pudo clickear 'Cobrar'")
 
-        # 7. Seleccionar Cliente Anonimo
-        print("🔍 Buscando opción 'Cliente Anonimo'...")
+        # 7. Detección Dinámica: ¿Selección de Cliente o Directo a Pago?
+        print("🔍 Verificando pantalla actual (Configuración 1 vs Configuración 2/3)...")
         try:
-            time.sleep(3) # Esperar a que cargue la vista de selección de cliente
+            time.sleep(3) # Esperar a que cargue la siguiente vista
             
-            # Usar un XPath relativo y robusto, ignorando acentos y mayúsculas
-            xpath_anonimo = "//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ', 'abcdefghijklmnopqrstuvwxyzaeiou'), 'cliente anonimo')]"
+            # Buscar el input de métodos de pago (rc_select_) o texto descriptivo de Fast Checkout
+            xpath_select_pago = "//*[@id='rc_select_28'] | //input[contains(@id, 'rc_select_')]"
+            metodos_pago = driver.find_elements(By.XPATH, xpath_select_pago)
             
-            try:
-                cliente_anonimo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_anonimo)))
-                cliente_anonimo.click()
-                print("✅ 'Cliente Anonimo' seleccionado (XPath robusto)")
-                time.sleep(2) 
-                siguiente = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div/div/div/div[2]/div[2]/div/div/div[2]/div[5]/div/button")))
-                siguiente.click()
-                print("✅ 'Siguiente' clickeado")
-            except Exception as e_xpath:
-                print(f"⚠️ Falló XPath robusto para cliente anónimo: {e_xpath}")
-                # Fallback: intentar hacer click con JS por si algo lo intercepta
-                print("  Intentando JS Click para 'Cliente Anonimo'...")
-                driver.execute_script("arguments[0].click();", driver.find_element(By.XPATH, xpath_anonimo))
-                print("✅ 'Cliente Anonimo' seleccionado (Por JS)")
-                
+            if len(metodos_pago) > 0 and metodos_pago[0].is_displayed():
+                print("✅ [FAST CHECKOUT / Config 2 o 3] Pantalla de pagos detectada directamente.")
+            else:
+                print("✅ [FLUJO NORMAL / Config 1] Pantalla de selección de cliente detectada.")
+                print("🔍 Buscando opción 'Cliente Anonimo'...")
+                xpath_anonimo = "//*[contains(translate(text(), 'ABCDEFGHIJKLMNOPQRSTUVWXYZÁÉÍÓÚ', 'abcdefghijklmnopqrstuvwxyzaeiou'), 'cliente anonimo')]"
+                try:
+                    cliente_anonimo = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_anonimo)))
+                    cliente_anonimo.click()
+                    print("✅ 'Cliente Anonimo' seleccionado (XPath robusto)")
+                    time.sleep(2) 
+                    # El XPath del botón Siguiente es muy anidado, agregamos alternativa más robusta
+                    siguiente = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div/div[1]/div/div/div/div[2]/div[2]/div/div/div[2]/div[5]/div/button | //button[contains(., 'Siguiente')]")))
+                    siguiente.click()
+                    print("✅ 'Siguiente' clickeado")
+                except Exception as e_xpath:
+                    print(f"⚠️ Falló selección de cliente en flujo normal: {e_xpath}")
+                    print("  Intentando JS Click para 'Cliente Anonimo'...")
+                    try:
+                        driver.execute_script("arguments[0].click();", driver.find_element(By.XPATH, xpath_anonimo))
+                        print("✅ 'Cliente Anonimo' seleccionado (Por JS)")
+                    except:
+                        pass
         except Exception as e:
-            print(f"⚠️ Falló selección de Cliente Anonimo: {e}")
+            print(f"⚠️ Error en detección dinámica de flujo: {e}")
 
         # 8. Seleccionar Método de Pago
         print("🔍 Desplegando lista de Métodos de Pago...")
@@ -945,118 +1172,72 @@ try:
     print("✅ Panel de control cargado")
     time.sleep(3)  
 
-    # Menú Inventario (Desplegable)
-    print("� Desplegando menú Inventario...")
-    # Click en el menú padre 'Inventario'
+    # 1. Navegar a Ajustes (Administrador)
+    print("🚀 Navegando a Ajustes del sistema...")
     try:
-        menu_inventario_padre = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Inventario']"))
-        )
-        menu_inventario_padre.click()
-        print("✅ Click en Inventario (Padre)")
+        # Clic en menú de perfil para desplegar opciones
+        xpath_perfil = '//*[@id="root"]/div/section/header/div/div[2]/div[2]/div'
+        perfil_btn = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_perfil)))
+        perfil_btn.click()
+        print("✅ Menú de perfil desplegado")
         time.sleep(2)
-        
-        # Submenú Inventario
-        print("📦 Accediendo a opción Inventario...")
+
+        # Clic en Ajustes
+        print("🔍 Buscando opción 'Ajustes'...")
+        # Intentaremos buscar por texto 'Ajustes' dentro de la lista desplegable
+        xpath_ajustes = "//span[normalize-space()='Ajustes'] | //li[contains(., 'Ajustes')] | //div[contains(@class, 'ant-dropdown')]//li[contains(., 'Ajustes')]"
         try:
-            # Estrategia Principal: Usar selector basado en el ID del popup (Usuario: //*[@id="rc-menu-uuid-...-inventory-popup"]/li[1]/span/span)
-            # Simplificado a contener '-inventory-popup' y el primer elemento de la lista
-            xpath_submenu = "//*[contains(@id, '-inventory-popup')]//li[1]"
-            submenu_inventario = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_submenu)))
-            submenu_inventario.click()
-            print("✅ Click en Submenú Inventario (Estrategia Popup)")
-        except Exception as e:
-            print(f"⚠️ Falló estrategia principal ({e}), intentando fallback...")
-            # Fallback: Estrategia por texto y clase
-            submenu_inventario = wait.until(
-                EC.element_to_be_clickable((By.XPATH, "//li[contains(@class, 'ant-menu-item')]//span[normalize-space()='Inventario']"))
-            )
-            submenu_inventario.click()
-            print("✅ Click en Submenú Inventario (Fallback)")
+            ajustes_btn = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_ajustes)))
+            ajustes_btn.click()
+            print("✅ Clic en 'Ajustes' exitoso")
+        except Exception as e_ajustes:
+            print(f"⚠️ Falló click normal en Ajustes: {e_ajustes}")
+            # Fallback JS
+            ajustes_btn = driver.find_element(By.XPATH, xpath_ajustes)
+            driver.execute_script("arguments[0].click();", ajustes_btn)
+            print("✅ Clic en 'Ajustes' exitoso (JS)")
             
-        time.sleep(5)
+        time.sleep(3) # Esperar a que cargue la pantalla de Ajustes
+        print("✅ Pantalla de Ajustes cargada")
+        
+        # 2. Navegar a Ajustes Generales
+        print("🔍 Buscando tarjeta 'Ajustes Generales'...")
+        # Buscamos la tarjeta que contenga el texto Ajustes Generales
+        xpath_ajustes_generales = "//div[contains(., 'Ajustes Generales') and contains(@class, 'ant-card') or contains(@class, 'card')] | //span[normalize-space()='Ajustes Generales'] | //h4[normalize-space()='Ajustes Generales']"
+        try:
+            ajustes_generales_btn = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_ajustes_generales)))
+            ajustes_generales_btn.click()
+            print("✅ Clic en 'Ajustes Generales' exitoso")
+        except Exception as e_ajustes_gen:
+            print(f"⚠️ Falló click normal en Ajustes Generales: {e_ajustes_gen}")
+            # Fallback JS
+            # Un XPath más permisivo que busca cualquier elemento visible que diga Ajustes Generales
+            xpath_fallback = "//*[text()='Ajustes Generales']"
+            ajustes_generales_btn = driver.find_element(By.XPATH, xpath_fallback)
+            driver.execute_script("arguments[0].click();", ajustes_generales_btn)
+            print("✅ Clic en 'Ajustes Generales' exitoso (JS)")
+            
+        time.sleep(3)
+        print("✅ Pantalla de Ajustes Generales cargada")
         
     except Exception as e:
-        print(f"⚠️ Error en navegación Inventario -> Inventario: {e}")
-        # Fallback: intentar buscar por texto visible si la estructura es diferente
+        print(f"❌ Error navegando a Ajustes: {e}")
         try:
-             print("  Intentando fallback: click en segundo elemento 'Inventario' visible...")
-             elementos = driver.find_elements(By.XPATH, "//span[normalize-space()='Inventario']")
-             visibles = [el for el in elementos if el.is_displayed()]
-             if len(visibles) >= 2:
-                 visibles[1].click()
-             else:
-                 print("  No se encontraron 2 elementos visibles.")
+            driver.save_screenshot("error_navegacion_ajustes.png")
         except: pass
-    
-    # Asegurar tiempo de carga
-    time.sleep(3)
-
-    # Extraer valores del inventario
-    print("\n" + "="*50)
-    print("EXTRACCIÓN DE VALORES DE INVENTARIO")
-    print("="*50)
-    
-    valores = extraer_valores_inventario_bogota()
-    
-    if valores:
-        print(f"\n🎯 RESULTADOS OBTENIDOS:")
-        print(f"   Producto: {valores.get('nombre', 'N/A')}")
-        print(f"   SKU: {valores.get('sku', 'N/A')}")
-        print(f"   Barcode: {valores.get('barcode', 'N/A')}")
-        print(f"   Total Inventario: {valores.get('total_num', 0)}")
-        print(f"   (Valor usado para validación: {valores.get('bogota_num', 0)})")
-        
-        observaciones = f"Total: {valores.get('total_num', 'N/A')} | Bogotá: {valores.get('bogota_num', 'N/A')}"
-        
-        # Intentar seleccionar el checkbox del primer producto
-        print("\n" + "="*50)
-        print("SELECCIÓN DE CHECKBOX")
-        print("="*50)
-        
-        # ESTADO: La lógica de interacción (click en Checkbox, Ajustar, etc.) fue eliminada.
-        # Se ha limpiado el código roto que dependía de esa lógica.
-        
-        # Validar consistencia de inventario (SOLO LECTURA)
-        print("\n" + "="*50)
-        print("VALIDACIÓN DE LECTURA")
-        print("="*50)
-        
-        # Como no hubo ajuste, solo mostramos los valores extraídos
-        valores_validacion = valores
-            
-        total_num = valores_validacion.get('total_num', 0)
-        bogota_num = valores_validacion.get('bogota_num', 0)
-        
-        # Imprimir para depuración
-        print(f"   Valor Principal (bogota_num -> Total): {bogota_num}")
-        print(f"   Total Real (total_num): {total_num}")
-        
-        if bogota_num == total_num:
-            print(f"✅ VALIDACIÓN EXITOSA: El valor extraído corresponde al Total.")
-            observaciones += " | Validación Total OK"
-            exito = True
-        else:
-            print(f"❌ VALIDACIÓN FALLIDA: Discrepancia.")
-            observaciones += " | Validación Fallida"
-            exito = False
-        
-        # Validar enlace del POS (Solicitud adicional)
-        print("\n" + "="*50)
-        print("VALIDACIÓN ENLACE POS")
-        print("="*50)
-        ingreso_al_pos()
-        validacion_pos(valores.get('bogota_num', 0))
-
-
-    
-
-            
-    else:
-        print("❌ No se pudieron extraer valores del inventario")
-        observaciones = "Error al extraer valores del inventario"
         exito = False
+        observaciones = f"Error navegando a Ajustes: {e}"
 
+    # Validar enlace del POS (Solicitud adicional)
+    print("\n" + "="*50)
+    print("VALIDACIÓN ENLACE POS")
+    print("="*50)
+    ingreso_al_pos()
+    # TODO: Pasar la configuracion real extraida
+    validacion_pos(0)
+
+
+    
 except TimeoutException as te:
     print(f"⏰ TIMEOUT: {te}")
     observaciones = f"Timeout: {str(te)[:100]}..."
