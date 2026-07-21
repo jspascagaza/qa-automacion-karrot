@@ -154,20 +154,6 @@ try:
     time.sleep(10)
 
     # =====================
-    # IR AL PANEL DE ADMINISTRACIÓN
-    # =====================
-    panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
-    )
-    panel_button.click()
-    print("✅ Click en 'Ir al panel de administración'")
-
-    # Esperar a que cargue el Panel de control
-    wait.until(EC.url_contains("/app"))
-    print("✅ Panel de control cargado correctamente")
-    time.sleep(5)
-
-    # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================
     print("📍 Navegando al módulo de Ubicaciones...")

@@ -124,23 +124,6 @@ try:
         login_button.click()
         time.sleep(15)
 
-        # Ir al panel de administración
-        print("🚀 Intentando ir al panel de administración...")
-        try:
-            panel_button = WebDriverWait(driver, 5).until(
-                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
-            )
-            panel_button.click()
-
-            WebDriverWait(driver, 5).until(
-                EC.url_contains("/app")
-            )
-            print("✅ Panel de control cargado correctamente")
-        except TimeoutException:
-            print("ℹ️ Botón 'Ir al panel de administración' no encontrado. Continuando flujo...")
-            
-        time.sleep(5)
-
         # Menú Catálogo
         catalogo = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))

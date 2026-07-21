@@ -126,14 +126,6 @@ try:
     login_button.click()
     time.sleep(10)
 
-    panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
-    )
-    panel_button.click()
-
-    wait.until(EC.url_contains("/app"))
-    time.sleep(5)
-
     # =====================
     # NAVEGACIÓN A MODULO DE UBICACIONES
     # =====================

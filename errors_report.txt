@@ -1,0 +1,168 @@
+--- TC005 ValidaciÃ³n de formato de correo electrÃ³nico.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC005 ValidaciÃ³n de formato de correo electrÃ³nico.py", line 106, in <module>
+    user = (first_name[0] + last_name).lower().replace(" ", "")
+            ~~~~~~~~~~^^^
+IndexError: string index out of range
+[RESULT] Fallo detectado en TC005 ValidaciÃ³n de formato de correo electrÃ³nico.py
+------------------------------------------
+[RUN] Ejecutando: TC006 ValidaciÃ³n de formato de correo electrÃ³nico.py
+âœ… Nombre de empresa ingresado
+âœ… Nombre ingresado
+
+--- TC008 Registro fallido sin nÃºmero de telÃ©fono.py ---
+Observaciones: Fallo en la prueba - No se detectÃ³ el mensaje de error esperado. Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+
+--- TC013 CreaciÃ³n fallida sin nombre de ubicaciÃ³n.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC013 CreaciÃ³n fallida sin nombre de ubicaciÃ³n.py", line 165, in <module>
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]")))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+
+--- TC014 ValidaciÃ³n de direcciÃ³n obligatoria.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC014 ValidaciÃ³n de direcciÃ³n obligatoria.py", line 165, in <module>
+    wait.until(EC.presence_of_element_located((By.XPATH, "//h2[contains(text(), 'Panel de control')]")))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+
+--- TC015 ValidaciÃ³n de ciudad obligatoria.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC015 ValidaciÃ³n de ciudad obligatoria.py", line 59, in <module>
+    direccion = Faker.address().replace("\n", ", ")
+                ^^^^^^^^^^^^^
+AttributeError: type object 'Faker' has no attribute 'address'
+[RESULT] Fallo detectado en TC015 ValidaciÃ³n de ciudad obligatoria.py
+------------------------------------------
+[RUN] Ejecutando: TC016 CreaciÃ³n de sede sin usuarios asignados.py
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC016 CreaciÃ³n de sede sin usuarios asignados.py", line 56, in <module>
+
+--- TC016 CreaciÃ³n de sede sin usuarios asignados.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC016 CreaciÃ³n de sede sin usuarios asignados.py", line 56, in <module>
+    direccion = Faker.address().replace("\n", ", ")
+                ^^^^^^^^^^^^^
+AttributeError: type object 'Faker' has no attribute 'address'
+[RESULT] Fallo detectado en TC016 CreaciÃ³n de sede sin usuarios asignados.py
+------------------------------------------
+[RUN] Ejecutando: TC017 CreaciÃ³n de caja una sede.py
+âœ… Navegador iniciado correctamente
+ðŸ”� Iniciando proceso de login...
+
+--- TC017 CreaciÃ³n de caja una sede.py ---
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+
+--- TC018 eliminacion de sede existente.py ---
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+
+--- TC019 eliminacion de sede existente.py ---
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+
+--- TC020 Registro de acciones en bitÃ¡cora.py ---
+â�Œ Error: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+	chromedriver!(No symbol) [0x7ff6b2cbd59d]
+	chromedriver!(No symbol) [0x7ff6b2d16f42]
+	chromedriver!(No symbol) [0x7ff6b2d1724c]
+	chromedriver!(No symbol) [0x7ff6b2d67967]
+	chromedriver!(No symbol) [0x7ff6b2d644ff]
+	chromedriver!(No symbol) [0x7ff6b2d09608]
+
+--- TC024 ValidaciÃ³n de campos obligatorios.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC024 ValidaciÃ³n de campos obligatorios.py", line 176, in <module>
+    boton_anadir = driver.find_element(By.XPATH, "//button[@type='submit' and contains(@class, 'ant-btn-primary') and contains(text(), 'AÃ±adir')]")
+                   ~~~~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 802, in find_element
+    return self.execute(Command.FIND_ELEMENT, {"using": by, "value": value})["value"]
+           ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\remote\webdriver.py", line 432, in execute
+    self.error_handler.check_response(response)
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+
+--- TC025 EdiciÃ³n de producto existente.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC025 EdiciÃ³n de producto existente.py", line 371, in <module>
+    valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost,valor =  editar_producto_completo()
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: cannot unpack non-iterable NoneType object
+[RESULT] Fallo detectado en TC025 EdiciÃ³n de producto existente.py
+------------------------------------------
+[RUN] Ejecutando: TC026 EliminaciÃ³n de producto.py
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+ðŸš€ Intentando ir al panel de administraciÃ³n...
+
+--- TC026 EliminaciÃ³n de producto.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC026 EliminaciÃ³n de producto.py", line 162, in <module>
+    listar_opciones_producto = wait.until(
+    EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[3]/div/div/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[7]/div/button"))
+    )
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+
+--- TC030 AJUSTE INVENTARIO MANUAL EN POS.py ---
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 242, in ingresar_ajuste_manual
+    wait.until(EC.visibility_of_element_located((By.XPATH, "//*[contains(text(), 'Ajustar la cantidad de inventario')]")))
+    ~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d6d5+14ef5]
+	chromedriver!GetHandleVerifier [0x7ff6b2f6d740+14f60]
+

@@ -1,0 +1,816 @@
+--- FALLO EN TC001 LOGIN EXITOSO.py ---
+last):
+  File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 123, in <module>
+    registrar_resultado(id_caso, "Exitosa", "Login realizado correctamente")
+  File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 87, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 85, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 127, in <module>
+    registrar_resultado(id_caso, "Fallida", f"Error: {str(e)}")
+  File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 87, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC001 LOGIN EXITOSO.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC002 LOGIN FALLIDO.py ---
+symbol) [0x7ff6fa2e5bbd]
+	chromedriver!(No symbol) [0x7ff6fa34108d]
+	chromedriver!(No symbol) [0x7ff6fa34138c]
+	chromedriver!(No symbol) [0x7ff6fa391c27]
+	chromedriver!(No symbol) [0x7ff6fa38e7eb]
+	chromedriver!(No symbol) [0x7ff6fa33361c]
+	chromedriver!(No symbol) [0x7ff6fa334543]
+	chromedriver!GetHandleVerifier [0x7ff6fad797c1+5e09e1]
+	chromedriver!GetHandleVerifier [0x7ff6fad73b6b+5dad8b]
+	chromedriver!GetHandleVerifier [0x7ff6fad99345+600565]
+	chromedriver!GetHandleVerifier [0x7ff6fa7cbf7e+3319e]
+	chromedriver!GetHandleVerifier [0x7ff6fa7d476c+3b98c]
+	chromedriver!GetHandleVerifier [0x7ff6fa7b82a4+1f4c4]
+	chromedriver!GetHandleVerifier [0x7ff6fa7b8434+1f654]
+	chromedriver!GetHandleVerifier [0x7ff6fa79b0c7+22e7]
+	KERNEL32!BaseThreadInitThunk [0x7ff988f8e957+17]
+	ntdll!RtlUserThreadStart [0x7ff98aee7c1c+2c]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC002 LOGIN FALLIDO.py", line 143, in <module>
+      File "C:\Users\yonas\Documents\TC002 LOGIN FALLIDO.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC002 LOGIN FALLIDO.py", line 147, in <module>
+      File "C:\Users\yonas\Documents\TC002 LOGIN FALLIDO.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC003 REGISTRO EXITOSO.py ---
+r '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 237, in <module>
+      File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 96, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 247, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 98, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC003 REGISTRO EXITOSO.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC004 Registro fallido sin nombre de negocio.py ---
+last):
+  File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 253, in <module>
+      File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 95, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 263, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 97, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC004 Registro fallido sin nombre de negocio.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC005 Validación de formato de correo electrónico.py ---
+ents\TC005 Validación de formato de correo electrónico.py", line 278, in <module>
+      File "C:\Users\yonas\Documents\TC005 Validación de formato de correo electrónico.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC005 Validación de formato de correo electrónico.py", line 96, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC005 Validación de formato de correo electrónico.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC005 Validación de formato de correo electrónico.py", line 288, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC005 Validación de formato de correo electrónico.py", line 98, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC005 Validación de formato de correo electrónico.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC006 Validación de formato de correo electrónico.py ---
+ents\TC006 Validación de formato de correo electrónico.py", line 346, in <module>
+      File "C:\Users\yonas\Documents\TC006 Validación de formato de correo electrónico.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC006 Validación de formato de correo electrónico.py", line 93, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC006 Validación de formato de correo electrónico.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC006 Validación de formato de correo electrónico.py", line 356, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC006 Validación de formato de correo electrónico.py", line 95, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC006 Validación de formato de correo electrónico.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC007 Validación de contraseña.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC007 Validación de contraseña.py", line 120, in <module>
+      File "C:\Users\yonas\Documents\TC007 Validación de contraseña.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC007 Validación de contraseña.py", line 219, in <module>
+      File "C:\Users\yonas\Documents\TC007 Validación de contraseña.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC008 Registro fallido sin número de teléfono.py ---
+  File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 286, in <module>
+      File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 93, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 296, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 95, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC008 Registro fallido sin número de teléfono.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC009 Registro con campo de referencia seleccionando cualquier.py ---
+le>
+      File "C:\Users\yonas\Documents\TC009 Registro con campo de referencia seleccionando cualquier.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC009 Registro con campo de referencia seleccionando cualquier.py", line 92, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC009 Registro con campo de referencia seleccionando cualquier.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC009 Registro con campo de referencia seleccionando cualquier.py", line 265, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC009 Registro con campo de referencia seleccionando cualquier.py", line 94, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC009 Registro con campo de referencia seleccionando cualquier.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC011 Redirección a login para usuarios registrados.py ---
+irección a login para usuarios registrados.py", line 325, in <module>
+      File "C:\Users\yonas\Documents\TC011 Redirección a login para usuarios registrados.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC011 Redirección a login para usuarios registrados.py", line 94, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC011 Redirección a login para usuarios registrados.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC011 Redirección a login para usuarios registrados.py", line 333, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC011 Redirección a login para usuarios registrados.py", line 96, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC011 Redirección a login para usuarios registrados.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC012 Creación exitosa de sede con todos los datos.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC012 Creación exitosa de sede con todos los datos.py", line 122, in <module>
+      File "C:\Users\yonas\Documents\TC012 Creación exitosa de sede con todos los datos.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC012 Creación exitosa de sede con todos los datos.py", line 124, in <module>
+      File "C:\Users\yonas\Documents\TC012 Creación exitosa de sede con todos los datos.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC013 Creación fallida sin nombre de ubicación.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC013 Creación fallida sin nombre de ubicación.py", line 124, in <module>
+      File "C:\Users\yonas\Documents\TC013 Creación fallida sin nombre de ubicación.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC013 Creación fallida sin nombre de ubicación.py", line 126, in <module>
+      File "C:\Users\yonas\Documents\TC013 Creación fallida sin nombre de ubicación.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC014 Validación de dirección obligatoria.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC014 Validación de dirección obligatoria.py", line 124, in <module>
+      File "C:\Users\yonas\Documents\TC014 Validación de dirección obligatoria.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC014 Validación de dirección obligatoria.py", line 126, in <module>
+      File "C:\Users\yonas\Documents\TC014 Validación de dirección obligatoria.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC015 Validación de ciudad obligatoria.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC015 Validación de ciudad obligatoria.py", line 124, in <module>
+      File "C:\Users\yonas\Documents\TC015 Validación de ciudad obligatoria.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC015 Validación de ciudad obligatoria.py", line 126, in <module>
+      File "C:\Users\yonas\Documents\TC015 Validación de ciudad obligatoria.py", line 34, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC016 Creación de sede sin usuarios asignados.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC016 Creación de sede sin usuarios asignados.py", line 112, in <module>
+      File "C:\Users\yonas\Documents\TC016 Creación de sede sin usuarios asignados.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC016 Creación de sede sin usuarios asignados.py", line 114, in <module>
+      File "C:\Users\yonas\Documents\TC016 Creación de sede sin usuarios asignados.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC017 Creación de caja una sede.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC017 Creación de caja una sede.py", line 102, in <module>
+      File "C:\Users\yonas\Documents\TC017 Creación de caja una sede.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC017 Creación de caja una sede.py", line 104, in <module>
+      File "C:\Users\yonas\Documents\TC017 Creación de caja una sede.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC018 eliminacion de sede existente.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC018 eliminacion de sede existente.py", line 102, in <module>
+      File "C:\Users\yonas\Documents\TC018 eliminacion de sede existente.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC018 eliminacion de sede existente.py", line 104, in <module>
+      File "C:\Users\yonas\Documents\TC018 eliminacion de sede existente.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC019 eliminacion de sede existente.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC019 eliminacion de sede existente.py", line 102, in <module>
+      File "C:\Users\yonas\Documents\TC019 eliminacion de sede existente.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC019 eliminacion de sede existente.py", line 104, in <module>
+      File "C:\Users\yonas\Documents\TC019 eliminacion de sede existente.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC020 Registro de acciones en bitácora.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC020 Registro de acciones en bitácora.py", line 105, in <module>
+      File "C:\Users\yonas\Documents\TC020 Registro de acciones en bitácora.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC020 Registro de acciones en bitácora.py", line 107, in <module>
+      File "C:\Users\yonas\Documents\TC020 Registro de acciones en bitácora.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC021 Creacion de actividad bitacora.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC021 Creacion de actividad bitacora.py", line 102, in <module>
+      File "C:\Users\yonas\Documents\TC021 Creacion de actividad bitacora.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC021 Creacion de actividad bitacora.py", line 104, in <module>
+      File "C:\Users\yonas\Documents\TC021 Creacion de actividad bitacora.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC022 editar una bitacora.py ---
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC022 editar una bitacora.py", line 102, in <module>
+      File "C:\Users\yonas\Documents\TC022 editar una bitacora.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC022 editar una bitacora.py", line 104, in <module>
+      File "C:\Users\yonas\Documents\TC022 editar una bitacora.py", line 32, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC023 Creacion de producto maestro.py ---
+============================================================
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC023 Creacion de producto maestro.py", line 527, in <module>
+      File "C:\Users\yonas\Documents\TC023 Creacion de producto maestro.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC023 Creacion exitosa con atributos y producto perecedero.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC023 Creacion exitosa con atributos y producto perecedero.py", line 98, in <module>
+      File "C:\Users\yonas\Documents\TC023 Creacion exitosa con atributos y producto perecedero.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f6d2' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC023 Creacion exitosa con atributos.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC023 Creacion exitosa con atributos.py", line 97, in <module>
+      File "C:\Users\yonas\Documents\TC023 Creacion exitosa con atributos.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f6d2' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC023 Creacion exitosa sin atributos y perecedero.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC023 Creacion exitosa sin atributos y perecedero.py", line 97, in <module>
+      File "C:\Users\yonas\Documents\TC023 Creacion exitosa sin atributos y perecedero.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f6d2' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC023 Creacion exitosa sin atributos.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC023 Creacion exitosa sin atributos.py", line 97, in <module>
+      File "C:\Users\yonas\Documents\TC023 Creacion exitosa sin atributos.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f6d2' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC023 Creación exitosa de producto con datos válidos.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC023 Creación exitosa de producto con datos válidos.py", line 97, in <module>
+      File "C:\Users\yonas\Documents\TC023 Creación exitosa de producto con datos válidos.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f6d2' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC024 Validación de campos obligatorios.py ---
+back (most recent call last):
+  File "C:\Users\yonas\Documents\TC024 Validación de campos obligatorios.py", line 132, in <module>
+    panel_button = wait.until(
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff6fa7ae1d5+153f5]
+	chromedriver!GetHandleVerifier [0x7ff6fa7ae230+15450]
+	chromedriver!(No symbol) [0x7ff6fa2e5bbd]
+	chromedriver!(No symbol) [0x7ff6fa34108d]
+	chromedriver!(No symbol) [0x7ff6fa34138c]
+	chromedriver!(No symbol) [0x7ff6fa391c27]
+	chromedriver!(No symbol) [0x7ff6fa38e7eb]
+	chromedriver!(No symbol) [0x7ff6fa33361c]
+	chromedriver!(No symbol) [0x7ff6fa334543]
+	chromedriver!GetHandleVerifier [0x7ff6fad797c1+5e09e1]
+	chromedriver!GetHandleVerifier [0x7ff6fad73b6b+5dad8b]
+	chromedriver!GetHandleVerifier [0x7ff6fad99345+600565]
+	chromedriver!GetHandleVerifier [0x7ff6fa7cbf7e+3319e]
+	chromedriver!GetHandleVerifier [0x7ff6fa7d476c+3b98c]
+	chromedriver!GetHandleVerifier [0x7ff6fa7b82a4+1f4c4]
+	chromedriver!GetHandleVerifier [0x7ff6fa7b8434+1f654]
+	chromedriver!GetHandleVerifier [0x7ff6fa79b0c7+22e7]
+	KERNEL32!BaseThreadInitThunk [0x7ff988f8e957+17]
+	ntdll!RtlUserThreadStart [0x7ff98aee7c1c+2c]
+
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC024 Validación de campos obligatorios.py", line 173, in <module>
+      File "C:\Users\yonas\Documents\TC024 Validación de campos obligatorios.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC025 Edición de producto existente.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC025 Edición de producto existente.py", line 96, in <module>
+      File "C:\Users\yonas\Documents\TC025 Edición de producto existente.py", line 36, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f6d2' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC026 Eliminación de producto.py ---
+C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\site-packages\faker_commerce\__init__.py
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC026 Eliminación de producto.py", line 128, in <module>
+      File "C:\Users\yonas\Documents\TC026 Eliminación de producto.py", line 45, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f680' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC026 Eliminación de producto.py", line 159, in <module>
+      File "C:\Users\yonas\Documents\TC026 Eliminación de producto.py", line 45, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC027 Registro de entrada de inventario Admin.py ---
+File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 667, in <module>
+      File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 46, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 105, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 46, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 680, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 107, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC027 Registro de entrada de inventario Admin.py", line 46, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC028 Registro de salida de inventario Admin.py ---
+st):
+  File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 686, in <module>
+      File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 104, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 699, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 106, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC028 Registro de salida de inventario Admin.py", line 35, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC030 AJUSTE INVENTARIO MANUAL EN POS.py ---
+nt call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 806, in <module>
+      File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 46, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\U0001f510' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 109, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 46, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 868, in <module>
+    registrar_resultado(id_caso, estado, observaciones)
+  File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 111, in registrar_resultado
+      File "C:\Users\yonas\Documents\TC030 AJUSTE INVENTARIO MANUAL EN POS.py", line 46, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+
+--- FALLO EN TC031 Realizar compra en POS.py ---
+Iniciando prueba de Compra en POS...
+Ingresando credenciales...
+Navegador cerrado.
+Traceback (most recent call last):
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC031 Realizar compra en POS.py", line 106, in <module>
+      File "C:\Users\yonas\Documents\TC031 Realizar compra en POS.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u2705' in position 0: character maps to <undefined>
+
+During handling of the above exception, another exception occurred:
+
+Traceback (most recent call last):
+  File "C:\Users\yonas\Documents\TC031 Realizar compra en POS.py", line 203, in <module>
+      File "C:\Users\yonas\Documents\TC031 Realizar compra en POS.py", line 33, in write
+    self.terminal.write(message)
+  File "C:\Users\yonas\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py", line 19, in encode
+    return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+UnicodeEncodeError: 'charmap' codec can't encode character '\u274c' in position 0: character maps to <undefined>
+
+

@@ -150,16 +150,6 @@ try:
     print("✅ Botón de login clickeado")
     time.sleep(10)
 
-    panel_button = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
-    )
-    panel_button.click()
-    print("✅ Click en 'Ir al panel de administración'")
-
-    wait.until(EC.url_contains("/app"))
-    print("✅ Panel de control cargado correctamente")
-    time.sleep(5)
-
     # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================

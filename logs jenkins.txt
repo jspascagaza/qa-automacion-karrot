@@ -18,7 +18,7 @@ Mensaje encontrado en pantalla: 'User does not exist.'
 [RESULT] Exito en TC002 LOGIN FALLIDO.py
 ------------------------------------------
 [RUN] Ejecutando: TC003 REGISTRO EXITOSO.py
-Datos generados -> Empresa: Empresa7585, Nombre: Valentina Pedraza, Email: nquintero@example.com, Tel: +573363641643
+Datos generados -> Empresa: Empresa7585, Nombre: Valentina Pedraza, Email: nquintero@example.com, Tel: 3363641643
 âœ… Nombre de empresa ingresado
 âœ… Nombre ingresado
 âœ… Apellido ingresado
@@ -43,7 +43,7 @@ Observaciones: Formulario completado exitosamente - PaÃ­s Colombia seleccionad
 [RESULT] Exito en TC003 REGISTRO EXITOSO.py
 ------------------------------------------
 [RUN] Ejecutando: TC004 Registro fallido sin nombre de negocio.py
-Datos generados ->  Ingrid GÃ³mez enrique11@example.org +57357341418
+Datos generados ->  Ingrid GÃ³mez enrique11@example.org 357341418
 âš ï¸� Nombre de empresa dejado vacÃ­o (esto es intencional para la prueba)
 âœ… Nombre ingresado
 âœ… Apellido ingresado

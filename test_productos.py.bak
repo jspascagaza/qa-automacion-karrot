@@ -1,0 +1,1061 @@
+import unittest
+import time
+import os
+import sys
+from datetime import datetime
+import random
+import string
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.chrome.options import Options
+import gspread
+from oauth2client.service_account import ServiceAccountCredentials
+from dotenv import load_dotenv
+from faker import Faker
+
+fake = Faker('es_CO')
+load_dotenv()
+
+# =====================
+# CONFIGURACIÓN DE LOGS
+# =====================
+if not os.path.exists("logs"):
+    os.makedirs("logs")
+
+class Logger(object):
+    def __init__(self, filename):
+        self.terminal = sys.stdout
+        self.log = open(filename, "a", encoding="utf-8")
+    def write(self, message):
+        try:
+            self.terminal.write(message)
+        except UnicodeEncodeError:
+            self.terminal.write(message.encode('cp1252', 'ignore').decode('cp1252'))
+        self.log.write(message)
+        self.log.flush()
+    def flush(self):
+        self.terminal.flush()
+        self.log.flush()
+
+class TestProductos(unittest.TestCase):
+    @classmethod
+    def setUpClass(cls):
+        nombre_archivo = "testproductos"
+        fecha_hora = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        log_filename = f"logs/{nombre_archivo}_{fecha_hora}.log"
+        cls.logger = Logger(log_filename)
+        sys.stdout = cls.logger
+        sys.stderr = cls.logger
+        
+        # Google Sheets Setup
+        scope = ["https://spreadsheets.google.com/feeds", "https://www.googleapis.com/auth/drive"]
+        creds_path = os.getenv("GOOGLE_CREDENTIALS_PATH", "automatizacion-karrot-456d1a1552ca.json")
+        try:
+            creds = ServiceAccountCredentials.from_json_keyfile_name(creds_path, scope)
+            cls.client = gspread.authorize(creds)
+            cls.spreadsheet = cls.client.open_by_url(
+                "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0"
+            )
+            cls.sheet = cls.spreadsheet.sheet1
+        except Exception as e:
+            print(f"⚠️ Error al conectar con Google Sheets: {e}")
+            cls.sheet = None
+
+    @classmethod
+    def tearDownClass(cls):
+        sys.stdout = sys.__stdout__
+        sys.stderr = sys.__stderr__
+
+    @classmethod
+    def registrar_resultado(cls, id_caso, estado, observaciones=""):
+        if not cls.sheet:
+            return
+        try:
+            celda = cls.sheet.find(id_caso)
+            if not celda:
+                print(f"⚠️ No se encontró el ID {id_caso}")
+                return
+            fila = celda.row
+            fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            automatizado = "Sí"
+            cls.sheet.update_cell(fila, 11, automatizado)
+            cls.sheet.update_cell(fila, 13, fecha)
+            cls.sheet.update_cell(fila, 14, estado)
+            cls.sheet.update_cell(fila, 15, observaciones)
+            print(f"✅ Caso {id_caso} actualizado -> {estado}")
+        except Exception as e:
+            print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+
+    def setUp(self):
+        chrome_options = Options()
+        if os.getenv("JENKINS_URL") or os.getenv("CI") or os.getenv("HEADLESS") == "true":
+            chrome_options.add_argument("--headless=new")
+            chrome_options.add_argument("--no-sandbox")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--window-size=1920,1080")
+            
+        self.driver = webdriver.Chrome(options=chrome_options)
+        self.driver.maximize_window()
+        # Modificar URL inicial según sea necesario por el test (asumimos panel principal por defecto si no es login)
+        self.driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login/es")
+        self.wait = WebDriverWait(self.driver, 20)
+
+    def tearDown(self):
+        self.driver.quit()
+
+    def test_tc023(self):
+        id_caso = 'TC023'
+        print(f'\n=== Iniciando {id_caso} ===')
+        nombre_producto = os.getenv("WEB_NOMBRE") or fake.company()
+        descripcion = f"Descripción de {nombre_producto}"
+        sku_dinamico = os.getenv("WEB_SKU") or f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+        barcode_dinamico = os.getenv("WEB_BARCODE") or ''.join([str(random.randint(0, 9)) for _ in range(12)])
+        costo_dinamico = os.getenv("WEB_COSTO") or "10000"
+        propiedad_dinamica = os.getenv("WEB_PROPIEDAD") or "Color"
+        atributo_dinamico = os.getenv("WEB_ATRIBUTOS") or "Rojo"
+        nombre_producto = os.getenv("WEB_NOMBRE") or fake.company()
+        descripcion = f"Descripción de {nombre_producto}"
+        
+        def registrar_resultado(id_caso, estado, observaciones=""):
+            """
+            Busca un ID Caso y actualiza las columnas M, N y O:
+              M = Fecha Ejecución
+              N = Estado Ejecución
+              O = Observaciones
+            """
+            try:
+                celda = sheet.find(id_caso)
+                if not celda:
+                    print(f"⚠️ No se encontró el ID {id_caso}")
+                    return
+                fila = celda.row
+                fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                automatizado = "Sí"
+                sheet.update_cell(fila, 11, automatizado)   # Columna K
+                sheet.update_cell(fila, 13, fecha)          # Columna M
+                sheet.update_cell(fila, 14, estado)         # Columna N
+                sheet.update_cell(fila, 15, observaciones)  # Columna O
+                print(f"✅ Caso {id_caso} actualizado -> {estado}")
+            except Exception as e:
+                print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+        
+        # =====================
+        # INICIO DE AUTOMATIZACIÓN
+        # =====================
+        try:
+        # Login
+            email_input = self.wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
+            email_input.click()
+            email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
+
+            login_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
+            login_button.click()
+            time.sleep(15)
+        
+            # Ir al panel de administración (REMOVIDO POR INSTRUCCION)
+            # )
+        
+            # self.wait.until(
+            # )
+            # time.sleep(5)
+        
+            # Menú Catálogo
+            catalogo = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+            )
+            catalogo.click()
+            print("✅ Click en Catálogo")
+            time.sleep(10)
+        
+            productos_servicios = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+            )
+            productos_servicios.click()
+            print("✅ Click en Productos y Servicios")
+            time.sleep(10)
+        
+            # Agregar Artículo
+            boton_agregar = WebDriverWait(self.driver, 10).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary') and (contains(., 'Agregar') or contains(., 'Añadir') or contains(., 'Nuevo'))]")))
+            boton_agregar.click()
+            print("✅ Click en Agregar Artículo")
+            time.sleep(10)
+        
+            # Verificar que el texto "Añadir nuevo producto" esté presente
+            elemento = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, "//h2[@class='mb-3' and text()='Añadir nuevo producto']"))
+            )
+            print("Texto encontrado:", elemento.text)
+            time.sleep(2)
+        
+            # Selección tipo de producto
+            respuesta = "si"
+            if respuesta == "si":
+                self.driver.find_element(By.XPATH, "//input[@value='Product']").click()
+                print("Producto seleccionado")
+            else:
+                self.driver.find_element(By.XPATH, "//input[@value='Service']").click()
+                print("Servicio seleccionado")
+            time.sleep(2)
+        
+            # Nombre del producto
+            input_nombre_producto = self.wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_name']")))
+            input_nombre_producto.send_keys(nombre_producto)
+            time.sleep(1)
+        
+            # Selección de categoría
+            listadocategorias = self.wait.until(
+                EC.element_to_be_clickable((By.ID, "advanced_search_category"))
+            )
+            ActionChains(driver).move_to_element(listadocategorias).click().perform()
+            time.sleep(1)
+        
+            opciones_categorias = self.wait.until(
+                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//*[text()]"))
+            )
+        
+            print("Opciones encontradas:")
+            for opcion in opciones_categorias:
+                print(opcion.text)
+        
+            opcion_encontrada = None
+            for opcion in opciones_categorias:
+                if opcion.text.strip() == "Portátiles":
+                    opcion_encontrada = opcion
+                    break
+        
+            if opcion_encontrada:
+                opcion_encontrada.click()
+                print("✅ Categoría 'Portátiles' seleccionada")
+            else:
+                print("❌ No se encontró la categoría 'Portátiles'")
+
+            input_tipounidad = self.wait.until(
+                EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
+            )
+        
+            time.sleep(1)    
+            dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
+            self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
+            ActionChains(driver).move_to_element(dropdown_container).click().perform()
+            time.sleep(1)   
+            opciones_unidad = self.wait.until(
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+            )
+        
+            for opcion in opciones_unidad:
+                print(opcion.text)
+        
+            opcion_unidad_encontrada = None
+            for opcion in opciones_unidad:
+                if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
+                    opcion_unidad_encontrada = opcion
+                    break
+            if opcion_unidad_encontrada:
+                opcion_unidad_encontrada.click()
+                print("✅ Unidad 'Cantidad / Unidades' seleccionada")
+            else:
+                print("❌ No se encontró la unidad 'Cantidad / Unidades'")
+        
+            # Selección de unidad (tipo de unidad)
+            # Esperar el input (aunque no sea clickeable)
+            inputs = self.driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
+            # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
+            if not inputs:
+                raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
+            index = 2 if len(inputs) > 2 else len(inputs) - 1
+            imput_unidad = inputs[index]
+            imput_unidad.click()    
+            time.sleep(1)
+        
+            opciones_unidad = self.wait.until(
+                EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+            )
+        
+            for opcion in opciones_unidad:
+                print(opcion.text)
+                if opcion.text.strip() == "Unidad (u)":
+                    opcion_unidad_encontrada = opcion
+                    break
+            if opcion_unidad_encontrada:
+                opcion_unidad_encontrada.click()
+                print("✅ Unidad 'Unidad' seleccionada")
+            else:
+                print("❌ No se encontró la unidad 'Unidad'")
+
+            # Descripción del producto
+            descripcionproducto = self.wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='advanced_search_description']")))
+            descripcionproducto.send_keys(descripcion)
+            time.sleep(2)
+        
+            # Aquí puedes continuar con el flujo de guardado, etc.
+            def configurar_producto_perecedero(self.driver, es_perecedero=True, timeout=10):
+                """
+                Controla el switch basado en el atributo aria-checked
+                """
+                try:
+                    wait = WebDriverWait(self.driver, timeout)
+                
+                    # Buscar el switch por role y clase
+                    switch_xpath = "//button[@role='switch' and contains(@class, 'ant-switch')]"
+                    switch_btn = self.wait.until(EC.element_to_be_clickable((By.XPATH, switch_xpath)))
+                
+                    self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", switch_btn)
+                    time.sleep(0.5)
+                
+                    # Verificar estado actual usando aria-checked
+                    current_state = switch_btn.get_attribute("aria-checked")
+                    is_currently_checked = current_state == "true"
+                
+                    print(f"🔍 Estado actual del switch: {'ACTIVADO' if is_currently_checked else 'DESACTIVADO'}")
+                
+                    # Activar/desactivar solo si es necesario
+                    if es_perecedero and not is_currently_checked:
+                        switch_btn.click()
+                        print("✅ Switch ACTIVADO (Producto perecedero)")
+                    elif not es_perecedero and is_currently_checked:
+                        switch_btn.click()
+                        print("✅ Switch DESACTIVADO (Producto no perecedero)")
+                    else:
+                        print(f"⏭️ Switch ya está en el estado deseado")
+                
+                    return True
+                
+                except Exception as e:
+                    print(f"❌ Error al configurar el switch: {e}")
+                    return False
+            perecedero_dinamico = (os.getenv("WEB_EXEC_PERECEDERO") == "true")
+            configurar_producto_perecedero(self.driver, es_perecedero=perecedero_dinamico)
+            time.sleep(2)
+            
+            # TENER EN CUENTA QUE PARA LAS FUNCIONES DE ABAJO, SE DEBE ACTIVAR agregar_atributos=True PARA QUE FUNCIONEN
+            def manejar_atributos_adicionales(self.driver, agregar_atributos=False, timeout=10):
+                """
+                Maneja el botón 'Agregar nuevo atributo' y retorna los valores usados
+             """
+                try:
+                    if not agregar_atributos:
+                        print("⏭️  No se agregarán atributos adicionales")
+                        return None, None
+                
+                    wait = WebDriverWait(self.driver, timeout)
+                
+                    # Buscar el botón por texto y clases
+                    boton_xpath = "//button[contains(@class, 'ant-btn') and contains(text(), 'Agregar nuevo atributo')]"
+                    boton = self.wait.until(EC.element_to_be_clickable((By.XPATH, boton_xpath)))
+                
+                    # Scroll y clic
+                    self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton)
+                    time.sleep(0.5)
+                    boton.click()
+                    print("✅ Botón 'Agregar nuevo atributo' clickeado")
+                
+                    # Obtener nombre del atributo (mantener espacios)
+                    nombre_atributo = os.getenv("PROPIEDAD_DINAMICA", propiedad_dinamica).strip()
+                    input_nombre_atributo = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_attributeName")))
+                    input_nombre_atributo.send_keys(nombre_atributo)
+        
+                    # Obtener valores de atributos (mantener espacios)
+                    valores_atributos = []
+                
+                    # valor primer atributo
+                    valor1 = os.getenv("ATRIBUTO_DINAMICO_1", atributo_dinamico_1)
+                    input_valor_atributo = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option1")))
+                    input_valor_atributo.send_keys(valor1)
+                    valores_atributos.append(valor1)  # Mantener el espacio
+                    time.sleep(1)
+                
+                    # valor segundo atributo
+                    valor2 = "2tb"
+                    input_valor_atributo = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option2")))
+                    input_valor_atributo.send_keys(valor2)
+                    valores_atributos.append(valor2)  # Mantener el espacio
+                    time.sleep(1)
+                
+                    print("✅ Atributos adicionales configurados")
+                
+                    # Guardar
+                    boton_ok = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary')]//span[text()='OK']")))
+                    boton_ok.click()
+                    print("✅ Atributos adicionales guardados")
+                
+                    return nombre_atributo, valores_atributos
+                except Exception as e:
+                    print(f"❌ Error al hacer clic en 'Agregar nuevo atributo': {e}")
+                    return None, None
+                
+            nombre_atributo, valores_atributos = manejar_atributos_adicionales(self.driver, agregar_atributos=activar_atributos)
+            time.sleep(2)
+            
+            def generar_campos_por_atributo(self.driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=False):
+                """
+                Genera SKU, barcode, costo y precio para cada combinación de atributos
+                Maneja IDs con espacios como: advanced_search_memoria 1tbsku
+                """
+                # Si no se deben agregar atributos, salir sin ejecutar
+                if not agregar_atributos:
+                    print("⏭️  generar_campos_por_atributo: agregar_atributos=False, no se ejecuta")
+                    return False
+        
+                try:
+                    wait = WebDriverWait(self.driver, timeout)
+                
+                    for valor_atributo in valores_atributos:
+                        print(f"\n🎯 Procesando combinación: {nombre_atributo} - {valor_atributo}")
+                    
+                        # Construir el ID base dinámico CON ESPACIO
+                        id_base = f"advanced_search_{valor_atributo}"
+                    
+                        # 1. SKU Aleatorio
+                        sku_aleatorio = sku_dinamico
+                        # Buscar por ID exacto con espacio
+                        try:
+                            campo_sku = self.wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}sku")))
+                        except:
+                            # Si falla, buscar por contains
+                            campo_sku = self.wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'sku')]")) )
+                        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_sku)
+                        time.sleep(0.5)
+                        campo_sku.clear()
+                        campo_sku.send_keys(sku_aleatorio)
+                        print(f"✅ SKU para {valor_atributo}: '{sku_aleatorio}'")
+                    
+                        # 2. Barcode Aleatorio
+                        barcode_aleatorio = barcode_dinamico
+                        try:
+                            campo_barcode = self.wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}barcode")))
+                        except:
+                            campo_barcode = self.wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@class, 'barcode')]")) )
+                        campo_barcode.clear()
+                        campo_barcode.send_keys(barcode_aleatorio)
+                        print(f"✅ Barcode para {valor_atributo}: '{barcode_aleatorio}'")
+        
+                        # 3. Costo
+                        valor_costo = input(f"Ingresa Valor de costo para {valor_atributo}: ")            
+                        try:
+                            campo_costo = self.wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}cost")))
+                        except:
+                            campo_costo = self.wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'cost')]")) )
+                        campo_costo.clear()
+                        campo_costo.send_keys(valor_costo)
+                        print(f"✅ Costo para {valor_costo}: '{valor_costo}'")
+        
+                        # 4. Precio
+                        valor_precio = input(f"Ingresa Valor de precio para {valor_atributo}: ")            
+                        try:
+                            campo_precio = self.wait.until(EC.element_to_be_clickable((By.ID, f"{id_base}price")))
+                        except:
+                            campo_precio = self.wait.until(EC.element_to_be_clickable((By.XPATH, f"//input[contains(@id, '{valor_atributo}') and contains(@id, 'price')]")) )
+                        campo_precio.clear()
+                        campo_precio.send_keys(valor_precio)
+                        print(f"✅ Precio para {valor_atributo}: '{valor_precio}'")
+                        time.sleep(1)
+                    return True
+                
+                except Exception as e:
+                    print(f"❌ Error al generar campos para atributos: {e}")
+                    return False
+            generar_campos_por_atributo(self.driver, nombre_atributo, valores_atributos, timeout=10, agregar_atributos=activar_atributos)
+            
+            def variantes_referencias_producto(self.driver, timeout=10, agregar_atributos=True):
+                """
+                Placeholder para la función variantes_referencias_producto
+                """
+                if not agregar_atributos:
+                    print("⏭️ se agregarán atributos - función omitida")
+                    return None, None
+                # Generar SKU aleatorio y agregarlo al campo correspondiente
+                sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+                campo_sku = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_sku")))
+                campo_sku.clear()
+                campo_sku.send_keys(sku_aleatorio)
+                print(f"✅ SKU para variantes_referencias_producto: '{sku_aleatorio}'")
+                
+                # Generar Barcode aleatorio y agregarlo al campo correspondiente
+                barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+                campo_barcode = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_barcode")))
+                campo_barcode.clear()
+                campo_barcode.send_keys(barcode_aleatorio)
+                print(f"✅ Barcode para variantes_referencias_producto: '{barcode_aleatorio}'")
+        
+                # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
+                valor_costo = input(f"Ingresa Valor de costo para el producto: ")            
+                campo_costo = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_cost")))
+                campo_costo.clear()
+                campo_costo.send_keys(valor_costo)
+                print(f"✅ Costo para el producto: '{valor_costo}'")
+        
+                # Solicitar Valor de precio al usuario y agregarlo al campo correspondiente
+                valor_precio = input(f"Ingresa Valor de precio para el producto: ")
+                campo_precio = self.wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_defaultPrice")))
+                campo_precio.clear()
+                campo_precio.send_keys(valor_precio)
+                print(f"✅ Precio para el producto: '{valor_precio}'")
+        
+                return barcode_aleatorio, sku_aleatorio
+            barcode_aleatorio, sku_aleatorio = variantes_referencias_producto(self.driver, timeout=10, agregar_atributos=noactivar_atributos)
+        
+            boton_anadir = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//button[@type=\'submit\' and contains(@class, \'ant-btn-primary\')]")))
+            self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
+            boton_anadir.click()
+            print("✅ Click en Añadir")
+            time.sleep(10)
+            self.driver.refresh()
+            
+            try:
+                # abrir el select y esperar a que el dropdown esté visible sin que se cierre
+                select_xpath = "//div[contains(@class, 'ant-select') and .//span[contains(@title, 'Buscar por')]]"
+                select_element = self.wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
+                # usar ActionChains para abrir y mantener foco
+                ActionChains(driver).move_to_element(select_element).click().perform()
+        
+                # esperar a que el dropdown real de Ant Design sea visible
+                dropdown = WebDriverWait(self.driver, 10).until(
+                    EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]"))
+                )
+                # mover el cursor dentro del dropdown para evitar que el foco se pierda y se cierre
+                ActionChains(driver).move_to_element(dropdown).perform()
+                time.sleep(0.5)
+        
+                # ahora buscar las opciones dentro del dropdown (no vuelvas a clickear el select)
+                opciones_dropdown = self.wait.until(
+                    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown')]//div[contains(@class,'ant-select-item-option-content')]"))
+                )
+        
+                print("Opciones de busqueda encontradas:")
+                for opcion in opciones_dropdown:
+                    print(opcion.text)
+                opcion_busqueda_encontrada = None
+                for opcion in opciones_dropdown:
+                    if opcion.text.strip() == "Buscar por Nombre":  # Cambia aquí por la busqueda que necesites
+                        opcion_busqueda_encontrada = opcion
+                        break
+                if opcion_busqueda_encontrada:
+                        opcion_busqueda_encontrada.click()
+                        print("✅ Opción de búsqueda 'Buscar por Nombre' seleccionada")
+                        time.sleep(5)
+                        campo_busqueda = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")))
+                        campo_busqueda.clear()
+                        campo_busqueda.send_keys(nombre_producto)  # Usar el nombre del producto
+                        campo_busqueda.send_keys(Keys.ENTER)
+                        print(f"✅ Búsqueda realizada con : {nombre_producto}")
+                        time.sleep(5)
+                        elemento = self.driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
+                        print("✅ campo encontrado enviado en campo de búsqueda")
+                        time.sleep(5)
+                        observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                        estado = "EXITOSO"
+                        self.registrar_resultado(id_caso, estado, observaciones)
+                else:
+                    print("❌ No se encontró la opción de búsqueda 'Buscar ")
+                    observaciones = "No se encontró la opción de búsqueda 'Buscar por Nombre'"
+                    estado = "FALLIDO"
+                    self.registrar_resultado(id_caso, estado, observaciones)
+            except Exception as e:
+                print(f"❌ Error al abrir el dropdown: {e}")
+                print("Opciones de busqueda encontradas:")
+                observaciones = f"Error al abrir el dropdown: {e}"
+                estado = "FALLIDO"
+                self.registrar_resultado(id_caso, estado, observaciones)
+        except Exception as e:
+            print(f"❌ Error durante la ejecución: {str(e)}")
+            observaciones = f"Error durante la ejecución: {str(e)}"
+            estado = "FALLIDO"
+            self.registrar_resultado(id_caso, estado, observaciones)
+
+    def test_tc024(self):
+        id_caso = 'TC024'
+        print(f'\n=== Iniciando {id_caso} ===')
+        
+        def registrar_resultado(id_caso, estado, observaciones=""):
+            """
+            Busca un ID Caso y actualiza las columnas M, N y O:
+              M = Fecha Ejecución
+              N = Estado Ejecución
+              O = Observaciones
+            """
+            try:
+                celda = sheet.find(id_caso)
+                if not celda:
+                    print(f"⚠️ No se encontró el ID {id_caso}")
+                    return
+                fila = celda.row
+                fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                automatizado = "Sí"
+                sheet.update_cell(fila, 11, automatizado)   # Columna K
+                sheet.update_cell(fila, 13, fecha)          # Columna M
+                sheet.update_cell(fila, 14, estado)         # Columna N
+                sheet.update_cell(fila, 15, observaciones)  # Columna O
+                print(f"✅ Caso {id_caso} actualizado -> {estado}")
+            except Exception as e:
+                print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+        
+        # =====================
+        # INICIO DE AUTOMATIZACIÓN
+        # =====================
+        
+        try:
+        # Login
+            email_input = self.wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
+            email_input.click()
+            email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
+
+            login_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
+            login_button.click()
+            time.sleep(15)
+
+            # Menú Catálogo
+            catalogo = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+            )
+            catalogo.click()
+            print("✅ Click en Catálogo")
+            time.sleep(10)
+        
+            productos_servicios = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+            )
+            productos_servicios.click()
+            print("✅ Click en Productos y Servicios")
+            time.sleep(10)
+        
+            # Agregar Artículo
+            boton_agregar = self.wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[2]/div/div/div/div[1]/div/button[1]"))
+            )
+            boton_agregar.click()
+            print("✅ Click en Agregar Artículo")
+            time.sleep(10)
+        
+            # Verificar que el texto "Añadir nuevo producto" esté presente
+            elemento = WebDriverWait(self.driver, 10).until(
+                EC.visibility_of_element_located((By.XPATH, "//h2[@class='mb-3' and text()='Añadir nuevo producto']"))
+            )
+            print("Texto encontrado:", elemento.text)
+            time.sleep(2)
+        except Exception as e:
+            print(f"❌ Error al encontrar el elemento: {e}")
+
+        boton_anadir = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2] | //button[@type='submit' and contains(@class, 'ant-btn-primary')]")))
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
+        time.sleep(1)
+        boton_anadir.click()
+        print("✅ Click en Añadir")
+        
+        def buscar_texto_con_espera(self.driver, texto, timeout=10):
+            """
+            Busca texto esperando a que aparezca
+            """
+            try:
+                wait = WebDriverWait(self.driver, timeout)
+                elemento = self.wait.until(EC.presence_of_element_located((By.XPATH, f"//*[contains(text(), '{texto}')]")))
+                print(f"✅ Texto encontrado: {elemento.text}")
+                time.sleep(5)
+                return elemento 
+                print(f"❌ Texto no apareció después de {timeout}s: {texto}")
+                observaciones = f"No se encontró el texto: {texto}"
+                return None
+            except Exception as e:
+                print(f"❌ Error: {e}")
+                observaciones = f"Error: {e}"
+                return None
+        
+        # Uso
+        textos_a_buscar = [
+            "Introduce el nombre del producto",
+            "Introduce la categoría del producto",
+            "Por favor seleccione un grupo de unidades", 
+            "Introduce la descripción del producto",
+            "Introduce un precio de producto válido"
+        ]
+        
+        for texto in textos_a_buscar:
+            elemento = buscar_texto_con_espera(self.driver, texto, 10)
+            if elemento:
+                exito = True
+            else:
+                exito = False
+
+        if exito==True:
+            observaciones = f"Se encontró el texto los campos obligatorios"
+            estado = "ÉXITOSO"
+            self.registrar_resultado(id_caso, estado, observaciones)
+        else:
+            observaciones = f"No se encontró el texto"
+            estado = "FALLIDO"
+            self.registrar_resultado(id_caso, estado, observaciones)
+
+    def test_tc025(self):
+        id_caso = 'TC025'
+        print(f'\n=== Iniciando {id_caso} ===')
+        nombre_producto = os.getenv("WEB_NOMBRE") or fake.company()
+        descripcion = f"Descripción de {nombre_producto}"
+        
+        def registrar_resultado(id_caso, estado, observaciones=""):
+            """
+            Busca un ID Caso y actualiza las columnas M, N y O:
+              M = Fecha Ejecución
+              N = Estado Ejecución
+              O = Observaciones
+            """
+            try:
+                celda = sheet.find(id_caso)
+                if not celda:
+                    print(f"⚠️ No se encontró el ID {id_caso}")
+                    return
+                fila = celda.row
+                fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                automatizado = "Sí"
+                sheet.update_cell(fila, 11, automatizado)   # Columna K
+                sheet.update_cell(fila, 13, fecha)          # Columna M
+                sheet.update_cell(fila, 14, estado)         # Columna N
+                sheet.update_cell(fila, 15, observaciones)  # Columna O
+                print(f"✅ Caso {id_caso} actualizado -> {estado}")
+            except Exception as e:
+                print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+        
+        # =====================
+        # INICIO DE AUTOMATIZACIÓN
+        # =====================
+        def manejar_confirmacion_precios():
+            """
+            Maneja la confirmación de actualización de precios/costos
+            Retorna True si se manejó la confirmación, False si no apareció
+            """
+            try:
+                # Buscar el mensaje de confirmación con un timeout corto
+                confirmacion_wait = WebDriverWait(driver, 5)
+                
+                # Buscar el mensaje "Actualización de precios/costos"
+                mensaje_confirmacion = confirmacion_wait.until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//strong[contains(text(), 'Actualización de precios/costos')]")
+                    )
+                )
+                
+                if mensaje_confirmacion:
+                    print("⚠️ Apareció mensaje de confirmación de precios")
+                    
+                    # Buscar y hacer click en el botón "Sí"
+                    boton_si = confirmacion_wait.until(
+                        EC.element_to_be_clickable(
+                            (By.XPATH, "//button[contains(@class, 'ant-btn-primary') and contains(@class, 'ant-btn-sm')]//span[text()='Sí']")
+                        )
+                    )
+                    boton_si.click()
+                    print("✅ Click en botón 'Sí' para confirmar actualización de precios")
+                    time.sleep(2)
+                    return True
+            except Exception as e:
+                print(f"❌ Error al manejar confirmación de precios: {e}")
+                return False
+        
+        try:
+        # Buscar el mensaje "Actualización de precios/costos"
+                mensaje_confirmacion = confirmacion_self.wait.until(
+                    EC.presence_of_element_located(
+                        (By.XPATH, "//strong[contains(text(), 'Actualización de precios/costos')]")
+                    )
+                )
+                
+                if mensaje_confirmacion:
+                    print("⚠️ Apareció mensaje de confirmación de precios")
+                    
+                    # Buscar y hacer click en el botón "Sí"
+                    boton_si = confirmacion_self.wait.until(
+                        EC.element_to_be_clickable(
+                            (By.XPATH, "//button[contains(@class, 'ant-btn-primary') and contains(@class, 'ant-btn-sm')]//span[text()='Sí']")
+                        )
+                    )
+                    boton_si.click()
+                    print("✅ Click en botón 'Sí' para confirmar actualización de precios")
+                    time.sleep(2)
+                    return True
+            except Exception as e:
+                print(f"❌ Error al manejar confirmación de precios: {e}")
+                return False
+        
+        try:
+                driver = webself.driver.Chrome()
+                self.driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/auth/login")
+                self.driver.maximize_window()
+                wait = WebDriverWait(self.driver, 40)
+        
+                # Login
+                email_input = self.wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
+                email_input.click()
+                email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
+
+                login_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
+                login_button.click()
+                time.sleep(15)
+
+                # Menú Catálogo
+                catalogo = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+                )
+                catalogo.click()
+                print("✅ Click en Catálogo")
+                time.sleep(5)
+        
+                productos_servicios = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+                )
+                productos_servicios.click()
+                print("✅ Click en Productos y Servicios")
+                time.sleep(5)
+        except Exception as e:
+                print(f"❌ Error inesperado {str(e)}")
+        
+        def editar_producto_completo():
+            try:
+        
+                try:
+                    elemento = self.wait.until(EC.presence_of_element_located((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//td[2]//div[last()]")))
+                    valor = elemento.text
+                except Exception:
+                    valor = "undefined"
+                print(f"📖 Valor del elemento: '{valor}'")
+                time.sleep(5)
+        
+                listar_opciones_producto = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//button[last()]"))
+                )
+                listar_opciones_producto.click()
+                print("✅ Click en los 3 puntos")
+                time.sleep(5)
+        
+                editar_producto = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Editar producto']"))
+                )
+                editar_producto.click()
+                print("✅ Click en Editar producto")
+                time.sleep(10)
+        
+                # Selección de unidad (tipo de unidad)
+                # Esperar el input (aunque no sea clickeable)
+                #input_tipounidad = self.wait.until(
+                #    EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
+                #)
+        
+                #time.sleep(1)    
+                #dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
+                #self.wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
+                #ActionChains(driver).move_to_element(dropdown_container).click().perform()
+                #time.sleep(1)   
+                #opciones_unidad = self.wait.until(
+                #EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+                #)
+        
+                #for opcion in opciones_unidad:
+                #    print(opcion.text)
+        
+                #opcion_unidad_encontrada = None
+                #for opcion in opciones_unidad:
+                #    if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
+                #        opcion_unidad_encontrada = opcion
+                #        break
+                #if opcion_unidad_encontrada:
+                #    opcion_unidad_encontrada.click()
+                #    print("✅ Unidad 'Cantidad / Unidades' seleccionada")
+                #else:
+                #    print("❌ No se encontró la unidad 'Cantidad / Unidades'")
+
+               # inputs = self.driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
+                # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
+                #if not inputs:
+                #    raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
+                #index = 2 if len(inputs) > 2 else len(inputs) - 1
+                #imput_unidad = inputs[index]
+                #imput_unidad.click()    
+                #time.sleep(1)
+        
+                #opciones_unidad = self.wait.until(
+                #    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
+                #)
+        
+                #for opcion in opciones_unidad:
+                #    print(opcion.text)
+                #    if opcion.text.strip() == "Unidad (u)":
+                #        opcion_unidad_encontrada = opcion
+                #        break
+                #if opcion_unidad_encontrada:
+                #    opcion_unidad_encontrada.click()
+                #    print("✅ Unidad 'Unidad' seleccionada")
+                #else:
+                #    print("❌ No se encontró la unidad 'Unidad'")    
+        
+                        # Generar SKU aleatorio y agregarlo al campo correspondiente
+                sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+                campo_sku = self.wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}sku")))
+                valor_actual_sku = campo_sku.get_attribute("value")
+                print(f"📖 Valor SKU actual del producto: '{valor_actual_sku}'")
+                self.driver.execute_script("arguments[0].value = '';", campo_sku)
+                campo_sku.send_keys(Keys.CONTROL + "a")
+                campo_sku.send_keys(sku_aleatorio)
+                print(f"✅ Valor SKU nuevo: '{sku_aleatorio}'")
+                
+                # Generar Barcode aleatorio y agregarlo al campo correspondiente
+                barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+                valor_barcode = barcode_aleatorio
+                campo_barcode = self.wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}barcode")))
+                valor_actual_barcode = campo_barcode.get_attribute("value")
+                print(f"📖 Valor barcode actual del producto: '{valor_actual_barcode}'")
+                self.driver.execute_script("arguments[0].value = '';", campo_barcode)
+                campo_barcode.send_keys(Keys.CONTROL + "a")
+                campo_barcode.send_keys(barcode_aleatorio)
+                print(f"✅ Valor nuevo barcode: '{barcode_aleatorio}'")
+        
+                # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
+                costo_aleatorio = precio
+                valor_costo = costo_aleatorio            
+                campo_costo = self.wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}cost")))
+                valor_actual_cost = campo_costo.get_attribute("value")
+                print(f"📖 Valor barcode actual del producto: '{valor_actual_cost}'")
+                self.driver.execute_script("arguments[0].value = '';", campo_costo)
+                campo_costo.send_keys(Keys.CONTROL + "a")
+                campo_costo.send_keys(valor_costo)
+                print(f"✅ Costo para el producto: '{costo_aleatorio}'")
+                
+                return valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost,valor
+        
+            except Exception as e:
+                print(f"❌ Error al editar el producto: {str(e)}")
+        
+        resultado_edicion = editar_producto_completo()
+        if resultado_edicion is None:
+            print("❌ Falló la edición del producto.")
+            self.registrar_resultado(id_caso, "FALLIDO", "Error interno durante la edición del producto")
+
+    def test_tc025(self):
+        id_caso = 'TC026'
+        print(f'\n=== Iniciando {id_caso} ===')
+        nombre_producto = os.getenv("WEB_NOMBRE") or fake.company()
+        descripcion = f"Descripción de {nombre_producto}"
+        
+        def registrar_resultado(id_caso, estado, observaciones=""):
+            """
+            Busca un ID Caso y actualiza las columnas M, N y O:
+              M = Fecha Ejecución
+              N = Estado Ejecución
+              O = Observaciones
+            """
+            try:
+                celda = sheet.find(id_caso)
+                if not celda:
+                    print(f"⚠️ No se encontró el ID {id_caso}")
+                    return
+                fila = celda.row
+                fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                automatizado = "Sí"
+                sheet.update_cell(fila, 11, automatizado)   # Columna K
+                sheet.update_cell(fila, 13, fecha)          # Columna M
+                sheet.update_cell(fila, 14, estado)         # Columna N
+                sheet.update_cell(fila, 15, observaciones)  # Columna O
+                print(f"✅ Caso {id_caso} actualizado -> {estado}")
+            except Exception as e:
+                print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+        
+        try:
+        # Login
+                email_input = self.wait.until(EC.presence_of_element_located((By.ID, "login-form_email")))
+                email_input.click()
+                email_input.send_keys(os.getenv("KARROT_LOGIN_EMAIL"))
+
+                login_button = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='login-form']/div[3]/div/div/div/div/button")))
+                login_button.click()
+                time.sleep(15)
+        
+                # Ir al panel de administración (REMOVIDO POR INSTRUCCION)
+                # try:
+                #     )
+        
+                #     WebDriverWait(self.driver, 5).until(
+                #     )
+                    
+                time.sleep(5)
+        
+                # Menú Catálogo
+                catalogo = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+                )
+                catalogo.click()
+                print("✅ Click en Catálogo")
+                time.sleep(10)
+        
+                productos_servicios = self.wait.until(
+                    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+                )
+                productos_servicios.click()
+                print("✅ Click en Productos y Servicios")
+                time.sleep(10)
+        except Exception as e:
+                print(f"❌ Error inesperado {str(e)}")
+
+        listar_opciones_producto = self.wait.until(
+        EC.element_to_be_clickable((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//button[last()]"))
+        )
+        self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listar_opciones_producto)
+        listar_opciones_producto.click()
+        print("✅ Click en los 3 puntos")
+        time.sleep(5)
+        
+        borrar_producto = self.wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Borrar']"))
+        )
+        borrar_producto.click()
+        print("✅ Click en Borrar producto")
+        time.sleep(5)
+        
+        mensaje_confirmacion = self.wait.until(
+                EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Estás seguro que deseas eliminar este producto?')]"))
+            )
+        print("✅ Mensaje de confirmación encontrado")
+        
+        def encontrar_boton_eliminar():
+            selectors = [
+                "//button[contains(@class, 'ant-btn-primary') and contains(text(), 'Eliminar')]",
+                "//button[contains(text(), 'Eliminar')]",
+                "//span[contains(text(), 'Eliminar')]/ancestor::button",
+                "//div[contains(@class, 'ant-modal')]//button[contains(text(), 'Eliminar')]"
+            ]
+            
+            for selector in selectors:
+                try:
+                    elemento = self.wait.until(EC.element_to_be_clickable((By.XPATH, selector)))
+                    print(f"✅ Botón Eliminar encontrado con: {selector}")
+                    return elemento
+                except Exception as e:
+                    print(f"❌ Selector falló: {selector}")
+                    continue
+            
+            print("❌ No se pudo encontrar el botón Eliminar")
+            return None
+        
+        # Uso
+        boton_eliminar = encontrar_boton_eliminar()
+        if boton_eliminar:
+            boton_eliminar.click()
+        time.sleep(10)
+
+        #pendiente por terminar hasta poder encontrar una solucion donde se pueda verificar que el producto seleccionado fue eliminado.
+
+if __name__ == '__main__':
+    sys.stdout.reconfigure(line_buffering=True)
+    sys.stderr.reconfigure(line_buffering=True)
+    print("=== Iniciando Módulo 3: Productos ===")
+    suite = unittest.TestSuite()
+    
+    # Core
+    suite.addTest(TestProductos('test_tc023'))
+    suite.addTest(TestProductos('test_tc025'))
+    
+    if os.getenv('WEB_EXEC_EXHAUSTIVO') == 'true':
+        print("[INFO] Validaciones secundarias activadas.")
+        suite.addTest(TestProductos('test_tc024'))
+        suite.addTest(TestProductos('test_tc026'))
+    
+    runner = unittest.TextTestRunner(verbosity=2, stream=sys.stdout)
+    sys.exit(not runner.run(suite).wasSuccessful())

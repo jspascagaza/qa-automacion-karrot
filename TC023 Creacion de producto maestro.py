@@ -181,18 +181,6 @@ def ejecutar_caso(config_caso):
         login_button.click()
         time.sleep(15)
 
-        # Ir al panel de administración
-        panel_button = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/div/div[2]/div[2]/button"))
-        )
-        panel_button.click()
-
-        wait.until(
-            EC.url_contains("/app")
-        )
-        print("✅ Panel de control cargado correctamente")
-        time.sleep(5)
-
         # Menú Catálogo
         catalogo = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))

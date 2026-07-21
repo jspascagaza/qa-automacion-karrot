@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Karrot QA Dashboard</title>
+    <!-- Usando Inter o Outfit para que sea moderna -->
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    
+    <header class="navbar">
+        <div class="logo">
+            <!-- Icono simplificado representando Karrot -->
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M13 2L3 14H12L11 22L21 10H12L13 2Z" fill="#ff9800"/>
+            </svg>
+            <h2>karrot <span class="badge">QA</span></h2>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="hero">
+            <h1>Karrot QA Dashboard</h1>
+            <p>App nativa para escritorio y móvil. Validación de Flujos Core y Pruebas Exhaustivas.</p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Módulo 1: Acceso -->
+            <div class="card glass">
+                <div class="card-header">
+                    <h3>Módulo 1: Acceso</h3>
+                    <span class="status-indicator" id="status-acceso">Inactivo</span>
+                </div>
+                <p>Login y Registro de Usuarios. Redirecciones y validaciones (TC001-TC011).</p>
+                
+                <div class="dynamic-inputs">
+                    <input type="text" id="acceso-email" placeholder="Email (Opcional)" class="input-glass">
+                    <input type="text" id="acceso-empresa" placeholder="Empresa (Opcional)" class="input-glass">
+                </div>
+
+                <div class="actions">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="acceso-exhaustivo"> Validaciones secundarias
+                    </label>
+                    <button class="btn btn-primary" onclick="runTest('acceso')" id="btn-acceso">Ejecutar Módulo 1</button>
+                </div>
+            </div>
+
+            <!-- Módulo 2: Sedes y Cajas -->
+            <div class="card glass">
+                <div class="card-header">
+                    <h3>Módulo 2: Sedes y Cajas</h3>
+                    <span class="status-indicator" id="status-sedes">Inactivo</span>
+                </div>
+                <p>Creación de Sedes y Cajas. Validaciones de campos (TC012-TC022).</p>
+                
+                <div class="dynamic-inputs">
+                    <input type="text" id="sedes-nombre" placeholder="Nombre Sede (Opcional)" class="input-glass">
+                    <input type="text" id="sedes-direccion" placeholder="Dirección (Opcional)" class="input-glass">
+                </div>
+
+                <div class="actions">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="sedes-exhaustivo"> Validaciones secundarias
+                    </label>
+                    <button class="btn btn-primary" onclick="runTest('sedes')" id="btn-sedes">Ejecutar Módulo 2</button>
+                </div>
+            </div>
+
+            <!-- Módulo 3: Productos -->
+            <div class="card glass">
+                <div class="card-header">
+                    <h3>Módulo 3: Productos</h3>
+                    <span class="status-indicator" id="status-productos">Inactivo</span>
+                </div>
+                <p>Creación, edición y eliminación de productos (TC023-TC026).</p>
+                
+                <div class="dynamic-inputs">
+                    <input type="text" id="productos-nombre" placeholder="Nombre Producto (Opcional)" class="input-glass">
+                    <input type="text" id="productos-sku" placeholder="SKU (Opcional)" class="input-glass">
+                    <input type="text" id="productos-barcode" placeholder="Barcode (Opcional)" class="input-glass">
+                    <input type="text" id="productos-costo" placeholder="Costo (Opcional)" class="input-glass">
+                    <input type="text" id="productos-propiedad" placeholder="Propiedad Personalizada (Opcional)" class="input-glass">
+                    <input type="text" id="productos-atributos" placeholder="Atributos Ej: Color (Opcional)" class="input-glass">
+                    <label class="checkbox-label" style="margin-top: 5px;">
+                        <input type="checkbox" id="productos-perecedero"> Es producto perecedero
+                    </label>
+                </div>
+
+                <div class="actions">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="productos-exhaustivo"> Validaciones secundarias
+                    </label>
+                    <button class="btn btn-primary" onclick="runTest('productos')" id="btn-productos">Ejecutar Módulo 3</button>
+                </div>
+            </div>
+
+            <!-- Módulo 4: Inventario y POS -->
+            <div class="card glass">
+                <div class="card-header">
+                    <h3>Módulo 4: POS & Inv</h3>
+                    <span class="status-indicator" id="status-pos">Inactivo</span>
+                </div>
+                <p>Entradas, Salidas, Ajustes manuales y Compras POS (TC027-TC031).</p>
+                
+                <div class="dynamic-inputs">
+                    <input type="text" id="pos-producto" placeholder="SKU/Producto a comprar (Opcional)" class="input-glass">
+                </div>
+
+                <div class="actions">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="pos-exhaustivo"> Validaciones secundarias
+                    </label>
+                    <button class="btn btn-primary" onclick="runTest('pos')" id="btn-pos">Ejecutar Módulo 4</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="console glass hidden" id="console-container">
+            <div class="console-header">
+                <h3>Terminal de Pruebas <span id="console-target"></span></h3>
+                <button class="btn-close" onclick="closeConsole()">×</button>
+            </div>
+            <pre id="console-output">Esperando ejecución...</pre>
+            
+            <!-- OTP Input Box -->
+            <div id="otp-input-container" class="otp-container hidden">
+                <p>🔑 Se requiere entrada / OTP para continuar:</p>
+                <div class="otp-fields">
+                    <input type="text" id="otp-digit" placeholder="Ingresar valor" autocomplete="off" />
+                    <button class="btn btn-primary" id="btn-submit-otp" onclick="submitOtp()" style="width: auto; padding: 0.5rem 1.5rem;">Enviar Input</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="{{ url_for('static', filename='app.js') }}"></script>
+</body>
+</html>
