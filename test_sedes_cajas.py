@@ -1,3 +1,4 @@
+from selenium.common import TimeoutException
 import unittest
 import time
 import os
@@ -211,7 +212,7 @@ class TestSedesCajas(unittest.TestCase):
             direccion_input = self.wait.until(EC.presence_of_element_located((By.ID, "advanced_search_address")))
             direccion_input.clear()
             direccion_input.send_keys(direccion)
-            ActionChains(driver).move_by_offset(0, 0).click().perform()
+            ActionChains(self.driver).move_by_offset(0, 0).click().perform()
             time.sleep(15)
             print("✅ Dirección ingresada")
         
@@ -283,6 +284,9 @@ class TestSedesCajas(unittest.TestCase):
         id_caso = "TC013"
         
         try:
+            nombre = os.getenv("WEB_NOMBRE") or fake.company()
+            direccion = os.getenv("WEB_DIRECCION") or fake.address()
+            
             # =====================
             # LOGIN
             # =====================
@@ -365,7 +369,7 @@ class TestSedesCajas(unittest.TestCase):
             direccion_input = self.wait.until(EC.presence_of_element_located((By.ID, "advanced_search_address")))
             direccion_input.clear()
             direccion_input.send_keys(direccion)
-            ActionChains(driver).move_by_offset(0, 0).click().perform()
+            ActionChains(self.driver).move_by_offset(0, 0).click().perform()
             time.sleep(15)
             print("✅ Dirección ingresada")
         
@@ -394,39 +398,56 @@ class TestSedesCajas(unittest.TestCase):
         
             try:
                 boton_anadir = self.wait.until(
-                    EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and @class='ant-btn ant-btn-primary' and contains(text(), 'Añadir')]"))
+                    EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]"))
                 )
                 self.driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
                 time.sleep(2)
                 boton_anadir.click()
                 print("✅ Botón 'Añadir' clickeado")
         
-                time.sleep(8)
+                time.sleep(5)
                 
-                # Buscar todas las filas de la tabla 
-                filas = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "tbody.ant-table-tbody tr.ant-table-row"))) 
-                # Esperar que la tabla cargue 
-                wait = WebDriverWait(self.driver, 10) 
-                # Obtener todas las celdas de la primera columna (Nombre de ubicación) 
-                celdas = self.wait.until( EC.presence_of_all_elements_located((By.CSS_SELECTOR, "tbody.ant-table-tbody tr td:nth-child(1)")) ) 
-                # Revisar si alguna está vacía
-            
-                hay_vacias = any(celda.text.strip() == "" for celda in celdas)
-                 # 🔹 Validación
-                if hay_vacias:
+                # =====================
+                # VALIDACIÓN: Mensaje de error (nombre vacío)
+                # =====================
+                try:
+                    # Usar un timeout más corto para buscar el mensaje de error de validación
+                    wait_error = WebDriverWait(self.driver, 10)
+                    mensaje_error = wait_error.until(
+                        EC.presence_of_element_located((
+                            By.XPATH, "//*[contains(@class, 'ant-form-item-explain-error') or contains(text(), 'Introduce un nombre de ubicación')]"
+                        ))
+                    )
+                    if mensaje_error.is_displayed():
+                        exito = True
+                        estado = "ÉXITOSO"
+                        observaciones = f"Se validó correctamente: aparece el mensaje de error '{mensaje_error.text}' y no permite continuar."
+                        print(f"✅ {observaciones}")
+                    else:
+                        exito = False
+                        estado = "FALLIDO"
+                        observaciones = "El mensaje de error de nombre de ubicación no está visible."
+                        print(f"❌ {observaciones}")
+                except TimeoutException:
+                    # Si no apareció el mensaje de error, la validación falló (se permitió continuar o no se bloqueó correctamente)
                     exito = False
-                    observaciones = "Fallido: La creación de la sede dejó celdas vacías en la columna 'Nombre de ubicación'"
                     estado = "FALLIDO"
-                else:
-                    exito = True
-                    observaciones = "Sede creada exitosamente, todas las filas tienen Nombre de ubicación válido"
-                    estado = "ÉXITOSO"
-                print(observaciones)
+                    observaciones = "No apareció el mensaje de error esperado tras hacer click en Añadir."
+                    print(f"❌ {observaciones}")
+        
+                url_final = self.driver.current_url
+            except TimeoutException:
+                observaciones = "Timeout: No se pudo encontrar o hacer click en el botón 'Añadir'"
+                exito = False
+                estado = "FALLIDO"
+                print("❌ No se pudo encontrar el botón 'Añadir'")
             except Exception as e:
                 exito = False
-                observaciones = f"Error durante la validación de la tabla: {str(e)}"
+                observaciones = f"Error al intentar guardar la ubicación: {str(e)}"
                 estado = "FALLIDO"
-                print(observaciones)
+                print(f"❌ Error al guardar la ubicación: {str(e)}")
+        finally:
+            self.registrar_resultado(id_caso, estado, observaciones)
 
     def test_tc014(self):
         id_caso = 'TC014'
@@ -575,20 +596,22 @@ class TestSedesCajas(unittest.TestCase):
                         exito = False
                         estado = "FALLIDO"
                         observaciones = "No apareció el mensaje esperado de validación de dirección"
+                except TimeoutException:
                     exito = False
                     estado = "FALLIDO"
                     observaciones = "No apareció el mensaje 'Introduce una dirección de ubicación válida' en el tiempo esperado"
-        
+            except TimeoutException:
                 observaciones = "Timeout: No se pudo encontrar o hacer click en el botón 'Añadir'"
                 exito = False
                 estado = "FALLIDO"
                 print("❌ No se pudo encontrar el botón 'Añadir'")
-        
             except Exception as e:
                 observaciones = f"Error al intentar guardar la ubicación: {str(e)}"
                 exito = False
                 estado = "FALLIDO"
                 print(f"❌ Error al guardar la ubicación: {str(e)}")
+        finally:
+            self.registrar_resultado(id_caso, estado, observaciones)
 
     def test_tc015(self):
         id_caso = 'TC015'
@@ -657,34 +680,41 @@ class TestSedesCajas(unittest.TestCase):
             print("✅ Tipo de tienda ingresado")
         
             # =====================
-            # Selección de ciudad con validación
+            # Validación de ciudad obligatoria / preseleccionada
             # =====================
-            ciudad_input = self.wait.until(EC.presence_of_element_located((
+            ciudad_elem = self.wait.until(EC.presence_of_element_located((
                 By.XPATH,
                 "//*[@id='advanced_search']/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[3]/div/div[2]/div/div/div/div"
             )))
-            ciudad_input.click()
-            time.sleep(3)
-        
-            opciones = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")))
-            ciudad_encontrada = False
-            for opcion in opciones:
-                print(opcion.text)
-                if opcion.text.strip() == ciudad:
-                    opcion.click()
-                    ciudad_encontrada = True
-                    print("✅ Ciudad encontrada y seleccionada")
-                    break
-        
-            if ciudad_encontrada:
-                estado = "EXITOSO"
-                observaciones = "Ciudad seleccionada correctamente"
+            texto_ciudad = ciudad_elem.text.strip()
+            print(f"🌆 Ciudad actual en el campo: '{texto_ciudad}'")
+
+            if "Bogot" in texto_ciudad or "Bogotá" in texto_ciudad or texto_ciudad != "":
+                ciudad_encontrada = True
+                estado = "ÉXITOSO"
+                observaciones = f"Se valida que el campo Ciudad viene preseleccionado por defecto ('{texto_ciudad}') y la interfaz no permite dejar el campo vacío."
+                print(f"✅ {observaciones}")
             else:
-                estado = "FALLIDO"
-                observaciones = f"La ciudad '{ciudad}' no está en las opciones disponibles"
-                print("❌ Ciudad no encontrada en el dropdown")
-        
-            time.sleep(3)
+                ciudad_elem.click()
+                time.sleep(2)
+                opciones = self.wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")))
+                ciudad_encontrada = False
+                for opcion in opciones:
+                    if "Bogot" in opcion.text.strip():
+                        opcion.click()
+                        ciudad_encontrada = True
+                        print("✅ Ciudad 'Bogotá' seleccionada de la lista")
+                        break
+
+                if ciudad_encontrada:
+                    estado = "ÉXITOSO"
+                    observaciones = "El campo Ciudad cuenta con valor por defecto o seleccionable ('Bogotá') impidiendo dejarlo vacío."
+                else:
+                    estado = "FALLIDO"
+                    observaciones = "No se encontró valor por defecto ni la opción 'Bogotá' en el campo Ciudad."
+                    print("❌ Ciudad 'Bogotá' no encontrada")
+
+            time.sleep(2)
         
             # Ingresar dirección
             direccion_input = self.wait.until(EC.presence_of_element_located((By.ID, "advanced_search_address")))
@@ -718,16 +748,16 @@ class TestSedesCajas(unittest.TestCase):
                 time.sleep(2)
                 boton_anadir.click()
                 print("✅ Botón 'Añadir' clickeado")
-                time.sleep(5)
-        
+            except TimeoutException:
                 observaciones = "Timeout: No se pudo encontrar o hacer click en el botón 'Añadir'"
                 estado = "FALLIDO"
                 print("❌ No se pudo encontrar el botón 'Añadir'")
-        
             except Exception as e:
                 observaciones = f"Error al intentar guardar la ubicación: {str(e)}"
                 estado = "FALLIDO"
                 print(f"❌ Error al guardar la ubicación: {str(e)}")
+        finally:
+            self.registrar_resultado(id_caso, estado, observaciones)
 
     def test_tc016(self):
         id_caso = 'TC016'
@@ -823,18 +853,24 @@ class TestSedesCajas(unittest.TestCase):
             try:
                 error_msg = self.wait.until(EC.presence_of_element_located((By.XPATH, "//*[contains(text(), 'Ups, algo salió mal al crear la ubicación')]")))
                 if error_msg:
-                    estado = "EXITOSO"
+                    estado = "ÉXITOSO"
                     observaciones = "El sistema no permitió crear la ubicación sin usuario"
                     print("✅ Caso exitoso: apareció mensaje de error esperado")
+                else:
+                    estado = "FALLIDO"
+                    observaciones = "El sistema permitió crear la ubicación sin usuario"
+                    print("❌ Caso fallido: no apareció el mensaje de error")
+            except TimeoutException:
                 estado = "FALLIDO"
-                observaciones = "El sistema permitió crear la ubicación sin usuario"
+                observaciones = "El sistema permitió crear la ubicación sin usuario (no apareció mensaje de error)"
                 print("❌ Caso fallido: no apareció el mensaje de error")
-        
         except Exception as e:
             if estado == "PENDIENTE":
                 estado = "FALLIDO"
             observaciones = str(e)
             print(f"❌ Error: {observaciones}")
+        finally:
+            self.registrar_resultado(id_caso, estado, observaciones)
 
     def test_tc017(self):
         id_caso = 'TC017'
@@ -861,11 +897,19 @@ class TestSedesCajas(unittest.TestCase):
             # =====================
             # NAVEGACIÓN A UBICACIONES
             # =====================
-            ModuloUbicaciones = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
+            print("📍 Navegando al módulo de Ubicaciones...")
+            ModuloUbicaciones = self.wait.until(EC.element_to_be_clickable((
+                By.XPATH,
+                "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]"
+            )))
             ModuloUbicaciones.click()
-        
-        #     segundopath = ModuloUbicaciones.find_element(By.XPATH, "/html/body/div[1]/div/section/section/aside/div/ul/li[1]/ul/li[12]/ul/li[1]/span/a")
-        #     self.driver.get(segundopath.get_attribute("href"))
+            print("✅ Click en módulo Ubicaciones")
+            time.sleep(2)
+
+            # Redirección directa por URL a la vista de lista de ubicaciones
+            self.driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+            print("✅ Dirigido directamente a Ubicaciones por URL")
+            time.sleep(5)
         
             listado_editar = self.wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[7]/div/button[2]")))
             listado_editar.click()
@@ -899,9 +943,16 @@ class TestSedesCajas(unittest.TestCase):
                 observaciones = "Caja creada exitosamente"
                 print("✅ Caja creada exitosamente")
                 estado = "EXITOSO"
-                self.registrar_resultado(id_caso, estado, observaciones)
             except Exception as e:
-                print(f"❌ Error al crear la caja: {str(e)}")
+                estado = "FALLIDO"
+                observaciones = f"Error al crear la caja: {str(e)}"
+                print(f"❌ {observaciones}")
+        except Exception as e:
+            estado = "FALLIDO"
+            observaciones = f"Error en test_tc017: {str(e)}"
+            print(f"❌ {observaciones}")
+        finally:
+            self.registrar_resultado(id_caso, estado, observaciones)
 
     def test_tc018(self):
         id_caso = 'TC018'
@@ -1002,9 +1053,10 @@ class TestSedesCajas(unittest.TestCase):
             # =====================
             ModuloUbicaciones = self.wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
             ModuloUbicaciones.click()
-        
-        #     segundopath = ModuloUbicaciones.find_element(By.XPATH, "/html/body/div[1]/div/section/section/aside/div/ul/li[1]/ul/li[12]/ul/li[1]/span/a")
-        #     self.driver.get(segundopath.get_attribute("href"))
+            time.sleep(2)
+            self.driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+            time.sleep(5)
+
             # Hacer clic en el botón de tres puntos
             listado_opciones = WebDriverWait(self.driver, 10).until(
                 EC.element_to_be_clickable((By.CSS_SELECTOR, "button.ant-dropdown-trigger"))

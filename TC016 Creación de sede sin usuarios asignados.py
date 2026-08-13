@@ -199,7 +199,7 @@ try:
     # =====================
     boton_anadir = wait.until(EC.element_to_be_clickable((
         By.XPATH,
-        "//button[@type='submit' and contains(text(), 'Añadir')]"
+        "//*[@id='advanced_search']/div[1]/div/div/div/button[2]"
     )))
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
     time.sleep(2)

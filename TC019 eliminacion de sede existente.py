@@ -129,31 +129,32 @@ try:
     # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================
-    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
+    print("📍 Navegando al módulo de Ubicaciones...")
+    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]"
+    )))
     ModuloUbicaciones.click()
+    print("✅ Click en módulo Ubicaciones")
+    time.sleep(2)
+
+    # Redirección directa a la URL de lista de ubicaciones
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+    print("✅ Dirigido directamente a Ubicaciones por URL")
     time.sleep(5)
 
-#     segundopath = ModuloUbicaciones.find_element(By.XPATH, "/html/body/div[1]/div/section/section/aside/div/ul/li[1]/ul/li[12]/ul/li[1]/span/a")
-#     driver.get(segundopath.get_attribute("href"))
-    time.sleep(5)
-    # Hacer clic en el botón de tres puntos
+    # Hacer clic en el botón de tres puntos de la primera sede
     listado_opciones = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.CSS_SELECTOR, "button.ant-dropdown-trigger"))
+        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[3]/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[8]/div/button[2]"))
     )
     listado_opciones.click()
     print("✅ Botón de opciones clickeado")
     
-    # Esperar y buscar las opciones del menú dropdown
-    time.sleep(5)
-    opciones = WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ant-dropdown-menu .ant-dropdown-menu-item"))
-    )
-
     print(f"🔍 Encontradas {len(opciones)} opciones:")
     for i, opcion in enumerate(opciones):
         print(f"  {i+1}. {opcion.text}")
     
-    # Buscar y hacer clic en la opción que contiene exactamente "Eliminar caja"
+    # Buscar y hacer clic en la opción que contiene exactamente "borrar"
     opcion_encontrada = None
     for opcion in opciones:
         if "Borrar" in opcion.text:
@@ -166,14 +167,14 @@ try:
         for intento in range(max_intentos):
             # Vuelve a abrir el menú de opciones en cada intento
             listado_opciones = WebDriverWait(driver, 10).until(
-                EC.element_to_be_clickable((By.CSS_SELECTOR, "button.ant-dropdown-trigger"))
+                EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[3]/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[8]/div/button[2]"))
             )
             listado_opciones.click()
             time.sleep(1)  # Espera breve para que el menú se despliegue
 
             # Vuelve a buscar las opciones del menú
             opciones = WebDriverWait(driver, 10).until(
-                EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ant-dropdown-menu .ant-dropdown-menu-item"))
+                EC.presence_of_all_elements_located((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div/table/tbody/tr[1]/td[6]/button"))
             )
             opcion_encontrada = None
             for opcion in opciones:

@@ -223,7 +223,7 @@ try:
     print("🔍 Buscando campo de usuario...")
     time.sleep(15)
     # Buscar campo de usuario usando relative locator
-    tipo_usuario = driver.find_element(By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/form/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/div[2]/div[1]/div/div")
+    tipo_usuario = driver.find_element(By.XPATH, "//*[@id='advanced_search']/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[6]/div[1]/div[2]/div[1]/div/div/div/div")
     tipo_usuario.click()
     time.sleep(15)
     opciones = wait.until(EC.presence_of_all_elements_located(
@@ -244,39 +244,56 @@ try:
 
     try:
         boton_anadir = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and @class='ant-btn ant-btn-primary' and contains(text(), 'Añadir')]"))
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]"))
         )
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
         time.sleep(2)
         boton_anadir.click()
         print("✅ Botón 'Añadir' clickeado")
 
-        time.sleep(8)
+        time.sleep(5)
         
-        # Buscar todas las filas de la tabla 
-        filas = wait.until(EC.presence_of_all_elements_located((By.CSS_SELECTOR, "tbody.ant-table-tbody tr.ant-table-row"))) 
-        # Esperar que la tabla cargue 
-        wait = WebDriverWait(driver, 10) 
-        # Obtener todas las celdas de la primera columna (Nombre de ubicación) 
-        celdas = wait.until( EC.presence_of_all_elements_located((By.CSS_SELECTOR, "tbody.ant-table-tbody tr td:nth-child(1)")) ) 
-        # Revisar si alguna está vacía
-    
-        hay_vacias = any(celda.text.strip() == "" for celda in celdas)
-         # 🔹 Validación
-        if hay_vacias:
+        # =====================
+        # VALIDACIÓN: Mensaje de error (nombre vacío)
+        # =====================
+        try:
+            # Usar un timeout más corto para buscar el mensaje de error de validación
+            wait_error = WebDriverWait(driver, 10)
+            mensaje_error = wait_error.until(
+                EC.presence_of_element_located((
+                    By.XPATH, "//*[contains(@class, 'ant-form-item-explain-error') or contains(text(), 'Introduce un nombre de ubicación')]"
+                ))
+            )
+            if mensaje_error.is_displayed():
+                exito = True
+                estado = "ÉXITOSO"
+                observaciones = f"Se validó correctamente: aparece el mensaje de error '{mensaje_error.text}' y no permite continuar."
+                print(f"✅ {observaciones}")
+            else:
+                exito = False
+                estado = "FALLIDO"
+                observaciones = "El mensaje de error de nombre de ubicación no está visible."
+                print(f"❌ {observaciones}")
+        except TimeoutException:
+            # Si no apareció el mensaje de error, la validación falló (se permitió continuar o no se bloqueó correctamente)
             exito = False
-            observaciones = "Fallido: La creación de la sede dejó celdas vacías en la columna 'Nombre de ubicación'"
             estado = "FALLIDO"
-        else:
-            exito = True
-            observaciones = "Sede creada exitosamente, todas las filas tienen Nombre de ubicación válido"
-            estado = "ÉXITOSO"
-        print(observaciones)
-    except Exception as e:
+            observaciones = "No apareció el mensaje de error esperado tras hacer click en Añadir."
+            print(f"❌ {observaciones}")
+
+        url_final = driver.current_url
+
+    except TimeoutException:
+        observaciones = "Timeout: No se pudo encontrar o hacer click en el botón 'Añadir'"
         exito = False
-        observaciones = f"Error durante la validación de la tabla: {str(e)}"
         estado = "FALLIDO"
-        print(observaciones)
+        print("❌ No se pudo encontrar el botón 'Añadir'")
+
+    except Exception as e:
+        observaciones = f"Error al intentar guardar la ubicación: {str(e)}"
+        exito = False
+        estado = "FALLIDO"
+        print(f"❌ Error al guardar la ubicación: {str(e)}")
 
 finally:
 # Registrar resultado en Google Sheets

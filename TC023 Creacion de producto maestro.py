@@ -94,24 +94,31 @@ def registrar_resultado(id_caso, estado, observaciones=""):
         print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
 
 
+import json
+
 def generar_datos_producto():
-    if hasattr(fake, 'ecommerce_name'):
-        nombre_producto = fake.ecommerce_name()
-    elif hasattr(fake, 'commerce_product_name'):
-        nombre_producto = fake.commerce_product_name()
-    elif hasattr(fake, 'product_name'):
-        nombre_producto = fake.product_name()
-    elif hasattr(fake, 'commerce_name'):
-        nombre_producto = fake.commerce_name()
-    else:
-        productos = [
-            "Samsung Galaxy S23", "Apple iPhone 15", "Xiaomi Redmi Note 13", "Motorola Edge 40",
-            "Huawei P60 Pro", "Oppo Find X7", "Realme GT Neo 6", "Honor Magic 6", "Nokia G60",
-            "HP Pavilion 15", "Dell Inspiron 14", "Lenovo ThinkPad X1", "Asus VivoBook 16",
-            "Acer Aspire 5", "Apple MacBook Air M3", "MSI Modern 14", "Huawei MateBook D16",
-            "Samsung Galaxy Book4", "Lenovo IdeaPad 3", "Asus ZenBook 14", "Dell XPS 13"
+    nombres_catalogo = []
+    ruta_json = os.path.join(os.path.dirname(__file__), "nombres_productos.json")
+    if os.path.exists(ruta_json):
+        try:
+            with open(ruta_json, "r", encoding="utf-8") as f:
+                data_cat = json.load(f)
+                for cat, prods in data_cat.items():
+                    nombres_catalogo.extend(prods)
+        except Exception as e:
+            print("⚠️ Error al leer nombres_productos.json:", e)
+
+    if not nombres_catalogo:
+        nombres_catalogo = [
+            "Samsung Galaxy S24", "iPhone 15 Pro", "Xiaomi Redmi Note 13", "Motorola Edge 40",
+            "Televisor Smart TV 55", "Laptop HP Pavilion 15", "Laptop Lenovo IdeaPad 3",
+            "Audífonos Inalámbricos Bluetooth", "Camisa Casual Manga Larga", "Zapatos Deportivos",
+            "Arroz Roa 1kg", "Aceite Gourmet 1L", "Café Sello Rojo 500g", "Leche Alquería 1L",
+            "Jabón Líquido Rey 500ml", "Detergente Multiusos 1kg", "Galletas Festival Pack",
+            "Agua Mineral 600ml", "Gaseosa Coca-Cola 1.5L", "Atún Van Camp's 160g"
         ]
-        nombre_producto = random.choice(productos)
+
+    nombre_producto = random.choice(nombres_catalogo)
 
     if hasattr(fake, 'ecommerce_description'):
         descripcion = fake.ecommerce_description()
@@ -205,13 +212,15 @@ def ejecutar_caso(config_caso):
 
         # Verificar texto "Añadir nuevo producto"
         elemento = wait.until(
-            EC.visibility_of_element_located((By.XPATH, "//h2[@class='mb-3' and text()='Añadir nuevo producto']"))
+            EC.visibility_of_element_located((By.XPATH, "//*[@id='advanced_search']/div[1]/div[1]/div/div[1]/h1"))
         )
         print("Texto encontrado:", elemento.text)
         time.sleep(2)
 
         # Selección tipo de producto
-        driver.find_element(By.XPATH, "//input[@value='Product']").click()
+        radio_producto = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@value='Product']")))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", radio_producto)
+        driver.execute_script("arguments[0].click();", radio_producto)
         print("Producto seleccionado")
         time.sleep(2)
 
@@ -316,7 +325,7 @@ def ejecutar_caso(config_caso):
         # Manejar atributos adicionales
         if activar_atributos:
             try:
-                boton_xpath = "//button[contains(@class, 'ant-btn') and contains(text(), 'Agregar nuevo atributo')]"
+                boton_xpath = "//*[@id='advanced_search']/div[2]/div/div[1]/div/div[3]/div/div/button"
                 boton = wait.until(EC.element_to_be_clickable((By.XPATH, boton_xpath)))
                 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton)
                 time.sleep(0.5)
@@ -441,31 +450,50 @@ def ejecutar_caso(config_caso):
         time.sleep(5)
         
         # BUSQUEDA FINAL
-        select_xpath = "//div[contains(@class, 'ant-select') and .//span[contains(@title, 'Buscar por')]]"
-        select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
-        ActionChains(driver).move_to_element(select_element).click().perform()
+        select_xpath = "//div[contains(@class, 'ant-select') and (span[contains(@title, 'Buscar por')] or .//span[contains(text(), 'Buscar por')])]"
+        try:
+            select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
+        except TimeoutException:
+            select_element = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@type='search']]")))
+        
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", select_element)
+        try:
+            # Intentar click sobre el selector interno de Ant Design si está presente
+            selector_inner = select_element.find_element(By.XPATH, ".//div[contains(@class, 'ant-select-selector')]")
+            selector_inner.click()
+        except Exception:
+            try:
+                ActionChains(driver).move_to_element(select_element).click().perform()
+            except Exception:
+                driver.execute_script("arguments[0].click();", select_element)
         time.sleep(1)
         
         dropdown = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]"))
+            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown') and not(contains(@class, 'ant-select-dropdown-hidden'))]")),
+            message="No se encontró el menú desplegable (ant-select-dropdown) visible"
         )
         ActionChains(driver).move_to_element(dropdown).perform()
         time.sleep(1)
         
         opciones_dropdown = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown')]//div[contains(@class,'ant-select-item-option-content')]"))
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown') and not(contains(@class, 'ant-select-dropdown-hidden'))]//div[contains(@class,'ant-select-item-option-content')]")),
+            message="No se encontraron las opciones del menú desplegable"
         )
         
         opcion_busqueda_encontrada = None
         for opcion in opciones_dropdown:
-            if opcion.text.strip() == "Buscar por Código de barras":
+            texto_opcion = opcion.text.strip().lower()
+            if "código de barras" in texto_opcion or "codigo de barras" in texto_opcion:
                 opcion_busqueda_encontrada = opcion
                 break
         
         if opcion_busqueda_encontrada:
             opcion_busqueda_encontrada.click()
             time.sleep(5)
-            campo_busqueda = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")))
+            campo_busqueda = wait.until(
+                EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")),
+                message="No se encontró el campo de búsqueda de código de barras"
+            )
             campo_busqueda.clear()
             campo_busqueda.send_keys(barcode_aleatorio)
             time.sleep(5)
@@ -487,15 +515,16 @@ def ejecutar_caso(config_caso):
                 observaciones = f"Producto no encontrado tras la búsqueda. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
                 estado = "FALLIDO"
         else:
-            print("❌ No se encontró la opción de búsqueda 'Buscar '")
+            print("❌ No se encontró la opción de búsqueda 'Buscar por Código de barras'")
             observaciones = "No se encontró la opción de búsqueda 'Buscar por Código de barras'"
             estado = "FALLIDO"
 
         registrar_resultado(id_caso, estado, observaciones)
 
     except Exception as e:
-        print(f"❌ Error durante la ejecución del caso {id_caso}: {str(e)}")
-        observaciones = f"Error durante la ejecución: {str(e)}"
+        msg = str(e).strip() or f"Excepción de tipo {type(e).__name__} (Timeout / Elemento no encontrado)"
+        print(f"❌ Error durante la ejecución del caso {id_caso}: {msg}")
+        observaciones = f"Error durante la ejecución ({type(e).__name__}): {msg}"
         estado = "FALLIDO"
         registrar_resultado(id_caso, estado, observaciones)
     finally:

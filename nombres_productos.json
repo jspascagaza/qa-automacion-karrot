@@ -1,0 +1,43 @@
+{
+  "abarrotes": [
+    "Arroz Roa 1kg", "Arroz Diana 1kg", "Aceite Gourmet 1L", "Aceite Premier 1L",
+    "Café Sello Rojo 500g", "Café Colcafé 250g", "Lentejas Don Pedro 500g",
+    "Frijol Bola Roja 500g", "Azúcar Manuelita 1kg", "Sal Refisal 1kg",
+    "Harina Haz de Oro 1kg", "Pasta Doria Espagueti 500g", "Atún Van Camp's 160g",
+    "Sardinas La Soberana 425g", "Salsa de Tomate Fruco 400g", "Mayonesa Fruco 380g"
+  ],
+  "lacteos_y_bebidas": [
+    "Leche Alquería Entera 1L", "Leche Parmalat Deslactosada 1L", "Yogurt Alpina Fresa 1L",
+    "Queso Campesino Colanta 500g", "Mantequilla Colanta 250g", "Crema de Leche Alquería 200ml",
+    "Agua Cristal 600ml", "Gaseosa Coca-Cola 1.5L", "Gaseosa Postobón Manzana 1.5L",
+    "Jugo Hit Mora 1L", "Cerveza Poker 330ml", "Cerveza Club Colombia 330ml"
+  ],
+  "limpieza_y_hogar": [
+    "Jabón Líquido Rey 500ml", "Detergente Fab Multiusos 1kg", "Detergente Ariel 1kg",
+    "Suavizante Soflan 1L", "Límpido Clorox 1L", "Lavaloza Axion Limón 450g",
+    "Papel Higiénico Familia 4 Rollos", "Toallas de Cocina Familia 2 Rollos",
+    "Limpiavidrios Windex 500ml", "Desinfectante Lysol 400ml"
+  ],
+  "cuidado_personal": [
+    "Shampoo Head & Shoulders 375ml", "Shampoo Pantene 400ml", "Jabón de Baño Palmolive 110g",
+    "Jabón Protex Avena 110g", "Crema Dental Colgate 100ml", "Enjuague Bocal Listerine 500ml",
+    "Desodorante Speed Stick 60g", "Desodorante Rexona 150ml", "Crema Corporal Nivea 400ml"
+  ],
+  "tecnologia_y_electronica": [
+    "Televisor Samsung Smart TV 55\"", "Televisor LG UHD 50\"", "Televisor Xiaomi Smart TV 43\"",
+    "Smartphone Samsung Galaxy S24", "Smartphone iPhone 15 Pro", "Smartphone Xiaomi Redmi Note 13",
+    "Smartphone Motorola Edge 40", "Laptop HP Pavilion 15", "Laptop Lenovo IdeaPad 3",
+    "Laptop Asus VivoBook 15", "Audífonos Inalámbricos Bluetooth", "Parlante Portátil JBL Flip 6",
+    "Mouse Inalámbrico Logitech", "Teclado Mecánico Redragon", "Cargador Carga Rápida 20W"
+  ],
+  "electrodomesticos": [
+    "Licuadora Oster 2 Velocidades", "Microondas Haceb 20L", "Air Fryer Haceb 4L",
+    "Cafetera Oster 12 Copas", "Plancha de Vapor Black & Decker", "Ventilador Samurai Turbo Silence",
+    "Nevecon Samsung 500L", "Lavadora Haceb 16kg"
+  ],
+  "ropa_y_calzado": [
+    "Camisa Casual Manga Larga", "Camiseta Tipo Polo Algodón", "Pantalón Jean Clásico",
+    "Chaqueta Impermeable", "Zapatos Deportivos Running", "Sandalias Playeras",
+    "Bermuda Playera Hombre", "Blusa Casual Dama", "Zapatillas Urbanas"
+  ]
+}

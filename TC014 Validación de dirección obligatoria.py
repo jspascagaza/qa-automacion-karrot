@@ -58,7 +58,7 @@ fake = Faker('es_CO')
 nombre = fake.name()
 correo = fake.email()
 telefono = fake.phone_number()
-direccion = fake.address()
+direccion = None
 usuario = fake.email()
 
 # =====================
@@ -214,7 +214,7 @@ try:
     # Ingresar dirección
     direccion_input = wait.until(EC.presence_of_element_located((By.ID, "advanced_search_address")))
     direccion_input.clear()
-    direccion_input.send_keys(direccion)
+    #direccion_input.send_keys(direccion)
     ActionChains(driver).move_by_offset(0, 0).click().perform()
     time.sleep(15)
     print("✅ Dirección ingresada")
@@ -223,7 +223,7 @@ try:
     print("🔍 Buscando campo de usuario...")
     time.sleep(15)
     # Buscar campo de usuario usando relative locator
-    tipo_usuario = driver.find_element(By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/form/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[5]/div[1]/div[2]/div[1]/div/div")
+    tipo_usuario = driver.find_element(By.XPATH, "//*[@id='advanced_search']/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[6]/div[1]/div[2]/div[1]/div/div/div/div")
     tipo_usuario.click()
     time.sleep(15)
     opciones = wait.until(EC.presence_of_all_elements_located(
@@ -247,7 +247,7 @@ try:
         boton_anadir = wait.until(
         EC.element_to_be_clickable((
             By.XPATH,
-            "//button[@type='submit' and contains(text(), 'Añadir')]"
+            "//*[@id='advanced_search']/div[1]/div/div/div/button[2]"
         ))
         )
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)

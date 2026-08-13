@@ -129,21 +129,27 @@ try:
     # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================
-    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
+    print("📍 Navegando al módulo de Ubicaciones...")
+    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]"
+    )))
     ModuloUbicaciones.click()
+    print("✅ Click en módulo Ubicaciones")
+    time.sleep(2)
+
+    # Redirección directa a la URL de lista de ubicaciones
+    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+    print("✅ Dirigido directamente a Ubicaciones por URL")
     time.sleep(5)
 
-#     segundopath = ModuloUbicaciones.find_element(By.XPATH, "/html/body/div[1]/div/section/section/aside/div/ul/li[1]/ul/li[12]/ul/li[1]/span/a")
-#     driver.get(segundopath.get_attribute("href"))
-    time.sleep(5)
-
-    listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "/html/body/div[1]/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div/div/div/div/div/div/table/tbody/tr[2]/td[7]/div/button[2]")))
+    listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[3]/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[8]/div/button[2]")))
     listado_editar.click()
     editar_caja = wait.until(
     EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Ver Cajas']"))
     )
     editar_caja.click()
-    print("✅ Click en Borrar producto")
+    print("✅ Click ver cajas")
     time.sleep(5)
     
     boton_agregar_caja = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div[2]/button")))
@@ -160,7 +166,7 @@ try:
         time.sleep(4)
 
         boton_agregar_caja = WebDriverWait(driver, 15).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[@class='ant-btn ant-btn-primary ant-btn-sm w-100' and contains(text(), 'Añadir Caja')]"))
+        EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[2]/button"))
         )
         boton_agregar_caja.click()
         time.sleep(10)

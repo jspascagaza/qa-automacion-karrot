@@ -256,7 +256,7 @@ try:
     try:
         # Buscar el botón "Añadir" por su texto y clase
         boton_anadir = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//button[@type='submit' and @class='ant-btn ant-btn-primary' and contains(text(), 'Añadir')]"))
+            EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]"))
         )
         
         # Hacer scroll hasta el botón para asegurar visibilidad
