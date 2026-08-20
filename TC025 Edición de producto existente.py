@@ -242,13 +242,32 @@ try:
 except Exception as e:
         print(f"❌ Error inesperado {str(e)}")
 
+def obtener_campo(wait_inst, driver_inst, tipo_campo, valor_var):
+    selectores = [
+        (By.ID, f"advanced_search_{valor_var}{tipo_campo}"),
+        (By.ID, f"advanced_search_undefined{tipo_campo}"),
+        (By.ID, f"advanced_search_{tipo_campo}"),
+        (By.XPATH, f"//input[contains(@id, '{tipo_campo}')]"),
+        (By.XPATH, f"//input[contains(@name, '{tipo_campo}')]")
+    ]
+    for by_type, selector in selectores:
+        try:
+            elem = WebDriverWait(driver_inst, 3).until(EC.presence_of_element_located((by_type, selector)))
+            driver_inst.execute_script("arguments[0].scrollIntoView({block: 'center'});", elem)
+            return elem
+        except Exception:
+            continue
+    return wait_inst.until(EC.presence_of_element_located((By.XPATH, f"//input[contains(@id, '{tipo_campo}')]")))
+
 def editar_producto_completo():
     try:
 
         try:
             elemento = wait.until(EC.presence_of_element_located((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//td[2]//div[last()]")))
-            valor = elemento.text
-        except Exception:
+            texto_extraido = elemento.text.strip()
+            valor = texto_extraido if texto_extraido else "undefined"
+        except Exception as e:
+            print(f"⚠️ No se pudo obtener la variante de la tabla ({e}), usando 'undefined'")
             valor = "undefined"
         print(f"📖 Valor del elemento: '{valor}'")
         time.sleep(5)
@@ -267,63 +286,9 @@ def editar_producto_completo():
         print("✅ Click en Editar producto")
         time.sleep(10)
 
-        # Selección de unidad (tipo de unidad)
-        # Esperar el input (aunque no sea clickeable)
-        #input_tipounidad = wait.until(
-        #    EC.presence_of_element_located((By.ID, "advanced_search_unitGroup"))
-        #)
-
-        #time.sleep(1)    
-        #dropdown_container = input_tipounidad.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]")
-        #wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-select') and .//input[@id='advanced_search_unitGroup']]")))
-        #ActionChains(driver).move_to_element(dropdown_container).click().perform()
-        #time.sleep(1)   
-        #opciones_unidad = wait.until(
-        #EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-        #)
-
-        #for opcion in opciones_unidad:
-        #    print(opcion.text)
-
-        #opcion_unidad_encontrada = None
-        #for opcion in opciones_unidad:
-        #    if opcion.text.strip() == "Cantidad / Unidades":  # Cambia aquí por la unidad que necesites
-        #        opcion_unidad_encontrada = opcion
-        #        break
-        #if opcion_unidad_encontrada:
-        #    opcion_unidad_encontrada.click()
-        #    print("✅ Unidad 'Cantidad / Unidades' seleccionada")
-        #else:
-        #    print("❌ No se encontró la unidad 'Cantidad / Unidades'")
-
-
-       # inputs = driver.find_elements(By.CLASS_NAME, "ant-select-selection-search-input")
-        # Selecciona de forma segura el tercer input si existe; de lo contrario usa el último disponible
-        #if not inputs:
-        #    raise Exception("No se encontraron inputs 'ant-select-selection-search-input'")
-        #index = 2 if len(inputs) > 2 else len(inputs) - 1
-        #imput_unidad = inputs[index]
-        #imput_unidad.click()    
-        #time.sleep(1)
-
-        #opciones_unidad = wait.until(
-        #    EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]//div[contains(@class, 'ant-select-item-option-content')]"))
-        #)
-
-        #for opcion in opciones_unidad:
-        #    print(opcion.text)
-        #    if opcion.text.strip() == "Unidad (u)":
-        #        opcion_unidad_encontrada = opcion
-        #        break
-        #if opcion_unidad_encontrada:
-        #    opcion_unidad_encontrada.click()
-        #    print("✅ Unidad 'Unidad' seleccionada")
-        #else:
-        #    print("❌ No se encontró la unidad 'Unidad'")    
-
-                # Generar SKU aleatorio y agregarlo al campo correspondiente
+        # Generar SKU aleatorio y agregarlo al campo correspondiente
         sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
-        campo_sku = wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}sku")))
+        campo_sku = obtener_campo(wait, driver, "sku", valor)
         valor_actual_sku = campo_sku.get_attribute("value")
         print(f"📖 Valor SKU actual del producto: '{valor_actual_sku}'")
         driver.execute_script("arguments[0].value = '';", campo_sku)
@@ -334,7 +299,7 @@ def editar_producto_completo():
         # Generar Barcode aleatorio y agregarlo al campo correspondiente
         barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
         valor_barcode = barcode_aleatorio
-        campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}barcode")))
+        campo_barcode = obtener_campo(wait, driver, "barcode", valor)
         valor_actual_barcode = campo_barcode.get_attribute("value")
         print(f"📖 Valor barcode actual del producto: '{valor_actual_barcode}'")
         driver.execute_script("arguments[0].value = '';", campo_barcode)
@@ -345,18 +310,20 @@ def editar_producto_completo():
         # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
         costo_aleatorio = precio
         valor_costo = costo_aleatorio            
-        campo_costo = wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}cost")))
+        campo_costo = obtener_campo(wait, driver, "cost", valor)
         valor_actual_cost = campo_costo.get_attribute("value")
-        print(f"📖 Valor barcode actual del producto: '{valor_actual_cost}'")
+        print(f"📖 Valor costo actual del producto: '{valor_actual_cost}'")
         driver.execute_script("arguments[0].value = '';", campo_costo)
         campo_costo.send_keys(Keys.CONTROL + "a")
-        campo_costo.send_keys(valor_costo)
+        campo_costo.send_keys(str(valor_costo))
         print(f"✅ Costo para el producto: '{costo_aleatorio}'")
         
-        return valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost,valor
+        return valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost, valor
 
     except Exception as e:
+        import traceback
         print(f"❌ Error al editar el producto: {str(e)}")
+        traceback.print_exc()
 
 resultado_edicion = editar_producto_completo()
 if resultado_edicion is None:
@@ -364,11 +331,31 @@ if resultado_edicion is None:
     registrar_resultado(id_caso, "FALLIDO", "Error interno durante la edición del producto")
     driver.quit()
     exit()
-valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost,valor = resultado_edicion
+valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost, valor = resultado_edicion
 
-boton_guardar = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]")))
+selectores_guardar = [
+    (By.XPATH, "//button[@type='submit']"),
+    (By.XPATH, "//button[contains(@class, 'ant-btn-primary') and (span[contains(text(), 'Guardar')] or contains(., 'Guardar'))]"),
+    (By.XPATH, "//button[contains(@class, 'ant-btn-primary')]"),
+    (By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]")
+]
+boton_guardar = None
+for by_t, sel in selectores_guardar:
+    try:
+        boton_guardar = WebDriverWait(driver, 3).until(EC.element_to_be_clickable((by_t, sel)))
+        if boton_guardar:
+            break
+    except Exception:
+        continue
+
+if not boton_guardar:
+    boton_guardar = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary')]")))
+
 driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_guardar)
-boton_guardar.click()
+try:
+    boton_guardar.click()
+except Exception:
+    driver.execute_script("arguments[0].click();", boton_guardar)
 print("✅ Click en Guardar")
 time.sleep(3)
 manejar_confirmacion_precios()
@@ -389,13 +376,13 @@ editar_producto.click()
 print("✅ Click en Editar producto")
 time.sleep(10)
 
-campo_sku = wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}sku")))
+campo_sku = obtener_campo(wait, driver, "sku", valor)
 valor_actualizado_sku = campo_sku.get_attribute("value")
 
-campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}barcode")))
+campo_barcode = obtener_campo(wait, driver, "barcode", valor)
 valor_actualizado_barcode = campo_barcode.get_attribute("value")
 
-campo_costo = wait.until(EC.element_to_be_clickable((By.ID, f"advanced_search_{valor}cost")))
+campo_costo = obtener_campo(wait, driver, "cost", valor)
 valor_actualizado_cost = campo_costo.get_attribute("value")
 valor_actualizado_cost_string = valor_actualizado_cost.replace('$', '').replace('.', '').replace(',', '').replace(' ', '').strip()
 valor_actualizado_cost_int = int(valor_actualizado_cost_string)
