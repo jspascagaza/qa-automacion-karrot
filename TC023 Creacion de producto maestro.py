@@ -77,21 +77,30 @@ spreadsheet = client.open_by_url(
 sheet = spreadsheet.sheet1
 
 def registrar_resultado(id_caso, estado, observaciones=""):
-    try:
-        celda = sheet.find(id_caso)
-        if not celda:
-            print(f"⚠️ No se encontró el ID {id_caso}")
+    for _ in range(5):
+        try:
+            celda = sheet.find(id_caso)
+            if not celda:
+                print(f"⚠️ No se encontró el ID {id_caso}")
+                return
+            fila = celda.row
+            fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            automatizado = "Sí"
+            sheet.update_cell(fila, 11, automatizado)   # Columna K
+            sheet.update_cell(fila, 13, fecha)          # Columna M
+            sheet.update_cell(fila, 14, estado)         # Columna N
+            sheet.update_cell(fila, 15, observaciones)  # Columna O
+            print(f"✅ Caso {id_caso} actualizado -> {estado}")
             return
-        fila = celda.row
-        fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        automatizado = "Sí"
-        sheet.update_cell(fila, 11, automatizado)   # Columna K
-        sheet.update_cell(fila, 13, fecha)          # Columna M
-        sheet.update_cell(fila, 14, estado)         # Columna N
-        sheet.update_cell(fila, 15, observaciones)  # Columna O
-        print(f"✅ Caso {id_caso} actualizado -> {estado}")
-    except Exception as e:
-        print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+        except Exception as e:
+            if "503" in str(e) or "APIError" in str(e) or "Timeout" in str(e):
+                print(f"⏳ Error de red en Google Sheets (503/Timeout). Reintentando...")
+                import time
+                time.sleep(5)
+            else:
+                print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+                return
+
 
 
 import json
@@ -217,11 +226,16 @@ def ejecutar_caso(config_caso):
         print("Texto encontrado:", elemento.text)
         time.sleep(2)
 
-        # Selección tipo de producto
-        radio_producto = wait.until(EC.presence_of_element_located((By.XPATH, "//input[@value='Product']")))
-        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", radio_producto)
-        driver.execute_script("arguments[0].click();", radio_producto)
-        print("Producto seleccionado")
+        # Seleccion tipo de producto (nuevo UI)
+        tipo_producto = os.getenv("TIPO_PRODUCTO", "Kit to stock")
+        try:
+            card = wait.until(EC.element_to_be_clickable((By.XPATH, f"//div[@role='button' and .//div[text()='{tipo_producto}']]")))
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", card)
+            time.sleep(0.5)
+            card.click()
+            print(f"✅ {tipo_producto} seleccionado")
+        except Exception as e:
+            print(f"❌ Error al seleccionar {tipo_producto}: {e}")
         time.sleep(2)
 
         # Nombre del producto
@@ -325,36 +339,44 @@ def ejecutar_caso(config_caso):
         # Manejar atributos adicionales
         if activar_atributos:
             try:
-                boton_xpath = "//*[@id='advanced_search']/div[2]/div/div[1]/div/div[3]/div/div/button"
-                boton = wait.until(EC.element_to_be_clickable((By.XPATH, boton_xpath)))
-                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton)
-                time.sleep(0.5)
-                boton.click()
+                print("⏳ Buscando botón '+ Agregar Otro Atributo' o campos de atributo...")
+                input_nombre_existente = driver.find_elements(
+                    By.XPATH, "//input[@placeholder='Nombre del atributo' or contains(@id, 'attributeName')]"
+                )
+                if not input_nombre_existente or not input_nombre_existente[0].is_displayed():
+                    boton_xpath = (
+                        "//button[(contains(., 'Agregar') or contains(., 'Añadir')) and contains(., 'Atributo')] | "
+                        "//*[contains(text(), 'Agregar Otro Atributo') or contains(text(), 'Agregar Atributo') or contains(text(), 'Agregar nuevo atributo')]"
+                    )
+                    boton = wait.until(EC.element_to_be_clickable((By.XPATH, boton_xpath)))
+                    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton)
+                    time.sleep(0.5)
+                    driver.execute_script("arguments[0].click();", boton)
+                    time.sleep(1)
+                    print("✅ Botón '+ Agregar Otro Atributo' clickeado")
                 
                 nombre_atributo = "memoria"
-                input_nombre_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_attributeName")))
+                input_nombre_atributo = wait.until(EC.presence_of_element_located((
+                    By.XPATH, "//input[@placeholder='Nombre del atributo' or contains(@id, 'attributeName')]"
+                )))
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", input_nombre_atributo)
+                input_nombre_atributo.send_keys(Keys.CONTROL + "a")
                 input_nombre_atributo.send_keys(nombre_atributo)
+                print(f"✅ Nombre de atributo ingresado: '{nombre_atributo}'")
+                time.sleep(1)
 
-                valores_atributos = []
-                valor1 = "1tb"
-                input_valor_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option1")))
-                input_valor_atributo.send_keys(valor1)
-                valores_atributos.append(valor1)
-                time.sleep(1)
+                valores_atributos = ["1tb", "2tb"]
+                input_valor_atributo = wait.until(EC.presence_of_element_located((
+                    By.XPATH, "//input[@placeholder='Agregar valor' or contains(@id, 'option') or contains(@placeholder, 'valor')]"
+                )))
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", input_valor_atributo)
+                for val in valores_atributos:
+                    input_valor_atributo.send_keys(val)
+                    time.sleep(0.5)
+                    input_valor_atributo.send_keys(Keys.ENTER)
+                    time.sleep(1)
+                    print(f"✅ Valor de atributo ingresado con ENTER: '{val}'")
                 
-                valor2 = "2tb"
-                input_valor_atributo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_option2")))
-                input_valor_atributo.send_keys(valor2)
-                valores_atributos.append(valor2)
-                time.sleep(1)
-                
-                boton_ok = wait.until(EC.element_to_be_clickable((By.XPATH, "//button[contains(@class, 'ant-btn-primary') and (.//span[text()='OK'] or .//span[text()='Aceptar'])]")))
-                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_ok)
-                time.sleep(0.5)
-                try:
-                    boton_ok.click()
-                except:
-                    driver.execute_script("arguments[0].click();", boton_ok)
                 print("✅ Atributos adicionales configurados")
                 time.sleep(2)
                 

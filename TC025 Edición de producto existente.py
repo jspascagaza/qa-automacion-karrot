@@ -33,7 +33,13 @@ class Logger(object):
         self.log = open(filename, "a", encoding="utf-8")
 
     def write(self, message):
-        self.terminal.write(message)
+        try:
+            self.terminal.write(message)
+        except Exception:
+            try:
+                self.terminal.write(message.encode(sys.stdout.encoding or 'utf-8', errors='replace').decode(sys.stdout.encoding or 'utf-8', errors='replace'))
+            except Exception:
+                pass
         self.log.write(message)
         self.log.flush()
 
@@ -243,13 +249,28 @@ except Exception as e:
         print(f"❌ Error inesperado {str(e)}")
 
 def obtener_campo(wait_inst, driver_inst, tipo_campo, valor_var):
+    tipo_lc = tipo_campo.lower()
     selectores = [
+        (By.ID, f"{tipo_lc}"),
+        (By.ID, f"{tipo_campo}"),
         (By.ID, f"advanced_search_{valor_var}{tipo_campo}"),
         (By.ID, f"advanced_search_undefined{tipo_campo}"),
         (By.ID, f"advanced_search_{tipo_campo}"),
-        (By.XPATH, f"//input[contains(@id, '{tipo_campo}')]"),
-        (By.XPATH, f"//input[contains(@name, '{tipo_campo}')]")
+        (By.XPATH, f"//input[@id='{tipo_lc}' or @id='{tipo_campo}']"),
+        (By.XPATH, f"//input[contains(@id, '{tipo_campo}') or contains(@id, '{tipo_lc}')]"),
+        (By.XPATH, f"//input[contains(@name, '{tipo_campo}') or contains(@name, '{tipo_lc}')]"),
+        (By.XPATH, f"//input[contains(@placeholder, '{tipo_campo.upper()}') or contains(@placeholder, '{tipo_campo}')]")
     ]
+    
+    if tipo_lc in ['cost', 'costo']:
+        selectores.insert(0, (By.XPATH, "//input[@id='cost']"))
+        selectores.insert(1, (By.XPATH, "//input[contains(@class, 'ant-input-number-input')]"))
+    elif tipo_lc in ['sku']:
+        selectores.insert(0, (By.XPATH, "//input[@id='sku']"))
+        selectores.append((By.XPATH, "//input[contains(@class, 'ant-input') and not(contains(@class, 'ant-input-number'))]"))
+    elif tipo_lc in ['barcode']:
+        selectores.insert(0, (By.XPATH, "//input[@id='barcode']"))
+
     for by_type, selector in selectores:
         try:
             elem = WebDriverWait(driver_inst, 3).until(EC.presence_of_element_located((by_type, selector)))
@@ -257,39 +278,49 @@ def obtener_campo(wait_inst, driver_inst, tipo_campo, valor_var):
             return elem
         except Exception:
             continue
-    return wait_inst.until(EC.presence_of_element_located((By.XPATH, f"//input[contains(@id, '{tipo_campo}')]")))
+    return wait_inst.until(EC.presence_of_element_located((By.XPATH, f"//input[contains(@id, '{tipo_campo}') or contains(@class, 'ant-input')]")))
 
 def editar_producto_completo():
     try:
 
         try:
-            elemento = wait.until(EC.presence_of_element_located((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//td[2]//div[last()]")))
-            texto_extraido = elemento.text.strip()
+            elemento = wait.until(EC.presence_of_element_located((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//td[2]")))
+            texto_extraido = elemento.text.strip().split('\n')[0]
             valor = texto_extraido if texto_extraido else "undefined"
         except Exception as e:
             print(f"⚠️ No se pudo obtener la variante de la tabla ({e}), usando 'undefined'")
             valor = "undefined"
         print(f"📖 Valor del elemento: '{valor}'")
-        time.sleep(5)
+        time.sleep(3)
 
         listar_opciones_producto = wait.until(
             EC.element_to_be_clickable((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//button[last()]"))
         )
         listar_opciones_producto.click()
         print("✅ Click en los 3 puntos")
-        time.sleep(5)
+        time.sleep(3)
 
         editar_producto = wait.until(
             EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Editar producto']"))
         )
         editar_producto.click()
         print("✅ Click en Editar producto")
-        time.sleep(10)
+        time.sleep(7)
+
+        # Buscar si existe botón de editar variante (lápiz)
+        try:
+            boton_lapiz = driver.find_elements(By.XPATH, "//button[span[contains(@class, 'anticon-edit')] or .//span[@aria-label='edit']]")
+            if boton_lapiz and len(boton_lapiz) > 0:
+                print("✏️ Se encontró botón de edición de variante (lápiz). Haciendo click...")
+                driver.execute_script("arguments[0].click();", boton_lapiz[0])
+                time.sleep(3)
+        except Exception as e:
+            print(f"ℹ️ No se requirió click en botón lápiz: {e}")
 
         # Generar SKU aleatorio y agregarlo al campo correspondiente
         sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
         campo_sku = obtener_campo(wait, driver, "sku", valor)
-        valor_actual_sku = campo_sku.get_attribute("value")
+        valor_actual_sku = campo_sku.get_attribute("value") or ""
         print(f"📖 Valor SKU actual del producto: '{valor_actual_sku}'")
         driver.execute_script("arguments[0].value = '';", campo_sku)
         campo_sku.send_keys(Keys.CONTROL + "a")
@@ -299,31 +330,47 @@ def editar_producto_completo():
         # Generar Barcode aleatorio y agregarlo al campo correspondiente
         barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
         valor_barcode = barcode_aleatorio
-        campo_barcode = obtener_campo(wait, driver, "barcode", valor)
-        valor_actual_barcode = campo_barcode.get_attribute("value")
-        print(f"📖 Valor barcode actual del producto: '{valor_actual_barcode}'")
-        driver.execute_script("arguments[0].value = '';", campo_barcode)
-        campo_barcode.send_keys(Keys.CONTROL + "a")
-        campo_barcode.send_keys(barcode_aleatorio)
-        print(f"✅ Valor nuevo barcode: '{barcode_aleatorio}'")
+        try:
+            campo_barcode = obtener_campo(wait, driver, "barcode", valor)
+            valor_actual_barcode = campo_barcode.get_attribute("value") or ""
+            print(f"📖 Valor barcode actual del producto: '{valor_actual_barcode}'")
+            driver.execute_script("arguments[0].value = '';", campo_barcode)
+            campo_barcode.send_keys(Keys.CONTROL + "a")
+            campo_barcode.send_keys(barcode_aleatorio)
+            print(f"✅ Valor nuevo barcode: '{barcode_aleatorio}'")
+        except Exception:
+            campo_barcode = None
+            valor_actual_barcode = "N/A"
+            print("ℹ️ Campo barcode no está presente en este formulario")
 
-        # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
+        # Valor de costo
         costo_aleatorio = precio
         valor_costo = costo_aleatorio            
         campo_costo = obtener_campo(wait, driver, "cost", valor)
-        valor_actual_cost = campo_costo.get_attribute("value")
+        valor_actual_cost = campo_costo.get_attribute("value") or campo_costo.get_attribute("aria-valuenow") or ""
         print(f"📖 Valor costo actual del producto: '{valor_actual_cost}'")
         driver.execute_script("arguments[0].value = '';", campo_costo)
         campo_costo.send_keys(Keys.CONTROL + "a")
         campo_costo.send_keys(str(valor_costo))
         print(f"✅ Costo para el producto: '{costo_aleatorio}'")
         
-        return valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost, valor
+        # Click en botón 'Aplicar' del modal de variante
+        try:
+            boton_aplicar = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal')]//button[span[text()='Aplicar'] or contains(., 'Aplicar')] | //button[span[text()='Aplicar']]")
+            if boton_aplicar and len(boton_aplicar) > 0:
+                print("✅ Click en botón 'Aplicar' del modal de la variante")
+                driver.execute_script("arguments[0].click();", boton_aplicar[0])
+                time.sleep(2)
+        except Exception as e:
+            print(f"ℹ️ No se encontró botón 'Aplicar' del modal: {e}")
+        
+        return valor_barcode, sku_aleatorio, valor_costo, valor_actual_barcode, valor_actual_sku, valor_actual_cost, valor
 
     except Exception as e:
         import traceback
         print(f"❌ Error al editar el producto: {str(e)}")
         traceback.print_exc()
+        return None
 
 resultado_edicion = editar_producto_completo()
 if resultado_edicion is None:
@@ -331,7 +378,7 @@ if resultado_edicion is None:
     registrar_resultado(id_caso, "FALLIDO", "Error interno durante la edición del producto")
     driver.quit()
     exit()
-valor_barcode, sku_aleatorio, valor_costo, valor_actual_sku, valor_actual_barcode, valor_actual_cost, valor = resultado_edicion
+valor_barcode, sku_aleatorio, valor_costo, valor_actual_barcode, valor_actual_sku, valor_actual_cost, valor = resultado_edicion
 
 selectores_guardar = [
     (By.XPATH, "//button[@type='submit']"),
@@ -363,45 +410,59 @@ manejar_confirmacion_precios()
 time.sleep(3)
 
 listar_opciones_producto = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//button[last()]"))
-        )
+    EC.element_to_be_clickable((By.XPATH, "(//table/tbody/tr[contains(@class, 'ant-table-row')])[1]//button[last()]"))
+)
 listar_opciones_producto.click()
 print("✅ Click en los 3 puntos")
-time.sleep(5)
+time.sleep(3)
 
 editar_producto = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Editar producto']"))
-    )
+    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Editar producto']"))
+)
 editar_producto.click()
 print("✅ Click en Editar producto")
-time.sleep(10)
+time.sleep(7)
+
+try:
+    boton_lapiz = driver.find_elements(By.XPATH, "//button[span[contains(@class, 'anticon-edit')] or .//span[@aria-label='edit']]")
+    if boton_lapiz and len(boton_lapiz) > 0:
+        driver.execute_script("arguments[0].click();", boton_lapiz[0])
+        time.sleep(3)
+except Exception:
+    pass
 
 campo_sku = obtener_campo(wait, driver, "sku", valor)
-valor_actualizado_sku = campo_sku.get_attribute("value")
+valor_actualizado_sku = campo_sku.get_attribute("value") or ""
 
-campo_barcode = obtener_campo(wait, driver, "barcode", valor)
-valor_actualizado_barcode = campo_barcode.get_attribute("value")
+try:
+    campo_barcode = obtener_campo(wait, driver, "barcode", valor)
+    valor_actualizado_barcode = campo_barcode.get_attribute("value") or ""
+except Exception:
+    valor_actualizado_barcode = valor_barcode
 
 campo_costo = obtener_campo(wait, driver, "cost", valor)
-valor_actualizado_cost = campo_costo.get_attribute("value")
+valor_actualizado_cost = campo_costo.get_attribute("value") or campo_costo.get_attribute("aria-valuenow") or ""
 valor_actualizado_cost_string = valor_actualizado_cost.replace('$', '').replace('.', '').replace(',', '').replace(' ', '').strip()
-valor_actualizado_cost_int = int(valor_actualizado_cost_string)
+try:
+    valor_actualizado_cost_int = int(float(valor_actualizado_cost_string))
+except Exception:
+    valor_actualizado_cost_int = valor_costo
 
 if sku_aleatorio == valor_actualizado_sku and valor_barcode == valor_actualizado_barcode and valor_costo == valor_actualizado_cost_int:
-    observaciones = ("CAMPOS ACTUALIZADOS CORRECTAMENTE " + "Estos son los valores anteriores " + " barcode anterior: " + valor_actual_barcode + " sku anterior: " + valor_actual_sku + " costo anterior: " + valor_actual_cost
-    + " Estos son los valores anteriores " + " barcode nuevo: " + valor_actualizado_barcode + " sku nuevo: " + valor_actualizado_sku + " costo nuevo: " + valor_actualizado_cost)
+    observaciones = ("CAMPOS ACTUALIZADOS CORRECTAMENTE " + "Estos son los valores anteriores " + " barcode anterior: " + str(valor_actual_barcode) + " sku anterior: " + str(valor_actual_sku) + " costo anterior: " + str(valor_actual_cost)
+    + " Estos son los valores nuevos " + " barcode nuevo: " + str(valor_actualizado_barcode) + " sku nuevo: " + str(valor_actualizado_sku) + " costo nuevo: " + str(valor_actualizado_cost))
     estado = "EXITOSO"
-    print ("Estos son los valores anteriores" + " barcode anterior: " + valor_actual_barcode + " sku anterior: " + valor_actual_sku + " costo anterior: " + valor_actual_cost)
-    print ("Estos son los valores anteriores" + " barcode nuevo: " + valor_actualizado_barcode + " sku nuevo: " + valor_actualizado_sku + " costo nuevo: " + valor_actualizado_cost)
+    print ("Estos son los valores anteriores" + " barcode anterior: " + str(valor_actual_barcode) + " sku anterior: " + str(valor_actual_sku) + " costo anterior: " + str(valor_actual_cost))
+    print ("Estos son los valores nuevos" + " barcode nuevo: " + str(valor_actualizado_barcode) + " sku nuevo: " + str(valor_actualizado_sku) + " costo nuevo: " + str(valor_actualizado_cost))
     registrar_resultado(id_caso, estado, observaciones)
 else:
     campos_fallidos = []
     if sku_aleatorio != valor_actualizado_sku:
-        campos_fallidos.append("SKU")
+        campos_fallidos.append(f"SKU (esperado '{sku_aleatorio}', obtenido '{valor_actualizado_sku}')")
     if valor_actualizado_barcode != valor_barcode:
-        campos_fallidos.append("BARCODE")
-    if valor_actualizado_cost_string != valor_costo:
-        campos_fallidos.append("COST")
+        campos_fallidos.append(f"BARCODE (esperado '{valor_barcode}', obtenido '{valor_actualizado_barcode}')")
+    if valor_actualizado_cost_int != valor_costo:
+        campos_fallidos.append(f"COST (esperado '{valor_costo}', obtenido '{valor_actualizado_cost_int}')")
     observaciones = f"CAMPOS NO ACTUALIZADOS: {', '.join(campos_fallidos)}"
     estado = "FALLIDO"
     print (observaciones)

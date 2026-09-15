@@ -1,3 +1,12 @@
 automatizacion-karrot-456d1a1552ca.json
 .env
 logs/
+
+# Ignorar scripts de utilerias, reparacion y correcciones
+fix*
+add*
+remove*
+restore*
+revert*
+update*
+validador*

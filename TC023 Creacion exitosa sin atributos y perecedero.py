@@ -131,10 +131,17 @@ creds = ServiceAccountCredentials.from_json_keyfile_name(
 )
 client = gspread.authorize(creds)
 
-spreadsheet = client.open_by_url(
-    "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0"
-)
-sheet = spreadsheet.sheet1
+for _ in range(5):
+    try:
+        spreadsheet = client.open_by_url(
+            "https://docs.google.com/spreadsheets/d/1MIyz4grQ_U6VgAVY6PFMbTFin3GLBd7mc2mz15kAeaw/edit#gid=0"
+        )
+        sheet = spreadsheet.sheet1
+        break
+    except Exception as e:
+        print(f"⏳ Esperando a Google Sheets API por error: {e}")
+        time.sleep(5)
+
 
 # Variable para controlar el éxito de la ejecución
 exito = False
@@ -147,27 +154,30 @@ url_final = ""
 id_caso = "TC023-004"
 
 def registrar_resultado(id_caso, estado, observaciones=""):
-    """
-    Busca un ID Caso y actualiza las columnas M, N y O:
-      M = Fecha Ejecución
-      N = Estado Ejecución
-      O = Observaciones
-    """
-    try:
-        celda = sheet.find(id_caso)
-        if not celda:
-            print(f"⚠️ No se encontró el ID {id_caso}")
+    for _ in range(5):
+        try:
+            celda = sheet.find(id_caso)
+            if not celda:
+                print(f"⚠️ No se encontró el ID {id_caso}")
+                return
+            fila = celda.row
+            fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+            automatizado = "Sí"
+            sheet.update_cell(fila, 11, automatizado)   # Columna K
+            sheet.update_cell(fila, 13, fecha)          # Columna M
+            sheet.update_cell(fila, 14, estado)         # Columna N
+            sheet.update_cell(fila, 15, observaciones)  # Columna O
+            print(f"✅ Caso {id_caso} actualizado -> {estado}")
             return
-        fila = celda.row
-        fecha = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-        automatizado = "Sí"
-        sheet.update_cell(fila, 11, automatizado)   # Columna K
-        sheet.update_cell(fila, 13, fecha)          # Columna M
-        sheet.update_cell(fila, 14, estado)         # Columna N
-        sheet.update_cell(fila, 15, observaciones)  # Columna O
-        print(f"✅ Caso {id_caso} actualizado -> {estado}")
-    except Exception as e:
-        print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+        except Exception as e:
+            if "503" in str(e) or "APIError" in str(e) or "Timeout" in str(e):
+                print(f"⏳ Error de red en Google Sheets (503/Timeout). Reintentando...")
+                import time
+                time.sleep(5)
+            else:
+                print(f"❌ Error al actualizar el caso {id_caso}: {str(e)}")
+                return
+
 
 # =====================
 # INICIO DE AUTOMATIZACIÓN
@@ -221,18 +231,16 @@ try:
     print("Texto encontrado:", elemento.text)
     time.sleep(2)
 
-    # Selección tipo de producto
-    respuesta = "si"
-    while respuesta not in ['si', 's', 'no', 'n']:
-        print("Respuesta no válida. Por favor responde 'si' o 'no'")
-        respuesta = "si"
-
-    if respuesta in ['si', 's']:
-        driver.find_element(By.XPATH, "//input[@value='Product']").click()
-        print("Producto seleccionado")
-    else:
-        driver.find_element(By.XPATH, "//input[@value='Service']").click()
-        print("Servicio seleccionado")
+    # Selección tipo de producto (nuevo UI)
+    tipo_producto = os.getenv("TIPO_PRODUCTO", "Kit to stock")  # Opciones: 'Producto normal', 'Kit to order', 'Kit to stock'
+    try:
+        card = wait.until(EC.element_to_be_clickable((By.XPATH, f"//div[@role='button' and .//div[text()='{tipo_producto}']]")))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", card)
+        time.sleep(0.5)
+        card.click()
+        print(f"✅ {tipo_producto} seleccionado")
+    except Exception as e:
+        print(f"❌ Error al seleccionar {tipo_producto}: {e}")
     time.sleep(2)
 
     # Nombre del producto
@@ -363,45 +371,106 @@ try:
             print(f"❌ Error al configurar el switch: {e}")
             return False
     configurar_producto_perecedero(driver, es_perecedero=True)
-    time.sleep(2)
-
+    time.sleep(2)    
     def variantes_referencias_producto(driver, timeout=10, agregar_atributos=True):
-        """
-        Placeholder para la función variantes_referencias_producto
-        """
         if not agregar_atributos:
-            print("⏭️ se agregarán atributos - función omitida")
+            print("⏭️  No se agregarán atributos - función omitida")
             return None, None
-        # Generar SKU aleatorio y agregarlo al campo correspondiente
+            
+        print("⏳ Buscando botón de edición de variante (lápiz)...")
+        try:
+            xpath_lapiz_tabla = "//div[contains(@class, 'ant-table') or self::table]//button[span[contains(@class, 'anticon-edit')] or .//span[@aria-label='edit']]"
+            todos_lapices = driver.find_elements(By.XPATH, xpath_lapiz_tabla)
+            if not todos_lapices:
+                todos_lapices = driver.find_elements(By.XPATH, "//button[span[contains(@class, 'anticon-edit')] or .//span[@aria-label='edit']]")
+            
+            botones_lapiz = []
+            for lapiz in todos_lapices:
+                try:
+                    texto_padre = lapiz.find_element(By.XPATH, "./..").text
+                    if "Unidad" not in texto_padre:
+                        botones_lapiz.append(lapiz)
+                except Exception:
+                    botones_lapiz.append(lapiz)
+                    
+            if botones_lapiz and len(botones_lapiz) > 0:
+                print("✅ Se encontró botón de edición de variante. Haciendo click...")
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", botones_lapiz[0])
+                time.sleep(1)
+                driver.execute_script("arguments[0].click();", botones_lapiz[0])
+                time.sleep(3)
+        except Exception as e:
+            print(f"❌ Error al intentar abrir modal de variante: {e}")
+            return None, None
+
+        def obtener_campo(wait_obj, drv, id_campo):
+            try:
+                return wait_obj.until(EC.presence_of_element_located((By.ID, id_campo)))
+            except Exception:
+                try:
+                    return drv.find_element(By.ID, f"advanced_search_undefined{id_campo}")
+                except Exception:
+                    inputs = drv.find_elements(By.XPATH, f"//input[contains(@id, '{id_campo}')]")
+                    for input_elem in inputs:
+                        if input_elem.is_displayed():
+                            return input_elem
+                    raise Exception(f"No se pudo localizar el campo {id_campo}")
+
         sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
-        campo_sku = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_undefinedsku")))
-        campo_sku.clear()
-        campo_sku.send_keys(sku_aleatorio)
-        print(f"✅ SKU para variantes_referencias_producto: '{sku_aleatorio}'")
-        
-        # Generar Barcode aleatorio y agregarlo al campo correspondiente
+        try:
+            campo_sku = obtener_campo(wait, driver, "sku")
+            driver.execute_script("arguments[0].value = '';", campo_sku)
+            campo_sku.send_keys(Keys.CONTROL + "a")
+            campo_sku.send_keys(sku_aleatorio)
+            print(f"✅ Valor SKU nuevo: '{sku_aleatorio}'")
+        except Exception as e:
+            print(f"❌ Error configurando SKU: {e}")
+            
         barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
-        campo_barcode = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_undefinedbarcode")))
-        campo_barcode.clear()
-        campo_barcode.send_keys(barcode_aleatorio)
-        print(f"✅ Barcode para variantes_referencias_producto: '{barcode_aleatorio}'")
+        try:
+            campo_barcode = obtener_campo(wait, driver, "barcode")
+            driver.execute_script("arguments[0].value = '';", campo_barcode)
+            campo_barcode.send_keys(Keys.CONTROL + "a")
+            campo_barcode.send_keys(barcode_aleatorio)
+            print(f"✅ Valor nuevo barcode: '{barcode_aleatorio}'")
+        except Exception as e:
+            print(f"⚠️ Campo barcode falló (puede no estar presente): {e}")
 
-        # Solicitar Valor de costo al usuario y agregarlo al campo correspondiente
         valor_costo = precio            
-        campo_costo = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_undefinedcost")))
-        campo_costo.clear()
-        campo_costo.send_keys(valor_costo)
-        print(f"✅ Costo para el producto: '{valor_costo}'")
+        try:
+            campo_costo = obtener_campo(wait, driver, "cost")
+            driver.execute_script("arguments[0].value = '';", campo_costo)
+            campo_costo.send_keys(Keys.CONTROL + "a")
+            campo_costo.send_keys(str(valor_costo))
+            print(f"✅ Costo para el producto: '{valor_costo}'")
+        except Exception as e:
+            print(f"❌ Error configurando costo: {e}")
 
-        # Solicitar Valor de precio al usuario y agregarlo al campo correspondiente
-        valor_precio = precio
-        campo_precio = wait.until(EC.element_to_be_clickable((By.ID, "advanced_search_undefinedprice")))
-        campo_precio.clear()
-        campo_precio.send_keys(valor_precio)
-        print(f"✅ Precio para el producto: '{valor_precio}'")
+        # Intentar precio si existe en el modal
+        try:
+            campo_precio = driver.find_elements(By.ID, "price")
+            if campo_precio and campo_precio[0].is_displayed():
+                driver.execute_script("arguments[0].value = '';", campo_precio[0])
+                campo_precio[0].send_keys(Keys.CONTROL + "a")
+                campo_precio[0].send_keys(str(precio))
+                print(f"✅ Precio para el producto: '{precio}'")
+        except:
+            pass
+
+        try:
+            boton_aplicar = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal')]//button[span[text()='Aplicar'] or contains(., 'Aplicar')] | //button[span[text()='Aplicar']]")
+            if boton_aplicar and len(boton_aplicar) > 0:
+                print("✅ Click en botón 'Aplicar' del modal de la variante")
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_aplicar[-1])
+                time.sleep(1)
+                driver.execute_script("arguments[0].click();", boton_aplicar[-1])
+                time.sleep(2)
+        except Exception as e:
+            print(f"⚠️ No se encontró botón 'Aplicar' del modal: {e}")
 
         return barcode_aleatorio, sku_aleatorio
-    barcode_aleatorio, sku_aleatorio = variantes_referencias_producto(driver, timeout=10, agregar_atributos=noactivar_atributos)
+
+    barcode_aleatorio, sku_aleatorio = variantes_referencias_producto(driver, timeout=10, agregar_atributos=activar_atributos)
 
     boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2] | //button[@type='submit' and contains(@class, 'ant-btn-primary')]")))
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
