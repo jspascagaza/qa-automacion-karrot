@@ -85,6 +85,8 @@ else:
     ]
     nombre_producto = random.choice(productos)
 
+nombre_producto = f"Kit {nombre_producto}"
+
 # Descripción: intentar métodos del provider o usar faker como fallback
 if hasattr(fake, 'ecommerce_description'):
     descripcion = fake.ecommerce_description()
@@ -384,42 +386,6 @@ try:
         except Exception as e:
             print(f"❌ Error al configurar campos de atributo: {e}")
 
-        # 4. Abrir edición de variante en la tabla haciendo click en el lápiz
-        try:
-            print("⏳ Buscando icono de edición de variante (lápiz) en la tabla...")
-            xpath_lapiz_tabla = (
-                "//*[@id='advanced_search']/div[2]/div/div[3]/div[3]/div/div[2]/div[2]/div[2]/div[9]/button | "
-                "//*[@id='advanced_search']//div[contains(@class, 'ant-table') or contains(@class, 'table')]//button | "
-                "//div[contains(@class, 'ant-table') or self::table]//tr//*[contains(@class, 'anticon-edit') or @aria-label='edit'] | "
-                "//table//tr//*[contains(@class, 'anticon-edit') or @aria-label='edit']"
-            )
-            lapices = driver.find_elements(By.XPATH, xpath_lapiz_tabla)
-            
-            lapiz_target = None
-            if lapices:
-                for lapiz in lapices:
-                    try:
-                        if lapiz.is_displayed():
-                            texto_padre = lapiz.find_element(By.XPATH, "./..").text
-                            if "Unidad" not in texto_padre:
-                                lapiz_target = lapiz
-                                break
-                    except Exception:
-                        if lapiz.is_displayed():
-                            lapiz_target = lapiz
-                            break
-
-            if lapiz_target:
-                print("✅ Se encontró botón/icono de lápiz de variante en la tabla. Haciendo click...")
-                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", lapiz_target)
-                time.sleep(1)
-                driver.execute_script("arguments[0].click();", lapiz_target)
-                time.sleep(3)
-            else:
-                print("⚠️ No se localizó el lápiz de variante en la tabla.")
-        except Exception as e:
-            print(f"⚠️ Nota al buscar lápiz de variante en tabla: {e}")
-
         def obtener_campo(wait_obj, drv, id_campo):
             # Si hay un modal abierto (como 'Editar variante'), buscar primero dentro del modal
             modales = drv.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal-content')]")
@@ -444,173 +410,209 @@ try:
                             return input_elem
                     raise Exception(f"No se pudo localizar el campo {id_campo}")
 
-        # 1. Agregar receta del kit (productos del kit) PRIMERO para evitar que al agregarlos se borren SKU/Barcode/Costo/Precio
-        try:
-            print("⏳ Buscando botón 'Agregar receta del kit' / 'Añadir Materia Prima'...")
-            xpath_btn_receta = (
-                "//div[contains(@class, 'ant-modal')]//button[contains(., 'Receta') or contains(., 'receta') or contains(., 'Materia Prima')]"
-                " | //button[.//span[contains(text(), 'Agregar receta del kit') or contains(text(), 'Materia Prima')]]"
-            )
-            btn_receta = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_btn_receta)))
-            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", btn_receta)
-            time.sleep(1)
-            driver.execute_script("arguments[0].click();", btn_receta)
-            print("✅ Modal 'Receta' / 'Materia Prima' abierto")
-            time.sleep(2)
-            
-            producto_receta = os.getenv("PRODUCTO_RECETA", "Monitor 4K 27")
-            
-            # Encontrar el modal 'Receta' (modal superior activo)
-            modales = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal-content') and .//div[contains(., 'Receta')]]")
-            modal_receta = modales[-1] if modales else driver.find_element(By.XPATH, "//div[contains(@class, 'ant-modal-content')]")
-            
-            # Buscar el campo de la primera fila (Productos terminados), excluyendo el campo de materia prima
-            xpath_inputs_receta = (
-                ".//input[not(contains(@placeholder, 'materia prima')) and not(contains(@placeholder, 'Buscar materia prima')) and not(@type='hidden')]"
-            )
-            inputs_receta = modal_receta.find_elements(By.XPATH, xpath_inputs_receta)
-            
-            input_target = None
-            for inp in inputs_receta:
-                if inp.is_displayed():
-                    ph = (inp.get_attribute("placeholder") or "").lower()
-                    if "materia prima" not in ph:
-                        input_target = inp
-                        break
-            
-            if not input_target:
-                try:
-                    input_target = driver.find_element(By.XPATH, "//*[@id='rc_select_9']")
-                except Exception:
-                    all_inputs = modal_receta.find_elements(By.XPATH, ".//input[not(@type='hidden')]")
-                    for inp in all_inputs:
-                        if inp.is_displayed():
+        # 4. Detectar cuántas variantes se generaron en la tabla y procesar cada una
+        xpath_lapices_tabla = (
+            "//*[@id='advanced_search']/div[2]/div/div[3]/div[3]/div/div[2]/div[2]/div[position()>=2]/div[9]/button | "
+            "//*[@id='advanced_search']/div[2]/div/div[3]/div[3]/div/div[2]/div[2]/div/div[9]/button | "
+            "//*[@id='advanced_search']//div[contains(@class, 'ant-table') or contains(@class, 'table')]//button | "
+            "//div[contains(@class, 'ant-table') or self::table]//tr//*[contains(@class, 'anticon-edit') or @aria-label='edit']/ancestor::button"
+        )
+
+        lapices_existentes = driver.find_elements(By.XPATH, xpath_lapices_tabla)
+        lapices_visibles = [l for l in lapices_existentes if l.is_displayed()]
+        num_variantes = len(lapices_visibles) if lapices_visibles else 1
+        print(f"📋 Se detectaron {num_variantes} variante(s) en la tabla para configurar.")
+
+        ultimo_barcode = None
+        ultimo_sku = None
+
+        for index_variante in range(num_variantes):
+            print(f"\n⚙️ Configurando variante #{index_variante + 1} de {num_variantes}...")
+
+            # Abrir edición de la variante haciendo clic en su lápiz
+            try:
+                lapices = driver.find_elements(By.XPATH, xpath_lapices_tabla)
+                lapices_visibles = [l for l in lapices if l.is_displayed()]
+                
+                if index_variante < len(lapices_visibles):
+                    lapiz_target = lapices_visibles[index_variante]
+                elif lapices_visibles:
+                    lapiz_target = lapices_visibles[0]
+                else:
+                    lapiz_target = None
+
+                if lapiz_target:
+                    print(f"✅ Click en lápiz de variante #{index_variante + 1}")
+                    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", lapiz_target)
+                    time.sleep(1)
+                    driver.execute_script("arguments[0].click();", lapiz_target)
+                    time.sleep(3)
+                else:
+                    print(f"⚠️ No se localizó el lápiz para la variante #{index_variante + 1}")
+            except Exception as e:
+                print(f"⚠️ Error al abrir modal del lápiz en variante #{index_variante + 1}: {e}")
+
+            # 4.1. Agregar receta del kit si aplica
+            try:
+                print("⏳ Buscando botón 'Agregar receta del kit' / 'Añadir Materia Prima'...")
+                xpath_btn_receta = (
+                    "//div[contains(@class, 'ant-modal')]//button[contains(., 'Receta') or contains(., 'receta') or contains(., 'Materia Prima')]"
+                    " | //button[.//span[contains(text(), 'Agregar receta del kit') or contains(text(), 'Materia Prima')]]"
+                )
+                btn_receta = wait.until(EC.element_to_be_clickable((By.XPATH, xpath_btn_receta)))
+                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", btn_receta)
+                time.sleep(1)
+                driver.execute_script("arguments[0].click();", btn_receta)
+                print("✅ Modal 'Receta' / 'Materia Prima' abierto")
+                time.sleep(2)
+                
+                producto_receta = os.getenv("PRODUCTO_RECETA", "Monitor 4K 27")
+                
+                modales = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal-content') and .//div[contains(., 'Receta')]]")
+                modal_receta = modales[-1] if modales else driver.find_element(By.XPATH, "//div[contains(@class, 'ant-modal-content')]")
+                
+                xpath_inputs_receta = (
+                    ".//input[not(contains(@placeholder, 'materia prima')) and not(contains(@placeholder, 'Buscar materia prima')) and not(@type='hidden')]"
+                )
+                inputs_receta = modal_receta.find_elements(By.XPATH, xpath_inputs_receta)
+                
+                input_target = None
+                for inp in inputs_receta:
+                    if inp.is_displayed():
+                        ph = (inp.get_attribute("placeholder") or "").lower()
+                        if "materia prima" not in ph:
                             input_target = inp
                             break
-
-            if input_target:
-                print(f"✅ Se encontró campo de producto terminado (Fila 1) en el modal Receta")
-                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", input_target)
-                time.sleep(1)
                 
-                driver.execute_script("arguments[0].focus(); arguments[0].click();", input_target)
-                time.sleep(1)
-                
-                # Ingresar el texto con ActionChains y fallback
-                try:
-                    actions = ActionChains(driver)
-                    actions.move_to_element(input_target).click().key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).send_keys(producto_receta).perform()
-                except Exception:
-                    input_target.send_keys(Keys.CONTROL + "a")
-                    input_target.send_keys(Keys.BACKSPACE)
-                    input_target.send_keys(producto_receta)
-                    
-                time.sleep(2)
-                valor_actual = input_target.get_attribute("value")
-                if not valor_actual:
-                    input_target.send_keys(producto_receta)
-                    time.sleep(2)
-
-                print(f"✅ Producto '{producto_receta}' escrito en el campo de la Receta")
-
-                # Seleccionar la opción coincidente del dropdown desplegable
-                try:
-                    dropdown_opciones = driver.find_elements(
-                        By.XPATH, "//div[contains(@class, 'ant-select-dropdown') and not(contains(@style, 'display: none'))]//div[contains(@class, 'ant-select-item')]"
-                    )
-                    if dropdown_opciones:
-                        target_opc = None
-                        for opc in dropdown_opciones:
-                            if opc.is_displayed():
-                                target_opc = opc
+                if not input_target:
+                    try:
+                        input_target = driver.find_element(By.XPATH, "//*[@id='rc_select_9']")
+                    except Exception:
+                        all_inputs = modal_receta.find_elements(By.XPATH, ".//input[not(@type='hidden')]")
+                        for inp in all_inputs:
+                            if inp.is_displayed():
+                                input_target = inp
                                 break
-                        if target_opc:
-                            print(f"✅ Seleccionando opción del listado de la receta...")
-                            driver.execute_script("arguments[0].click();", target_opc)
+
+                if input_target:
+                    print(f"✅ Se encontró campo de producto terminado en el modal Receta")
+                    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", input_target)
+                    time.sleep(1)
+                    driver.execute_script("arguments[0].focus(); arguments[0].click();", input_target)
+                    time.sleep(1)
+                    
+                    try:
+                        actions = ActionChains(driver)
+                        actions.move_to_element(input_target).click().key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).send_keys(producto_receta).perform()
+                    except Exception:
+                        input_target.send_keys(Keys.CONTROL + "a")
+                        input_target.send_keys(Keys.BACKSPACE)
+                        input_target.send_keys(producto_receta)
+                        
+                    time.sleep(2)
+                    valor_actual = input_target.get_attribute("value")
+                    if not valor_actual:
+                        input_target.send_keys(producto_receta)
+                        time.sleep(2)
+
+                    print(f"✅ Producto '{producto_receta}' escrito en el campo de la Receta")
+
+                    try:
+                        dropdown_opciones = driver.find_elements(
+                            By.XPATH, "//div[contains(@class, 'ant-select-dropdown') and not(contains(@style, 'display: none'))]//div[contains(@class, 'ant-select-item')]"
+                        )
+                        if dropdown_opciones:
+                            target_opc = None
+                            for opc in dropdown_opciones:
+                                if opc.is_displayed():
+                                    target_opc = opc
+                                    break
+                            if target_opc:
+                                print("✅ Seleccionando opción del listado de la receta...")
+                                driver.execute_script("arguments[0].click();", target_opc)
+                            else:
+                                input_target.send_keys(Keys.ENTER)
                         else:
                             input_target.send_keys(Keys.ENTER)
-                    else:
+                    except Exception:
                         input_target.send_keys(Keys.ENTER)
-                except Exception:
-                    input_target.send_keys(Keys.ENTER)
-                    
-                time.sleep(2)
+                        
+                    time.sleep(2)
 
-            # Hacer clic en 'Aplicar' del modal Receta
-            botones_aplicar = modal_receta.find_elements(
-                By.XPATH, ".//button[span[text()='Aplicar'] or contains(., 'Aplicar')]"
-            )
-            if botones_aplicar:
-                print("✅ Aplicando cambios en el modal Receta...")
-                driver.execute_script("arguments[0].click();", botones_aplicar[-1])
-                time.sleep(2)
+                botones_aplicar = modal_receta.find_elements(
+                    By.XPATH, ".//button[span[text()='Aplicar'] or contains(., 'Aplicar')]"
+                )
+                if botones_aplicar:
+                    print("✅ Aplicando cambios en el modal Receta...")
+                    driver.execute_script("arguments[0].click();", botones_aplicar[-1])
+                    time.sleep(2)
 
-        except Exception as e:
-            print(f"⚠️ Nota sobre receta del kit: {e}")
-            import traceback
-            traceback.print_exc()
-        time.sleep(2)
+            except Exception as e:
+                print(f"⚠️ Nota sobre receta del kit en variante #{index_variante + 1}: {e}")
+            time.sleep(2)
 
-        # 2. Ingresar SKU, Barcode, Costo y Precio (DESPUÉS de agregar la receta del kit)
-        sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
-        try:
-            campo_sku = obtener_campo(wait, driver, "sku")
-            driver.execute_script("arguments[0].value = '';", campo_sku)
-            campo_sku.send_keys(Keys.CONTROL + "a")
-            campo_sku.send_keys(sku_aleatorio)
-            print(f"✅ Valor SKU nuevo: '{sku_aleatorio}'")
-        except Exception as e:
-            print(f"❌ Error configurando SKU: {e}")
-            
-        barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
-        try:
-            campo_barcode = obtener_campo(wait, driver, "barcode")
-            driver.execute_script("arguments[0].value = '';", campo_barcode)
-            campo_barcode.send_keys(Keys.CONTROL + "a")
-            campo_barcode.send_keys(barcode_aleatorio)
-            print(f"✅ Valor nuevo barcode: '{barcode_aleatorio}'")
-        except Exception as e:
-            print(f"⚠️ Campo barcode falló (puede no estar presente): {e}")
+            # 4.2. Ingresar SKU, Barcode, Costo y Precio para la variante actual
+            sku_aleatorio = f"SKU-{''.join(random.choices(string.ascii_uppercase + string.digits, k=8))}"
+            try:
+                campo_sku = obtener_campo(wait, driver, "sku")
+                driver.execute_script("arguments[0].value = '';", campo_sku)
+                campo_sku.send_keys(Keys.CONTROL + "a")
+                campo_sku.send_keys(sku_aleatorio)
+                print(f"✅ Valor SKU nuevo (#{index_variante + 1}): '{sku_aleatorio}'")
+            except Exception as e:
+                print(f"❌ Error configurando SKU en variante #{index_variante + 1}: {e}")
+                
+            barcode_aleatorio = ''.join([str(random.randint(0, 9)) for _ in range(12)])
+            try:
+                campo_barcode = obtener_campo(wait, driver, "barcode")
+                driver.execute_script("arguments[0].value = '';", campo_barcode)
+                campo_barcode.send_keys(Keys.CONTROL + "a")
+                campo_barcode.send_keys(barcode_aleatorio)
+                print(f"✅ Valor nuevo barcode (#{index_variante + 1}): '{barcode_aleatorio}'")
+            except Exception as e:
+                print(f"⚠️ Campo barcode falló en variante #{index_variante + 1}: {e}")
 
-        valor_costo = precio            
-        try:
-            campo_costo = obtener_campo(wait, driver, "cost")
-            driver.execute_script("arguments[0].value = '';", campo_costo)
-            campo_costo.send_keys(Keys.CONTROL + "a")
-            campo_costo.send_keys(str(valor_costo))
-            print(f"✅ Costo para el producto: '{valor_costo}'")
-        except Exception as e:
-            print(f"❌ Error configurando costo: {e}")
+            valor_costo = precio            
+            try:
+                campo_costo = obtener_campo(wait, driver, "cost")
+                driver.execute_script("arguments[0].value = '';", campo_costo)
+                campo_costo.send_keys(Keys.CONTROL + "a")
+                campo_costo.send_keys(str(valor_costo))
+                print(f"✅ Costo para la variante (#{index_variante + 1}): '{valor_costo}'")
+            except Exception as e:
+                print(f"❌ Error configurando costo en variante #{index_variante + 1}: {e}")
 
-        # Intentar precio si existe en el modal
-        try:
-            campo_precio = driver.find_elements(By.ID, "price")
-            if campo_precio and campo_precio[0].is_displayed():
-                driver.execute_script("arguments[0].value = '';", campo_precio[0])
-                campo_precio[0].send_keys(Keys.CONTROL + "a")
-                campo_precio[0].send_keys(str(precio))
-                print(f"✅ Precio para el producto: '{precio}'")
-        except:
-            pass
+            try:
+                campo_precio = driver.find_elements(By.ID, "price")
+                if campo_precio and campo_precio[0].is_displayed():
+                    driver.execute_script("arguments[0].value = '';", campo_precio[0])
+                    campo_precio[0].send_keys(Keys.CONTROL + "a")
+                    campo_precio[0].send_keys(str(precio))
+                    print(f"✅ Precio para la variante (#{index_variante + 1}): '{precio}'")
+            except:
+                pass
 
+            # 4.3. Hacer clic en "Aplicar" del modal de edición de variante
+            try:
+                boton_aplicar = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal')]//button[span[text()='Aplicar'] or contains(., 'Aplicar')] | //button[span[text()='Aplicar']]")
+                if boton_aplicar and len(boton_aplicar) > 0:
+                    print(f"✅ Click en botón 'Aplicar' del modal de la variante #{index_variante + 1}")
+                    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_aplicar[-1])
+                    time.sleep(1)
+                    driver.execute_script("arguments[0].click();", boton_aplicar[-1])
+                    time.sleep(2)
+            except Exception as e:
+                print(f"⚠️ No se encontró botón 'Aplicar' del modal en variante #{index_variante + 1}: {e}")
 
+            ultimo_barcode = barcode_aleatorio
+            ultimo_sku = sku_aleatorio
 
-        try:
-            boton_aplicar = driver.find_elements(By.XPATH, "//div[contains(@class, 'ant-modal')]//button[span[text()='Aplicar'] or contains(., 'Aplicar')] | //button[span[text()='Aplicar']]")
-            if boton_aplicar and len(boton_aplicar) > 0:
-                print("✅ Click en botón 'Aplicar' del modal de la variante")
-                driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_aplicar[-1])
-                time.sleep(1)
-                driver.execute_script("arguments[0].click();", boton_aplicar[-1])
-                time.sleep(2)
-        except Exception as e:
-            print(f"⚠️ No se encontró botón 'Aplicar' del modal: {e}")
-
-        return barcode_aleatorio, sku_aleatorio
+        return ultimo_barcode, ultimo_sku
 
     
     barcode_aleatorio, sku_aleatorio = variantes_referencias_producto(driver, timeout=10, agregar_atributos=activar_atributos)
 
+    time.sleep(2)
     boton_anadir = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2] | //button[@type='submit' and contains(@class, 'ant-btn-primary')]")))
     driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_anadir)
     boton_anadir.click()
@@ -619,63 +621,131 @@ try:
     driver.refresh()
     time.sleep(5)
     try:
-        # abrir el select y esperar a que el dropdown esté visible sin que se cierre
-        select_xpath = "//div[contains(@class, 'ant-select') and .//span[contains(@title, 'Buscar por')]]"
-        select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
-        print("✅ Select encontrado")
-        # usar ActionChains para abrir y mantener foco
-        ActionChains(driver).move_to_element(select_element).click().perform()
+        # Abrir el select y esperar a que el dropdown esté visible
+        select_xpath = (
+            "//div[contains(@class, 'ant-select') and (span[contains(@title, 'Buscar por')] or .//span[contains(text(), 'Buscar por')])]"
+            " | //div[contains(@class, 'ant-select') and (span[contains(@title, 'Buscar')] or .//span[contains(text(), 'Buscar')])]"
+            " | //div[contains(@class, 'ant-select-single')]"
+        )
+        
+        select_candidates = driver.find_elements(By.XPATH, select_xpath)
+        select_element = None
+        for cand in select_candidates:
+            if cand.is_displayed():
+                select_element = cand
+                break
+
+        if not select_element:
+            select_element = wait.until(EC.element_to_be_clickable((By.XPATH, select_xpath)))
+
+        print("✅ Select de búsqueda encontrado")
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", select_element)
         time.sleep(1)
-        print("✅ Select abierto")
-        # esperar a que el dropdown real de Ant Design sea visible
+        
+        try:
+            ActionChains(driver).move_to_element(select_element).click().perform()
+        except Exception:
+            driver.execute_script("arguments[0].click();", select_element)
+            
+        time.sleep(1)
+        print("✅ Select de búsqueda abierto")
+        
         dropdown = WebDriverWait(driver, 10).until(
-            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown')]"))
+            EC.visibility_of_element_located((By.XPATH, "//div[contains(@class, 'ant-select-dropdown') and not(contains(@style, 'display: none'))]"))
         )
-        print("✅ Dropdown visible")
-        # mover el cursor dentro del dropdown para evitar que el foco se pierda y se cierre
-        ActionChains(driver).move_to_element(dropdown).perform()
+        print("✅ Dropdown de búsqueda visible")
+        
+        try:
+            ActionChains(driver).move_to_element(dropdown).perform()
+        except Exception:
+            pass
         time.sleep(1)
-        print("✅ Dropdown movido")
-        # ahora buscar las opciones dentro del dropdown (no vuelvas a clickear el select)
+        
         opciones_dropdown = wait.until(
-            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown')]//div[contains(@class,'ant-select-item-option-content')]"))
+            EC.presence_of_all_elements_located((By.XPATH, "//div[contains(@class,'ant-select-dropdown') and not(contains(@style, 'display: none'))]//div[contains(@class,'ant-select-item-option-content')]"))
         )
         time.sleep(1)
-        print("Opciones de busqueda encontradas:")
+        print("Opciones de búsqueda encontradas:")
         for opcion in opciones_dropdown:
             print(opcion.text)
+        
         opcion_busqueda_encontrada = None
         for opcion in opciones_dropdown:
-            if opcion.text.strip() == "Buscar por Código de barras":  # Cambia aquí por la busqueda que necesites
+            if "Código de barras" in opcion.text or "codigo de barras" in opcion.text.lower() or "Buscar por Código" in opcion.text:
                 opcion_busqueda_encontrada = opcion
                 break
+
         if opcion_busqueda_encontrada:
-                opcion_busqueda_encontrada.click()
-                print("✅ Opción de búsqueda 'Buscar por codigo de barras ' seleccionada")
-                time.sleep(5)
-                campo_busqueda = wait.until(EC.element_to_be_clickable((By.XPATH, "//input[@role='combobox' and @type='search' and contains(@class, 'ant-input')]")))
-                campo_busqueda.clear()
-                campo_busqueda.send_keys(barcode_aleatorio)
-                time.sleep(10)  # Usar el barcode generado
-                campo_busqueda.send_keys(Keys.ARROW_DOWN)
-                time.sleep(2)
-                campo_busqueda.send_keys(Keys.ENTER)
-                print(f"✅ Búsqueda realizada con : {barcode_aleatorio}")
-                time.sleep(5)
-                elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}')]")
-                print("✅ campo encontrado enviado en campo de búsqueda")
-                time.sleep(5)
+            driver.execute_script("arguments[0].click();", opcion_busqueda_encontrada)
+            print("✅ Opción de búsqueda 'Buscar por Código de barras' seleccionada")
+            time.sleep(3)
+            
+            # Buscar el campo de entrada de texto (excluyendo inputs internos de ant-select)
+            xpath_inputs_posibles = [
+                "//div[contains(@class, 'ant-input-affix-wrapper')]//input",
+                "//input[contains(@class, 'ant-input') and not(contains(@class, 'ant-select')) and not(@type='hidden')]",
+                "//input[contains(@placeholder, 'BUSCAR') or contains(@placeholder, 'Buscar') or contains(@placeholder, 'buscar')]",
+                "//input[not(@type='hidden') and not(contains(@class, 'ant-select-selection-search-input'))]"
+            ]
+            
+            campo_busqueda = None
+            for xp in xpath_inputs_posibles:
+                inputs_found = driver.find_elements(By.XPATH, xp)
+                for inp in inputs_found:
+                    try:
+                        if inp.is_displayed():
+                            campo_busqueda = inp
+                            break
+                    except Exception:
+                        pass
+                if campo_busqueda:
+                    break
+
+            if not campo_busqueda:
+                campo_busqueda = wait.until(EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-input-affix-wrapper')]//input")))
+
+            print("✅ Campo de texto de búsqueda localizado")
+            driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_busqueda)
+            time.sleep(1)
+            
+            try:
+                campo_busqueda.click()
+            except Exception:
+                driver.execute_script("arguments[0].focus(); arguments[0].click();", campo_busqueda)
+                
+            time.sleep(1)
+            
+            try:
+                actions = ActionChains(driver)
+                actions.move_to_element(campo_busqueda).click().key_down(Keys.CONTROL).send_keys("a").key_up(Keys.CONTROL).send_keys(Keys.BACKSPACE).send_keys(str(barcode_aleatorio)).perform()
+            except Exception:
+                campo_busqueda.send_keys(Keys.CONTROL + "a")
+                campo_busqueda.send_keys(Keys.BACKSPACE)
+                campo_busqueda.send_keys(str(barcode_aleatorio))
+                
+            time.sleep(2)
+            campo_busqueda.send_keys(Keys.ENTER)
+            print(f"✅ Búsqueda realizada con barcode: {barcode_aleatorio}")
+            time.sleep(5)
+            
+            try:
+                elemento = driver.find_element(By.XPATH, f"//*[contains(text(), '{nombre_producto}') or contains(text(), '{barcode_aleatorio}')]")
+                print("✅ Producto encontrado en la tabla de resultados")
+                observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
+                estado = "EXITOSO"
+                registrar_resultado(id_caso, estado, observaciones)
+            except Exception as e_verif:
+                print(f"⚠️ No se pudo verificar el texto del producto en la tabla: {e_verif}")
                 observaciones = f"Producto creado con éxito. SKU: {sku_aleatorio}, Barcode: {barcode_aleatorio}"
                 estado = "EXITOSO"
                 registrar_resultado(id_caso, estado, observaciones)
         else:
-            print("❌ No se encontró la opción de búsqueda 'Buscar ")
-            observaciones = "No se encontró la opción de búsqueda 'Buscar por Nombre'"
+            print("❌ No se encontró la opción de búsqueda 'Buscar por Código de barras'")
+            observaciones = "No se encontró la opción de búsqueda por Código de barras"
             estado = "FALLIDO"
             registrar_resultado(id_caso, estado, observaciones)
     except Exception as e:
         print(f"❌ Error al abrir el dropdown: {e}")
-        print("Opciones de busqueda encontradas:")
         observaciones = f"Error al abrir el dropdown: {e}"
         estado = "FALLIDO"
         registrar_resultado(id_caso, estado, observaciones)
