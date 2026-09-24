@@ -234,7 +234,7 @@ try:
     #time.sleep(2)
 
     # Selección tipo de producto (nuevo UI)
-    tipo_producto = os.getenv("TIPO_PRODUCTO", "Kit to stock")  # Opciones: 'Producto normal', 'Kit to order', 'Kit to stock'
+    tipo_producto = os.getenv("TIPO_PRODUCTO", "Kit to order")  # Opciones: 'Producto normal', 'Kit to order', 'Kit to stock'
     try:
         card = wait.until(EC.element_to_be_clickable((By.XPATH, f"//div[@role='button' and .//div[text()='{tipo_producto}']]")))
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", card)

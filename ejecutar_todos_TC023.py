@@ -9,7 +9,8 @@ archivos_tc023 = [
     "TC023 Creacion exitosa sin atributos y perecedero.py",
     "TC023 Creacion exitosa con atributos.py",
     "TC023 Creacion exitosa con atributos y producto perecedero.py",
-    "TC023 Creacion de producto Kit to stock.py"
+    "TC023 Creacion de producto Kit to stock.py",
+    "TC023 Creacion de producto Kit to order.py"
 ]
 
 def ejecutar_pruebas():
