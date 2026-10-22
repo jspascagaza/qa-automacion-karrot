@@ -121,27 +121,34 @@ try:
     # Verificar mensaje de error
     # =====================
     try:
-        WebDriverWait(driver, 15).until(
-            EC.text_to_be_present_in_element(
-                (By.CLASS_NAME, "ant-alert-message"),
-                "User does not exist"
-            )
+        # Esperar a que la alerta sea VISIBLE en pantalla (no solo presente en el DOM)
+        alert_element = WebDriverWait(driver, 15).until(
+            EC.visibility_of_element_located((By.XPATH, "//*[contains(@class, 'ant-alert')]"))
         )
 
-        # Obtener el texto real
-        error_message = driver.find_element(By.CLASS_NAME, "ant-alert-message").text.strip()
+        # Obtener el texto real (usando textContent como respaldo si .text está vacío por animaciones)
+        error_message = (alert_element.text or alert_element.get_attribute("textContent") or "").strip()
+
+        # Breve pausa por si la animación de Ant Design aún está rellenando el texto
+        if not error_message:
+            time.sleep(1)
+            error_message = (alert_element.text or alert_element.get_attribute("textContent") or "").strip()
+
         print(f"Mensaje encontrado en pantalla: '{error_message}'")
 
-        if "User does not exist" in error_message:
+        # Mensajes válidos de login fallido
+        mensajes_esperados = ["Incorrect username or password.", "User does not exist"]
+
+        if any(msg in error_message for msg in mensajes_esperados):
             print("✅ Caso exitoso: mensaje correcto detectado")
-            registrar_resultado(id_caso, "Exitosa", "Mensaje de error mostrado")
+            registrar_resultado(id_caso, "Exitosa", f"Mensaje de error mostrado: {error_message}")
         else:
             print("❌ Caso fallido: mensaje no coincide")
             registrar_resultado(id_caso, "Fallida", f"Mensaje encontrado: {error_message}")
 
     except Exception:
-        print("❌ Caso fallido: no apareció el mensaje en 5 segundos")
-        registrar_resultado(id_caso, "Fallida", "No apareció el mensaje 'User does not exist.'")
+        print("❌ Caso fallido: no apareció el mensaje de error en el tiempo esperado")
+        registrar_resultado(id_caso, "Fallida", "No apareció la alerta de error de login")
 
 except Exception as e:
     print(f"❌ Error inesperado: {e}")

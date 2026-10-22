@@ -115,9 +115,9 @@ try:
 
      # Esperar a que aparezca el texto después del login
     mensaje = wait.until(EC.presence_of_element_located(
-        (By.XPATH, "//p[@class='text-center' and contains(text(), 'Selecciona una ubicación y una caja para comenzar tu turno')]")
+        (By.XPATH, "//*[contains(text(), 'Panel de control')]")
     ))
-
+    time.sleep(3)
 
     # Si llega hasta aquí, prueba exitosa
     registrar_resultado(id_caso, "Exitosa", "Login realizado correctamente")

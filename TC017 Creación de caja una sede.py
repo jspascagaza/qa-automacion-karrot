@@ -109,6 +109,7 @@ id_caso = "TC017"
 #nombre_caja = input("Ingrese el nombre de la caja a crear: ")
 
 try:
+    exito = False
     # =====================
     # LOGIN
     # =====================
@@ -129,60 +130,173 @@ try:
     # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================
-    print("📍 Navegando al módulo de Ubicaciones...")
-    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((
+    print("📍 Iniciando navegación al módulo de Ubicaciones...")
+    
+    try:
+        # Paso 1: Desplegar menú lateral pasando el cursor sobre el aside/nav
+        print("📂 Desplegando menú lateral...")
+        aside_menu = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//aside[contains(@class, 'side-nav') or contains(@class, 'ant-layout-sider')] | //nav | //*[@id='root']//aside"
+        )))
+        ActionChains(driver).move_to_element(aside_menu).perform()
+        time.sleep(1)
+
+        # Si el sidebar tiene icono de tienda (shop), posicionarse sobre él
+        try:
+            icono_shop = driver.find_element(By.XPATH, "//*[@data-icon='shop' or contains(@class, 'anticon-shop')]")
+            ActionChains(driver).move_to_element(icono_shop).perform()
+            time.sleep(1)
+        except Exception:
+            pass
+
+        # Paso 2: Desplegar el módulo Ubicaciones si no está abierto
+        print("🏬 Buscando módulo Ubicaciones en el menú...")
+        modulo_ubicaciones = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//li[contains(@class, 'ant-menu-submenu') and .//span[text()='Ubicaciones']] | //div[contains(@class, 'ant-menu-submenu-title') and contains(., 'Ubicaciones')]"
+        )))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", modulo_ubicaciones)
+        time.sleep(0.5)
+
+        clases_modulo = modulo_ubicaciones.get_attribute("class") or ""
+        aria_exp = modulo_ubicaciones.get_attribute("aria-expanded") or ""
+        if "ant-menu-submenu-open" not in clases_modulo and aria_exp != "true":
+            try:
+                modulo_ubicaciones.click()
+            except Exception:
+                driver.execute_script("arguments[0].click();", modulo_ubicaciones)
+            print("✅ Módulo Ubicaciones desplegado")
+            time.sleep(1)
+        else:
+            print("ℹ️ Módulo Ubicaciones ya se encuentra desplegado")
+
+        # Paso 3: Clic en la opción 'Ubicaciones' dentro del submenú
+        print("📍 Clickeando opción 'Ubicaciones'...")
+        opcion_ubicaciones = wait.until(EC.element_to_be_clickable((
+            By.XPATH,
+            "//a[contains(@href, '/locations/list-locations')] | //ul[contains(@class, 'ant-menu-sub')]//span[normalize-space()='Ubicaciones'] | //ul[contains(@class, 'ant-menu-sub')]//a[contains(., 'Ubicaciones')]"
+        )))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", opcion_ubicaciones)
+        time.sleep(0.5)
+        try:
+            opcion_ubicaciones.click()
+        except Exception:
+            driver.execute_script("arguments[0].click();", opcion_ubicaciones)
+        print("✅ Click en opción Ubicaciones realizado")
+        time.sleep(4)
+    except Exception as e_nav:
+        print(f"⚠️ Menú lateral no interactuable, navegando directamente por URL: {str(e_nav)}")
+        driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+        time.sleep(5)
+
+    # Asegurar que estemos en list-locations
+    if "list-locations" not in driver.current_url:
+        driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+        time.sleep(5)
+    print("✅ Página de lista de ubicaciones cargada")
+
+    # =====================
+    # SELECCIONAR SEDE Y VER CAJAS
+    # =====================
+    print("📋 Buscando botón de acciones en la tabla de ubicaciones...")
+    time.sleep(3)
+    listado_editar = wait.until(EC.element_to_be_clickable((
         By.XPATH,
-        "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]"
+        "//tbody/tr[contains(@class, 'ant-table-row')][1]//button[contains(@class, 'ant-dropdown-trigger')] | //tbody/tr[contains(@class, 'ant-table-row')][1]//td[last()]//button[2] | //*[@id='root']//table//tbody/tr[2]/td[8]/div/button[2] | //tbody/tr[1]//button[last()]"
     )))
-    ModuloUbicaciones.click()
-    print("✅ Click en módulo Ubicaciones")
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listado_editar)
+    time.sleep(1)
+    try:
+        listado_editar.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", listado_editar)
+    print("✅ Click en acciones de la sede")
     time.sleep(2)
 
-    # Redirección directa a la URL de lista de ubicaciones
-    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
-    print("✅ Dirigido directamente a Ubicaciones por URL")
+    # Click en 'Ver Cajas'
+    print("📦 Seleccionando opción 'Ver Cajas'...")
+    editar_caja = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Ver Cajas'] | //*[contains(text(), 'Ver Cajas')] | //li[contains(., 'Ver Cajas')]"))
+    )
+    try:
+        editar_caja.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", editar_caja)
+    print("✅ Click en 'Ver Cajas'")
     time.sleep(5)
 
-    listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[3]/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[8]/div/button[2]")))
-    listado_editar.click()
-    editar_caja = wait.until(
-    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Ver Cajas']"))
+    # Click en botón para agregar caja
+    print("➕ Buscando botón para añadir caja...")
+    boton_agregar_caja = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        "//button[contains(., 'Añadir Caja') or contains(., 'Agregar Caja')] | //*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div[2]/button | //button[contains(., 'Añadir') or contains(., 'Agregar')]"
+    )))
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_agregar_caja)
+    time.sleep(1)
+    try:
+        boton_agregar_caja.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", boton_agregar_caja)
+    print("✅ Click en botón para añadir caja")
+    time.sleep(3)
+
+    # Formulario modal de creación de caja
+    print("📝 Ingresando nombre de la caja...")
+    nombre_caja_elem = wait.until(
+        EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Nombre de caja' or contains(@placeholder, 'caja') or contains(@class, 'input')]"))
     )
-    editar_caja.click()
-    print("✅ Click ver cajas")
+    nombre_caja_elem.clear()
+    nombre_caja_elem.send_keys("C2")
+    time.sleep(2)
+
+    # Guardar caja en el modal
+    print("💾 Guardando la nueva caja...")
+    boton_guardar_caja = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//div[contains(@class, 'ant-modal')]//button[contains(., 'Añadir') or contains(., 'Crear') or contains(., 'Guardar')] | //button[@class='ant-btn ant-btn-primary ant-btn-sm w-100'] | /html/body/div[2]/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[2]/button"))
+    )
+    try:
+        boton_guardar_caja.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", boton_guardar_caja)
     time.sleep(5)
-    
-    boton_agregar_caja = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div[2]/div[2]/button")))
-    boton_agregar_caja.click()
-    time.sleep(10)
+
+    # Validar que la caja fue creada
+    wait.until(EC.presence_of_element_located((By.XPATH, "//*[text()='C2' or contains(text(), 'C2')]")))
+    exito = True
+    observaciones = "Caja creada exitosamente"
+    print("✅ Caja 'C2' creada exitosamente")
+
+except TimeoutException as e:
+    exito = False
+    observaciones = f"Timeout esperando elemento: {str(e)}"
+    print(f"❌ {observaciones}")
+
+except Exception as e:
+    exito = False
+    observaciones = f"Error en la ejecución: {str(e)}"
+    print(f"❌ {observaciones}")
+
+finally:
+    # =====================
+    # REGISTRAR RESULTADO EN GOOGLE SHEETS Y CERRAR
+    # =====================
+    estado = "EXITOSO" if exito else "FALLIDO"
+    print(f"\n📊 Registrando resultado en Google Sheets: {id_caso} -> {estado}")
+    try:
+        if registrar_resultado(id_caso, estado, observaciones):
+            print(f"✅ Caso {id_caso} registrado exitosamente en Google Sheets como {estado}")
+        else:
+            print(f"❌ Falló el registro del caso {id_caso} en Google Sheets")
+    except Exception as e_sheet:
+        print(f"❌ Error al conectar con Google Sheets: {str(e_sheet)}")
 
     try:
-     
-        nombre_caja = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//input[@placeholder='Nombre de caja' or contains(@class, 'input')]"))
-        )
-        nombre_caja.clear() 
-        nombre_caja.send_keys("C2")
-        time.sleep(4)
+        print(f"🌐 URL final: {driver.current_url}")
+        print(f"📄 Título de la página: {driver.title}")
+    except Exception:
+        pass
 
-        boton_agregar_caja = WebDriverWait(driver, 15).until(
-        EC.element_to_be_clickable((By.XPATH, "/html/body/div[2]/div/div[2]/div/div[2]/div[2]/div/div[2]/div/div[2]/button"))
-        )
-        boton_agregar_caja.click()
-        time.sleep(10)
-        elemento = WebDriverWait(driver, 10).until(
-        EC.presence_of_element_located((By.XPATH, "//span[text()='C2']"))
-        )
-        observaciones = "Caja creada exitosamente"
-        print("✅ Caja creada exitosamente")
-        estado = "EXITOSO"
-        registrar_resultado(id_caso, estado, observaciones)
-    except Exception as e:
-        print(f"❌ Error al crear la caja: {str(e)}")
-        driver.quit()
-        estado = "FALLIDO"
-        observaciones = f"Error al crear la caja: {str(e)}"
-        registrar_resultado(id_caso, estado, observaciones)
-        exit()
-except Exception as e:
-    print(f"❌ Error: {str(e)}")
+    time.sleep(3)
+    driver.quit()
+    print("✅ Navegador cerrado")

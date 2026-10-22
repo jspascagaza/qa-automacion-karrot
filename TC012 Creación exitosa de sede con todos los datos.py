@@ -1,6 +1,7 @@
 import csv
 import datetime
 import time
+import random
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
@@ -55,10 +56,16 @@ from faker import Faker
 # =====================
 fake = Faker('es_CO')
 
-nombre = fake.name()
+tipo_sede = fake.random_element(['Sede', 'Punto', 'Tienda', 'Sucursal', 'Almacén'])
+zona_bogota = fake.random_element(['Chapinero', 'Usaquén', 'Suba', 'Zona T', 'Cedritos', 'Teusaquillo', 'Fontibón', 'Salitre', 'Chicó', 'Pepe Sierra', 'Calle 100', 'Santa Bárbara', 'Norte', 'Centro'])
+nombre = f"{tipo_sede} Bogotá {zona_bogota} {fake.random_int(1, 99)}"
 correo = fake.email()
 telefono = fake.phone_number()
-direccion = fake.address()
+tipo_via = fake.random_element(['Calle', 'Carrera', 'Avenida', 'Diagonal', 'Transversal'])
+num_via = fake.random_int(1, 170)
+num_cruce = fake.random_int(1, 99)
+num_placa = fake.random_int(1, 99)
+direccion = f"{tipo_via} {num_via} #{num_cruce}-{num_placa}, Bogotá, Colombia"
 
 # =====================
 # CONFIGURACIÓN GOOGLE SHEETS
@@ -156,7 +163,7 @@ try:
     # =====================
     print("📍 Navegando al módulo de Ubicaciones...")
     
-    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]")))
+    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/div/nav/div[9]/button")))
     ModuloUbicaciones.click()
     print("✅ Click en Ubicaciones")
     time.sleep(5)
@@ -192,71 +199,194 @@ try:
     print("📝 Llenando formulario de ubicación...")
     
     # Ingresar nombre
-    nombre_input = wait.until(EC.presence_of_element_located((By.ID, "advanced_search_name")))
+    nombre_input = wait.until(EC.presence_of_element_located((By.ID, "location_form_name")))
     nombre_input.clear()
     nombre_input.send_keys(nombre)
     print("✅ Nombre de sede ingresado")
 
     # Ingresar tipo de local
-    # Primer dropdown
-    tipo_tienda = driver.find_element(By.CSS_SELECTOR, "form#advanced_search div:nth-of-type(2) .ant-select-selector")
-    tipo_tienda.click()
-    time.sleep(5)
+    # Primer dropdown (Tipo de ubicación)
+    time.sleep(1)
+    tipo_tienda = driver.find_element(By.ID, "location_form_locationType")
+    try:
+        tipo_tienda.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", tipo_tienda)
+    time.sleep(2)
+
+    # Esperar las opciones desplegadas en el dropdown
     opciones = wait.until(EC.presence_of_all_elements_located(
-    (By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")
+        (By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")
     ))
 
-    # 3. Imprimir todas las opciones que aparecen
+    # Mapear las opciones por texto
+    opciones_dict = {}
     for opcion in opciones:
-        print(opcion.text)
+        texto = (opcion.get_attribute("innerText") or opcion.text or "").strip()
+        if texto:
+            opciones_dict[texto] = opcion
 
-    # 4. Seleccionar por texto (ejemplo: "Tienda")
-    for opcion in opciones:
-        if opcion.text.strip() == "Tienda":
-            opcion.click()
-            break
+    # Probabilidad: "Tienda" tiene la mayor probabilidad (ej. 75%), las demás se reparten el 25% al azar
+    PROBABILIDAD_TIENDA = 0.75  # Ajustable: 0.75 = 75% probabilidad para Tienda
+    otras_opciones = [nombre for nombre in opciones_dict.keys() if nombre.lower() != "tienda"]
 
-    time.sleep(5)
-    print(tipo_tienda.text)
-    print("✅ Tipo de tienda ingresado")
+    if "Tienda" in opciones_dict and (random.random() < PROBABILIDAD_TIENDA or not otras_opciones):
+        opcion_elegida = "Tienda"
+    elif otras_opciones:
+        opcion_elegida = random.choice(otras_opciones)
+    elif opciones_dict:
+        opcion_elegida = list(opciones_dict.keys())[0]
+    else:
+        opcion_elegida = None
+
+    if opcion_elegida and opcion_elegida in opciones_dict:
+        elemento_a_clickear = opciones_dict[opcion_elegida]
+        driver.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", elemento_a_clickear)
+        time.sleep(1)
+        try:
+            elemento_a_clickear.click()
+        except Exception:
+            driver.execute_script("arguments[0].click();", elemento_a_clickear)
+        print(f"✅ Tipo de tienda ingresado: '{opcion_elegida}' (Probabilidad Tienda: {int(PROBABILIDAD_TIENDA * 100)}%)")
+    else:
+        # Respaldo por si los textos de las opciones no cargaron a tiempo
+        if opciones:
+            if random.random() < PROBABILIDAD_TIENDA:
+                opciones[0].click()
+            else:
+                random.choice(opciones).click()
+            print("✅ Tipo de tienda ingresado (por fallback)")
+    time.sleep(2)
+
+    # =====================
+    # SELECCIONAR CIUDAD (BOGOTÁ DC)
+    # =====================
+    print("🏙️ Seleccionando ciudad...")
+    time.sleep(1)
+    ciudad_input = wait.until(EC.presence_of_element_located((
+        By.ID,"location_form_city")))
+
+    try:
+        ciudad_input.find_element(By.XPATH, "./ancestor::div[contains(@class, 'ant-select')]").click()
+    except Exception:
+        try:
+            ciudad_input.click()
+        except Exception:
+            driver.execute_script("arguments[0].click();", ciudad_input)
+    time.sleep(1.5)
+
+    # Buscar y seleccionar la opción "Bogotá DC"
+    try:
+        opcion_bogota = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//div[contains(@class, 'ant-select-item-option') and contains(., 'Bogot')]"
+        )))
+    except TimeoutException:
+        # En caso de requerir escribir para filtrar
+        ciudad_input.send_keys("Bogota")
+        time.sleep(1)
+        opcion_bogota = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//div[contains(@class, 'ant-select-item-option') and contains(., 'Bogot')]"
+        )))
+
+    driver.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", opcion_bogota)
+    time.sleep(0.5)
+    try:
+        opcion_bogota.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", opcion_bogota)
+
+    print("✅ Ciudad 'Bogotá DC' seleccionada")
+    time.sleep(2)
 
     # Ingresar dirección
-    direccion_input = wait.until(EC.presence_of_element_located((By.ID, "advanced_search_address")))
+    direccion_input = wait.until(EC.presence_of_element_located((By.ID, "location_form_address")))
     direccion_input.clear()
     direccion_input.send_keys(direccion)
     ActionChains(driver).move_by_offset(0, 0).click().perform()
-    time.sleep(15)
+    time.sleep(10)
     print("✅ Dirección ingresada")
 
-    driver.execute_script("window.scrollBy(0, 500);")  # baja 500 píxeles
-    # Buscar campo de usuario usando relative locator
-    print("🔍 Buscando campo de usuario...")
-    time.sleep(15)
+    # =====================
+    # ASIGNAR USUARIOS
+    # =====================
+    print("🔍 Buscando campo 'Asignar usuarios'...")
+    try:
+        campo_usuario = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//label[contains(., 'Asignar usuarios')]/ancestor::div[contains(@class, 'ant-form-item')]//div[contains(@class, 'ant-select-selector')] | //*[@id='location_form']/div[2]/div/div/div[1]/div[1]/div/div[2]/div/div[6]/div/div/div[2]/div/div/div/div"
+        )))
+    except Exception:
+        campo_usuario = driver.find_element(By.XPATH, "//*[@id='location_form']/div[2]/div/div/div[1]/div[1]/div/div[2]/div/div[6]/div/div/div[2]/div/div/div/div")
 
-    tipo_usuario = driver.find_element(By.XPATH, "//*[@id='advanced_search']/div[2]/div/div[1]/div/div/div/div/div[1]/div/div[6]/div[1]/div[2]/div[1]/div/div/div/div")
-    tipo_usuario.click()
-    time.sleep(15)
-    opciones = wait.until(EC.presence_of_all_elements_located(
-    (By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")
+    # Scroll hacia el campo para asegurar visibilidad
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", campo_usuario)
+    time.sleep(1)
+
+    # Click para desplegar las opciones
+    try:
+        campo_usuario.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", campo_usuario)
+    time.sleep(2)
+
+    # Esperar a que se carguen las opciones en el DOM
+    wait.until(EC.presence_of_all_elements_located(
+        (By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")
     ))
 
-    # 3. Imprimir todas las opciones que aparecen
-    for opcion in opciones:
-        print(opcion.text)
+    # Filtrar estrictamente las opciones de usuario (visibles en pantalla y con correo @)
+    todas_opciones = driver.find_elements(By.CSS_SELECTOR, ".ant-select-dropdown .ant-select-item-option")
+    opciones_usuario = [
+        op for op in todas_opciones
+        if op.is_displayed() and "@" in (op.get_attribute("innerText") or op.text or "")
+    ]
 
-    # 4. Seleccionar por texto (ejemplo: "Tienda")
-    for opcion in opciones:
-            opcion.click()
-            break
-    
-    #tipo_usuario.send_keys(usuario)
-    print("✅ Campo de usuario encontrado") 
-    
-    
+    # Respaldo si no detecta el @: opciones visibles que no sean de tipo sede ni ciudad
+    if not opciones_usuario:
+        opciones_usuario = [
+            op for op in todas_opciones
+            if op.is_displayed() and not any(x in (op.get_attribute("innerText") or op.text or "") for x in ['Tienda', 'Bodega', 'Stand', 'Bogot', 'Cali', 'Medell'])
+        ]
+
+    # Fallback final: cualquier opción visible
+    if not opciones_usuario:
+        opciones_usuario = [op for op in todas_opciones if op.is_displayed()]
+
+    for op in opciones_usuario:
+        print(f"👤 Opción usuario disponible: {(op.get_attribute('innerText') or op.text).strip()}")
+
+    # Seleccionar la primera opción de usuario disponible
+    if opciones_usuario:
+        opcion_a_seleccionar = opciones_usuario[0]
+        texto_usuario = (opcion_a_seleccionar.get_attribute("innerText") or opcion_a_seleccionar.text).strip()
+        driver.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", opcion_a_seleccionar)
+        time.sleep(0.5)
+        try:
+            opcion_a_seleccionar.find_element(By.CSS_SELECTOR, ".ant-select-item-option-content").click()
+        except Exception:
+            try:
+                opcion_a_seleccionar.click()
+            except Exception:
+                driver.execute_script("arguments[0].click();", opcion_a_seleccionar)
+        print(f"✅ Usuario asignado: '{texto_usuario}'")
+    else:
+        print("⚠️ No se encontraron opciones de usuario visibles")
+
+    time.sleep(1)
+
+    # Cerrar el dropdown con Escape si continúa abierto
     try:
-        # Buscar el botón "Añadir" por su texto y clase
+        ActionChains(driver).send_keys(Keys.ESCAPE).perform()
+    except Exception:
+        pass
+    time.sleep(1)
+
+    try:
+        # Buscar el botón 'Añadir' por su texto
         boton_anadir = wait.until(
-            EC.element_to_be_clickable((By.XPATH, "//*[@id='advanced_search']/div[1]/div/div/div/button[2]"))
+            EC.element_to_be_clickable((By.XPATH, "//button[normalize-space()='Añadir' or contains(., 'Añadir')] | //*[@id='advanced_search']/div[1]/div/div/div/button[2]"))
         )
         
         # Hacer scroll hasta el botón para asegurar visibilidad

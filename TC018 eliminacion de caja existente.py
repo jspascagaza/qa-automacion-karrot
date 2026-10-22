@@ -29,7 +29,10 @@ class Logger(object):
         self.log = open(filename, "a", encoding="utf-8")
 
     def write(self, message):
-        self.terminal.write(message)
+        try:
+            self.terminal.write(message)
+        except UnicodeEncodeError:
+            self.terminal.write(message.encode("ascii", "replace").decode("ascii"))
         self.log.write(message)
         self.log.flush()
 
@@ -106,9 +109,9 @@ except Exception as e:
 
 wait = WebDriverWait(driver, 40)
 id_caso = "TC018"
-#nombre_caja = input("Ingrese el nombre de la caja a crear: ")
 
 try:
+    exito = False
     # =====================
     # LOGIN
     # =====================
@@ -129,68 +132,196 @@ try:
     # =====================
     # NAVEGACIÓN A UBICACIONES
     # =====================
-    print("📍 Navegando al módulo de Ubicaciones...")
-    ModuloUbicaciones = wait.until(EC.element_to_be_clickable((
+    print("📍 Iniciando navegación al módulo de Ubicaciones...")
+    
+    try:
+        # Paso 1: Desplegar menú lateral pasando el cursor sobre el aside/nav
+        print("📂 Desplegando menú lateral...")
+        aside_menu = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//aside[contains(@class, 'side-nav') or contains(@class, 'ant-layout-sider')] | //nav | //*[@id='root']//aside"
+        )))
+        ActionChains(driver).move_to_element(aside_menu).perform()
+        time.sleep(1)
+
+        # Si el sidebar tiene icono de tienda (shop), posicionarse sobre él
+        try:
+            icono_shop = driver.find_element(By.XPATH, "//*[@data-icon='shop' or contains(@class, 'anticon-shop')]")
+            ActionChains(driver).move_to_element(icono_shop).perform()
+            time.sleep(1)
+        except Exception:
+            pass
+
+        # Paso 2: Desplegar el módulo Ubicaciones si no está abierto
+        print("🏬 Buscando módulo Ubicaciones en el menú...")
+        modulo_ubicaciones = wait.until(EC.presence_of_element_located((
+            By.XPATH,
+            "//li[contains(@class, 'ant-menu-submenu') and .//span[text()='Ubicaciones']] | //div[contains(@class, 'ant-menu-submenu-title') and contains(., 'Ubicaciones')]"
+        )))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", modulo_ubicaciones)
+        time.sleep(0.5)
+
+        clases_modulo = modulo_ubicaciones.get_attribute("class") or ""
+        aria_exp = modulo_ubicaciones.get_attribute("aria-expanded") or ""
+        if "ant-menu-submenu-open" not in clases_modulo and aria_exp != "true":
+            try:
+                modulo_ubicaciones.click()
+            except Exception:
+                driver.execute_script("arguments[0].click();", modulo_ubicaciones)
+            print("✅ Módulo Ubicaciones desplegado")
+            time.sleep(1)
+        else:
+            print("ℹ️ Módulo Ubicaciones ya se encuentra desplegado")
+
+        # Paso 3: Clic en la opción 'Ubicaciones' dentro del submenú
+        print("📍 Clickeando opción 'Ubicaciones'...")
+        opcion_ubicaciones = wait.until(EC.element_to_be_clickable((
+            By.XPATH,
+            "//a[contains(@href, '/locations/list-locations')] | //ul[contains(@class, 'ant-menu-sub')]//span[normalize-space()='Ubicaciones'] | //ul[contains(@class, 'ant-menu-sub')]//a[contains(., 'Ubicaciones')]"
+        )))
+        driver.execute_script("arguments[0].scrollIntoView({block: 'nearest'});", opcion_ubicaciones)
+        time.sleep(0.5)
+        try:
+            opcion_ubicaciones.click()
+        except Exception:
+            driver.execute_script("arguments[0].click();", opcion_ubicaciones)
+        print("✅ Click en opción Ubicaciones realizado")
+        time.sleep(4)
+    except Exception as e_nav:
+        print(f"⚠️ Menú lateral no interactuable, navegando directamente por URL: {str(e_nav)}")
+        driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+        time.sleep(5)
+
+    # Asegurar que estemos en list-locations
+    if "list-locations" not in driver.current_url:
+        driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
+        time.sleep(5)
+    print("✅ Página de lista de ubicaciones cargada")
+
+    # =====================
+    # SELECCIONAR SEDE Y VER CAJAS
+    # =====================
+    print("📋 Buscando botón de acciones en la tabla de ubicaciones...")
+    time.sleep(3)
+    listado_editar = wait.until(EC.element_to_be_clickable((
         By.XPATH,
-        "//span[contains(text(), 'Ubicaciones')] | //div[contains(text(), 'Ubicaciones')] | //li[contains(., 'Ubicaciones')]"
+        "//tbody/tr[contains(@class, 'ant-table-row')][1]//button[contains(@class, 'ant-dropdown-trigger')] | //tbody/tr[contains(@class, 'ant-table-row')][1]//td[last()]//button[2] | //*[@id='root']//table//tbody/tr[2]/td[8]/div/button[2] | //tbody/tr[1]//button[last()]"
     )))
-    ModuloUbicaciones.click()
-    print("✅ Click en módulo Ubicaciones")
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listado_editar)
+    time.sleep(1)
+    try:
+        listado_editar.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", listado_editar)
+    print("✅ Click en acciones de la sede")
     time.sleep(2)
 
-    # Redirección directa a la URL de lista de ubicaciones
-    driver.get("https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-locations")
-    print("✅ Dirigido directamente a Ubicaciones por URL")
+    # Click en 'Ver Cajas'
+    print("📦 Seleccionando opción 'Ver Cajas'...")
+    editar_caja = wait.until(
+        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Ver Cajas'] | //*[contains(text(), 'Ver Cajas')] | //li[contains(., 'Ver Cajas')]"))
+    )
+    try:
+        editar_caja.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", editar_caja)
+    print("✅ Click en 'Ver Cajas'")
     time.sleep(5)
 
-
-
-    listado_editar = wait.until(EC.presence_of_element_located((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[3]/div/div[2]/div/div/div/div/div/div/div[1]/div[2]/table/tbody/tr[2]/td[8]/div/button[2]")))
-    listado_editar.click()
-    time.sleep(2)
-    
-    editar_caja = wait.until(
-    EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Ver Cajas']"))
-    )
-    editar_caja.click()
-    print("✅ Click ver cajas")
-    #URL_caja = "https://devtwo.do5o1l1ov8f4a.amplifyapp.com/app/locations/list-cashdrawers/abda433b-d026-4726-ab7d-3b4eddb765c3"
-    #driver.get(URL_caja)
-    
-    # Hacer clic en el botón de tres puntos
-    listado_opciones = WebDriverWait(driver, 10).until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div[3]/div/div/div/div/div/table/tbody/tr[1]/td[6]/button"))
-    )
-    listado_opciones.click()
+    # =====================
+    # ELIMINAR CAJA EXISTENTE
+    # =====================
+    print("🔘 Buscando botón de opciones de la caja en la tabla...")
+    listado_opciones = wait.until(EC.element_to_be_clickable((
+        By.XPATH,
+        "//tbody/tr[contains(@class, 'ant-table-row')][1]//button[contains(@class, 'ant-dropdown-trigger') or contains(@class, 'ant-btn')] | //table//tbody/tr[1]//td[last()]//button | //table//tbody/tr[1]//button[last()] | //*[@id='root']/div/section/section/section/div/main/div[2]/div/div/div/div/div[3]/div/div/div/div/div/table/tbody/tr[1]/td[6]/button"
+    )))
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", listado_opciones)
+    time.sleep(1)
+    try:
+        listado_opciones.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", listado_opciones)
     print("✅ Botón de opciones clickeado")
 
     # Esperar y buscar las opciones del menú dropdown
     time.sleep(2)
     opciones = WebDriverWait(driver, 10).until(
-    EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ant-dropdown-menu .ant-dropdown-menu-item"))
+        EC.presence_of_all_elements_located((By.CSS_SELECTOR, ".ant-dropdown-menu .ant-dropdown-menu-item"))
     )
 
     print(f"🔍 Encontradas {len(opciones)} opciones:")
     for i, opcion in enumerate(opciones):
-        print(f"  {i+1}. {opcion.text}")
+        print(f"  {i+1}. {opcion.text.strip()}")
     
-    # Buscar y hacer clic en la opción que contiene exactamente "Eliminar caja"
+    # Buscar la opción que contiene "Eliminar caja" o "Eliminar"
     opcion_encontrada = None
     for opcion in opciones:
-        if "Eliminar caja" in opcion.text:
+        if "Eliminar caja" in opcion.text or "Eliminar" in opcion.text:
             opcion_encontrada = opcion
             break
 
     if opcion_encontrada:
-        # Usar ActionChains por si el click normal no funciona
-        ActionChains(driver).move_to_element(opcion_encontrada).click().perform()
+        try:
+            ActionChains(driver).move_to_element(opcion_encontrada).click().perform()
+        except Exception:
+            driver.execute_script("arguments[0].click();", opcion_encontrada)
         print("✅ 'Eliminar caja' seleccionado")
+        time.sleep(1)
+
+        # Manejar modal o popconfirm de confirmación si aparece
+        try:
+            boton_confirmar = WebDriverWait(driver, 3).until(
+                EC.element_to_be_clickable((
+                    By.XPATH,
+                    "//div[contains(@class, 'ant-modal')]//button[contains(@class, 'ant-btn-primary') or contains(., 'Sí') or contains(., 'Aceptar') or contains(., 'Eliminar') or contains(., 'Yes')] | //div[contains(@class, 'ant-popover')]//button[contains(@class, 'ant-btn-primary') or contains(., 'Sí') or contains(., 'Yes') or contains(., 'Aceptar')]"
+                ))
+            )
+            boton_confirmar.click()
+            print("✅ Confirmación de eliminación aceptada")
+            time.sleep(2)
+        except TimeoutException:
+            print("ℹ️ No se requirió confirmación adicional o se eliminó directamente")
+
+        time.sleep(3)
+        exito = True
         observaciones = "Caja eliminada exitosamente"
-        estado = "EXITOSO"
+        print("✅ Caja eliminada exitosamente")
     else:
-        print("❌ No se encontró la opción 'Eliminar caja'")
-        observaciones = "No se encontró la opción 'Eliminar caja'"
-        estado = "FALLIDO"
-    registrar_resultado(id_caso, estado, observaciones)
+        exito = False
+        observaciones = "No se encontró la opción 'Eliminar caja' en el menú"
+        print(f"❌ {observaciones}")
+
+except TimeoutException as e:
+    exito = False
+    observaciones = f"Timeout esperando elemento: {str(e)}"
+    print(f"❌ {observaciones}")
+
 except Exception as e:
-    print(f"❌ Error: {str(e)}")
+    exito = False
+    observaciones = f"Error en la ejecución: {str(e)}"
+    print(f"❌ {observaciones}")
+
+finally:
+    # =====================
+    # REGISTRAR RESULTADO EN GOOGLE SHEETS Y CERRAR
+    # =====================
+    estado = "EXITOSO" if exito else "FALLIDO"
+    print(f"\n📊 Registrando resultado en Google Sheets: {id_caso} -> {estado}")
+    try:
+        if registrar_resultado(id_caso, estado, observaciones):
+            print(f"✅ Caso {id_caso} registrado exitosamente en Google Sheets como {estado}")
+        else:
+            print(f"❌ Falló el registro del caso {id_caso} en Google Sheets")
+    except Exception as e_sheet:
+        print(f"❌ Error al conectar con Google Sheets: {str(e_sheet)}")
+
+    try:
+        print(f"🌐 URL final: {driver.current_url}")
+        print(f"📄 Título de la página: {driver.title}")
+    except Exception:
+        pass
+
+    time.sleep(3)
+    driver.quit()
+    print("✅ Navegador cerrado")

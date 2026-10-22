@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "type": "module",
+  "devDependencies": {
+    "@e2e-dev/web": "^0.11.1",
+    "@types/node": "^26.6.4",
+    "dotenv": "^18.0.5",
+    "e2e": "^0.15.1",
+    "playwright": "^1.63.0"
+  },
+  "scripts": {
+    "test:e2e": "e2e run"
+  },
+  "dependencies": {
+    "@ai-sdk/google": "^4.0.87",
+    "ai": "^7.0.127",
+    "google-auth-library": "^11.1.0",
+    "google-spreadsheet": "^5.3.0"
+  }
+}

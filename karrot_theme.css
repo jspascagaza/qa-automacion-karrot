@@ -1,0 +1,80 @@
+/* karrot_theme.css - Estilo personalizado para el reporte de Pytest HTML basado en la marca Karrot */
+
+body {
+    background-color: #032b21 !important; /* Verde oscuro fondo */
+    color: #ffffff !important; /* Texto blanco */
+    font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+    margin: 0;
+    padding: 20px;
+}
+
+h1 {
+    color: #00e676 !important; /* Verde brillante (como "operación retail") */
+    text-align: center;
+    font-size: 2.5em;
+    margin-bottom: 10px;
+}
+
+h2 {
+    color: #f58f29 !important; /* Naranja botones */
+}
+
+/* Tabla de resumen y resultados */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #064032 !important; /* Verde ligeramente más claro para contraste */
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+}
+
+th, td {
+    padding: 12px 15px !important;
+    border: 1px solid #095946 !important;
+    color: #e0e0e0 !important;
+}
+
+th {
+    background-color: #021a14 !important;
+    color: #00e676 !important;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Colores de estado en la tabla */
+.passed { background-color: rgba(0, 230, 118, 0.1) !important; }
+.failed { background-color: rgba(244, 67, 54, 0.2) !important; }
+.error { background-color: rgba(255, 152, 0, 0.2) !important; }
+.skipped { background-color: rgba(158, 158, 158, 0.2) !important; }
+
+/* Filtros y botones superiores */
+#filter_record {
+    background-color: #021a14 !important;
+    border: 1px solid #00e676 !important;
+    color: white !important;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.summary__data {
+    color: #ffffff !important;
+}
+
+/* Enlaces */
+a {
+    color: #f58f29 !important; /* Naranja Karrot */
+    text-decoration: none;
+}
+a:hover {
+    text-decoration: underline;
+}
+
+/* Ocultar elementos innecesarios por defecto */
+.log {
+    background-color: #000000 !important;
+    color: #00e676 !important;
+    padding: 10px;
+    border-radius: 5px;
+    font-family: monospace;
+}

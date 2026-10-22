@@ -32,7 +32,10 @@ class Logger(object):
         self.log = open(filename, "a", encoding="utf-8")
 
     def write(self, message):
-        self.terminal.write(message)
+        try:
+            self.terminal.write(message)
+        except UnicodeEncodeError:
+            self.terminal.write(message.encode("ascii", "replace").decode("ascii"))
         self.log.write(message)
         self.log.flush()
 
@@ -203,28 +206,78 @@ try:
     login_button.click()
     time.sleep(15)
 
-    # Menú Catálogo
+    # =====================
+    # NAVEGACIÓN A CATÁLOGO -> PRODUCTOS Y SERVICIOS
+    # =====================
+    print("📍 Iniciando navegación al Catálogo...")
+    
+    # Paso 1: Desplegar menú lateral
+    try:
+        print("📂 Desplegando menú lateral...")
+        nav_lateral = wait.until(EC.presence_of_element_located((
+            By.XPATH, "//*[@id='root']/div/div/nav | //nav | //aside"
+        )))
+        ActionChains(driver).move_to_element(nav_lateral).perform()
+        time.sleep(1.5)
+    except Exception as e_nav:
+        print(f"ℹ️ Hover en menú lateral: {e_nav}")
+
+    # Paso 2: Módulo Catálogo (usando el xpath del módulo Catálogo)
+    print("🏬 Buscando y abriendo módulo Catálogo...")
     catalogo = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Catálogo']"))
+        EC.element_to_be_clickable((
+            By.XPATH,
+            '//*[@id="root"]/div/div/nav/div[4]/button | //nav//button[contains(., "Catálogo")] | //button[contains(., "Catálogo")] | //span[normalize-space()="Catálogo"]'
+        ))
     )
-    catalogo.click()
-    print("✅ Click en Catálogo")
-    time.sleep(10)
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", catalogo)
+    time.sleep(0.5)
 
+    # Verificar si el submenú ya está desplegado antes de hacer clic
+    opciones_sub = driver.find_elements(By.XPATH, '//*[@id="root"]/div/div/nav/div[4]/div/a[1] | //a[contains(., "Productos y Servicios")]')
+    if not opciones_sub or not any(op.is_displayed() for op in opciones_sub):
+        try:
+            catalogo.click()
+        except Exception:
+            driver.execute_script("arguments[0].click();", catalogo)
+        print("✅ Click en Catálogo")
+        time.sleep(2)
+    else:
+        print("ℹ️ Catálogo ya se encuentra desplegado")
+
+    # Paso 3: Opción Productos y Servicios (usando el xpath de Productos y Servicios)
+    print("📦 Clickeando opción 'Productos y Servicios'...")
     productos_servicios = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//span[normalize-space()='Productos y Servicios']"))
+        EC.element_to_be_clickable((
+            By.XPATH,
+            '//*[@id="root"]/div/div/nav/div[4]/div/a[1] | //a[contains(., "Productos y Servicios")] | //span[normalize-space()="Productos y Servicios"] | //*[contains(text(), "Productos y Servicios")]'
+        ))
     )
-    productos_servicios.click()
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", productos_servicios)
+    time.sleep(0.5)
+    try:
+        productos_servicios.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", productos_servicios)
     print("✅ Click en Productos y Servicios")
-    time.sleep(10)
+    time.sleep(5)
 
-    # Agregar Artículo
+    # Paso 4: Agregar Artículo
+    print("➕ Buscando botón 'Agregar Artículo'...")
     boton_agregar = wait.until(
-        EC.element_to_be_clickable((By.XPATH, "//*[@id='root']/div/section/section/section/div/main/div[2]/div[2]/div/div/div/div[1]/div/button[1]"))
+        EC.element_to_be_clickable((
+            By.XPATH,
+            "//button[contains(., 'Agregar Artículo') or contains(., 'Añadir Artículo')] | //*[@id='root']/div/section/section/section/div/main/div[2]/div[2]/div/div/div/div[1]/div/button[1] | //button[contains(@class, 'ant-btn') and contains(., 'Artículo')]"
+        ))
     )
-    boton_agregar.click()
+    driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", boton_agregar)
+    time.sleep(0.5)
+    try:
+        boton_agregar.click()
+    except Exception:
+        driver.execute_script("arguments[0].click();", boton_agregar)
     print("✅ Click en Agregar Artículo")
-    time.sleep(10)
+    time.sleep(8)
 
     # Verificar que el texto "Añadir nuevo producto" esté presente
     #elemento = WebDriverWait(driver, 10).until(
